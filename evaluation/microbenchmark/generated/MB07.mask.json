@@ -1,0 +1,6 @@
+{
+  "attack_dropout_interval_s": [
+    12,
+    20
+  ]
+}

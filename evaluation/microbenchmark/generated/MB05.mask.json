@@ -1,0 +1,9 @@
+{
+  "exclude_intervals_s": [
+    [
+      12,
+      18
+    ]
+  ],
+  "reacquisition_anchor_s": 18
+}

@@ -1,0 +1,83 @@
+{
+  "schema": "HookLab-TIME-microbenchmark-v0.1",
+  "sample_rate_hz": 44100,
+  "cases": [
+    {
+      "id": "MB01",
+      "duration_s": 32,
+      "reference_beats_s": 64,
+      "condition": "constant_120"
+    },
+    {
+      "id": "MB02",
+      "duration_s": 40,
+      "reference_beats_s": 72,
+      "condition": "linear_accelerando",
+      "bpm_start": 80,
+      "bpm_end": 140
+    },
+    {
+      "id": "MB03",
+      "duration_s": 40,
+      "reference_beats_s": 69,
+      "condition": "linear_ritardando",
+      "bpm_start": 140,
+      "bpm_end": 70
+    },
+    {
+      "id": "MB04",
+      "duration_s": 40,
+      "reference_beats_s": 67,
+      "condition": "abrupt_120_to_80",
+      "transition_s": 20
+    },
+    {
+      "id": "MB05",
+      "duration_s": 36,
+      "reference_beats_s": 72,
+      "condition": "silence_reentry",
+      "mask": {
+        "exclude_intervals_s": [
+          [
+            12,
+            18
+          ]
+        ],
+        "reacquisition_anchor_s": 18
+      }
+    },
+    {
+      "id": "MB06",
+      "duration_s": 36,
+      "reference_beats_s": 55,
+      "condition": "fermata_clock_stop",
+      "mask": {
+        "fermata_interval_s": [
+          12,
+          15
+        ],
+        "reacquisition_anchor_s": 15
+      }
+    },
+    {
+      "id": "MB07",
+      "duration_s": 36,
+      "reference_beats_s": 63,
+      "condition": "attack_dropout_continuous_tactus",
+      "mask": {
+        "attack_dropout_interval_s": [
+          12,
+          20
+        ]
+      }
+    },
+    {
+      "id": "MB08",
+      "duration_s": 36,
+      "reference_beats_s": 54,
+      "condition": "half_double_ambiguity",
+      "reference_tactus_bpm": 90,
+      "subdivision_bpm": 180
+    }
+  ]
+}

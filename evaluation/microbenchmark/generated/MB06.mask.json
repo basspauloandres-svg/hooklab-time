@@ -1,0 +1,7 @@
+{
+  "fermata_interval_s": [
+    12,
+    15
+  ],
+  "reacquisition_anchor_s": 15
+}
