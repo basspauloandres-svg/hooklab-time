@@ -1,0 +1,13 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><title>HookLab TIME v1.9.5 LATENCY AUDIT FIX</title><style>html,body{margin:0;height:100%;background:#f2f2f0}#badge{position:fixed;z-index:999999;right:8px;top:8px;background:#111;color:white;padding:6px 8px;border-radius:8px;font:700 12px system-ui}iframe{border:0;width:100%;height:100vh;display:block}</style></head><body><div id="badge">v1.9.5 AUDIT FIX</div><iframe id="outer" src="app-v1.9.4-latency-audit.html?build=20260820-1955" allow="autoplay"></iframe><script>
+const out=document.getElementById('outer');
+function deepest(){try{let a=out.contentWindow;let i1=a.document.getElementById('app');if(!i1||!i1.contentWindow)return null;let b=i1.contentWindow;let i2=b.document.getElementById('app');if(!i2||!i2.contentWindow)return null;let c=i2.contentWindow;let i3=c.document.getElementById('app');return i3&&i3.contentWindow?i3.contentWindow:c}catch(_){return null}}
+function patch(){let core=deepest();if(!core)return setTimeout(patch,120);if(core.__hlAuditExportFix)return;let oldDl=core.dl;if(typeof oldDl!=='function')return setTimeout(patch,120);
+core.dl=function(obj,s){try{if(obj&&obj.latency_phase_audit&&obj.latency_phase_audit.tactus_events>0){return oldDl(obj,s)}
+// When exporting a summary, preserve diagnostics already computed before raw arrays were stripped.
+let a=obj&&obj.latency_phase_audit?obj.latency_phase_audit:null;
+if(a&&a.tactus_events===0&&core.__hlLastValidAudit&&core.__hlLastValidAudit.tactus_events>0){obj={...obj,latency_phase_audit:core.__hlLastValidAudit};}
+return oldDl(obj,s)}catch(e){return oldDl(obj,s)}};
+let oldSummary=core.summary;if(typeof oldSummary==='function'){core.summary=function(obj){let x=oldSummary(obj);try{let a=x&&x.latency_phase_audit;if(a&&a.tactus_events>0)core.__hlLastValidAudit=a}catch(_){}return x}}
+core.__hlAuditExportFix=true;console.log('HookLab v1.9.5 audit export fix installed')}
+out.addEventListener('load',()=>setTimeout(patch,500));setTimeout(patch,1200);
+</script></body></html>
