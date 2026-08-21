@@ -1,0 +1,115 @@
+{
+  "project": "HookLab TIME",
+  "checkpoint_date": "2026-08-20",
+  "transfer_version": "2.0",
+  "repository": "basspauloandres-svg/hooklab-time",
+  "branch": "main",
+  "current_status": "pretest_real_audio_latency_compensation",
+  "active_app": {
+    "file": "app-v1.9.9-auto-comp-robust.html",
+    "purpose": "automatic output-latency compensation without modifying analytical beat/tactus",
+    "status": "experimental; waiting-state bug observed in prior attempt, robust polling implemented but not yet accepted as final",
+    "do_not_treat_as_final": true
+  },
+  "last_confirmed_working_reference": {
+    "file": "app-v1.9.7-offset-calibration.html",
+    "finding": "manual +115 ms playback offset perceptually aligned Dime ok salsa on tested iPhone/Safari path"
+  },
+  "frozen_decisions": {
+    "single_clock_only": true,
+    "ctl_conservative": true,
+    "octave_flip_is_not_automatically_tempo_transition": true,
+    "metric_accent_enabled": false,
+    "downbeat_enabled": false,
+    "meter_inference_enabled": false,
+    "do_not_modify_beat_to_fix_output_latency": true,
+    "separate_algorithm_phase_from_acoustic_output_latency": true
+  },
+  "core_components": {
+    "beat_engine": "Beat This pretrained ONNX",
+    "fallback": "independent time-domain audio-onset evidence",
+    "clock_layer": "CTL conservative single-clock logic",
+    "phase_restart": "phase_restart_v0_3_uncertain.py",
+    "tactus_octave": "tactus_octave_v0_1.py",
+    "audio_clock_pipeline": "run_audio_clock_pipeline_v0_1.py"
+  },
+  "synthetic_benchmark_status": {
+    "MB01_MB08": "experimentally covered",
+    "phase_restart_v0_3": "80000 stress trials, 0 wrong binary decisions; insufficient evidence converted to UNCERTAIN",
+    "audio_clock_pipeline_v0_2": "MB05 SILENCE, MB06b CLOCK_STOP_RESTART, MB07 CLOCK_CONTINUES from WAV-derived evidence",
+    "MB08": "178.55 BPM layer resolved to approximately 89.28 BPM tactus in controlled benchmark"
+  },
+  "real_audio_evidence": {
+    "Dime_ok_salsa": {
+      "duration_s": 209.92,
+      "tactus_events": 502,
+      "raw_events": 542,
+      "estimated_tactus_bpm": 167.882,
+      "algorithm_phase_median_ms": -0.6,
+      "algorithm_phase_mad_ms": 6.08,
+      "algorithm_phase_p95_abs_ms": 349.11,
+      "count_based_bpm": 144.448,
+      "median_ibi_bpm": 167.879,
+      "perceptual_manual_output_offset_ms": 115,
+      "interpretation": "internal phase near zero; output-path compensation required; global BPM summary still needs segmented audit because count-based and median-IBI estimates diverge"
+    },
+    "Animal": {
+      "duration_s": 245.0209,
+      "tactus_events": 488,
+      "raw_events": 483,
+      "estimated_tactus_bpm": 119.519,
+      "algorithm_phase_median_ms": 1.35,
+      "algorithm_phase_mad_ms": 3.64,
+      "algorithm_phase_p95_abs_ms": 13.25,
+      "count_based_bpm": 119.524,
+      "median_ibi_bpm": 119.52,
+      "playback_offset_ms_in_export": -115,
+      "interpretation": "strong internal alignment; supports treating playback latency separately from analytical beat"
+    }
+  },
+  "known_errors_and_fixes": [
+    "v1.9 deployment initially exposed v1.7 content; corrected with direct/pretest launchers",
+    "mixer controls initially ineffective in Safari; corrected in v1.9.3",
+    "multiple simultaneous predictive clocks produced duplicate/interleaved clicks; corrected to one clock",
+    "octave 1:2 changes were falsely treated as tempo transitions; conservative octave handling added",
+    "latency audit export discarded raw arrays and produced null audit values; fixed in v1.9.6",
+    "manual offset sign labeling was misleading; +115 ms was the empirically successful audible compensation in Dime ok salsa",
+    "v1.9.8 automatic compensation could remain waiting; v1.9.9 changed to repeated AudioContext latency polling"
+  ],
+  "priority_P0": {
+    "name": "automatic audible-output compensation",
+    "requirement": "detect available WebAudio latency and apply it only to click playback; preserve original analytical beat/tactus timestamps",
+    "fields_to_keep_separate": [
+      "detected_latency_ms",
+      "base_output_compensation_ms",
+      "manual_fine_adjustment_ms",
+      "total_output_compensation_ms",
+      "algorithm_phase_median_ms",
+      "algorithm_phase_mad_ms",
+      "algorithm_phase_p95_abs_ms"
+    ],
+    "acceptance": [
+      "no waiting-state deadlock after audio begins",
+      "automatic compensation becomes visible and numeric",
+      "fine adjustment defaults to 0",
+      "Dime ok salsa aligns without changing analytical timestamps",
+      "Animal remains internally stable",
+      "JSON exports all compensation and phase fields separately"
+    ]
+  },
+  "next_steps_ordered": [
+    "Finish and verify P0 automatic output compensation",
+    "Retest Dime ok salsa as controlled regression",
+    "Retest Animal as independent stable-tempo regression",
+    "Add several contrasting real songs only after P0 passes",
+    "Audit tactus-level selection and global-summary consistency across real songs",
+    "Do not reactivate meter/downbeat/accent until beat, tactus, clock continuity and audible output are stable"
+  ],
+  "primary_transfer_documents": [
+    "TRANSFER_HOOKLAB_TIME_v2_0_2026-08-20.md",
+    "HookLab_TIME_Transferencia_Integral_v2_0_2026-08-20.docx (external chat artifact)",
+    "EVIDENCE_INDEX.md",
+    "START_HERE_TRANSFER.md"
+  ],
+  "restore_instruction": "Read START_HERE_TRANSFER.md, CURRENT_STATE.json, TRANSFER_HOOKLAB_TIME_v2_0_2026-08-20.md and EVIDENCE_INDEX.md before making changes. Continue from priority_P0. Do not reopen frozen decisions without new executed evidence."
+}
