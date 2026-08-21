@@ -1,0 +1,12 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><title>HookLab TIME v1.9.6 LATENCY AUDIT EXPORT FIX</title><style>html,body{margin:0;height:100%;background:#f2f2f0}#badge{position:fixed;z-index:999999;right:8px;top:8px;background:#111;color:#fff;padding:6px 8px;border-radius:8px;font:700 12px system-ui}iframe{display:block;border:0;width:100%;height:100vh}</style></head><body><div id="badge">v1.9.6 AUDIT EXPORT FIX</div><iframe id="outer" src="app-v1.9.4-latency-audit.html?build=20260820-1966" allow="autoplay"></iframe><script>
+const out=document.getElementById('outer');
+function coreWin(){try{let a=out.contentWindow;let i1=a.document.getElementById('app');if(!i1)return null;let b=i1.contentWindow;let i2=b.document.getElementById('app');return i2?i2.contentWindow:b}catch(_){return null}}
+function safe(n){return(n||'hooklab').replace(/\.[^.]+$/,'').replace(/[^a-z0-9_-]+/gi,'_')}
+function patch(){let c=coreWin();if(!c)return setTimeout(patch,120);if(c.__hl196)return;let oldSummary=c.summary;if(typeof oldSummary!=='function')return setTimeout(patch,120);
+// summary() receives the full data object; v1.9.4 computes the audit here correctly.
+c.summary=function(obj){let x=oldSummary(obj);if(x&&x.latency_phase_audit&&x.latency_phase_audit.tactus_events>0)c.__hlLastAudit=x.latency_phase_audit;return x};
+// IMPORTANT: bypass v1.9.4 dl(), which re-audited the already stripped summary and overwrote valid diagnostics with nulls.
+c.dl=function(obj,s){let x={...obj};if((!x.latency_phase_audit||!x.latency_phase_audit.tactus_events)&&c.__hlLastAudit)x.latency_phase_audit=c.__hlLastAudit;x.schema='HookLab-Mobile-BeatThis-v1.9.6-latency-audit';x.notes=[...(x.notes||[]),'latency_audit_export_preserved_v1_9_6'];let blob=new Blob([JSON.stringify(x,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=safe(x.file)+'_'+s+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+c.__hl196=true;console.log('v1.9.6 direct export patch installed')}
+out.addEventListener('load',()=>setTimeout(patch,500));setTimeout(patch,1300);
+</script></body></html>
