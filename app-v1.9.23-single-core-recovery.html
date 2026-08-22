@@ -1,0 +1,17 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate"><title>HookLab TIME v1.9.23 SINGLE CORE RECOVERY</title><style>html,body{margin:0;height:100%;background:#f2f2f0}iframe{display:block;border:0;width:100%;height:100vh}</style></head><body><iframe id="core" src="app-v1.6.html?build=20260822-1923" allow="autoplay"></iframe><script>
+const frame=document.getElementById('core');const OFFSET_S=-0.1152;
+function inject(){let w;try{w=frame.contentWindow;let d=w.document;if(!d||!d.body)return setTimeout(inject,150);if(d.getElementById('hl1923mix'))return;
+  let main=d.querySelector('main'),cards=d.querySelectorAll('.card');if(!main||cards.length<2)return setTimeout(inject,150);
+  let box=d.createElement('div');box.className='card';box.id='hl1923mix';box.innerHTML=`<h2 style="font-size:18px;margin:0 0 10px">Monitoreo</h2><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><label style="font-size:13px">Pista <b id="hlTrackVal">60%</b><input id="hlTrack" type="range" min="0" max="100" value="60" step="1"></label><label style="font-size:13px">Claqueta <b id="hlClickVal">90%</b><input id="hlClick" type="range" min="0" max="100" value="90" step="1"></label></div><p class="muted" id="hlMixState" style="margin:8px 0 0">Pista y claqueta conectadas directamente al núcleo. Offset audible: −115.2 ms.</p>`;
+  cards[1].after(box);
+  let p=d.getElementById('player'),tr=d.getElementById('hlTrack'),cl=d.getElementById('hlClick'),tv=d.getElementById('hlTrackVal'),cv=d.getElementById('hlClickVal'),state=d.getElementById('hlMixState');
+  function applyTrack(){if(p){p.volume=+tr.value/100;p.playbackRate=1;p.defaultPlaybackRate=1;if('preservesPitch'in p)p.preservesPitch=true;}tv.textContent=tr.value+'%'}
+  tr.addEventListener('input',applyTrack);applyTrack();
+  w.__hl1923ClickGain=+cl.value/100;cl.addEventListener('input',()=>{w.__hl1923ClickGain=+cl.value/100;cv.textContent=cl.value+'%'});
+  try{w.eval(`(function(){if(window.__hl1923Installed)return;window.__hl1923Installed=true;window.__hl1923OrigTone=tone;tone=function(at,f,v,d){let o=${OFFSET_S},g=window.__hl1923ClickGain==null?.9:window.__hl1923ClickGain;let finalAt=Math.max(ctx.currentTime+.002,at+o);return window.__hl1923OrigTone(finalAt,f,Math.max(0,Math.min(1,v*g)),d)};})();`);state.textContent='Activo: pista directa + claqueta directa + −115.2 ms solo en claqueta.'}catch(e){state.textContent='Pista activa. Claqueta: no se pudo instalar el control; recarga la página.'}
+  setInterval(()=>{try{if(p){p.playbackRate=1;p.defaultPlaybackRate=1;}}catch(_){}},500);
+  let title=d.querySelector('h1');if(title)title.textContent='HookLab TIME v1.9.23 — Single Core Recovery';
+  let desc=d.querySelector('h1 + .muted');if(desc)desc.textContent='Interfaz recuperada sin ventanas superpuestas. Carga, análisis, reproducción, monitoreo y exportación funcionan en el mismo núcleo.';
+}catch(e){setTimeout(inject,200)}}
+frame.addEventListener('load',()=>setTimeout(inject,300));setTimeout(inject,800);
+</script></body></html>
