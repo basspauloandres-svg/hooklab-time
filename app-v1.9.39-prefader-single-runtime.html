@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
+<title>HookLab TIME v1.9.39 PRE-FADER Single Runtime</title>
+<style>html,body{margin:0;height:100%;background:#f2f2f0}iframe{display:block;border:0;width:100%;height:100vh}</style>
+</head>
+<body>
+<iframe id="core" src="app-v1.6.html?build=20260823-1939" allow="autoplay"></iframe>
+<script>
+const frame=document.getElementById('core');
+const OFFSET_S=-0.1152;
+let installed=false;
+
+function inject(){
+  try{
+    const w=frame.contentWindow,d=w.document;
+    if(!d||!d.body)return setTimeout(inject,150);
+    if(installed||d.getElementById('hl1939'))return;
+    const cards=d.querySelectorAll('.card');
+    const p=d.getElementById('player');
+    if(cards.length<2||!p)return setTimeout(inject,150);
+
+    // Use the core AudioContext. Do not create a second runtime.
+    let ctx;
+    try{ ctx=w.eval('ctx'); }catch(_){ ctx=null; }
+    if(!ctx){
+      // app-v1.6 creates ctx on decode/analyse. Until then leave native playback untouched.
+      return setTimeout(inject,200);
+    }
+
+    // One MediaElementAudioSourceNode per HTMLMediaElement.
+    if(!w.__hl1939AudioGraph){
+      const source=ctx.createMediaElementSource(p);
+      const preFaderBus=ctx.createGain();
+      const trackFader=ctx.createGain();
+      const masterBus=ctx.createGain();
+      const analyser=ctx.createAnalyser();
+      preFaderBus.gain.value=1;
+      trackFader.gain.value=.60;
+      masterBus.gain.value=1;
+      source.connect(preFaderBus);
+      preFaderBus.connect(trackFader);
+      preFaderBus.connect(analyser); // measurement branch; never terminal playback path
+      trackFader.connect(masterBus);
+      masterBus.connect(ctx.destination);
+      w.__hl1939AudioGraph={source,preFaderBus,trackFader,masterBus,analyser};
+    }
+
+    const g=w.__hl1939AudioGraph;
+    // Once routed through Web Audio, element gain remains unity.
+    p.volume=1;p.muted=false;p.playbackRate=1;p.defaultPlaybackRate=1;
+    if('preservesPitch' in p)p.preservesPitch=true;
+
+    const box=d.createElement('div');
+    box.className='card';box.id='hl1939';
+    box.innerHTML=`<h2 style="font-size:18px;margin:0 0 10px">PRE-FADER · single runtime P0</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <label>Pista <b id="tv39">60%</b><input id="tr39" type="range" min="0" max="100" value="60"></label>
+        <label>Beat / claqueta <b id="cv39">90%</b><input id="cl39" type="range" min="0" max="200" value="90"></label>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px">
+        <button id="tm39" class="secondary">Silenciar pista</button>
+        <button id="cm39" class="secondary">Silenciar beat</button>
+      </div>
+      <button id="arm39" class="secondary" style="margin-top:10px">Activar / reanudar audio</button>
+      <p id="st39" class="muted">Ruta: source → PRE → fader pista → master → destination.</p>`;
+    cards[1].after(box);
+
+    const tr=d.getElementById('tr39'),cl=d.getElementById('cl39');
+    const tv=d.getElementById('tv39'),cv=d.getElementById('cv39'),st=d.getElementById('st39');
+    let tg=.60,cg=.90,tm=false,cm=false;
+
+    async function arm(){
+      try{
+        if(ctx.state!=='running')await ctx.resume();
+        st.textContent=`AudioContext ${ctx.state} · PRE → fader → master → destination`;
+      }catch(e){st.textContent='AudioContext: '+e.message;}
+    }
+    d.getElementById('arm39').onclick=arm;
+    // Play is a trusted user gesture: resume before/with transport.
+    p.addEventListener('play',()=>{arm();},{passive:true});
+
+    function applyTrack(){
+      g.trackFader.gain.setValueAtTime(tm?0:tg,ctx.currentTime);
+      tv.textContent=Math.round(tg*100)+'%';
+      d.getElementById('tm39').textContent=tm?'Activar pista':'Silenciar pista';
+    }
+    tr.oninput=()=>{tg=+tr.value/100;tm=false;applyTrack();};
+    d.getElementById('tm39').onclick=()=>{tm=!tm;applyTrack();};
+
+    w.__hl1939ClickGain=cg;w.__hl1939ClickMute=false;
+    cl.oninput=()=>{cg=+cl.value/100;cm=false;w.__hl1939ClickGain=cg;w.__hl1939ClickMute=false;cv.textContent=Math.round(cg*100)+'%';};
+    d.getElementById('cm39').onclick=()=>{cm=!cm;w.__hl1939ClickMute=cm;d.getElementById('cm39').textContent=cm?'Activar beat':'Silenciar beat';};
+
+    // Click remains in the same core AudioContext; only its gain/offset wrapper changes.
+    try{
+      w.eval(`(function(){
+        if(window.__hl1939ToneInstalled)return;
+        window.__hl1939ToneInstalled=true;
+        window.__hl1939OrigTone=tone;
+        tone=function(at,f,v,d){
+          if(window.__hl1939ClickMute)return;
+          let gg=window.__hl1939ClickGain==null?.9:window.__hl1939ClickGain;
+          let finalAt=Math.max(ctx.currentTime+.002,at+${OFFSET_S});
+          return window.__hl1939OrigTone(finalAt,f,Math.max(.0001,v*gg),d);
+        };
+      })();`);
+    }catch(e){st.textContent='Error claqueta: '+e.message;}
+
+    applyTrack();
+    installed=true;
+    const title=d.querySelector('h1');if(title)title.textContent='HookLab TIME v1.9.39 — PRE-FADER Single Runtime';
+    const desc=d.querySelector('h1 + .muted');if(desc)desc.textContent='P0: una sola fuente MediaElement, un AudioContext, PRE paralelo para medición y ruta audible explícita hasta destination.';
+  }catch(e){console.error('HL v1.9.39',e);setTimeout(inject,250);}
+}
+frame.addEventListener('load',()=>setTimeout(inject,300));
+setTimeout(inject,900);
+</script>
+</body>
+</html>
