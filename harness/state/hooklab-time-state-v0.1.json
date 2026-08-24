@@ -1,0 +1,51 @@
+{
+  "schema": "HookLab-Harness-State-v0.1",
+  "project": "HookLab TIME",
+  "status": "P0_AUDIO_RECOVERY",
+  "platform": {
+    "reference_device": "iPhone",
+    "browser_note": "Web Audio output silent in both Safari and Chrome tests on the reference iPhone; native HTMLAudioElement playback audible.",
+    "sample_rate_hz_observed": 48000
+  },
+  "scientific_invariants": {
+    "audio_offset_ms_target": 0,
+    "single_audible_clock_required": true,
+    "avoid_accumulated_wrappers": true,
+    "new_console_is_new_html": true,
+    "hooklab_core_independent_of_harness": true
+  },
+  "recovered_history": {
+    "v1.9.26": "Native HTMLAudioElement track plus Web Audio click; -115.2 ms still present.",
+    "v1.9.28": "Track moved to AudioBufferSourceNode and shared AudioContext with click.",
+    "v1.9.29": "A/B toggle compared -115.2 ms versus 0 ms while track and click shared one AudioContext; user observation established 0 ms as correct after route unification.",
+    "v1.9.43": "Minimal OscillatorNode > GainNode > destination executed but was inaudible on reference iPhone.",
+    "v1.9.44": "Native generated WAV and selected music file through HTMLAudioElement were both audible on reference iPhone.",
+    "v1.9.45": "Native playback baseline established as audibility control only, not yet operational TIME baseline."
+  },
+  "current_evidence": {
+    "webaudio_internal_execution": "PASS",
+    "webaudio_audible_output": "FAIL",
+    "native_media_audible_output": "PASS",
+    "prefader_causality": "NOT_PRIMARY_CAUSE",
+    "manual_minus_115_2_ms_required": false
+  },
+  "active_hypothesis": "The historical latency correction came from unifying track and click under one audible clock. Current iPhone Web Audio output failure prevents direct reuse of v1.9.29 despite its correct timing architecture.",
+  "next_experiment": {
+    "id": "P0-NATIVE-SINGLE-STREAM",
+    "goal": "Preserve one audible clock and zero manual offset while avoiding realtime Web Audio output.",
+    "design": "Create track+click as one precomposed audio stream and reproduce that single stream through HTMLAudioElement native output.",
+    "constraints": [
+      "new standalone HTML",
+      "no iframe",
+      "no realtime AudioContext destination",
+      "no -115.2 ms compensation",
+      "one audible HTMLAudioElement",
+      "one experimental variable at a time"
+    ]
+  },
+  "harness_role": {
+    "mode": "parallel_pilot",
+    "allowed": ["persist state", "record experiments", "index evidence", "resume sessions", "audit provenance"],
+    "forbidden": ["modify scientific results", "replace HookLab algorithms", "silently change baselines", "become required for reproduction"]
+  }
+}
