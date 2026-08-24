@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
+<title>HookLab TIME v1.9.46 Native Single Stream P0</title>
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,system-ui;margin:0;background:#f2f2f0;color:#171717}
+main{max-width:760px;margin:auto;padding:16px}.card{background:#fff;border:1px solid #ddd;border-radius:14px;padding:16px;margin:12px 0}
+h1{font-size:22px;margin:0 0 6px}.muted{font-size:13px;color:#666}button,input{font-size:16px}button{padding:11px 14px;border:0;border-radius:10px;background:#222;color:#fff;margin:4px}.secondary{background:#e7e7e4;color:#222}input[type=file]{width:100%;margin:8px 0}.m{background:#f5f5f3;border-radius:10px;padding:10px;margin-top:8px}.m b{display:block;font-size:16px}audio{width:100%;margin-top:10px}
+</style>
+</head>
+<body><main>
+<div class="card">
+<h1>HookLab TIME v1.9.46 — Native Single Stream P0</h1>
+<p class="muted">Prueba aislada de arquitectura. Se mezclan offline los primeros 30 s de la pista con una claqueta fija de 120 BPM y luego se reproduce una única corriente mediante HTMLAudioElement. Offset manual: 0 ms.</p>
+<input id="file" type="file" accept="audio/*,.mp3,.wav,.m4a,.aac,.flac,.ogg">
+<button id="render" disabled>1. Construir mezcla única</button>
+<div class="m">Estado<b id="state">esperando archivo</b></div>
+<div class="m">Arquitectura<b>pista + click → render offline → WAV único → HTMLAudioElement</b></div>
+<div class="m">Compensación<b>0 ms</b></div>
+<audio id="player" controls playsinline preload="metadata"></audio>
+</div>
+<div class="card">
+<button id="export" class="secondary">Exportar diagnóstico</button>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+let selected=null,mixURL=null,records=[],meta={};
+const TEST_SECONDS=30,BPM=120,PERIOD=60/BPM,CLICK_GAIN=.20,TRACK_GAIN=.70;
+$('file').onchange=e=>{selected=e.target.files&&e.target.files[0];$('render').disabled=!selected;$('state').textContent=selected?selected.name:'esperando archivo';records.push({kind:'file_selected',name:selected&&selected.name,size:selected&&selected.size,type:selected&&selected.type,t_perf_ms:performance.now()})};
+function writeStr(v,o,s){for(let i=0;i<s.length;i++)v.setUint8(o+i,s.charCodeAt(i))}
+function wavFromAudioBuffer(buffer){const ch=buffer.numberOfChannels,sr=buffer.sampleRate,n=buffer.length,bytes=2,block=ch*bytes,dataSize=n*block,ab=new ArrayBuffer(44+dataSize),v=new DataView(ab);writeStr(v,0,'RIFF');v.setUint32(4,36+dataSize,true);writeStr(v,8,'WAVE');writeStr(v,12,'fmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,ch,true);v.setUint32(24,sr,true);v.setUint32(28,sr*block,true);v.setUint16(32,block,true);v.setUint16(34,16,true);writeStr(v,36,'data');v.setUint32(40,dataSize,true);let off=44;const arrays=[];for(let c=0;c<ch;c++)arrays.push(buffer.getChannelData(c));for(let i=0;i<n;i++){for(let c=0;c<ch;c++){let x=Math.max(-1,Math.min(1,arrays[c][i]));v.setInt16(off,x<0?x*0x8000:x*0x7fff,true);off+=2}}return new Blob([ab],{type:'audio/wav'})}
+async function renderMix(){if(!selected)return;const t0=performance.now();$('state').textContent='decodificando…';$('render').disabled=true;try{
+ const raw=await selected.arrayBuffer();
+ const DecCtx=window.OfflineAudioContext||window.webkitOfflineAudioContext;
+ if(!DecCtx)throw new Error('OfflineAudioContext no disponible');
+ const probe=new DecCtx(2,1,48000);
+ const decoded=await probe.decodeAudioData(raw.slice(0));
+ const sr=decoded.sampleRate,dur=Math.min(TEST_SECONDS,decoded.duration),frames=Math.ceil(dur*sr),channels=Math.min(2,Math.max(1,decoded.numberOfChannels));
+ $('state').textContent='renderizando mezcla offline…';
+ const off=new DecCtx(channels,frames,sr);
+ const source=off.createBufferSource();source.buffer=decoded;
+ const tg=off.createGain();tg.gain.value=TRACK_GAIN;source.connect(tg);tg.connect(off.destination);source.start(0,0,dur);
+ let clicks=0;
+ for(let t=0;t<dur;t+=PERIOD){let o=off.createOscillator(),g=off.createGain();o.frequency.value=(clicks%4===0)?1800:950;g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(CLICK_GAIN,t+.002);g.gain.exponentialRampToValueAtTime(.0001,t+.045);o.connect(g);g.connect(off.destination);o.start(t);o.stop(Math.min(dur,t+.05));clicks++}
+ const rendered=await off.startRendering();
+ $('state').textContent='codificando WAV único…';
+ const blob=wavFromAudioBuffer(rendered);if(mixURL)URL.revokeObjectURL(mixURL);mixURL=URL.createObjectURL(blob);$('player').src=mixURL;$('player').load();
+ meta={source_name:selected.name,source_duration_s:decoded.duration,test_duration_s:dur,sample_rate:sr,channels,click_bpm:BPM,click_count:clicks,track_gain:TRACK_GAIN,click_gain:CLICK_GAIN,manual_offset_ms:0,render_ms:performance.now()-t0,wav_bytes:blob.size};
+ records.push({kind:'render_complete',...meta,t_perf_ms:performance.now()});$('state').textContent='mezcla lista · pulsa Play en el reproductor';
+ }catch(e){records.push({kind:'render_error',error:e.message,t_perf_ms:performance.now()});$('state').textContent='ERROR: '+e.message}finally{$('render').disabled=!selected}}
+$('render').onclick=renderMix;
+$('player').addEventListener('playing',()=>records.push({kind:'native_playing',currentTime:$('player').currentTime,t_perf_ms:performance.now()}));
+$('player').addEventListener('pause',()=>records.push({kind:'native_pause',currentTime:$('player').currentTime,t_perf_ms:performance.now()}));
+$('player').addEventListener('ended',()=>records.push({kind:'native_ended',t_perf_ms:performance.now()}));
+$('export').onclick=()=>{const payload={schema:'HookLab-TIME-v1.9.46-native-single-stream-p0',build_id:'v1.9.46-native-single-stream-p0',architecture:{realtime_webaudio_output:false,offline_render:true,native_media_output:true,audible_stream_count:1,manual_offset_ms:0,iframe_count:0,route:'track+click>OfflineAudioContext>WAV>HTMLAudioElement'},meta,records,userAgent:navigator.userAgent};const b=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='HookLab_native_single_stream_P0_v1_9_46.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+</script>
+</main></body></html>
