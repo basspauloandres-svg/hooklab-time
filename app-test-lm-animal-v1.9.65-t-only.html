@@ -1,0 +1,34 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>LM × Animal v1.9.65 · T-only test</title><style>html,body{margin:0;height:100%;background:#f2f2f0;font-family:-apple-system,BlinkMacSystemFont,system-ui}.note{padding:10px 12px;background:#fff;border-bottom:1px solid #ddd;font-size:13px;color:#555}iframe{display:block;border:0;width:100%;height:calc(100vh - 48px)}</style></head><body><div class="note">PRUEBA CONTROLADA · motor Animal v1.9.65 intacto salvo adquisición inicial limitada a T rápido (120–176 BPM). Exporta el JSON al terminar.</div><iframe id="app" src="app-v1.9.65-auto-acquisition-full-song-p0.html" allow="autoplay"></iframe><script>
+const f=document.getElementById('app');
+f.addEventListener('load',()=>setTimeout(()=>{
+  const w=f.contentWindow;
+  if(!w || typeof w.acquire!=='function') return;
+  w.__originalAcquire=w.acquire;
+  w.acquire=function(os){
+    let xs=os.filter(o=>o.t>=.2&&o.t<=12);
+    if(xs.length<6) throw new Error('Ataques insuficientes para adquisición automática');
+    let best={score:-1,p:.5,a:.5,hits:0};
+    for(let p=.34;p<=.50;p+=.002){
+      for(const seed of xs.slice(0,Math.min(24,xs.length))){
+        let a=seed.t,s=0,ww=0,h=0;
+        for(const o of xs){
+          let k=Math.round((o.t-a)/p),pred=a+k*p,d=Math.abs(o.t-pred),tol=Math.min(.09,p*.18);
+          if(d<=tol){let q=1-d/tol;s+=o.s*q;h++}
+          ww+=o.s;
+        }
+        let score=.72*(s/Math.max(.001,ww))+.28*Math.min(1,h/16);
+        if(score>best.score) best={score,p,a,hits:h};
+      }
+    }
+    while(best.a-best.p>.15)best.a-=best.p;
+    while(best.a<.15)best.a+=best.p;
+    best.test_mode='T_ONLY_120_176_BPM';
+    return best;
+  };
+  try{
+    const d=w.document;
+    const h=d.querySelector('h1'); if(h) h.textContent='Animal v1.9.65 × Luis Miguel · T-only';
+    const p=d.querySelector('.card .muted'); if(p) p.textContent='Mismo motor de Animal. Único cambio experimental: adquisición inicial restringida a T rápido 120–176 BPM. Seguimiento adaptativo, render offline y salida nativa permanecen iguales.';
+  }catch(_){ }
+},100));
+</script></body></html>
