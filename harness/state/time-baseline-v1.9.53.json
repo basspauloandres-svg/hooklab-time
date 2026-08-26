@@ -1,0 +1,51 @@
+{
+  "schema": "HookLab-Harness-Baseline-v0.1",
+  "project": "HookLab TIME",
+  "baseline_id": "TIME-v1.9.53",
+  "frozen_at": "2026-08-25",
+  "status": "EXPERIMENTAL_BASELINE",
+  "scope": ["audible_clock", "local_tempo_follow", "native_single_stream"],
+  "reference_device": "iPhone",
+  "reference_case": {
+    "source": "Animal.mp3",
+    "duration_s": 245.02091666666666,
+    "onset_count": 529,
+    "adaptive_count": 488,
+    "median_bpm": 119.535,
+    "min_bpm": 118.896,
+    "max_bpm": 121.414,
+    "manual_offset_ms": 0,
+    "auditory_evaluation": "PASS"
+  },
+  "architecture": {
+    "route": "source_audio>onsets>local_period_phase_follow>tactus>offline_track_click_mix>single_WAV>native_HTMLAudioElement",
+    "audible_stream_count": 1,
+    "realtime_webaudio_output": false,
+    "offline_render": true,
+    "native_media_output": true,
+    "iframe_count": 0,
+    "manual_offset_ms": 0,
+    "tempo_model": "local_adaptive"
+  },
+  "decisions": {
+    "minus_115_2_ms_structural_compensation": "REJECTED",
+    "fixed_120_bpm_as_clock": "REJECTED_FOR_REFERENCE_CASE",
+    "tempo_as_local_trajectory": "ACCEPTED_FOR_BASELINE",
+    "single_native_audible_stream": "ACCEPTED_FOR_BASELINE"
+  },
+  "known_limits": [
+    "single reference work so far",
+    "INIT_PERIOD and INIT_ANCHOR remain experimental",
+    "metric-level acquisition is not yet generalized",
+    "ambiguous/no-pulse regions require regression testing",
+    "tempo-transition reacquisition requires regression testing"
+  ],
+  "next_gate": "MULTICASE_REGRESSION",
+  "regression_cases_required": [
+    "near-stable tempo",
+    "human microtiming/tempo variation",
+    "ambiguous or no-pulse introduction",
+    "tempo or metric transition"
+  ],
+  "development_rule": "Compare all subsequent changes against v1.9.53 and modify one experimental variable at a time."
+}
