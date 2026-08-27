@@ -5,8 +5,12 @@ on:
     inputs:
       audio_url:
         description: 'Direct URL to input audio'
-        required: true
+        required: false
         type: string
+  push:
+    paths:
+      - 'mie_core/**'
+      - '.github/workflows/mie-core-prototype.yml'
 
 jobs:
   mie-core:
@@ -22,10 +26,21 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y ffmpeg
       - name: Install MIE Core
         run: pip install -r mie_core/requirements.txt
-      - name: Acquire audio
+      - name: Acquire or synthesize audio
+        env:
+          AUDIO_URL: ${{ inputs.audio_url }}
         run: |
           mkdir -p mie_run/input mie_run/output
-          curl -L --fail '${{ inputs.audio_url }}' -o mie_run/input/source.mp3
+          if [ -n "$AUDIO_URL" ]; then
+            curl -L --fail "$AUDIO_URL" -o mie_run/input/source.mp3
+          else
+            ffmpeg -y \
+              -f lavfi -i "sine=frequency=220:duration=10" \
+              -f lavfi -i "sine=frequency=329.63:duration=10" \
+              -f lavfi -i "sine=frequency=440:duration=10" \
+              -filter_complex "[0:a][1:a][2:a]amix=inputs=3:normalize=0,volume=0.25" \
+              -c:a libmp3lame -b:a 128k mie_run/input/source.mp3
+          fi
       - name: Separate stems with HTDemucs
         run: python -m demucs -n htdemucs --two-stems=vocals -o mie_run/stems mie_run/input/source.mp3
       - name: Run MIE Core
