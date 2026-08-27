@@ -1,0 +1,38 @@
+name: MIE Core Prototype
+
+on:
+  workflow_dispatch:
+    inputs:
+      audio_url:
+        description: 'Direct URL to input audio'
+        required: true
+        type: string
+
+jobs:
+  mie-core:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Install MIE Core
+        run: pip install -r mie_core/requirements.txt
+      - name: Acquire audio
+        run: |
+          mkdir -p mie_run/input mie_run/output
+          curl -L --fail '${{ inputs.audio_url }}' -o mie_run/input/source.mp3
+      - name: Separate stems with HTDemucs
+        run: python -m demucs -n htdemucs --two-stems=vocals -o mie_run/stems mie_run/input/source.mp3
+      - name: Run MIE Core
+        run: python mie_core/run_mie_core.py --audio mie_run/input/source.mp3 --stems mie_run/stems --output mie_run/output
+      - name: Upload MIE prototype
+        uses: actions/upload-artifact@v4
+        with:
+          name: mie-core-prototype
+          path: mie_run/output/
+          if-no-files-found: error
