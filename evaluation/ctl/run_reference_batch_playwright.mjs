@@ -16,15 +16,7 @@ fs.mkdirSync(outDir,{recursive:true});
 const appName='app-mie-unified-transcription-v0.1.1.html';
 const app = path.join(root,appName);
 if(!fs.existsSync(app)) throw new Error('Missing unified MIE app');
-
-// Minimal recovery patch only: the archived HTML contains `piano?.38`, which
-// is invalid JavaScript. Preserve the historical algorithms and repair only
-// the ternary operator needed to execute them.
-const archived = fs.readFileSync(app,'utf8');
-const patched = archived.replace('piano?.38*Math.sin(4*Math.PI*f*t)+.16*Math.sin(6*Math.PI*f*t):0','piano ? .38*Math.sin(4*Math.PI*f*t)+.16*Math.sin(6*Math.PI*f*t) : 0');
-if(patched===archived) throw new Error('Expected historical syntax defect not found');
-const runAppName='app-mie-unified-transcription-v0.1.1.runtime-patched.html';
-fs.writeFileSync(path.join(root,runAppName),patched);
+const runAppName=appName;
 
 async function download(url, dest){
   const r = await fetch(url);
