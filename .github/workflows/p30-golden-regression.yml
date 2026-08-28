@@ -1,0 +1,30 @@
+name: p30-golden-regression
+on:
+  push:
+    paths:
+      - 'app-mie-p30-harmony-beat-v0.1.html'
+      - 'evaluation/p30/**'
+      - '.github/workflows/p30-golden-regression.yml'
+  workflow_dispatch:
+
+jobs:
+  regression:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Playwright
+        run: |
+          npm init -y
+          npm install playwright
+          npx playwright install --with-deps chromium
+      - name: Run P30 Golden regression
+        run: node evaluation/p30/run_p30_golden_regression.mjs
+      - name: Upload P30 regression outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p30-golden-regression
+          path: evaluation/p30/outputs/
