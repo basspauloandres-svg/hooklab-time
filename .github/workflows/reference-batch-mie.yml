@@ -1,0 +1,31 @@
+name: reference-batch-mie
+on:
+  push:
+    paths:
+      - 'evaluation/ctl/run_reference_batch_playwright.mjs'
+      - '.github/workflows/reference-batch-mie.yml'
+      - 'app-mie-unified-transcription-v0.1.1.html'
+  workflow_dispatch:
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Playwright
+        run: |
+          npm init -y
+          npm install playwright
+          npx playwright install --with-deps chromium
+      - name: Ensure ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Run MIE reference batch
+        run: node evaluation/ctl/run_reference_batch_playwright.mjs
+      - name: Upload reference batch outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: mie-reference-batch
+          path: evaluation/ctl/reference_batch_outputs/*.json
