@@ -26,6 +26,8 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y ffmpeg
       - name: Install MIE Core
         run: pip install -r mie_core/requirements.txt
+      - name: Structural reduction invariant tests
+        run: python mie_core/test_structural_reduction.py
       - name: Acquire authorized preview audio
         env:
           AUDIO_URL: ${{ inputs.audio_url }}
@@ -38,11 +40,18 @@ jobs:
           ffmpeg -y -i mie_run/input/source.m4a -ar 44100 -ac 2 mie_run/input/source.wav
       - name: Separate 4 stems with HTDemucs
         run: python -m demucs -n htdemucs -o mie_run/stems mie_run/input/source.wav
-      - name: Run MIE Core v0.2
-        run: python mie_core/run_mie_core.py --audio mie_run/input/source.wav --stems mie_run/stems --output mie_run/output
-      - name: Upload MIE prototype
+      - name: Locate vocal stem
+        run: |
+          VOCAL=$(find mie_run/stems -type f -name vocals.wav | head -n 1)
+          test -n "$VOCAL"
+          echo "VOCAL=$VOCAL" >> "$GITHUB_ENV"
+      - name: Run M-only structural probe
+        run: python mie_core/run_structural_probe.py --vocal "$VOCAL" --output mie_run/output/structural_probe
+      - name: Run frozen MIE Core v0.2 comparison path
+        run: python mie_core/run_mie_core.py --audio mie_run/input/source.wav --stems mie_run/stems --output mie_run/output/core_v0_2
+      - name: Upload MIE structural probe and frozen comparison
         uses: actions/upload-artifact@v4
         with:
-          name: mie-core-prototype-v0-2
+          name: mie-structural-probe-v0-1
           path: mie_run/output/
           if-no-files-found: error
