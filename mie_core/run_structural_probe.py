@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
-"""MIE melody-only structural probe v0.1.
+"""MIE melody-only structural probe v0.2.
 
-Runs the trained melody sensor and MIE Structural Reduction without H/T synthesis.
-This is an engineering probe, not a promoted musical baseline.
+Runs the trained melody sensor, conservative structural reduction and a
+context-relative micro-ornament stage without H/T synthesis. Engineering probe
+only; no historical P30 equivalence is claimed.
 """
 import argparse, json
 from pathlib import Path
 from structural_reduction import reduce_candidates
+from ornament_reduction import suppress_microornaments
 
 
 def basic_pitch_candidates(vocal_path, outdir):
@@ -42,22 +44,25 @@ def main():
 
     raw,midi_path=basic_pitch_candidates(Path(args.vocal),out)
     reduction=reduce_candidates(raw)
+    ornament=suppress_microornaments(reduction['render_events'])
     duration=args.duration
     if duration is None:
         duration=max((n['end_s'] for n in raw),default=0.0)
 
-    render=reduction['render_events']
+    render=ornament['render_events']
     hypotheses=reduction['events']
-    removed=max(0,len(raw)-len(hypotheses))
     report={
-        'version':'MIE melody structural probe v0.1',
+        'version':'MIE melody structural probe v0.2',
         'status':'ENGINEERING_PROBE_NOT_BASELINE',
         'sensor':'Basic Pitch',
         'reducer':reduction['version'],
+        'ornament_stage':ornament['version'],
         'historical_p30_equivalence_claimed':False,
         'duration_s':duration,
         'raw_sensor_count':len(raw),
         'hypothesis_count':len(hypotheses),
+        'pre_ornament_render_count':reduction['render_count'],
+        'microornament_suppressed_count':ornament['suppressed_count'],
         'render_count':len(render),
         'ambiguous_count':reduction['ambiguous_count'],
         'raw_density_events_per_s':density(raw,duration),
@@ -66,12 +71,14 @@ def main():
         'hypothesis_to_raw_ratio':len(hypotheses)/len(raw) if raw else 0.0,
         'sensor_midi':str(midi_path),
         'reduction':reduction,
-        'promotion_gate':'Do not audition. Compare structural density, ambiguity, timing preservation and generic-song stability first.',
+        'microornament_reduction':ornament,
+        'promotion_gate':'Do not audition. Compare structural density, ambiguity, physical timing and generic-song stability first.',
     }
-    path=out/'MIE_STRUCTURAL_PROBE_v0_1.json'
+    path=out/'MIE_STRUCTURAL_PROBE_v0_2.json'
     path.write_text(json.dumps(report,indent=2),encoding='utf-8')
     print(json.dumps({k:report[k] for k in [
-        'raw_sensor_count','hypothesis_count','render_count','ambiguous_count',
+        'raw_sensor_count','hypothesis_count','pre_ornament_render_count',
+        'microornament_suppressed_count','render_count','ambiguous_count',
         'raw_density_events_per_s','render_density_events_per_s','render_to_raw_ratio'
     ]},indent=2))
 
