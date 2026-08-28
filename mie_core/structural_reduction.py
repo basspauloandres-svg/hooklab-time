@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-"""MIE Structural Reduction v0.1.
+"""MIE Structural Reduction v0.2.
 
 Conservative interface between melody sensors and the final structural melody.
 This module does not claim to reproduce historical STAB-004 -> P30 code.
 Every decision is returned as provenance. Experimental thresholds are explicit.
+Ambiguous hypotheses are preserved for reasoning but excluded from render_events.
 """
 from dataclasses import dataclass, asdict
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Set
 
 
 @dataclass
@@ -33,13 +34,11 @@ class Decision:
 
 
 DEFAULT_EXPERIMENTAL = {
-    # These values are engineering hypotheses, not recovered P30 constants.
+    # Engineering hypotheses only. They are not recovered P30 constants.
     "min_duration_s": 0.045,
     "overlap_s": 0.025,
-    "duplicate_pitch_semitones": 0,
     "octave_tolerance_semitones": 1,
     "octave_jump_min_semitones": 10,
-    "continuity_neighbour_semitones": 4,
     "confidence_margin": 0.08,
 }
 
@@ -50,14 +49,17 @@ def _overlap(a: Candidate, b: Candidate) -> float:
 
 def _continuity_cost(midi: int, prev: Optional[Candidate], nxt: Optional[Candidate]) -> float:
     vals=[]
-    if prev is not None: vals.append(abs(midi-prev.midi))
-    if nxt is not None: vals.append(abs(nxt.midi-midi))
+    if prev is not None:
+        vals.append(abs(midi-prev.midi))
+    if nxt is not None:
+        vals.append(abs(nxt.midi-midi))
     return sum(vals)/len(vals) if vals else 0.0
 
 
 def reduce_candidates(raw: List[Dict[str, Any]], config=None):
     cfg=dict(DEFAULT_EXPERIMENTAL)
-    if config: cfg.update(config)
+    if config:
+        cfg.update(config)
     cands=[]
     for i,n in enumerate(raw):
         cands.append(Candidate(
@@ -67,22 +69,27 @@ def reduce_candidates(raw: List[Dict[str, Any]], config=None):
             sensor=str(n.get("sensor", "unknown"))))
     cands.sort(key=lambda x:(x.start_s,x.end_s,-x.confidence,x.midi))
     decisions: List[Decision]=[]
+    ambiguous_ids: Set[str]=set()
 
-    # 1. Mark very short events as ornament/noise candidates; do not silently delete.
+    # 1. Very short events are retained in hypothesis provenance, not promoted to render.
     active=[]
     for c in cands:
         if c.duration_s < cfg["min_duration_s"]:
+            ambiguous_ids.add(c.id)
             decisions.append(Decision(c.id,"HOLD","SHORT_EVENT_CANDIDATE","AMBIGUOUS",
-                                      {"duration_s":c.duration_s,"threshold_experimental":cfg["min_duration_s"]}))
+                                      {"duration_s":c.duration_s,
+                                       "threshold_experimental":cfg["min_duration_s"]}))
         else:
             active.append(c)
 
-    # 2. Resolve strong overlaps conservatively. Near ties remain ambiguous.
+    # 2. Resolve strong overlaps conservatively. Different-pitch near ties remain hypotheses only.
     kept=[]
     for c in active:
         conflicts=[q for q in kept if _overlap(c,q) >= cfg["overlap_s"]]
         if not conflicts:
-            kept.append(c); decisions.append(Decision(c.id,"KEEP","NO_STRONG_OVERLAP","LOCK",{})); continue
+            kept.append(c)
+            decisions.append(Decision(c.id,"KEEP","NO_STRONG_OVERLAP","LOCK",{}))
+            continue
         q=max(conflicts,key=lambda x:x.confidence)
         margin=c.confidence-q.confidence
         if c.midi==q.midi:
@@ -93,20 +100,29 @@ def reduce_candidates(raw: List[Dict[str, Any]], config=None):
             else:
                 decisions.append(Decision(c.id,"DROP","DUPLICATE_SAME_PITCH_LOWER_CONFIDENCE","LOCK",{"winner":q.id}))
         elif abs(margin) >= cfg["confidence_margin"]:
-            winner=c if margin>0 else q; loser=q if margin>0 else c
+            winner=c if margin>0 else q
+            loser=q if margin>0 else c
             if winner is c:
                 kept.remove(q); kept.append(c)
-            decisions.append(Decision(loser.id,"DROP","OVERLAP_CONFIDENCE_DOMINANCE","LOCK",{"winner":winner.id,"margin":abs(margin)}))
-            if winner is c: decisions.append(Decision(c.id,"KEEP","OVERLAP_CONFIDENCE_DOMINANCE","LOCK",{"loser":q.id,"margin":abs(margin)}))
+            decisions.append(Decision(loser.id,"DROP","OVERLAP_CONFIDENCE_DOMINANCE","LOCK",
+                                      {"winner":winner.id,"margin":abs(margin)}))
+            if winner is c:
+                decisions.append(Decision(c.id,"KEEP","OVERLAP_CONFIDENCE_DOMINANCE","LOCK",
+                                          {"loser":q.id,"margin":abs(margin)}))
         else:
-            # Preserve both hypotheses internally; downstream must resolve plane/continuity.
+            # Preserve both internally but do not synthesize either until a later resolver chooses.
             kept.append(c)
-            decisions.append(Decision(c.id,"HOLD","OVERLAP_NEAR_TIE","AMBIGUOUS",{"other":q.id,"confidence_margin":margin}))
+            ambiguous_ids.update([c.id,q.id])
+            decisions.append(Decision(c.id,"HOLD","OVERLAP_NEAR_TIE","AMBIGUOUS",
+                                      {"other":q.id,"confidence_margin":margin}))
+            decisions.append(Decision(q.id,"HOLD","OVERLAP_NEAR_TIE","AMBIGUOUS",
+                                      {"other":c.id,"confidence_margin":-margin}))
 
     kept.sort(key=lambda x:(x.start_s,x.end_s,-x.confidence))
 
-    # 3. Octave-plane alternatives. Correct only when neighbourhood continuity clearly favours one octave.
+    # 3. Octave-plane alternatives. Preserve timing; pitch change remains PROVISIONAL.
     out=[]
+    provisional_ids: Set[str]=set()
     for i,c in enumerate(kept):
         prev=kept[i-1] if i else None
         nxt=kept[i+1] if i+1<len(kept) else None
@@ -122,18 +138,38 @@ def reduce_candidates(raw: List[Dict[str, Any]], config=None):
         if best and jump_context and best[1]+cfg["octave_tolerance_semitones"] < base:
             nc=Candidate(c.id,c.start_s,c.end_s,best[0],c.confidence,c.sensor)
             out.append(nc)
+            provisional_ids.add(c.id)
             decisions.append(Decision(c.id,"OCTAVE_ALTERNATIVE","CONTINUITY_FAVOURS_OCTAVE_PLANE","PROVISIONAL",
-                                      {"input_midi":c.midi,"output_midi":best[0],"base_cost":base,"alternative_cost":best[1]}))
+                                      {"input_midi":c.midi,"output_midi":best[0],
+                                       "base_cost":base,"alternative_cost":best[1]}))
         else:
             out.append(c)
 
+    # All hypotheses are retained for audit. Only non-ambiguous candidates may reach synthesis.
+    hypothesis_events=[]
+    render_events=[]
+    for x in out:
+        d=asdict(x)
+        if x.id in ambiguous_ids:
+            d["state"]="AMBIGUOUS"
+        elif x.id in provisional_ids:
+            d["state"]="PROVISIONAL"
+            render_events.append(dict(d))
+        else:
+            d["state"]="LOCK"
+            render_events.append(dict(d))
+        hypothesis_events.append(d)
+
     return {
-        "version":"MIE Structural Reduction v0.1",
+        "version":"MIE Structural Reduction v0.2",
         "historical_code_exact":False,
         "config_status":"EXPERIMENTAL_NOT_TUNED_TO_REFERENCE_SONG",
         "config":cfg,
         "input_count":len(cands),
-        "output_count":len(out),
-        "events":[asdict(x) for x in out],
+        "hypothesis_count":len(hypothesis_events),
+        "render_count":len(render_events),
+        "ambiguous_count":sum(1 for x in hypothesis_events if x["state"]=="AMBIGUOUS"),
+        "events":hypothesis_events,
+        "render_events":render_events,
         "decisions":[asdict(x) for x in decisions],
     }
