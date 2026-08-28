@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from structural_reduction import reduce_candidates
+from ornament_reduction import suppress_microornaments
 
 
 def test_preserves_physical_timing_for_kept_events():
@@ -50,10 +51,34 @@ def test_octave_candidate_requires_context():
     assert any(d["candidate_id"]=="b" and d["action"]=="OCTAVE_ALTERNATIVE" for d in r["decisions"])
 
 
+def test_microornament_requires_real_pitch_excursion():
+    events=[
+      {"id":"a","start_s":0.0,"end_s":.30,"midi":60,"confidence":.8,"state":"LOCK"},
+      {"id":"b","start_s":.31,"end_s":.43,"midi":60,"confidence":.8,"state":"LOCK"},
+      {"id":"c","start_s":.44,"end_s":.74,"midi":60,"confidence":.8,"state":"LOCK"},
+    ]
+    r=suppress_microornaments(events)
+    assert r["suppressed_count"]==0
+    assert len(r["render_events"])==3
+
+
+def test_microornament_small_return_contour_can_be_suppressed():
+    events=[
+      {"id":"a","start_s":0.0,"end_s":.30,"midi":64,"confidence":.8,"state":"LOCK"},
+      {"id":"b","start_s":.31,"end_s":.41,"midi":62,"confidence":.8,"state":"LOCK"},
+      {"id":"c","start_s":.42,"end_s":.72,"midi":64,"confidence":.8,"state":"LOCK"},
+    ]
+    r=suppress_microornaments(events)
+    assert r["suppressed_count"]==1
+    assert [e["id"] for e in r["render_events"]]==["a","c"]
+
+
 if __name__=='__main__':
     test_preserves_physical_timing_for_kept_events()
     test_same_pitch_overlap_prefers_confidence()
     test_near_tie_different_pitch_is_preserved_but_not_rendered()
     test_short_event_is_not_rendered()
     test_octave_candidate_requires_context()
+    test_microornament_requires_real_pitch_excursion()
+    test_microornament_small_return_contour_can_be_suppressed()
     print('PASS structural reduction invariants')
