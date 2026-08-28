@@ -56,7 +56,7 @@ jobs:
       - name: Upload regression evidence
         uses: actions/upload-artifact@v4
         with:
-          name: mie-structural-regression-v0-2
+          name: mie-structural-regression-v0-4
           path: mie_run/output/
           if-no-files-found: error
 
@@ -92,6 +92,51 @@ jobs:
       - name: Upload generic A evidence
         uses: actions/upload-artifact@v4
         with:
-          name: mie-structural-generic-a-v0-2
+          name: mie-structural-generic-a-v0-4
           path: generic_a/output/
+          if-no-files-found: error
+
+  generic-b:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Install MIE Core
+        run: pip install -r mie_core/requirements.txt
+      - name: Acquire public-domain contrasting song B
+        env:
+          GENERIC_B_URL: https://upload.wikimedia.org/wikipedia/commons/d/d3/Believe.ogg
+        run: |
+          mkdir -p generic_b/input generic_b/output
+          curl -L --fail "$GENERIC_B_URL" -o generic_b/input/source.ogg
+          ffmpeg -y -i generic_b/input/source.ogg -t 30 -ar 44100 -ac 2 generic_b/input/source.wav
+      - name: Separate generic B stems
+        run: python -m demucs -n htdemucs -o generic_b/stems generic_b/input/source.wav
+      - name: Locate generic B vocal stem
+        run: |
+          VOCAL=$(find generic_b/stems -type f -name vocals.wav | head -n 1)
+          test -n "$VOCAL"
+          echo "GENERIC_B_VOCAL=$VOCAL" >> "$GITHUB_ENV"
+      - name: Run generic B M-only structural probe
+        run: python mie_core/run_structural_probe.py --vocal "$GENERIC_B_VOCAL" --output generic_b/output/structural_probe
+      - name: Record generic B provenance
+        run: |
+          cat > generic_b/output/SOURCE_PROVENANCE.txt <<'EOF'
+          Source: Wikimedia Commons File:Believe.ogg
+          Direct media: https://upload.wikimedia.org/wikipedia/commons/d/d3/Believe.ogg
+          Description: B.C. Williamson, "Believe Her 'Till I Leave Her" (1975)
+          License status on source page: released into the public domain by copyright holder.
+          Role: blind generic-song B engineering validation only; not parameter calibration.
+          EOF
+      - name: Upload generic B evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: mie-structural-generic-b-v0-4
+          path: generic_b/output/
           if-no-files-found: error
