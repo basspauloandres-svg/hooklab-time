@@ -31,7 +31,7 @@ The renderer identity itself remains **RECOVERED/ACCEPTED according to checkpoin
 
 ## Diagnostic evidence versus hypothesis
 
-A residual spectrum from the non-identical Node.js port showed energy near 1 kHz. The recovered HTML click function uses 1450 Hz plus a 2200 Hz partial. Because the residual contains the combined consequences of all sample-level differences and normalization, this observation cannot by itself identify the beat synthesizer as the cause. The previous wording was too strong. Beat-synthesis difference is retained only as an unconfirmed hypothesis and is not an engineering decision.
+A residual spectrum from the non-identical Node.js port showed energy near 1 kHz. The recovered HTML click function uses 1450 Hz plus a 2200 Hz partial. Because the residual contains the combined consequences of all sample-level differences and normalization, this observation cannot by itself identify the beat synthesizer as the cause. Beat-synthesis difference is retained only as an unconfirmed hypothesis and is not an engineering decision.
 
 ## Additional bundle component evidence
 
@@ -49,6 +49,30 @@ Thus:
 
 `historical STAB-004 evidence -> exact P30 transformation code` remains **UNRESOLVED**.
 
+## Structural Reduction implementation status
+
+`mie_core/structural_reduction.py` now separates internal hypotheses from renderable events. `AMBIGUOUS` alternatives are preserved in provenance and excluded from `render_events`, preventing unresolved competing pitches from being synthesized simultaneously. Physical start/end times of surviving events remain unchanged.
+
+GitHub Actions run `33219782675` passed all initial structural invariants and executed the first M-only probe on the regression preview. Observed counts were:
+
+- raw Basic Pitch candidates: 91
+- retained structural hypotheses: 84
+- renderable events before micro-ornament stage: 82
+- ambiguous hypotheses: 2
+- raw density: approximately 3.062 events/s
+- render density: approximately 2.759 events/s
+- render/raw ratio: approximately 0.901
+
+The frozen MIE Core v0.2 path produced 83 rendered melody events from the same 91 sensor candidates. Therefore Structural Reduction v0.2 improved formal traceability and ambiguity handling, but its event-count reduction over the previous gate was only one event. It is **not promoted** as a sufficient P30-like reducer on that evidence alone.
+
+A context-relative micro-ornament stage has therefore been added as a separate experimental module. It uses local duration ratios and return-contour evidence rather than fixed song positions. A replay against the run-10 structural output identified one valid small pitch excursion under the unchanged thresholds after correcting a false-positive case in which a same-pitch 59→59→59 fragmentation had initially qualified. The rule now requires a real pitch excursion of at least one semitone.
+
+This replay is engineering evidence only; the current GitHub Actions validation must confirm it on the latest commit before promotion.
+
+## Generic validation
+
+The workflow now contains an isolated `generic-a` M-only job using a contrasting public preview. The same reducer parameters are applied without per-song adjustment. This job exists specifically to prevent Luis Miguel from becoming a parameter source. No generic-song result is yet accepted until the corresponding workflow run completes successfully and its artifact is inspected.
+
 ## Frozen engineering rule
 
 Harmony B and Beat This remain frozen while M is reconstructed/substituted. Modern sensor output must pass through a structural-reduction interface before rendering. Luis Miguel remains regression evidence, not a parameter source.
@@ -61,6 +85,6 @@ Harmony B and Beat This remain frozen while M is reconstructed/substituted. Mode
 4. Structural/event regression is mandatory even when byte identity is unavailable across runtimes.
 5. Promotion still requires the audible golden gate and generic-song validation.
 
-## Next engineering target
+## Current engineering decision
 
-Implement the structural-reduction interface upstream of P30 with explicit provenance for every operation: input candidate -> decision -> output event. The first version must support conservative duplicate/overlap resolution, short-event/ornament candidacy, octave-plane alternatives, continuity evidence, confidence and `AMBIGUOUS` outcomes. Thresholds not recovered from historical evidence must be marked experimental and tested without tuning them to Luis Miguel.
+The reducer architecture is retained; the current parameterization is still experimental. Audio audition remains closed. The next accepted milestone requires: latest structural invariants PASS, regression probe PASS, generic-A probe PASS, explicit comparison of density/ambiguity/continuity across both songs, and only then controlled M substitution into the frozen golden H/T integration path.
