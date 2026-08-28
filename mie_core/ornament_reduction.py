@@ -2,15 +2,16 @@
 """Context-relative micro-ornament suppression for MIE Structural Reduction.
 
 Experimental engineering module. It does not claim historical P30 equivalence.
-A candidate is suppressed only when it is locally brief, forms a small excursion,
-and the surrounding pitches return to the same local plane. Physical timing of
-all surviving events is left untouched.
+A candidate is suppressed only when it is locally brief, forms a real small
+pitch excursion, and the surrounding pitches return to the same local plane.
+Physical timing of all surviving events is left untouched.
 """
 from statistics import median
 
 DEFAULTS={
     'duration_ratio_max':0.55,
     'return_tolerance_semitones':1,
+    'excursion_min_semitones':1,
     'excursion_max_semitones':3,
     'local_radius':2,
 }
@@ -42,7 +43,7 @@ def suppress_microornaments(events, config=None):
         excursion=max(abs(int(q['midi'])-int(p['midi'])),abs(int(q['midi'])-int(n['midi'])))
         if (ratio < cfg['duration_ratio_max'] and
             return_distance <= cfg['return_tolerance_semitones'] and
-            excursion <= cfg['excursion_max_semitones']):
+            cfg['excursion_min_semitones'] <= excursion <= cfg['excursion_max_semitones']):
             drop.add(q['id'])
             decisions.append({
                 'candidate_id':q['id'],
@@ -63,7 +64,7 @@ def suppress_microornaments(events, config=None):
             })
     render=[e for e in src if e['id'] not in drop]
     return {
-        'version':'MIE micro-ornament reduction v0.1',
+        'version':'MIE micro-ornament reduction v0.2',
         'historical_code_exact':False,
         'config_status':'EXPERIMENTAL_CONTEXT_RELATIVE_NOT_TUNED_TO_REFERENCE_SONG',
         'config':cfg,
