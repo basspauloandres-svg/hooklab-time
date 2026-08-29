@@ -1,18 +1,20 @@
 #!/usr/bin/env python3
-"""MIE Competitive Plane Resolver reconstruction v0.4.
+"""MIE Competitive Plane Resolver reconstruction v0.5.
 
 Generic reconstruction of the documented plane-resolver architecture:
 Viterbi over octave alternatives using acoustic harmonic salience, continuity,
-octave-shift persistence and short-gap plane memory.
+octave-shift persistence and plane memory.
 
-This is NOT recovered historical code. The historical checkpoint documents the
-architecture and a 13/14 regression baseline, but not an exact executable.
+This is NOT recovered historical code. The checkpoint documents the architecture
+and a 13/14 historical regression baseline, but not an exact executable.
 No fixed singer-specific MIDI range is used here.
 
-v0.4 fixes a confidence defect in isolated phrase segments: per-event salience
-normalization makes the strongest octave candidate equal to 1.0 by definition,
-so a singleton could be falsely LOCKed even when the second alternative is
-nearly equivalent. Singleton LOCK now requires an explicit acoustic margin.
+v0.5 fixes a structural defect found by blind validation: phrase segmentation
+previously restarted Viterbi with no memory of the preceding octave plane, which
+could create octave flips that were absent from the sensor evidence. Segment
+starts now use (1) a conservative prior toward the sensor plane (shift=0), and
+(2) decaying memory of the last resolved plane across gaps. These priors affect
+octave choice only; they do not force melodic intervals or quantize timing.
 """
 from pathlib import Path
 import math
@@ -32,8 +34,12 @@ DEFAULTS={
     'phrase_gap_min_s':0.50,
     'phrase_gap_duration_multiplier':4.0,
     'lock_salience_min':0.55,
-    # Experimental generic confidence margin. Not recovered from Luis Miguel/P30.
     'singleton_acoustic_margin_min':0.12,
+    # Generic conservative priors; experimental, not recovered P30 constants.
+    'zero_shift_prior_weight':0.42,
+    'cross_segment_memory_weight':1.10,
+    'cross_segment_memory_decay_s':2.0,
+    'nonzero_singleton_margin_min':0.18,
 }
 
 
@@ -92,13 +98,6 @@ def _segments(events,cfg):
 
 
 def _selected_local_margin(state, selected_index):
-    """Normalized acoustic separation of selected candidate from best rival.
-
-    Positive values mean the selected candidate is acoustically stronger.
-    A negative value means Viterbi selected it despite a stronger local acoustic
-    alternative, which is acceptable in multi-event context but insufficient for
-    an isolated singleton LOCK.
-    """
     if not state:
         return 0.0
     selected=float(state[selected_index][2])
@@ -106,11 +105,31 @@ def _selected_local_margin(state, selected_index):
     return selected-(max(rivals) if rivals else 0.0)
 
 
-def _lock_state(ac, local_margin, segment_length, cfg):
+def _memory_strength(gap_s,cfg):
+    tau=max(float(cfg['cross_segment_memory_decay_s']),1e-6)
+    return float(cfg['cross_segment_memory_weight'])*math.exp(-max(0.0,float(gap_s))/tau)
+
+
+def _segment_start_prior(shift, previous_shift, gap_s, cfg):
+    # Sensor plane is the default hypothesis; octave movement requires evidence.
+    score=-float(cfg['zero_shift_prior_weight'])*(abs(int(shift))/12.0)
+    memory=0.0
+    if previous_shift is not None:
+        strength=_memory_strength(gap_s,cfg)
+        memory=-strength*(abs(int(shift)-int(previous_shift))/12.0)
+        score+=memory
+    return score,memory
+
+
+def _lock_state(ac,local_margin,segment_length,shift,cfg):
     if ac < cfg['lock_salience_min']:
         return 'AMBIGUOUS'
-    if segment_length == 1 and local_margin < cfg['singleton_acoustic_margin_min']:
-        return 'AMBIGUOUS'
+    if segment_length == 1:
+        needed=float(cfg['singleton_acoustic_margin_min'])
+        if int(shift)!=0:
+            needed=max(needed,float(cfg['nonzero_singleton_margin_min']))
+        if local_margin < needed:
+            return 'AMBIGUOUS'
     return 'LOCK'
 
 
@@ -120,7 +139,7 @@ def resolve_planes(events,vocal_path,config=None):
         cfg.update(config)
     src=[dict(e) for e in events]
     if not src:
-        return {'version':'MIE Competitive Plane Resolver reconstruction v0.4','events':[],
+        return {'version':'MIE Competitive Plane Resolver reconstruction v0.5','events':[],
                 'decisions':[],'input_count':0,'output_count':0,'historical_code_exact':False}
     y,sr=librosa.load(Path(vocal_path),sr=22050,mono=True)
     salience_cache={}
@@ -131,6 +150,9 @@ def resolve_planes(events,vocal_path,config=None):
         return salience_cache[key]
 
     resolved=[]; decisions=[]
+    previous_locked_shift=None
+    previous_segment_end=None
+
     for seg_i,seg in enumerate(_segments(src,cfg)):
         states=[]
         for e in seg:
@@ -140,11 +162,18 @@ def resolve_planes(events,vocal_path,config=None):
             states.append([(m,sh,(v/max(vmax,1e-12)),v) for (m,sh),v in zip(cand,vals)])
         if not states or any(not s for s in states):
             continue
-        prev=[]; back=[]
+
+        segment_gap=(float(seg[0]['start_s'])-float(previous_segment_end)
+                     if previous_segment_end is not None else None)
+        prev=[]; back=[]; start_priors=[]
         for m,sh,ac,raw_ac in states[0]:
-            score=cfg['acoustic_weight']*math.log(0.03+ac)
-            prev.append(score)
+            prior,memory=_segment_start_prior(
+                sh,previous_locked_shift,segment_gap if segment_gap is not None else 1e9,cfg)
+            acoustic=cfg['acoustic_weight']*math.log(0.03+ac)
+            prev.append(acoustic+prior)
+            start_priors.append((prior,memory))
         back.append([-1]*len(states[0]))
+
         for i in range(1,len(seg)):
             cur_scores=[]; cur_back=[]
             gap=float(seg[i]['start_s'])-float(seg[i-1]['end_s'])
@@ -162,39 +191,52 @@ def resolve_planes(events,vocal_path,config=None):
                         best=score; arg=k
                 cur_scores.append(best); cur_back.append(arg)
             prev=cur_scores; back.append(cur_back)
+
         j=int(np.argmax(prev)); path=[j]
         for i in range(len(seg)-1,0,-1):
             j=back[i][j]; path.append(j)
         path=path[::-1]
+
+        segment_locked=[]
         for i,(e,idx) in enumerate(zip(seg,path)):
             m,sh,ac,raw_ac=states[i][idx]
             margin=_selected_local_margin(states[i],idx)
             ne=dict(e); ne['midi_input']=int(e['midi']); ne['midi']=int(m)
             ne['plane_shift_semitones']=int(sh); ne['plane_acoustic_salience_norm']=float(ac)
             ne['plane_acoustic_margin_norm']=float(margin)
-            ne['state']=_lock_state(ac,margin,len(seg),cfg)
+            ne['state']=_lock_state(ac,margin,len(seg),sh,cfg)
             if ne['state']=='LOCK':
-                resolved.append(ne)
+                resolved.append(ne); segment_locked.append(ne)
+            start_prior,start_memory=start_priors[idx] if i==0 else (0.0,0.0)
             decisions.append({
                 'candidate_id':e['id'],
                 'action':'PLANE_LOCK' if ne['state']=='LOCK' else 'PLANE_HOLD',
                 'state':ne['state'],
-                'reason':'VITERBI_HARMONIC_SALIENCE_CONTINUITY',
+                'reason':'VITERBI_HARMONIC_SALIENCE_CONTINUITY_WITH_SEGMENT_MEMORY',
                 'evidence':{
                     'segment_index':seg_i,
                     'segment_length':len(seg),
+                    'segment_gap_s':segment_gap if i==0 else None,
+                    'previous_locked_shift_semitones':previous_locked_shift if i==0 else None,
                     'input_midi':int(e['midi']),
                     'output_midi':int(m),
                     'octave_shift_semitones':int(sh),
                     'normalized_harmonic_salience':float(ac),
                     'normalized_acoustic_margin':float(margin),
                     'candidate_count':len(states[i]),
-                    'singleton_margin_threshold_experimental':cfg['singleton_acoustic_margin_min'],
+                    'segment_start_prior_score':float(start_prior),
+                    'cross_segment_memory_score':float(start_memory),
                 }
             })
+
+        # Carry only a resolved plane forward. Ambiguity cannot create memory.
+        if segment_locked:
+            previous_locked_shift=int(segment_locked[-1]['plane_shift_semitones'])
+        previous_segment_end=float(seg[-1]['end_s'])
+
     resolved.sort(key=lambda e:(e['start_s'],e['end_s']))
     return {
-        'version':'MIE Competitive Plane Resolver reconstruction v0.4',
+        'version':'MIE Competitive Plane Resolver reconstruction v0.5',
         'historical_code_exact':False,
         'historical_architecture_recovered':True,
         'fixed_reference_singer_range_used':False,
