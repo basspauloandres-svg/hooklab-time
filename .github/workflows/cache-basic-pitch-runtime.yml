@@ -1,0 +1,29 @@
+name: Cache Basic Pitch Runtime
+
+on:
+  push:
+    paths:
+      - '.github/workflows/cache-basic-pitch-runtime.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cache-runtime:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Build Python 3.13 wheelhouse
+        run: |
+          mkdir -p wheelhouse
+          pip download 'onnxruntime' 'coloredlogs' 'flatbuffers' -d wheelhouse
+      - name: Upload runtime wheelhouse
+        uses: actions/upload-artifact@v4
+        with:
+          name: basic-pitch-runtime-py313
+          path: wheelhouse/
+          if-no-files-found: error
+          retention-days: 1
