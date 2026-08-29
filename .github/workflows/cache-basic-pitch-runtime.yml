@@ -19,7 +19,7 @@ jobs:
       - name: Build Python 3.13 wheelhouse
         run: |
           mkdir -p wheelhouse
-          pip download 'onnxruntime' 'coloredlogs' 'flatbuffers' -d wheelhouse
+          pip download 'onnxruntime' 'coloredlogs' 'flatbuffers' 'resampy' -d wheelhouse
       - name: Upload runtime wheelhouse
         uses: actions/upload-artifact@v4
         with:
