@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""MIE melody-only structural probe v0.3.
+"""MIE melody-only structural probe v0.4.
 
 Pipeline: Basic Pitch sensor -> structural reduction -> micro-ornament reduction
 -> competitive plane resolver. No H/T synthesis. Engineering probe only; no
@@ -42,6 +42,37 @@ def jump_metrics(events):
     return {'max_jump_semitones':max(jumps),'jumps_ge_10':sum(1 for j in jumps if j>=10)}
 
 
+def resolver_damage_metrics(pre_plane,post_plane):
+    """Measure large jumps created or materially worsened by plane resolution.
+
+    Comparison uses adjacent rendered output IDs and their original pre-plane
+    pitches. A post-plane large jump is 'introduced' when the corresponding
+    sensor/reducer interval was <10 semitones. 'Worsened' means the resolver
+    enlarged an interval by at least one octave. These are engineering safety
+    metrics, not claims that every large melodic interval is erroneous.
+    """
+    before={str(e['id']):int(e['midi']) for e in pre_plane}
+    introduced=[]; worsened=[]
+    for a,b in zip(post_plane[:-1],post_plane[1:]):
+        ia,ib=str(a['id']),str(b['id'])
+        if ia not in before or ib not in before:
+            continue
+        pre=abs(before[ib]-before[ia])
+        post=abs(int(b['midi'])-int(a['midi']))
+        row={'from_id':ia,'to_id':ib,'pre_plane_jump':pre,'post_plane_jump':post,
+             'from_output_midi':int(a['midi']),'to_output_midi':int(b['midi'])}
+        if post>=10 and pre<10:
+            introduced.append(row)
+        if post-pre>=12:
+            worsened.append(row)
+    return {
+        'resolver_introduced_large_jumps':len(introduced),
+        'resolver_worsened_by_octave_or_more':len(worsened),
+        'introduced_large_jump_events':introduced,
+        'worsened_jump_events':worsened,
+    }
+
+
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument('--vocal', required=True)
@@ -53,7 +84,8 @@ def main():
     raw,midi_path=basic_pitch_candidates(Path(args.vocal),out)
     reduction=reduce_candidates(raw)
     ornament=suppress_microornaments(reduction['render_events'])
-    plane=resolve_planes(ornament['render_events'],Path(args.vocal))
+    pre_plane=ornament['render_events']
+    plane=resolve_planes(pre_plane,Path(args.vocal))
     duration=args.duration
     if duration is None:
         duration=max((n['end_s'] for n in raw),default=0.0)
@@ -61,8 +93,9 @@ def main():
     render=plane['events']
     hypotheses=reduction['events']
     jm=jump_metrics(render)
+    damage=resolver_damage_metrics(pre_plane,render)
     report={
-        'version':'MIE melody structural probe v0.3',
+        'version':'MIE melody structural probe v0.4',
         'status':'ENGINEERING_PROBE_NOT_BASELINE',
         'sensor':'Basic Pitch',
         'reducer':reduction['version'],
@@ -74,7 +107,7 @@ def main():
         'hypothesis_count':len(hypotheses),
         'pre_ornament_render_count':reduction['render_count'],
         'microornament_suppressed_count':ornament['suppressed_count'],
-        'pre_plane_count':len(ornament['render_events']),
+        'pre_plane_count':len(pre_plane),
         'plane_ambiguous_count':plane['ambiguous_count'],
         'render_count':len(render),
         'structural_ambiguous_count':reduction['ambiguous_count'],
@@ -84,20 +117,22 @@ def main():
         'hypothesis_to_raw_ratio':len(hypotheses)/len(raw) if raw else 0.0,
         'max_jump_semitones':jm['max_jump_semitones'],
         'jumps_ge_10':jm['jumps_ge_10'],
+        **damage,
         'sensor_midi':str(midi_path),
         'reduction':reduction,
         'microornament_reduction':ornament,
         'plane_resolution':plane,
         'final_render_events':render,
-        'promotion_gate':'Do not audition. Compare density, ambiguity, jump stability, physical timing and generic-song stability first.',
+        'promotion_gate':'Do not audition. Resolver must not introduce unsupported octave-plane damage; then compare density, ambiguity, timing and generic-song stability.',
     }
-    path=out/'MIE_STRUCTURAL_PROBE_v0_3.json'
+    path=out/'MIE_STRUCTURAL_PROBE_v0_4.json'
     path.write_text(json.dumps(report,indent=2),encoding='utf-8')
     print(json.dumps({k:report[k] for k in [
         'raw_sensor_count','hypothesis_count','pre_ornament_render_count',
         'microornament_suppressed_count','pre_plane_count','plane_ambiguous_count',
         'render_count','structural_ambiguous_count','raw_density_events_per_s',
-        'render_density_events_per_s','render_to_raw_ratio','max_jump_semitones','jumps_ge_10'
+        'render_density_events_per_s','render_to_raw_ratio','max_jump_semitones','jumps_ge_10',
+        'resolver_introduced_large_jumps','resolver_worsened_by_octave_or_more'
     ]},indent=2))
 
 
