@@ -28,11 +28,12 @@ jobs:
           PY
       - name: Build ephemeral local execution bundle
         run: |
-          mkdir -p model_artifact/source
+          mkdir -p model_artifact/source model_artifact/wheels
           find "$HOME/.cache/torch/hub/checkpoints" -maxdepth 1 -type f -name '955717e8-8726e21a.th' -print -exec cp {} model_artifact/ \;
           test -f model_artifact/955717e8-8726e21a.th
           sha256sum model_artifact/955717e8-8726e21a.th | tee model_artifact/sha256.txt
           printf "models: ['955717e8']\n" > model_artifact/htdemucs.yaml
+          pip download --no-deps 'basic-pitch==0.4.0' -d model_artifact/wheels
           cp -R mie_core model_artifact/source/
           cp -R golden_pipeline model_artifact/source/
           cp app-mie-p30-harmony-beat-v0.1.html model_artifact/source/
