@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from structural_reduction import reduce_candidates
 from ornament_reduction import suppress_microornaments
+from plane_resolver import _segment_start_prior, DEFAULTS as PLANE_DEFAULTS
 
 
 def test_preserves_physical_timing_for_kept_events():
@@ -73,6 +74,30 @@ def test_microornament_small_return_contour_can_be_suppressed():
     assert [e["id"] for e in r["render_events"]]==["a","c"]
 
 
+def test_plane_prior_prefers_sensor_plane_without_context():
+    cfg=dict(PLANE_DEFAULTS)
+    zero,_=_segment_start_prior(0,None,999.0,cfg)
+    down,_=_segment_start_prior(-12,None,999.0,cfg)
+    up,_=_segment_start_prior(12,None,999.0,cfg)
+    assert zero > down and zero > up
+
+
+def test_cross_segment_memory_penalizes_opposite_plane():
+    cfg=dict(PLANE_DEFAULTS)
+    same,_=_segment_start_prior(0,0,1.2,cfg)
+    opposite,_=_segment_start_prior(12,0,1.2,cfg)
+    far_opposite,_=_segment_start_prior(-12,0,1.2,cfg)
+    assert same > opposite
+    assert same > far_opposite
+
+
+def test_cross_segment_memory_decays_with_gap():
+    cfg=dict(PLANE_DEFAULTS)
+    _,short_memory=_segment_start_prior(12,0,0.5,cfg)
+    _,long_memory=_segment_start_prior(12,0,8.0,cfg)
+    assert abs(short_memory) > abs(long_memory)
+
+
 if __name__=='__main__':
     test_preserves_physical_timing_for_kept_events()
     test_same_pitch_overlap_prefers_confidence()
@@ -81,4 +106,7 @@ if __name__=='__main__':
     test_octave_candidate_requires_context()
     test_microornament_requires_real_pitch_excursion()
     test_microornament_small_return_contour_can_be_suppressed()
+    test_plane_prior_prefers_sensor_plane_without_context()
+    test_cross_segment_memory_penalizes_opposite_plane()
+    test_cross_segment_memory_decays_with_gap()
     print('PASS structural reduction invariants')
