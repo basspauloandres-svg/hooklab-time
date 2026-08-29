@@ -6,9 +6,14 @@ pitch/voicing evidence and may add candidates only where the primary sensor does
 not already provide adequate same-pitch coverage. Added candidates must also
 pass a recording-relative vocal-energy floor derived from Basic Pitch events.
 
-This is an experimental fusion interface, not historical P30 code and not a
-final melody representation. All fused candidates still pass through Structural
-Reduction, Ornament Reduction and Plane Resolver before rendering.
+A secondary-only candidate is held when it forms an isolated large excursion
+between two nearby, mutually coherent primary events. This is a conservative
+uncertainty rule: secondary evidence may fill gaps, but cannot override a stable
+primary local contour without independent resolution downstream.
+
+This is experimental fusion, not historical P30 code and not a final melody
+representation. Fused candidates still pass through Structural Reduction,
+Ornament Reduction and Plane Resolver before rendering.
 """
 from pathlib import Path
 import numpy as np
@@ -26,6 +31,10 @@ DEFAULTS={
     'overlap_exception_voiced_prob_min':0.50,
     'primary_energy_percentile':5.0,
     'secondary_confidence_scale':0.85,
+    # Reuses the project's generic continuity concepts rather than singer range.
+    'local_primary_neighbor_max_gap_s':0.50,
+    'primary_neighbor_coherence_max_semitones':7,
+    'secondary_large_excursion_min_semitones':10,
 }
 
 
@@ -38,6 +47,14 @@ def _segment_rms(y,sr,a,b):
     if B<=A:
         return 0.0
     return float(np.sqrt(np.mean(np.asarray(y[A:B],dtype=np.float64)**2)))
+
+
+def _nearest_primary_neighbors(primary,a,b,max_gap):
+    before=[e for e in primary if float(e['end_s'])<=a and a-float(e['end_s'])<=max_gap]
+    after=[e for e in primary if float(e['start_s'])>=b and float(e['start_s'])-b<=max_gap]
+    prev=max(before,key=lambda e:float(e['end_s'])) if before else None
+    nxt=min(after,key=lambda e:float(e['start_s'])) if after else None
+    return prev,nxt
 
 
 def fuse_basic_pitch_with_pyin(primary_events,vocal_path,config=None):
@@ -104,6 +121,21 @@ def fuse_basic_pitch_with_pyin(primary_events,vocal_path,config=None):
             decisions.append({'run_index':k,'action':'HOLD','reason':'PRIMARY_OVERLAP_WITHOUT_STRONG_SECONDARY_EXCEPTION',
                               'midi':pitch,'any_primary_overlap':any_overlap})
             continue
+
+        prev,nxt=_nearest_primary_neighbors(primary,a,b,float(cfg['local_primary_neighbor_max_gap_s']))
+        if prev is not None and nxt is not None:
+            prev_m=int(prev['midi']); next_m=int(nxt['midi'])
+            coherent=abs(prev_m-next_m)<=int(cfg['primary_neighbor_coherence_max_semitones'])
+            large_prev=abs(pitch-prev_m)>=int(cfg['secondary_large_excursion_min_semitones'])
+            large_next=abs(pitch-next_m)>=int(cfg['secondary_large_excursion_min_semitones'])
+            if coherent and large_prev and large_next:
+                decisions.append({
+                    'run_index':k,'action':'HOLD','reason':'SECONDARY_ISOLATED_LARGE_EXCURSION_BETWEEN_COHERENT_PRIMARY_NEIGHBORS',
+                    'midi':pitch,'start_s':a,'end_s':b,'previous_primary_midi':prev_m,
+                    'next_primary_midi':next_m,'previous_gap_s':a-float(prev['end_s']),
+                    'next_gap_s':float(nxt['start_s'])-b,'voiced_prob':vprob,'frames':frames})
+                continue
+
         event={
             'id':f'py_{k:05d}','start_s':a,'end_s':b,'midi':pitch,
             'confidence':min(0.95,vprob*float(cfg['secondary_confidence_scale'])),
@@ -120,9 +152,9 @@ def fuse_basic_pitch_with_pyin(primary_events,vocal_path,config=None):
     combined=primary+additions
     combined.sort(key=lambda e:(float(e['start_s']),float(e['end_s']),-float(e.get('confidence',0.0))))
     return {
-        'version':'MIE Sensor Fusion BP+pYIN v0.1',
+        'version':'MIE Sensor Fusion BP+pYIN v0.2',
         'historical_code_exact':False,
-        'config_status':'EXPERIMENTAL_ENGINEERING_DIAGNOSTIC_REQUIRES_BLIND_VALIDATION',
+        'config_status':'EXPERIMENTAL_GENERIC_RECONSTRUCTION_REQUIRES_BLIND_VALIDATION',
         'config':cfg,
         'primary_count':len(primary),
         'secondary_stable_run_count':len(runs),
