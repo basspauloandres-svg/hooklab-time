@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""MIE Competitive Plane Resolver reconstruction v0.5.
+"""MIE Competitive Plane Resolver reconstruction v0.7.
 
 Generic reconstruction of the documented plane-resolver architecture:
 Viterbi over octave alternatives using acoustic harmonic salience, continuity,
@@ -9,12 +9,12 @@ This is NOT recovered historical code. The checkpoint documents the architecture
 and a 13/14 historical regression baseline, but not an exact executable.
 No fixed singer-specific MIDI range is used here.
 
-v0.5 fixes a structural defect found by blind validation: phrase segmentation
-previously restarted Viterbi with no memory of the preceding octave plane, which
-could create octave flips that were absent from the sensor evidence. Segment
-starts now use (1) a conservative prior toward the sensor plane (shift=0), and
-(2) decaying memory of the last resolved plane across gaps. These priors affect
-octave choice only; they do not force melodic intervals or quantize timing.
+v0.5 added cross-segment plane memory. v0.6 adds an evidence veto: Viterbi
+continuity may propose an octave correction, but a nonzero shift cannot be LOCKed
+when another local octave candidate has greater acoustic salience. In that case,
+the resolver falls back to the sensor plane (shift=0) only when that plane is
+locally dominant and sufficiently salient; otherwise the event is AMBIGUOUS.
+This prevents continuity from overriding contradictory acoustic evidence.
 """
 from pathlib import Path
 import math
@@ -40,6 +40,9 @@ DEFAULTS={
     'cross_segment_memory_weight':1.10,
     'cross_segment_memory_decay_s':2.0,
     'nonzero_singleton_margin_min':0.18,
+    'octave_excursion_alt_salience_min':0.60,
+    'octave_excursion_continuity_gain_min':12.0,
+    'octave_excursion_neighbor_max':7.0,
 }
 
 
@@ -133,13 +136,46 @@ def _lock_state(ac,local_margin,segment_length,shift,cfg):
     return 'LOCK'
 
 
+def _octave_excursion_override(states, path, i, cfg):
+    """Return an alternate state index for an isolated octave excursion, else None.
+
+    The rule is relative and generic: an octave-related alternative must retain
+    substantial local acoustic salience, reduce continuity cost by at least one
+    octave in aggregate, and land near both selected neighbors. It never uses
+    reference-song notes or a fixed singer range.
+    """
+    if i <= 0 or i >= len(path)-1:
+        return None
+    cur_idx=path[i]
+    cur_m,cur_sh,cur_ac,_=states[i][cur_idx]
+    prev_m=states[i-1][path[i-1]][0]
+    next_m=states[i+1][path[i+1]][0]
+    cur_cost=abs(cur_m-prev_m)+abs(next_m-cur_m)
+    best=None
+    for j,(m,sh,ac,raw) in enumerate(states[i]):
+        if j==cur_idx or abs(int(m)-int(cur_m))!=12:
+            continue
+        if float(ac) < float(cfg['octave_excursion_alt_salience_min']):
+            continue
+        alt_cost=abs(m-prev_m)+abs(next_m-m)
+        gain=cur_cost-alt_cost
+        if gain < float(cfg['octave_excursion_continuity_gain_min']):
+            continue
+        if max(abs(m-prev_m),abs(next_m-m)) > float(cfg['octave_excursion_neighbor_max']):
+            continue
+        key=(gain,float(ac),-alt_cost)
+        if best is None or key>best[0]:
+            best=(key,j)
+    return None if best is None else best[1]
+
+
 def resolve_planes(events,vocal_path,config=None):
     cfg=dict(DEFAULTS)
     if config:
         cfg.update(config)
     src=[dict(e) for e in events]
     if not src:
-        return {'version':'MIE Competitive Plane Resolver reconstruction v0.5','events':[],
+        return {'version':'MIE Competitive Plane Resolver reconstruction v0.7','events':[],
                 'decisions':[],'input_count':0,'output_count':0,'historical_code_exact':False}
     y,sr=librosa.load(Path(vocal_path),sr=22050,mono=True)
     salience_cache={}
@@ -197,14 +233,47 @@ def resolve_planes(events,vocal_path,config=None):
             j=back[i][j]; path.append(j)
         path=path[::-1]
 
+        # Generic v0.7 octave-excursion correction. This operates only on the
+        # competitive state set already observed acoustically; it cannot invent
+        # a pitch outside the sensor's octave-related hypotheses. Iterate once
+        # from left to right so corrections remain local and auditable.
+        excursion_overrides={}
+        for ii in range(1,len(path)-1):
+            alt_idx=_octave_excursion_override(states,path,ii,cfg)
+            if alt_idx is not None:
+                excursion_overrides[ii]=(path[ii],alt_idx)
+                path[ii]=alt_idx
+
         segment_locked=[]
         for i,(e,idx) in enumerate(zip(seg,path)):
             m,sh,ac,raw_ac=states[i][idx]
             margin=_selected_local_margin(states[i],idx)
+            evidence_veto=False
+            fallback_to_sensor=False
+            excursion_override=i in excursion_overrides
+            # A nonzero octave correction requires local acoustic support.
+            # If Viterbi selected a shifted plane that is locally weaker than a
+            # rival, continuity alone cannot authorize the correction. Prefer
+            # the sensor plane only when shift=0 is itself the local acoustic
+            # winner and satisfies the normal salience lock threshold.
+            if int(sh)!=0 and margin < 0.0:
+                evidence_veto=True
+                zero_idx=next((jj for jj,q in enumerate(states[i]) if int(q[1])==0),None)
+                if zero_idx is not None:
+                    zm,zsh,zac,zraw=states[i][zero_idx]
+                    zmargin=_selected_local_margin(states[i],zero_idx)
+                    if zmargin >= 0.0 and zac >= cfg['lock_salience_min']:
+                        m,sh,ac,raw_ac,margin=zm,zsh,zac,zraw,zmargin
+                        fallback_to_sensor=True
             ne=dict(e); ne['midi_input']=int(e['midi']); ne['midi']=int(m)
             ne['plane_shift_semitones']=int(sh); ne['plane_acoustic_salience_norm']=float(ac)
             ne['plane_acoustic_margin_norm']=float(margin)
+            ne['plane_evidence_veto']=bool(evidence_veto)
+            ne['plane_fallback_to_sensor']=bool(fallback_to_sensor)
+            ne['plane_octave_excursion_override']=bool(excursion_override)
             ne['state']=_lock_state(ac,margin,len(seg),sh,cfg)
+            if evidence_veto and not fallback_to_sensor:
+                ne['state']='AMBIGUOUS'
             if ne['state']=='LOCK':
                 resolved.append(ne); segment_locked.append(ne)
             start_prior,start_memory=start_priors[idx] if i==0 else (0.0,0.0)
@@ -226,6 +295,9 @@ def resolve_planes(events,vocal_path,config=None):
                     'candidate_count':len(states[i]),
                     'segment_start_prior_score':float(start_prior),
                     'cross_segment_memory_score':float(start_memory),
+                    'evidence_veto_nonzero_shift':bool(evidence_veto),
+                    'fallback_to_sensor_plane':bool(fallback_to_sensor),
+                    'octave_excursion_override':bool(excursion_override),
                 }
             })
 
@@ -236,7 +308,7 @@ def resolve_planes(events,vocal_path,config=None):
 
     resolved.sort(key=lambda e:(e['start_s'],e['end_s']))
     return {
-        'version':'MIE Competitive Plane Resolver reconstruction v0.5',
+        'version':'MIE Competitive Plane Resolver reconstruction v0.7',
         'historical_code_exact':False,
         'historical_architecture_recovered':True,
         'fixed_reference_singer_range_used':False,
