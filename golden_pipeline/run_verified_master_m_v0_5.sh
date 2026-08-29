@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Controlled M-only substitution preparation from the verified full master.
+# Controlled M-only preparation from the verified full master.
 # H and T are never recomputed by this script.
 
 if [[ $# -ne 2 ]]; then
@@ -29,7 +29,11 @@ if [[ "$WINDOW_SHA" != "$EXPECTED_WINDOW_SHA" ]]; then
   exit 4
 fi
 
-python -m demucs -n htdemucs --two-stems=vocals -o "$OUT/stems" "$OUT/input/golden_source_window.wav"
+DEMUCS_ARGS=(-n htdemucs --two-stems=vocals -o "$OUT/stems")
+if [[ -n "${DEMUCS_REPO:-}" ]]; then
+  DEMUCS_ARGS+=(--repo "$DEMUCS_REPO")
+fi
+TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=1 python -m demucs "${DEMUCS_ARGS[@]}" "$OUT/input/golden_source_window.wav"
 VOCALS=$(find "$OUT/stems" -type f -name vocals.wav -print -quit)
 if [[ -z "$VOCALS" ]]; then
   echo "REFUSED: HTDemucs vocals stem not found" >&2
@@ -37,9 +41,9 @@ if [[ -z "$VOCALS" ]]; then
 fi
 
 python mie_core/run_structural_probe.py \
-  --vocals "$VOCALS" \
+  --vocal "$VOCALS" \
   --output "$OUT/probe"
 
 python mie_core/evaluate_m_gate.py "$OUT/probe/MIE_STRUCTURAL_PROBE_v0_4.json"
 
-echo "M v0.5 source-window probe completed. H/T remain frozen; no audible substitution rendered."
+echo "Verified source-window M probe completed. H/T remain frozen; no audible substitution rendered."
