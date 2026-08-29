@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Evaluate M structural candidates without conflating musical leaps with errors.
 
-Input: one or more MIE_STRUCTURAL_PROBE_v0_3/v0_4 JSON reports.
-Output: compact gate report. This gate does not judge perceptual quality and does
-not promote a baseline by itself.
+Input: one or more MIE_STRUCTURAL_PROBE_v0_4 JSON reports.
+Output: compact pre-audition gate report. The gate rejects octave-plane damage
+introduced by the resolver, while genuine large sensor-supported melodic leaps
+remain REVIEW rather than automatic failures. It does not promote a baseline.
 """
 import argparse, json
 from pathlib import Path
@@ -26,7 +27,8 @@ def summarize(path):
                 'from_margin':a.get('plane_acoustic_margin_norm'),
                 'to_margin':b.get('plane_acoustic_margin_norm'),
             })
-    # Large leaps are REVIEW, not automatic failures, when both events are LOCK.
+    introduced=int(d.get('resolver_introduced_large_jumps',0) or 0)
+    worsened=int(d.get('resolver_worsened_by_octave_or_more',0) or 0)
     return {
         'file':str(path),
         'probe_version':d.get('version'),
@@ -36,6 +38,8 @@ def summarize(path):
         'render_to_raw_ratio':d.get('render_to_raw_ratio'),
         'ambiguous_count':len(ambiguous),
         'ambiguous_ratio_vs_plane_input':len(ambiguous)/max(1,int(pr.get('input_count',0))),
+        'resolver_introduced_large_jumps':introduced,
+        'resolver_worsened_by_octave_or_more':worsened,
         'large_locked_leaps':large,
         'large_locked_leap_count':len(large),
         'max_locked_leap_semitones':max([x['jump_semitones'] for x in large],default=0),
@@ -47,16 +51,24 @@ def main():
     ap.add_argument('reports',nargs='+')
     args=ap.parse_args()
     rows=[summarize(p) for p in args.reports]
-    # Structural readiness is intentionally conservative. A large LOCKed leap is
-    # flagged for evidence review rather than suppressed. Ambiguity is allowed.
+    damage=any(r['resolver_introduced_large_jumps']>0 or r['resolver_worsened_by_octave_or_more']>0 for r in rows)
+    review=any(r['large_locked_leap_count']>0 for r in rows)
+    if damage:
+        status='FAIL_RESOLVER_DAMAGE'
+    elif review:
+        status='REVIEW_GENUINE_LARGE_INTERVALS'
+    else:
+        status='STRUCTURALLY_CLEAN'
     out={
         'gate':'M STRUCTURAL PRE-AUDITION GATE',
-        'status':'REVIEW_REQUIRED' if any(r['large_locked_leap_count'] for r in rows) else 'STRUCTURALLY_CLEAN',
+        'status':status,
         'baseline_promoted':False,
         'rules':[
             'AMBIGUOUS regions must not be rendered.',
-            'Large melodic leaps are not errors by definition.',
-            'Any LOCKed leap >=10 semitones requires acoustic/context evidence review.',
+            'Resolver-created large jumps are a structural failure.',
+            'A resolver enlargement of an interval by >=12 semitones is a structural failure.',
+            'Large melodic leaps already present in pre-plane evidence are not errors by definition.',
+            'Any surviving LOCKed leap >=10 semitones requires evidence review.',
             'No parameter may be changed from one song alone.',
             'Auditory promotion still requires the golden perceptual gate.'
         ],
