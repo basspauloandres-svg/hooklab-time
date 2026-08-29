@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
-"""MIE Structural Reduction v0.2.
+"""MIE Structural Reduction v0.3.
 
 Conservative interface between melody sensors and the final structural melody.
 This module does not claim to reproduce historical STAB-004 -> P30 code.
 Every decision is returned as provenance. Experimental thresholds are explicit.
 Ambiguous hypotheses are preserved for reasoning but excluded from render_events.
+
+v0.3 enforces a strict evidence boundary: continuity may nominate an octave-plane
+alternative, but Structural Reduction never overwrites the MIDI observed by the
+sensor. Plane Resolver is the only module allowed to choose an octave plane.
 """
 from dataclasses import dataclass, asdict
 from typing import List, Dict, Any, Optional, Set
@@ -120,9 +124,11 @@ def reduce_candidates(raw: List[Dict[str, Any]], config=None):
 
     kept.sort(key=lambda x:(x.start_s,x.end_s,-x.confidence))
 
-    # 3. Octave-plane alternatives. Preserve timing; pitch change remains PROVISIONAL.
+    # 3. Octave-plane alternatives. Preserve timing and the observed pitch.
+    # Continuity can nominate an alternative, but only Plane Resolver may select it.
     out=[]
     provisional_ids: Set[str]=set()
+    provisional_alternatives={}
     for i,c in enumerate(kept):
         prev=kept[i-1] if i else None
         nxt=kept[i+1] if i+1<len(kept) else None
@@ -135,15 +141,19 @@ def reduce_candidates(raw: List[Dict[str, Any]], config=None):
         best=min(alternatives,key=lambda x:x[1]) if alternatives else None
         jump_context=((prev and abs(c.midi-prev.midi)>=cfg["octave_jump_min_semitones"]) or
                       (nxt and abs(nxt.midi-c.midi)>=cfg["octave_jump_min_semitones"]))
+        out.append(c)
         if best and jump_context and best[1]+cfg["octave_tolerance_semitones"] < base:
-            nc=Candidate(c.id,c.start_s,c.end_s,best[0],c.confidence,c.sensor)
-            out.append(nc)
             provisional_ids.add(c.id)
+            provisional_alternatives[c.id]={
+                "observed_midi":int(c.midi),
+                "candidate_midi":int(best[0]),
+                "base_cost":float(base),
+                "alternative_cost":float(best[1]),
+            }
             decisions.append(Decision(c.id,"OCTAVE_ALTERNATIVE","CONTINUITY_FAVOURS_OCTAVE_PLANE","PROVISIONAL",
-                                      {"input_midi":c.midi,"output_midi":best[0],
-                                       "base_cost":base,"alternative_cost":best[1]}))
-        else:
-            out.append(c)
+                                      {"input_midi":c.midi,"candidate_midi":best[0],
+                                       "base_cost":base,"alternative_cost":best[1],
+                                       "observation_preserved":True}))
 
     # All hypotheses are retained for audit. Only non-ambiguous candidates may reach synthesis.
     hypothesis_events=[]
@@ -154,6 +164,7 @@ def reduce_candidates(raw: List[Dict[str, Any]], config=None):
             d["state"]="AMBIGUOUS"
         elif x.id in provisional_ids:
             d["state"]="PROVISIONAL"
+            d["octave_hypothesis"]=dict(provisional_alternatives[x.id])
             render_events.append(dict(d))
         else:
             d["state"]="LOCK"
@@ -161,7 +172,7 @@ def reduce_candidates(raw: List[Dict[str, Any]], config=None):
         hypothesis_events.append(d)
 
     return {
-        "version":"MIE Structural Reduction v0.2",
+        "version":"MIE Structural Reduction v0.3",
         "historical_code_exact":False,
         "config_status":"EXPERIMENTAL_NOT_TUNED_TO_REFERENCE_SONG",
         "config":cfg,
