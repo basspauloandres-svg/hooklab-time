@@ -1,1 +1,1 @@
-Trigger 003 — FULL M/T regression, Python 3.10 compatibility correction, Beat This checksum-verified. No per-song tuning.
+Trigger 004 — isolated TMT Full Track Sensor Regression after Python 3.10 runtime correction. Analyzer v1 acoustic gate; no per-song tuning.
