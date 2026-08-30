@@ -1,0 +1,19 @@
+{
+  "schema":"HOOKLAB_PROTOTYPE_PARALLEL_PLAN_v1.0",
+  "objective":"Minimize wall-clock time to first data-conditioned audible prototype.",
+  "tracks":{
+    "A_EVIDENCE_EXPANSION":{"target":20,"action":"Expand free-evidence massive-hit cohort using public YouTube plus independent chart/certification/streaming evidence."},
+    "B_ANALYZER":{"action":"Immediately process every eligible prototype song with globally frozen Analyzer parameters; do not wait for target N."},
+    "C_MATRIX":{"action":"Rebuild provisional Matrix X after each new strict-pass fingerprint and monitor usable feature coverage."},
+    "D_GENERATION":{"trigger":"First genre/style cohort with >=3 strict-pass songs and usable TMT feature coverage","action":"Build provisional cached cohort, compile descriptive constraints, generate three controlled variants, render essential audio and record TTFP."}
+  },
+  "rules":[
+    "Prototype evidence remains separate from final scientific Sample 1.",
+    "No per-song Analyzer tuning.",
+    "N=20 is an engineering prototype target, not an inferential adequacy claim.",
+    "Generation may start before N=20 when a minimally populated coherent cohort exists.",
+    "Every generated constraint must trace to observed cohort fields.",
+    "Online generation performs zero corpus search and zero corpus reanalysis."
+  ],
+  "success_event":"FIRST_DATA_CONDITIONED_AUDIO_WITH_TRACE_AND_TTFP"
+}
