@@ -1,1 +1,1 @@
-Trigger 001 — real public-domain FULL TMT end-to-end test. No threshold tuning before evidence review.
+Trigger 002 — real public-domain FULL TMT end-to-end test with singing-aware ASR fallback. No threshold tuning.
