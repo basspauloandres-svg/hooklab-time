@@ -39,7 +39,7 @@ def test_short_event_is_not_rendered():
     assert any(d["candidate_id"]=="x" and d["reason"]=="SHORT_EVENT_CANDIDATE" for d in r["decisions"])
 
 
-def test_octave_candidate_requires_context():
+def test_octave_candidate_requires_context_and_preserves_observation():
     raw=[
       {"id":"a","start_s":0.0,"end_s":.3,"midi":60,"confidence":.8},
       {"id":"b","start_s":.4,"end_s":.7,"midi":72,"confidence":.8},
@@ -47,9 +47,18 @@ def test_octave_candidate_requires_context():
     ]
     r=reduce_candidates(raw)
     b=[e for e in r["render_events"] if e["id"]=="b"][0]
-    assert b["midi"]==60
+    # Structural Reduction v0.3 must preserve the sensor observation.
+    assert b["midi"]==72
     assert b["state"]=="PROVISIONAL"
-    assert any(d["candidate_id"]=="b" and d["action"]=="OCTAVE_ALTERNATIVE" for d in r["decisions"])
+    assert b["octave_hypothesis"]["observed_midi"]==72
+    assert b["octave_hypothesis"]["candidate_midi"]==60
+    assert any(
+        d["candidate_id"]=="b"
+        and d["action"]=="OCTAVE_ALTERNATIVE"
+        and d["evidence"].get("observation_preserved") is True
+        and d["evidence"].get("candidate_midi")==60
+        for d in r["decisions"]
+    )
 
 
 def test_microornament_requires_real_pitch_excursion():
@@ -103,7 +112,7 @@ if __name__=='__main__':
     test_same_pitch_overlap_prefers_confidence()
     test_near_tie_different_pitch_is_preserved_but_not_rendered()
     test_short_event_is_not_rendered()
-    test_octave_candidate_requires_context()
+    test_octave_candidate_requires_context_and_preserves_observation()
     test_microornament_requires_real_pitch_excursion()
     test_microornament_small_return_contour_can_be_suppressed()
     test_plane_prior_prefers_sensor_plane_without_context()
