@@ -1,1 +1,1 @@
-Trigger 001 — frozen TMT pipeline generalization test. No per-song tuning.
+Trigger 002 — FULL autonomous M/T regression with checksum-verified Beat This. No per-song tuning.
