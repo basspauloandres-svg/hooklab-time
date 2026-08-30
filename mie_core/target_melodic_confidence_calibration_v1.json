@@ -1,0 +1,37 @@
+{
+  "schema": "HOOKLAB_TARGET_MELODIC_CONFIDENCE_CALIBRATION_v1.0",
+  "source_run_id": 33338073215,
+  "source_commit": "62fb6edbca3e37409fa1bf21369f8b8d12738491",
+  "source_scope": "11 exact-MD5 LMD-full massive-hit target candidates",
+  "rows": 11,
+  "thresholds": {"high": 0.78, "low": 0.58},
+  "counts": {
+    "AUTO_HIGH_CONFIDENCE": 7,
+    "HUMAN_AUDIT": 2,
+    "REJECT_OR_REANALYZE": 2
+  },
+  "auto_high_confidence_rate": 0.636364,
+  "human_audit_rate": 0.181818,
+  "reject_or_reanalyze_rate": 0.181818,
+  "dance_pop_target_cohort": {
+    "accepted_candidate_n": 5,
+    "auto_high_confidence_n": 5,
+    "auto_high_confidence_rate": 1.0,
+    "titles": ["Poker Face", "Bad Romance", "Tik Tok", "Firework", "Dynamite"]
+  },
+  "observed_rows": [
+    {"title":"Poker Face","artist":"Lady Gaga","score":0.9833,"decision":"AUTO_HIGH_CONFIDENCE"},
+    {"title":"Viva La Vida","artist":"Coldplay","score":0.3127,"decision":"REJECT_OR_REANALYZE"},
+    {"title":"I Gotta Feeling","artist":"The Black Eyed Peas","score":0.9842,"decision":"AUTO_HIGH_CONFIDENCE"},
+    {"title":"Bad Romance","artist":"Lady Gaga","score":0.9983,"decision":"AUTO_HIGH_CONFIDENCE"},
+    {"title":"Tik Tok","artist":"Kesha","score":0.9991,"decision":"AUTO_HIGH_CONFIDENCE"},
+    {"title":"Firework","artist":"Katy Perry","score":0.9943,"decision":"AUTO_HIGH_CONFIDENCE"},
+    {"title":"Rolling in the Deep","artist":"Adele","score":0.9940,"decision":"AUTO_HIGH_CONFIDENCE"},
+    {"title":"Just the Way You Are","artist":"Bruno Mars","score":0.6820,"decision":"HUMAN_AUDIT"},
+    {"title":"Dynamite","artist":"Taio Cruz","score":0.9994,"decision":"AUTO_HIGH_CONFIDENCE"},
+    {"title":"Party Rock Anthem","artist":"LMFAO","score":0.6264,"decision":"HUMAN_AUDIT"},
+    {"title":"Someone Like You","artist":"Adele","score":0.4444,"decision":"REJECT_OR_REANALYZE"}
+  ],
+  "interpretation_boundary": "This is the first empirical calibration checkpoint for engineering triage. It does not independently prove that AUTO_HIGH_CONFIDENCE tracks are the lead vocal melody and it is not sufficient to freeze universal thresholds.",
+  "next_gate": "Independent vocal-identity validation on a labeled reference sample before scientific promotion."
+}
