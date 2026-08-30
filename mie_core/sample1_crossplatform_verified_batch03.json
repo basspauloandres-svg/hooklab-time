@@ -1,0 +1,53 @@
+{
+  "schema": "SAMPLE1_CROSSPLATFORM_VERIFIED_BATCH_v1.0",
+  "batch_id": "BATCH03",
+  "policy": "LAST_20_YEARS_EXACT_RELEASE_DATE_AND_EXPLICIT_CROSS_PLATFORM_SONG_MATCH",
+  "songs": [
+    {
+      "song_id": "FEATHER_2023",
+      "title": "Feather",
+      "artist": "Sabrina Carpenter",
+      "release_date": "2023-10-31",
+      "official_release": true,
+      "youtube_video_id": "kLbn61Z4LDI",
+      "youtube_views": 175056126,
+      "social_evidence": [
+        {
+          "platform": "TikTok",
+          "source_handle": "owenlutkus_",
+          "content_id": "7670703818375580941",
+          "views": 54900000,
+          "song_match_verified": true,
+          "match_basis": "vidIQ explicitly identifies the music_track as Feather by Sabrina Carpenter"
+        }
+      ],
+      "genre": "pop",
+      "style": "dance_pop",
+      "sample_status": "CROSS_PLATFORM_GATE_PASS_PENDING_ANALYZER"
+    },
+    {
+      "song_id": "MY_LOVE_MINE_ALL_MINE_2023",
+      "title": "My Love Mine All Mine",
+      "artist": "Mitski",
+      "release_date": "2023-09-15",
+      "official_release": true,
+      "youtube_video_id": "Qy9LTRu89FA",
+      "youtube_views": 191081459,
+      "youtube_basis": "Official label-distributed YouTube Topic release; ℗ 2023 Dead Oceans",
+      "social_evidence": [
+        {
+          "platform": "TikTok",
+          "source_handle": "netflix",
+          "content_id": "7671322545227959565",
+          "views": 94400000,
+          "song_match_verified": true,
+          "match_basis": "vidIQ explicitly identifies the music_track as My Love Mine All Mine by Mitski"
+        }
+      ],
+      "genre": "indie_pop",
+      "style": "orchestral_indie_ballad",
+      "sample_status": "CROSS_PLATFORM_GATE_PASS_PENDING_ANALYZER"
+    }
+  ],
+  "audit_note": "Search results for Shape of You, DAKITI and La Bachata were reviewed but not promoted because returned >=50M social items did not explicitly identify the requested song audio."
+}
