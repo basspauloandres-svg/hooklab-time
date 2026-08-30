@@ -1,1 +1,1 @@
-Trigger 002 — real public-domain FULL TMT end-to-end test with singing-aware ASR fallback. No threshold tuning.
+Trigger 003 — real public-domain FULL TMT end-to-end test with performed-document resolution. Source document preserved; no threshold tuning.
