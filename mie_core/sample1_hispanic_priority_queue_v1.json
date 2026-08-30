@@ -1,0 +1,37 @@
+{
+  "schema": "SAMPLE1_HISPANIC_PRIORITY_QUEUE_v1.0",
+  "purpose": "Increase cultural and market diversity of Sample 1 while preserving the same massive-hit eligibility gates.",
+  "status": "CANDIDATES_ONLY_REQUIRES_FULL_CROSS_PLATFORM_AUDIT",
+  "selection_gates": {
+    "release_window": "exact release date within rolling 20 years",
+    "official_release": true,
+    "youtube_min_views": 100000000,
+    "social_min_views": 50000000,
+    "social_song_identity": "explicit music_track/song match required"
+  },
+  "priority": [
+    {"title":"Despacito","artist":"Luis Fonsi ft. Daddy Yankee","market":"global_latin","priority":"P0"},
+    {"title":"Bailando","artist":"Enrique Iglesias ft. Descemer Bueno & Gente de Zona","market":"global_latin","priority":"P0"},
+    {"title":"Mi Gente","artist":"J Balvin & Willy William","market":"global_latin","priority":"P0"},
+    {"title":"Taki Taki","artist":"DJ Snake ft. Selena Gomez, Ozuna & Cardi B","market":"global_latin_crossover","priority":"P0"},
+    {"title":"Con Calma","artist":"Daddy Yankee ft. Snow","market":"global_latin","priority":"P0"},
+    {"title":"China","artist":"Anuel AA, Daddy Yankee, Karol G, Ozuna & J Balvin","market":"latin_urban","priority":"P0"},
+    {"title":"Hawái","artist":"Maluma","market":"latin_pop_urban","priority":"P0"},
+    {"title":"Tusa","artist":"KAROL G & Nicki Minaj","market":"global_latin_crossover","priority":"P0"},
+    {"title":"TQG","artist":"KAROL G & Shakira","market":"global_latin","priority":"P0"},
+    {"title":"Provenza","artist":"KAROL G","market":"latin_urban_pop","priority":"P0"},
+    {"title":"Me Porto Bonito","artist":"Bad Bunny ft. Chencho Corleone","market":"latin_urban","priority":"P0"},
+    {"title":"Tití Me Preguntó","artist":"Bad Bunny","market":"latin_urban","priority":"P0"},
+    {"title":"DÁKITI","artist":"Bad Bunny & Jhay Cortez","market":"latin_urban","priority":"P0_REAUDIT_SOCIAL"},
+    {"title":"La Bachata","artist":"Manuel Turizo","market":"global_latin_bachata","priority":"P0_REAUDIT_SOCIAL"},
+    {"title":"LALA","artist":"Myke Towers","market":"latin_urban","priority":"P1"},
+    {"title":"Felices los 4","artist":"Maluma","market":"latin_pop_urban","priority":"P1"},
+    {"title":"Vaina Loca","artist":"Ozuna & Manuel Turizo","market":"latin_urban","priority":"P1"},
+    {"title":"El Farsante (Remix)","artist":"Ozuna & Romeo Santos","market":"latin_urban_bachata","priority":"P1"},
+    {"title":"Downtown","artist":"Anitta & J Balvin","market":"latin_urban_crossover","priority":"P1"},
+    {"title":"BELLAKEO","artist":"Peso Pluma & Anitta","market":"latin_urban_crossover","priority":"P1"},
+    {"title":"Qué Pretendes","artist":"J Balvin & Bad Bunny","market":"latin_urban","priority":"P1"},
+    {"title":"Que Tire Pa' Lante","artist":"Daddy Yankee","market":"latin_urban","priority":"P1"}
+  ],
+  "methodological_note": "Language/market is a diversification stratum, never a success predictor or a relaxed eligibility criterion. Candidates are not promoted to Sample 1 until every global gate is independently satisfied."
+}
