@@ -6,10 +6,11 @@ Scientific promotion requires every row used in a target cohort to pass:
 - high-confidence identity/version
 - genre/style cohort assignment
 - YouTube + Spotify reach floors
-- social-network reach evidence
 - melodic-reference validation
 
-Missing evidence is represented as PENDING/FAIL and can never be silently coerced to PASS.
+Social-network propagation is intentionally outside this HookLab completion criterion
+and is reserved for a future release-analytics development. Missing required evidence
+is represented as PENDING/FAIL and can never be silently coerced to PASS.
 """
 import argparse,csv,json
 from pathlib import Path
@@ -26,11 +27,10 @@ def main():
    'youtube':truth(r.get('youtube_reach_gate')),
    'spotify':truth(r.get('spotify_reach_gate')),
    'crossplatform_streaming':truth(r.get('crossplatform_streaming_gate')),
-   'social_network':truth(r.get('social_network_reach_gate')),
    'melodic_reference':truth(r.get('melodic_reference_gate')),
   }
-  evaluated.append({'title':r.get('title'),'artist':r.get('artist'),'cohort_key':r.get('cohort_key'),'gates':gates,'scientific_pass':all(gates.values())})
+  evaluated.append({'title':r.get('title'),'artist':r.get('artist'),'cohort_key':r.get('cohort_key'),'gates':gates,'social_network_scope':'DEFERRED_TO_FUTURE_RELEASE_ANALYTICS_MODULE','scientific_pass':all(gates.values())})
  passing=[x for x in evaluated if x['scientific_pass']];cohorts={x['cohort_key'] for x in passing};ready=len(passing)>=a.min_n and len(cohorts)==1
- out={'schema':'HOOKLAB_TARGET_SCIENTIFIC_PROMOTION_GATE_v1.0','status':'SCIENTIFIC_COHORT_READY' if ready else 'SCIENTIFIC_PROMOTION_BLOCKED','min_n':a.min_n,'scientific_pass_n':len(passing),'evaluated_n':len(evaluated),'cohorts':sorted(cohorts),'rows':evaluated,'hard_rule':'PENDING_OR_MISSING_EVIDENCE_IS_NOT_PASS','scientific_promotion':ready}
+ out={'schema':'HOOKLAB_TARGET_SCIENTIFIC_PROMOTION_GATE_v1.1','status':'SCIENTIFIC_COHORT_READY' if ready else 'SCIENTIFIC_PROMOTION_BLOCKED','min_n':a.min_n,'scientific_pass_n':len(passing),'evaluated_n':len(evaluated),'cohorts':sorted(cohorts),'rows':evaluated,'social_network_scope':'DEFERRED_TO_FUTURE_RELEASE_ANALYTICS_MODULE','hard_rule':'PENDING_OR_MISSING_REQUIRED_EVIDENCE_IS_NOT_PASS','scientific_promotion':ready}
  Path(a.output).write_text(json.dumps(out,indent=2,ensure_ascii=False));print(json.dumps({'status':out['status'],'scientific_pass_n':len(passing),'evaluated_n':len(evaluated)}));raise SystemExit(0 if ready else 4)
 if __name__=='__main__':main()
