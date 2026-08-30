@@ -1,0 +1,37 @@
+name: TMT Full Track Sensor Regression
+on:
+  push:
+    branches: [mie/golden-forensic-v0.3]
+    paths: ['mie_core/fulltrack-sensor-trigger.txt']
+  workflow_dispatch:
+    inputs:
+      audio_url: {description: 'Authorized FULL stream URL', required: true, type: string}
+      song_id: {description: 'Song identifier', required: true, type: string}
+      source_license: {description: 'Source/license provenance', required: true, type: string}
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y ffmpeg
+      - run: pip install -r mie_core/requirements.txt
+      - name: Resolve parameters
+        id: p
+        shell: bash
+        run: |
+          if [ '${{ github.event_name }}' = 'workflow_dispatch' ]; then
+            echo 'url=${{ inputs.audio_url }}' >> "$GITHUB_OUTPUT"
+            echo 'song=${{ inputs.song_id }}' >> "$GITHUB_OUTPUT"
+            echo 'license=${{ inputs.source_license }}' >> "$GITHUB_OUTPUT"
+          else
+            echo 'url=https://prod-1.storage.jamendo.com/?trackid=1890765&format=mp31&from=app-devsite' >> "$GITHUB_OUTPUT"
+            echo 'song=JAMENDO_1890765_FULL_REGRESSION' >> "$GITHUB_OUTPUT"
+            echo 'license=Jamendo documented full-track stream regression source' >> "$GITHUB_OUTPUT"
+          fi
+      - name: Run FULL M/T regression in ephemeral storage
+        run: python mie_core/run_fulltrack_sensor_regression.py --url '${{ steps.p.outputs.url }}' --song-id '${{ steps.p.outputs.song }}' --source-license '${{ steps.p.outputs.license }}' --output fulltrack_regression
+      - name: Verify derived-data-only artifact
+        run: |
+          if find fulltrack_regression -type f \( -name '*.wav' -o -name '*.mp3' -o -name '*.m4a' -o -name '*.aac' -o -name '*.flac' \) | grep -q .; then exit 1; fi
+      - uses: actions/upload-artifact@v4
+        with: {name: tmt-fulltrack-sensor-regression, path: fulltrack_regression/*.json}
