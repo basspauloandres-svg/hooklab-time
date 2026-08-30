@@ -24,10 +24,7 @@ def transition(a,b,k):
 def directional_drift(snaps,k):
  rule=FEATURES[k];med=[s['summary'][k]['median'] for s in snaps if k in s['summary']]
  if len(med)<3:return False,0
- dif=[b-a for a,b in zip(med,med[1:])];nz=[d for d in dif if abs(d)>1e-12]
- same=bool(nz) and (all(d>0 for d in nz) or all(d<0 for d in nz))
- cumulative=delta(med[0],med[-1],rule)
- # Persistent one-direction movement larger than 1.5x the local tolerance is evidence that the reference is still moving.
+ dif=[b-a for a,b in zip(med,med[1:])];nz=[d for d in dif if abs(d)>1e-12];same=bool(nz) and (all(d>0 for d in nz) or all(d<0 for d in nz));cumulative=delta(med[0],med[-1],rule)
  return same and cumulative>1.5*tol(rule),cumulative
 def main():
  ap=argparse.ArgumentParser();ap.add_argument('--matrix',required=True);ap.add_argument('--checkpoints',default='30,50,75,100,125');ap.add_argument('--consecutive',type=int,default=2);ap.add_argument('--output',required=True);a=ap.parse_args()
@@ -46,6 +43,7 @@ def main():
   if all(k in s['summary'] for s in snaps):
    d,c=directional_drift(snaps,k);drift[k]={'persistent_directional_drift':d,'cumulative_change':c};any_drift=any_drift or d
  status='STABLE_REFERENCE_READY' if len(rows)>=50 and tail>=a.consecutive and not any_drift else 'MORE_ROBUST_DATA_REQUIRED'
- out={'schema':'HOOKLAB_COHORT_STABILITY_GATE_v1.1','status':status,'rows':len(rows),'checkpoints_evaluated':cps,'required_consecutive_stable_transitions':a.consecutive,'stable_tail_transitions':tail,'persistent_drift_detected':any_drift,'drift_audit':drift,'feature_rules':FEATURES,'transitions':trs,'rule':'Freeze only with sufficient N, consecutive local stability, and absence of persistent directional drift.'}
+ rule='N alone does not establish representativeness; freeze only with sufficient N, consecutive local stability, and absence of persistent directional drift.'
+ out={'schema':'HOOKLAB_COHORT_STABILITY_GATE_v1.1.1','status':status,'rows':len(rows),'checkpoints_evaluated':cps,'required_consecutive_stable_transitions':a.consecutive,'stable_tail_transitions':tail,'persistent_drift_detected':any_drift,'drift_audit':drift,'feature_rules':FEATURES,'transitions':trs,'rule':rule}
  Path(a.output).write_text(json.dumps(out,indent=2));print(json.dumps({'status':status,'rows':len(rows),'stable_tail':tail,'drift':any_drift}));raise SystemExit(0 if status=='STABLE_REFERENCE_READY' else 4)
 if __name__=='__main__':main()
