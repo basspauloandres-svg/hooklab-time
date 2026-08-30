@@ -1,0 +1,6 @@
+{
+  "song_id": "JAMENDO_DOC_SAMPLE_1848357",
+  "source_url": "https://prod-1.storage.jamendo.com/?trackid=1848357&format=mp31&from=app-devsite",
+  "license": "CC BY-NC-ND 3.0 as reported in Jamendo API documentation sample; full-stream URL is the documented 'audio' field.",
+  "purpose": "Infrastructure-only full-track acquisition regression. Not part of the commercial-hit corpus."
+}
