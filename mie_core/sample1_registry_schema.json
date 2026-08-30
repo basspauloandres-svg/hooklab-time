@@ -1,0 +1,47 @@
+{
+  "schema": "SAMPLE1_REGISTRY_v1.0",
+  "parameter_policy": "GLOBAL_FROZEN",
+  "target_policy": {
+    "engineering_checkpoints": [30, 60, 100],
+    "hard_maximum": null,
+    "minimum_genres": 5,
+    "minimum_styles": 10,
+    "minimum_strict_pass_per_primary_cohort": 10
+  },
+  "candidate_template": {
+    "song_id": "",
+    "title": "",
+    "artist": "",
+    "year": null,
+    "genre": "",
+    "style": "",
+    "language": "",
+    "market": "",
+    "audio": {
+      "source_id": "",
+      "source_type": "PUBLIC_DOMAIN|LICENSED_API|USER_AUTHORIZED_CORPUS|RESEARCH_CORPUS",
+      "locator": "",
+      "license_or_basis": ""
+    },
+    "text": {
+      "source_id": "",
+      "source_type": "PUBLIC_DOMAIN|LICENSED_API|USER_AUTHORIZED_CORPUS|RESEARCH_CORPUS",
+      "locator": "",
+      "local_ref": "",
+      "license_or_basis": ""
+    },
+    "source_eligibility": "PENDING",
+    "analysis_status": "PENDING_REAL_E2E",
+    "strict_gate_status": "PENDING",
+    "corpus_eligibility": "PENDING_GATE",
+    "failure_class": null,
+    "notes": ""
+  },
+  "rules": [
+    "Genre/style are routing metadata, not desirability labels.",
+    "Audio and text provenance are evaluated independently.",
+    "No song-specific threshold tuning is permitted.",
+    "Failures remain in the registry as generalization evidence.",
+    "Only strict-pass cases enter Matrix X."
+  ]
+}
