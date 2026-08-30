@@ -1,0 +1,26 @@
+name: Lakh Lyric Fullsong Discovery
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'mie_core/lakh_lyric_fullsong_discovery.py'
+      - '.github/workflows/lakh-lyric-fullsong-discovery.yml'
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install MIDI dependencies
+        run: pip install mido pretty_midi
+      - name: Discover lyric-bearing full-song symbolic cases
+        run: python mie_core/lakh_lyric_fullsong_discovery.py --output-dir lakh_lyric_tmt --target-n 5 --scan-max 2500
+      - name: Upload FULL_TMT test-lane evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: hooklab-lakh-lyric-full-tmt-testlane-v1
+          path: lakh_lyric_tmt/
+          if-no-files-found: error
