@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""ASR-assisted documentary text alignment v0.1.
+"""ASR-assisted documentary text alignment v0.2.
 
 Uses ASR only as acoustic timing evidence. Documentary text remains the lexical source.
-The ASR hypothesis is token-aligned to documentary tokens; only matched documentary
-lines receive timing windows. Unmatched text remains unaligned and is never invented.
+For sung material, a speech-oriented VAD can suppress the entire vocal stream; therefore
+this adapter retries without VAD when the first pass yields insufficient lexical evidence.
+Only tokens independently emitted by ASR and matching the documentary source are used.
 """
 import argparse,json,re,difflib,tempfile,subprocess,os
 from pathlib import Path
@@ -11,22 +12,33 @@ from pathlib import Path
 def norm(x):
     return re.sub(r"[^a-z0-9']+",'',x.lower().replace('’',"'"))
 
+def collect(model,wav,vad_filter,language):
+    segments,_=model.transcribe(str(wav),word_timestamps=True,vad_filter=vad_filter,
+                                language=language,condition_on_previous_text=False,
+                                beam_size=5,temperature=0.0)
+    aw=[]
+    for seg in segments:
+        for w in (seg.words or []):
+            t=norm(w.word)
+            if t:
+                aw.append({'token':t,'start_s':float(w.start),'end_s':float(w.end),
+                           'probability':float(w.probability or 0)})
+    return aw
+
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--audio-url',required=True);ap.add_argument('--text',required=True)
-    ap.add_argument('--output',required=True);ap.add_argument('--model',default='small');a=ap.parse_args()
-    text=json.loads(Path(a.text).read_text());ram=Path('/dev/shm') if Path('/dev/shm').exists() else Path(tempfile.gettempdir())
+    ap.add_argument('--output',required=True);ap.add_argument('--model',default='small');ap.add_argument('--language',default='en')
+    a=ap.parse_args();text=json.loads(Path(a.text).read_text());ram=Path('/dev/shm') if Path('/dev/shm').exists() else Path(tempfile.gettempdir())
     src=ram/f'align_{os.getpid()}.audio';wav=ram/f'align_{os.getpid()}.wav'
     try:
         subprocess.run(['curl','-L','--fail','--silent','--show-error',a.audio_url,'-o',str(src)],check=True)
         subprocess.run(['ffmpeg','-y','-v','error','-i',str(src),'-ar','16000','-ac','1',str(wav)],check=True)
         from faster_whisper import WhisperModel
         model=WhisperModel(a.model,device='cpu',compute_type='int8')
-        segments,_=model.transcribe(str(wav),word_timestamps=True,vad_filter=True)
-        aw=[]
-        for seg in segments:
-            for w in (seg.words or []):
-                t=norm(w.word)
-                if t:aw.append({'token':t,'start_s':float(w.start),'end_s':float(w.end),'probability':float(w.probability or 0)})
+        # Pass 1: normal speech VAD. Pass 2: singing-aware fallback if VAD suppresses lexical evidence.
+        aw=collect(model,wav,True,a.language);pass_used='VAD_ON'
+        if len(aw)<8:
+            aw=collect(model,wav,False,a.language);pass_used='VAD_OFF_FALLBACK'
         doc=[];line_ranges={}
         for u in text.get('units',[]):
             start=len(doc)
@@ -47,10 +59,11 @@ def main():
                 windows.append({'line_id':u['line_id'],'start_s':min(x['start_s'] for x in vals),'end_s':max(x['end_s'] for x in vals),
                                 'confidence':coverage,'mean_asr_probability':sum(x['probability'] for x in vals)/len(vals),
                                 'evidence':'ASR_TOKEN_MATCH_TIMING_ONLY'})
-        Path(a.output).write_text(json.dumps({'schema':'ASR_DOCUMENT_WINDOWS_v0.1','windows':windows,
+        Path(a.output).write_text(json.dumps({'schema':'ASR_DOCUMENT_WINDOWS_v0.2','windows':windows,
             'document_token_count':len(doc),'asr_token_count':len(aw),'matched_document_tokens':len(mapping),
-            'rule':'ASR supplies timing evidence only; documentary text supplies lexical content.'},indent=2,ensure_ascii=False))
-        print(json.dumps({'windows':len(windows),'matched_document_tokens':len(mapping)}))
+            'asr_pass':pass_used,'language':a.language,
+            'rule':'ASR supplies timing evidence only; documentary text supplies lexical content. VAD fallback changes detection only, not lexical authority.'},indent=2,ensure_ascii=False))
+        print(json.dumps({'windows':len(windows),'matched_document_tokens':len(mapping),'asr_tokens':len(aw),'pass':pass_used}))
     finally:
         for p in (src,wav):
             try:p.unlink()
