@@ -1,0 +1,87 @@
+name: Analyzer v1 Real E2E
+on:
+  push:
+    branches: [mie/golden-forensic-v0.3]
+    paths: ['mie_core/analyzer-real-e2e-trigger.txt']
+  workflow_dispatch:
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.10', cache: 'pip'}
+      - run: sudo apt-get update -qq && sudo apt-get install -y ffmpeg
+      - run: python -m pip install --upgrade pip && python -m pip install -r mie_core/requirements.txt faster-whisper
+      - name: Install Beat This and verified models
+        run: |
+          cargo install beat-this --version 1.0.0 --locked
+          mkdir -p /dev/shm/beat_this_models
+          curl -L --fail --silent --show-error https://raw.githubusercontent.com/danigb/beat-this-rs/main/models/beat_this_small.onnx -o /dev/shm/beat_this_models/beat_this_small.onnx
+          curl -L --fail --silent --show-error https://raw.githubusercontent.com/danigb/beat-this-rs/main/models/mel_spectrogram.onnx -o /dev/shm/beat_this_models/mel_spectrogram.onnx
+          echo 'a5f8d39d989f31859454ba27afe61c5317ca95e4d9373e6853e5361b8937172f  /dev/shm/beat_this_models/beat_this_small.onnx' | sha256sum -c -
+          echo 'fdd59e65c515331308e4c8841edf99972deca646bdf6197744c2a5b7755e3de9  /dev/shm/beat_this_models/mel_spectrogram.onnx' | sha256sum -c -
+      - name: Build documentary Text Object
+        run: |
+          mkdir -p real_e2e
+          python mie_core/text_acquisition_adapter.py \
+            --song-id AMAZING_GRACE_1939_COMMONS \
+            --source-id 'Hymnary public-domain text: John Newton, Amazing Grace' \
+            --source-type PUBLIC_DOMAIN \
+            --input mie_core/fixtures/amazing_grace_public_domain.txt \
+            --output real_e2e/text_object.json --expected-complete
+      - name: Run FULL M/T sensors
+        run: |
+          python mie_core/run_fulltrack_sensor_regression.py \
+            --url 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Amazing_grace.ogg' \
+            --song-id AMAZING_GRACE_1939_COMMONS \
+            --source-license 'Wikimedia Commons public-domain 1939 field recording; source page File:Amazing grace.ogg' \
+            --output real_e2e/acoustic \
+            --beat-this-bin beat-this \
+            --beat-model /dev/shm/beat_this_models/beat_this_small.onnx \
+            --mel-model /dev/shm/beat_this_models/mel_spectrogram.onnx
+      - name: Align documentary text using ASR timing evidence
+        run: |
+          python mie_core/asr_document_alignment.py \
+            --audio-url 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Amazing_grace.ogg' \
+            --text real_e2e/text_object.json \
+            --output real_e2e/asr_windows.json --model small
+          python mie_core/text_acoustic_alignment_gate.py \
+            --text real_e2e/text_object.json \
+            --windows real_e2e/asr_windows.json \
+            --output real_e2e/text_aligned.json
+      - name: Create provenance manifest
+        run: |
+          python - <<'PY'
+          import json
+          json.dump({'song_id':'AMAZING_GRACE_1939_COMMONS','title':'Amazing Grace','artist':'N.V. Braley and Mrs. N.V. Braley','recording_year':1939,'audio_source':'Wikimedia Commons','text_source':'Hymnary/public-domain fixture','research_status':'REAL_PUBLIC_DOMAIN_E2E'},open('real_e2e/manifest.json','w'),indent=2)
+          PY
+      - name: Run Analyzer v1 orchestrator
+        run: |
+          python mie_core/analyzer_v1_orchestrator.py \
+            --manifest real_e2e/manifest.json \
+            --acoustic real_e2e/acoustic/sensor_regression.json \
+            --text real_e2e/text_aligned.json \
+            --genre hymn --style traditional \
+            --output real_e2e/analyzer
+      - name: Enforce real E2E gate
+        run: |
+          python - <<'PY'
+          import json,sys
+          d=json.load(open('real_e2e/analyzer/analyzer_result.json'))
+          print(json.dumps(d,indent=2))
+          if d['status']!='FULL_TMT_READY':
+              sys.exit('Real E2E did not reach FULL_TMT_READY; evidence must be inspected before any threshold change.')
+          PY
+      - name: Verify no source audio/model persistence
+        if: always()
+        run: |
+          rm -rf /dev/shm/beat_this_models
+          if find real_e2e -type f \( -name '*.wav' -o -name '*.mp3' -o -name '*.ogg' -o -name '*.m4a' -o -name '*.aac' -o -name '*.flac' -o -name '*.onnx' \) | grep -q .; then
+            echo 'Persistence violation'; exit 1
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: analyzer-v1-real-e2e-evidence
+          path: real_e2e/**/*.json
