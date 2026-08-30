@@ -1,1 +1,1 @@
-Trigger 003 — real public-domain FULL TMT end-to-end test with performed-document resolution. Source document preserved; no threshold tuning.
+Trigger 004 — real public-domain FULL TMT end-to-end test with strict core feature completeness. No threshold lowering; recurrence may be NOT_APPLICABLE only when the performed document has no repeated groups.
