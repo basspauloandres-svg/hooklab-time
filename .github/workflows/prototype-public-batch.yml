@@ -1,0 +1,35 @@
+name: Prototype Public Batch
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'mie_core/prototype_autonomous_public_batch.py'
+      - '.github/workflows/prototype-public-batch.yml'
+
+concurrency:
+  group: prototype-public-batch-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  latin-prototype-batch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Install MIE Core
+        run: pip install -r mie_core/requirements.txt
+      - name: Resolve and analyze public previews autonomously
+        run: python mie_core/prototype_autonomous_public_batch.py --output prototype_public_batch --limit 3
+      - name: Upload batch evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: hooklab-prototype-public-latin-batch-v1
+          path: prototype_public_batch/
+          if-no-files-found: error
