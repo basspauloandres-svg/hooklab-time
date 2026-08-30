@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - 'mie_core/lakh_full_md5_target_audit.py'
+      - 'mie_core/build_target_scientific_candidate_matrix.py'
+      - 'mie_core/target_dance_pop_evidence_registry_v1.json'
       - '.github/workflows/lmd-full-target-audit.yml'
 jobs:
   audit:
@@ -23,9 +25,11 @@ jobs:
           key: hooklab-lmd-targets-v1-11-md5
       - name: Audit exact MD5 targets
         run: python mie_core/lakh_full_md5_target_audit.py --targets mie_core/lakh_era_crossmatch_result_v1.json --output-dir lmd_full_target_audit --midi-cache-dir .hooklab_cache/lmd_targets
+      - name: Build genre-style scientific candidate matrix
+        run: python mie_core/build_target_scientific_candidate_matrix.py --audit lmd_full_target_audit/target_audit.csv --registry mie_core/target_dance_pop_evidence_registry_v1.json --output lmd_full_target_audit/target_dance_pop_candidate_matrix.csv
       - name: Upload massive-hit target candidate audit
         uses: actions/upload-artifact@v4
         with:
-          name: hooklab-lmd-full-target-audit-v2
+          name: hooklab-lmd-full-target-audit-v3
           path: lmd_full_target_audit/
           if-no-files-found: error
