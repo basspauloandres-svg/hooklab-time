@@ -1,5 +1,5 @@
 {
-  "schema": "HOOKLAB_TARGET_DANCE_POP_EVIDENCE_REGISTRY_v1.0",
+  "schema": "HOOKLAB_TARGET_DANCE_POP_EVIDENCE_REGISTRY_v1.1",
   "cohort_key": "pop_rock::dance_pop",
   "scope": "candidate scientific cohort; promotion still requires structural FULL_TMT and identity gates",
   "success_rule": {
@@ -8,71 +8,12 @@
     "network_evidence_status": "YOUTUBE_VERIFIED_SOCIAL_NETWORK_CROSSPLATFORM_PENDING"
   },
   "songs": [
-    {
-      "title": "Bad Romance",
-      "artist": "Lady Gaga",
-      "year": 2009,
-      "md5": "7b3be01c008f3acd9906739120097480",
-      "expected_duration_seconds": 294,
-      "genre": "Pop/Rock",
-      "style": "Dance-Pop",
-      "style_source": "https://www.allmusic.com/song/bad-romance-mt0038488388",
-      "youtube_views_observed": 2074981137,
-      "youtube_source": "https://ytbvc.com/video/ytbvc_video_027f2_lady-gaga-bad-romance-official-music-video",
-      "youtube_observed_date": "2026-08-28"
-    },
-    {
-      "title": "Poker Face",
-      "artist": "Lady Gaga",
-      "year": 2008,
-      "md5": "43d021abadffa2ec5144f5f12c707708",
-      "expected_duration_seconds": 237,
-      "genre": "Pop/Rock",
-      "style": "Dance-Pop",
-      "style_source": "https://www.allmusic.com/song/poker-face-mt0054935158",
-      "youtube_views_observed": 1751527805,
-      "youtube_source": "https://www.youtube.com/watch?v=bESGLojNYSo",
-      "youtube_observed_date": "2026-08-30"
-    },
-    {
-      "title": "Firework",
-      "artist": "Katy Perry",
-      "year": 2010,
-      "md5": "501cfb8935c06a6f7c28f2d5aec33e56",
-      "expected_duration_seconds": 228,
-      "genre": "Pop/Rock",
-      "style": "Dance-Pop",
-      "style_source": "https://www.allmusic.com/song/firework-mt0044409097",
-      "youtube_views_observed": 1578227326,
-      "youtube_source": "https://socialcounts.org/youtube-video-live-view-count/QGJuMBdaqIw",
-      "youtube_observed_date": "2026-08-27"
-    },
-    {
-      "title": "TiK ToK",
-      "artist": "Kesha",
-      "year": 2009,
-      "md5": "42742e6e6ab9dada1c76da39c11b7dee",
-      "expected_duration_seconds": 201,
-      "genre": "Pop/Rock",
-      "style": "Dance-Pop",
-      "style_source": "https://www.allmusic.com/song/tik-tok-mt0035465068",
-      "youtube_views_observed": 760582095,
-      "youtube_source": "https://www.youtube.com/watch?v=iP6XpLQM2Cs",
-      "youtube_observed_date": "2026-08-30"
-    },
-    {
-      "title": "Dynamite",
-      "artist": "Taio Cruz",
-      "year": 2010,
-      "md5": "a3fd1182c0466d141ce7d322778c59fd",
-      "expected_duration_seconds": 203,
-      "genre": "Pop/Rock",
-      "style": "Dance-Pop",
-      "style_source": "https://www.allmusic.com/album/dynamite-mw0002036456",
-      "youtube_views_observed": 217644904,
-      "youtube_source": "https://www.youtube.com/watch?v=VUjdiDeJ0xg",
-      "youtube_observed_date": "2026-08-30"
-    }
+    {"title":"Bad Romance","artist":"Lady Gaga","year":2009,"md5":"7b3be01c008f3acd9906739120097480","expected_duration_seconds":294,"genre":"Pop/Rock","style":"Dance-Pop","style_source":"https://www.allmusic.com/song/bad-romance-mt0038488388","youtube_views_observed":2074981137,"youtube_source":"https://ytbvc.com/video/ytbvc_video_027f2_lady-gaga-bad-romance-official-music-video","youtube_observed_date":"2026-08-28"},
+    {"title":"Poker Face","artist":"Lady Gaga","year":2008,"md5":"43d021abadffa2ec5144f5f12c707708","expected_duration_seconds":237,"genre":"Pop/Rock","style":"Dance-Pop","style_source":"https://www.allmusic.com/song/poker-face-mt0054935158","youtube_views_observed":1751527805,"youtube_source":"https://www.youtube.com/watch?v=bESGLojNYSo","youtube_observed_date":"2026-08-30"},
+    {"title":"Firework","artist":"Katy Perry","year":2010,"md5":"501cfb8935c06a6f7c28f2d5aec33e56","expected_duration_seconds":228,"genre":"Pop/Rock","style":"Dance-Pop","style_source":"https://www.allmusic.com/song/firework-mt0044409097","youtube_views_observed":1578227326,"youtube_source":"https://socialcounts.org/youtube-video-live-view-count/QGJuMBdaqIw","youtube_observed_date":"2026-08-27"},
+    {"title":"I Gotta Feeling","artist":"The Black Eyed Peas","year":2009,"md5":"10e5bf6c837873feb38b1eb767d34f2c","expected_duration_seconds":246,"genre":"Pop/Rock","style":"Dance-Pop","style_source":"https://www.allmusic.com/album/i-gotta-feeling-mw0001776153","youtube_views_observed":957393660,"youtube_source":"https://www.youtube.com/watch?v=uSD4vsh1zDA","youtube_observed_date":"2026-08-30"},
+    {"title":"TiK ToK","artist":"Kesha","year":2009,"md5":"42742e6e6ab9dada1c76da39c11b7dee","expected_duration_seconds":201,"genre":"Pop/Rock","style":"Dance-Pop","style_source":"https://www.allmusic.com/song/tik-tok-mt0035465068","youtube_views_observed":760582095,"youtube_source":"https://www.youtube.com/watch?v=iP6XpLQM2Cs","youtube_observed_date":"2026-08-30"},
+    {"title":"Dynamite","artist":"Taio Cruz","year":2010,"md5":"a3fd1182c0466d141ce7d322778c59fd","expected_duration_seconds":203,"genre":"Pop/Rock","style":"Dance-Pop","style_source":"https://www.allmusic.com/album/dynamite-mw0002036456","youtube_views_observed":217644904,"youtube_source":"https://www.youtube.com/watch?v=VUjdiDeJ0xg","youtube_observed_date":"2026-08-30"}
   ],
   "epistemic_note": "Genre/style labels are external descriptive metadata. YouTube counts demonstrate substantial observed reach but do not alone establish causal compositional success. Cross-platform social evidence remains pending."
 }
