@@ -1,0 +1,26 @@
+{
+  "schema":"HOOKLAB_FULLSONG_DUAL_LANE_STRATEGY_v1.0",
+  "objective":"Accelerate end-to-end validation without contaminating the massive-hit evidence model.",
+  "lane_A_engineering_fullsong":{
+    "purpose":"Validate complete-song TMT extraction, Matrix X plumbing, readiness, generation and TTFP using openly available full-song symbolic corpora.",
+    "allowed_sources":["POP909","other open full-song symbolic corpora with explicit provenance"],
+    "evidence_role":"ENGINEERING_FULLSONG_ONLY",
+    "may_train_massive_hit_reference_model":false,
+    "may_activate_technical_e2e_generation":true
+  },
+  "lane_B_target_massive_hits":{
+    "purpose":"Build the actual prototype evidence model from full-song representations of massive hits within the rolling 20-year window.",
+    "allowed_sources":["Lakh MIDI full/clean/matched when title-artist match is auditable","other full-song symbolic sources meeting provenance and coverage gates"],
+    "evidence_role":"PROTOTYPE_MASSIVE_HIT_EVIDENCE",
+    "may_train_massive_hit_reference_model":true,
+    "may_activate_data_conditioned_generation":true
+  },
+  "hard_rules":[
+    "Short previews remain ENGINEERING_PROBE_ONLY.",
+    "Lane A results cannot be merged into Lane B cohort statistics.",
+    "Only FULL_SONG coverage can enter Matrix X used for generation readiness.",
+    "A symbolic transcription must be identity-audited before promotion to target evidence.",
+    "Open-source engineering success is not evidence that the massive-hit model works."
+  ],
+  "rationale":"Run full-song E2E immediately on open symbolic data while independently resolving full-song symbolic matches for massive hits. This reduces wall-clock time without weakening the population definition."
+}
