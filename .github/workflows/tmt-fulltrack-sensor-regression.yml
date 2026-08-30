@@ -15,6 +15,14 @@ jobs:
       - uses: actions/checkout@v4
       - run: sudo apt-get update -qq && sudo apt-get install -y ffmpeg
       - run: pip install -r mie_core/requirements.txt
+      - name: Install Beat This CLI and verified historical models
+        run: |
+          cargo install beat-this --version 1.0.0 --locked
+          mkdir -p /dev/shm/beat_this_models
+          curl -L --fail --silent --show-error https://raw.githubusercontent.com/danigb/beat-this-rs/main/models/beat_this_small.onnx -o /dev/shm/beat_this_models/beat_this_small.onnx
+          curl -L --fail --silent --show-error https://raw.githubusercontent.com/danigb/beat-this-rs/main/models/mel_spectrogram.onnx -o /dev/shm/beat_this_models/mel_spectrogram.onnx
+          echo 'a5f8d39d989f31859454ba27afe61c5317ca95e4d9373e6853e5361b8937172f  /dev/shm/beat_this_models/beat_this_small.onnx' | sha256sum -c -
+          echo 'fdd59e65c515331308e4c8841edf99972deca646bdf6197744c2a5b7755e3de9  /dev/shm/beat_this_models/mel_spectrogram.onnx' | sha256sum -c -
       - name: Resolve parameters
         id: p
         shell: bash
@@ -29,9 +37,16 @@ jobs:
             echo 'license=Jamendo documented full-track stream regression source' >> "$GITHUB_OUTPUT"
           fi
       - name: Run FULL M/T regression in ephemeral storage
-        run: python mie_core/run_fulltrack_sensor_regression.py --url '${{ steps.p.outputs.url }}' --song-id '${{ steps.p.outputs.song }}' --source-license '${{ steps.p.outputs.license }}' --output fulltrack_regression
+        run: |
+          python mie_core/run_fulltrack_sensor_regression.py \
+            --url '${{ steps.p.outputs.url }}' --song-id '${{ steps.p.outputs.song }}' \
+            --source-license '${{ steps.p.outputs.license }}' --output fulltrack_regression \
+            --beat-this-bin beat-this \
+            --beat-model /dev/shm/beat_this_models/beat_this_small.onnx \
+            --mel-model /dev/shm/beat_this_models/mel_spectrogram.onnx
       - name: Verify derived-data-only artifact
         run: |
-          if find fulltrack_regression -type f \( -name '*.wav' -o -name '*.mp3' -o -name '*.m4a' -o -name '*.aac' -o -name '*.flac' \) | grep -q .; then exit 1; fi
+          rm -rf /dev/shm/beat_this_models
+          if find fulltrack_regression -type f \( -name '*.wav' -o -name '*.mp3' -o -name '*.m4a' -o -name '*.aac' -o -name '*.flac' -o -name '*.onnx' \) | grep -q .; then exit 1; fi
       - uses: actions/upload-artifact@v4
         with: {name: tmt-fulltrack-sensor-regression, path: fulltrack_regression/*.json}
