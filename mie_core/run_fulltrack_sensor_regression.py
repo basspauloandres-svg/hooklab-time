@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-"""Full-track autonomous M/T regression v0.2.
-Acquires FULL audio into RAM, derives M, runs authoritative Beat This for T, persists derived JSON only, deletes audio in finally.
+"""Full-track autonomous M/T regression v0.3.
+Acquires FULL audio into RAM, derives M, runs authoritative Beat This for T,
+persists derived events/metrics only, deletes source audio in finally.
 """
 import argparse, hashlib, json, os, subprocess, sys, tempfile, statistics
 from pathlib import Path
@@ -23,7 +24,7 @@ def main():
         sys.path.insert(0,str(Path(__file__).parent))
         from structural_reduction import reduce_candidates
         from ornament_reduction import suppress_microornaments
-        red=reduce_candidates(raw); orn=suppress_microornaments(red['render_events'])
+        red=reduce_candidates(raw); orn=suppress_microornaments(red['render_events']); final_events=orn['render_events']
         subprocess.run([args.beat_this_bin,str(wav),'--model',args.beat_model,'--mel-model',args.mel_model,f'--beats={beats_file}'],check=True)
         beat_times=[]
         for line in beats_file.read_text().splitlines():
@@ -34,16 +35,17 @@ def main():
         bpm=60/statistics.median(intervals) if intervals else None
         import librosa
         y,sr=librosa.load(str(wav),sr=22050,mono=True)
-        result={'version':'FULL M/T Sensor Regression v0.2','song_id':args.song_id,'coverage':'FULL','audio_persistence':'NONE',
+        result={'version':'FULL M/T Sensor Regression v0.3','song_id':args.song_id,'coverage':'FULL','audio_persistence':'NONE',
                 'source_license':args.source_license,'ephemeral_sha256':sha,'duration_s':len(y)/sr,
-                'M_raw_count':len(raw),'M_structural_count':len(red['render_events']),'M_post_ornament_count':len(orn['render_events']),
+                'M_raw_count':len(raw),'M_structural_count':len(red['render_events']),'M_post_ornament_count':len(final_events),
                 'M_range_raw':[min([e['midi'] for e in raw],default=None),max([e['midi'] for e in raw],default=None)],
-                'T_sensor':'Beat This','T_status':'VALID','T_tactus_count':len(beat_times),'T_tempo_bpm_median':bpm,
+                'M_events':final_events,
+                'T_sensor':'Beat This','T_status':'VALID','T_tactus_count':len(beat_times),'T_tempo_bpm_median':bpm,'T_tactus_times':beat_times,
                 'T_model_sha256':hashlib.sha256(Path(args.beat_model).read_bytes()).hexdigest(),
                 'T_mel_model_sha256':hashlib.sha256(Path(args.mel_model).read_bytes()).hexdigest(),
                 'promotion':'M_T_REGRESSION_VALID; TEXT_REQUIRED_FOR_TMT_SONG_OBJECT'}
         (out/'sensor_regression.json').write_text(json.dumps(result,indent=2)); (out/'tactus.json').write_text(json.dumps({'beats':beat_times,'tempo_bpm':bpm},indent=2))
-        print(json.dumps(result))
+        print(json.dumps({k:v for k,v in result.items() if k not in {'M_events','T_tactus_times'}}))
     finally:
         for p in (src,wav,beats_file):
             try:p.unlink()
