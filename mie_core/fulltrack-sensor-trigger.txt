@@ -1,1 +1,1 @@
-Trigger 002 — FULL autonomous M/T regression with checksum-verified Beat This. No per-song tuning.
+Trigger 003 — FULL M/T regression, Python 3.10 compatibility correction, Beat This checksum-verified. No per-song tuning.
