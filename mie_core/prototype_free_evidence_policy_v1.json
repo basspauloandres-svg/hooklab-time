@@ -1,0 +1,44 @@
+{
+  "schema": "HOOKLAB_PROTOTYPE_FREE_EVIDENCE_POLICY_v1.0",
+  "purpose": "Allow prototype validation without paid social-data providers while preserving a strict separation from the final scientific sample.",
+  "modes": {
+    "SCIENTIFIC_SAMPLE": {
+      "status": "UNCHANGED",
+      "requirements": [
+        "exact release date within rolling 20 years",
+        "official release",
+        "YouTube >= 100M views",
+        "social evidence >= 50M views",
+        "explicit song/audio identity"
+      ]
+    },
+    "PROTOTYPE_SAMPLE": {
+      "status": "TEMPORARY_NONINFERENTIAL",
+      "requirements": [
+        "exact release date within rolling 20 years",
+        "official release",
+        "YouTube >= 100M views",
+        "at least one additional independent public success signal"
+      ],
+      "allowed_secondary_signals": [
+        "official chart placement",
+        "record certification",
+        "documented streaming milestone",
+        "explicit public social-post evidence when freely accessible"
+      ],
+      "forbidden_uses": [
+        "infer final population parameters",
+        "train final success model",
+        "replace the scientific Sample 1 registry",
+        "claim cross-platform social virality unless explicitly verified"
+      ]
+    }
+  },
+  "source_stack": {
+    "release_metadata": ["MusicBrainz API", "Wikidata/public release metadata"],
+    "youtube_metadata": ["YouTube Data API free default quota", "metadata-only extractor fallback where permitted"],
+    "secondary_success_evidence": ["official chart/certification sources", "publicly indexed streaming milestones", "free public social evidence"]
+  },
+  "decision_rule": "Prototype eligibility is sufficient to exercise Analyzer->MatrixX->cohort->generator->audio->TTFP. Scientific inclusion remains governed by the stricter Sample 1 gate.",
+  "epistemic_label": "PROTOTYPE_EVIDENCE_NOT_FINAL_SAMPLE"
+}
