@@ -1,0 +1,26 @@
+name: LMD Full Target Audit
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'mie_core/lakh_full_md5_target_audit.py'
+      - '.github/workflows/lmd-full-target-audit.yml'
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install symbolic dependencies
+        run: pip install mido pretty_midi
+      - name: Stream LMD-full and audit exact MD5 targets
+        run: python mie_core/lakh_full_md5_target_audit.py --targets mie_core/lakh_era_crossmatch_result_v1.json --output-dir lmd_full_target_audit
+      - name: Upload massive-hit target candidate audit
+        uses: actions/upload-artifact@v4
+        with:
+          name: hooklab-lmd-full-target-audit-v1
+          path: lmd_full_target_audit/
+          if-no-files-found: error
