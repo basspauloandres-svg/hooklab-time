@@ -1,0 +1,34 @@
+name: Lakh Clean Target Audit
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'mie_core/lakh_clean_target_audit.py'
+      - 'mie_core/lakh_midi_structural_audit.py'
+      - 'mie_core/lakh_clean_audit_targets_v1.json'
+      - '.github/workflows/lakh-clean-target-audit.yml'
+
+concurrency:
+  group: lakh-clean-target-audit-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install symbolic audit dependency
+        run: pip install pretty_midi
+      - name: Stream clean Lakh archive and audit priority targets
+        run: python mie_core/lakh_clean_target_audit.py --targets mie_core/lakh_clean_audit_targets_v1.json --output lakh_clean_audit
+      - name: Upload targeted audit evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: hooklab-lakh-clean-target-audit-v1
+          path: lakh_clean_audit/
+          if-no-files-found: error
