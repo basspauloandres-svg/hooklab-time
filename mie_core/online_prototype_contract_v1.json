@@ -1,0 +1,16 @@
+{
+  "schema": "HOOKLAB_ONLINE_PROTOTYPE_CONTRACT_v1.0",
+  "objective": "Produce the first audible TMT prototype through the cache-first online path and measure TTFP without corpus search or reanalysis.",
+  "input": ["genre", "style", "purpose"],
+  "required_path": ["preproduction_router", "cached_cohort_reference", "preproduction_constraints_compiler", "TMT_candidate_generator", "audio_renderer"],
+  "required_outputs": ["prototype_audio", "generation_manifest", "constraint_trace", "latency_metrics"],
+  "latency_metrics": ["T_router_seconds", "T_constraints_seconds", "T_generation_seconds", "T_render_seconds", "TTFP_seconds"],
+  "hard_invariants": {
+    "T_online_search_seconds": 0,
+    "online_corpus_reanalysis": false,
+    "cohort_must_be_precomputed": true,
+    "every_generation_constraint_must_have_source_field": true
+  },
+  "epistemic_gate": "An audible file is a HookLab model prototype only when its constraints resolve to a real precomputed cohort. Otherwise label TECHNICAL_AUDIO_SMOKE_TEST and exclude from model evidence.",
+  "next_action": "Connect first real cached cohort, generate three controlled TMT variants, render essential audio only, record TTFP, retain MIDI/JSON internally for traceability."
+}
