@@ -1,0 +1,5 @@
+{
+  "run_id": 33290606266,
+  "artifact_name": "analyzer-v1-real-e2e-evidence",
+  "purpose": "Validate current Analyzer v1 feature/fingerprint/gate logic from real derived evidence without rerunning sensors."
+}
