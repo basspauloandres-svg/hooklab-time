@@ -1,0 +1,20 @@
+{
+  "schema": "HOOKLAB_SHADOW_TARGET_COHORT_CACHE_v1.1",
+  "status": "TARGET_SHADOW_READY_FOR_ENGINEERING",
+  "scientific_promotion": false,
+  "remaining_gates": ["melodic_reference_validation"],
+  "deferred_scope": ["social_network_reach -> future release analytics"],
+  "cohorts": {
+    "pop_rock::dance_pop": {
+      "T_tempo_bpm": {"min":118.99992463338106,"q25":119.00016065021687,"median":120.0,"q75":120.0,"max":124.000248000496,"n":5},
+      "M_median_midi": {"min":64.0,"q25":71.0,"median":72.0,"q75":74.0,"max":80.0,"n":5},
+      "M_range_semitones": {"min":7.0,"q25":16.0,"median":17.0,"q75":19.0,"max":27.0,"n":5},
+      "M_events_per_token": {"min":0.9685264663805436,"q25":0.9841269841269841,"median":1.0117924528301887,"q75":1.0255536626916524,"max":1.0412844036697249,"n":5},
+      "T_near_tactus_share": {"min":0.47785547785547783,"q25":0.48006644518272423,"median":0.4933530280649926,"q75":0.5330396475770925,"max":0.557347670250896,"n":5},
+      "text_line_count": {"min":7.0,"q25":12.0,"median":13.0,"q75":28.0,"max":31.0,"n":5}
+    }
+  },
+  "cohort_n": 5,
+  "semantics": "REAL_TARGET_CANDIDATES_ENGINEERING_ONLY_NOT_FINAL_SCIENTIFIC_EVIDENCE",
+  "provenance": "Snapshot derived from successful target shadow E2E run 33327699071; intended for reproducible online-path latency benchmarking without re-acquiring corpus data."
+}
