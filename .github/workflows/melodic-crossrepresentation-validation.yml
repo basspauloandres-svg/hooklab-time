@@ -1,0 +1,44 @@
+name: Melodic Cross-Representation Validation
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'mie_core/lakh_alternate_representation_discovery.py'
+      - 'mie_core/lakh_full_md5_target_audit.py'
+      - 'mie_core/melodic_crossrepresentation_validator.py'
+      - '.github/workflows/melodic-crossrepresentation-validation.yml'
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install symbolic dependencies
+        run: pip install mido pretty_midi
+      - name: Restore primary MIDI cache
+        uses: actions/cache@v4
+        with:
+          path: .hooklab_cache/lmd_targets
+          key: hooklab-lmd-targets-v1-11-md5
+      - name: Re-audit primary targets with melodic fingerprints
+        run: python mie_core/lakh_full_md5_target_audit.py --targets mie_core/lakh_era_crossmatch_result_v1.json --output-dir melodic_validation/primary --midi-cache-dir .hooklab_cache/lmd_targets
+      - name: Discover alternate symbolic arrangements
+        run: python mie_core/lakh_alternate_representation_discovery.py --registry mie_core/target_dance_pop_evidence_registry_v1.json --output melodic_validation/alternate_registry.json --top-k 3
+      - name: Restore alternate MIDI cache
+        uses: actions/cache@v4
+        with:
+          path: .hooklab_cache/lmd_alternates
+          key: hooklab-lmd-alternates-v1-dance-pop
+      - name: Audit alternate arrangements
+        run: python mie_core/lakh_full_md5_target_audit.py --targets melodic_validation/alternate_registry.json --output-dir melodic_validation/alternates --midi-cache-dir .hooklab_cache/lmd_alternates
+      - name: Compute cross-representation consensus
+        run: python mie_core/melodic_crossrepresentation_validator.py --primary melodic_validation/primary/target_audit.csv --alternates melodic_validation/alternates/target_audit.csv --output melodic_validation/crossrepresentation_validation.json
+      - name: Upload melodic validation evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: hooklab-melodic-crossrepresentation-v1
+          path: melodic_validation/
+          if-no-files-found: error
