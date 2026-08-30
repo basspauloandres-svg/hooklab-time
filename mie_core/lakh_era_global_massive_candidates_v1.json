@@ -1,0 +1,29 @@
+{
+  "schema":"HOOKLAB_LAKH_ERA_GLOBAL_CANDIDATES_v1.0",
+  "role":"SYMBOLIC_DISCOVERY_CANDIDATES_ONLY_NOT_YET_SAMPLE_EVIDENCE",
+  "window_note":"Selected from the 2007-2011 portion of the rolling 20-year window because Lakh/MSD coverage is historically stronger there. Success evidence remains separately auditable.",
+  "candidates":[
+    {"title":"Umbrella","artist":"Rihanna","year":2007},
+    {"title":"Apologize","artist":"Timbaland OneRepublic","year":2007},
+    {"title":"Bleeding Love","artist":"Leona Lewis","year":2007},
+    {"title":"Just Dance","artist":"Lady Gaga","year":2008},
+    {"title":"Poker Face","artist":"Lady Gaga","year":2008},
+    {"title":"Viva La Vida","artist":"Coldplay","year":2008},
+    {"title":"I Gotta Feeling","artist":"The Black Eyed Peas","year":2009},
+    {"title":"Bad Romance","artist":"Lady Gaga","year":2009},
+    {"title":"Tik Tok","artist":"Kesha","year":2009},
+    {"title":"Empire State of Mind","artist":"Jay-Z Alicia Keys","year":2009},
+    {"title":"Firework","artist":"Katy Perry","year":2010},
+    {"title":"California Gurls","artist":"Katy Perry Snoop Dogg","year":2010},
+    {"title":"Rolling in the Deep","artist":"Adele","year":2010},
+    {"title":"Just the Way You Are","artist":"Bruno Mars","year":2010},
+    {"title":"Grenade","artist":"Bruno Mars","year":2010},
+    {"title":"Love the Way You Lie","artist":"Eminem Rihanna","year":2010},
+    {"title":"Dynamite","artist":"Taio Cruz","year":2010},
+    {"title":"Party Rock Anthem","artist":"LMFAO","year":2011},
+    {"title":"Moves Like Jagger","artist":"Maroon 5 Christina Aguilera","year":2011},
+    {"title":"Give Me Everything","artist":"Pitbull Ne-Yo Afrojack Nayer","year":2011},
+    {"title":"Someone Like You","artist":"Adele","year":2011},
+    {"title":"We Found Love","artist":"Rihanna Calvin Harris","year":2011}
+  ]
+}
