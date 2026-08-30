@@ -1,0 +1,1 @@
+Trigger 001 — frozen TMT pipeline generalization test. No per-song tuning.
