@@ -1,0 +1,29 @@
+name: Analysis Mode Policy Tests
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'mie_core/analysis_mode_policy.py'
+      - 'mie_core/test_analysis_mode_policy.py'
+      - '.github/workflows/analysis-mode-policy-tests.yml'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - run: pip install pytest
+      - name: Run policy regression suite
+        run: pytest -q mie_core/test_analysis_mode_policy.py
+      - name: Smoke robust analytic gate
+        run: python mie_core/analysis_mode_policy.py --mode ROBUST --n 100 --output robust_policy.json
+      - name: Smoke light contextual gate
+        run: python mie_core/analysis_mode_policy.py --mode LIGHT --n 15 --robust-cache-ready --output light_policy.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hooklab-analysis-mode-policy-v1
+          path: |
+            robust_policy.json
+            light_policy.json
