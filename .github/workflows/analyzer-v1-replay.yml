@@ -1,0 +1,42 @@
+name: Analyzer v1 Fast Replay
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: 'Source Analyzer v1 Real E2E run id'
+        required: true
+      artifact_name:
+        description: 'Source artifact name'
+        required: false
+        default: 'analyzer-v1-real-e2e-evidence'
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Download source derived-evidence artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ inputs.run_id }}
+          ARTIFACT_NAME: ${{ inputs.artifact_name }}
+        run: |
+          set -euo pipefail
+          mkdir -p replay_source
+          ART_ID=$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${RUN_ID}/artifacts" --jq ".artifacts[] | select(.name==\"${ARTIFACT_NAME}\") | .id" | head -1)
+          test -n "$ART_ID" || { echo "Artifact not found"; exit 2; }
+          gh api "repos/${GITHUB_REPOSITORY}/actions/artifacts/${ART_ID}/zip" > replay.zip
+          unzip -q replay.zip -d replay_source
+      - name: Run strict replay
+        run: |
+          python mie_core/analyzer_v1_replay.py --evidence replay_source --output replay_out
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: analyzer-v1-fast-replay-result
+          path: replay_out/**/*.json
