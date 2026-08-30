@@ -1,0 +1,27 @@
+name: TTFP Online Path Benchmark
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'mie_core/ttfp_online_path_benchmark.py'
+      - 'mie_core/target_shadow_cohort_cache_snapshot_v1.json'
+      - 'mie_core/preproduction_router.py'
+      - 'mie_core/preproduction_constraints_compiler.py'
+      - 'mie_core/tmt_structural_candidate_generator_v2.py'
+      - '.github/workflows/ttfp-online-path-benchmark.yml'
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Benchmark cached online preproduction path
+        run: python mie_core/ttfp_online_path_benchmark.py --cache mie_core/target_shadow_cohort_cache_snapshot_v1.json --output ttfp_benchmark.json --runs 30
+      - name: Upload benchmark evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: hooklab-ttfp-online-path-v1
+          path: ttfp_benchmark.json
+          if-no-files-found: error
