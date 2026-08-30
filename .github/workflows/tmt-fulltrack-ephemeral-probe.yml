@@ -1,0 +1,61 @@
+name: TMT Full Track Ephemeral Probe
+on:
+  push:
+    branches: [mie/golden-forensic-v0.3]
+    paths:
+      - '.github/tmt_full_trigger.json'
+  workflow_dispatch:
+    inputs:
+      source_url:
+        description: Full-track authorized stream URL
+        required: true
+        type: string
+      song_id:
+        description: Song identifier
+        required: true
+        type: string
+      license:
+        description: Rights/license note
+        required: true
+        type: string
+jobs:
+  fulltrack-probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y ffmpeg
+      - name: Resolve source parameters
+        id: src
+        shell: bash
+        run: |
+          if [ '${{ github.event_name }}' = 'workflow_dispatch' ]; then
+            echo "url=${{ inputs.source_url }}" >> "$GITHUB_OUTPUT"
+            echo "song_id=${{ inputs.song_id }}" >> "$GITHUB_OUTPUT"
+            echo "license=${{ inputs.license }}" >> "$GITHUB_OUTPUT"
+          else
+            python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          d=json.load(open('.github/tmt_full_trigger.json'))
+          print('url='+d['source_url'])
+          print('song_id='+d['song_id'])
+          print('license='+d['license'])
+          PY
+          fi
+      - name: Acquire full track in RAM only
+        run: |
+          python mie_core/run_fulltrack_ephemeral_probe.py \
+            --url '${{ steps.src.outputs.url }}' \
+            --song-id '${{ steps.src.outputs.song_id }}' \
+            --license '${{ steps.src.outputs.license }}' \
+            --output tmt_full_probe
+      - name: Verify no audio persisted
+        run: |
+          test ! -e /dev/shm/'${{ steps.src.outputs.song_id }}'.audio
+          if find tmt_full_probe -type f \( -name '*.wav' -o -name '*.mp3' -o -name '*.m4a' -o -name '*.aac' -o -name '*.flac' \) | grep -q .; then
+            echo 'Audio persistence violation'; exit 1
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tmt-fulltrack-probe
+          path: tmt_full_probe/*.json
