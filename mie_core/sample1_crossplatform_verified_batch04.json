@@ -1,0 +1,68 @@
+{
+  "schema": "SAMPLE1_CROSSPLATFORM_VERIFIED_BATCH_v1.0",
+  "batch": 4,
+  "selection_policy": "LAST_20_YEARS_AND_VERIFIED_CROSS_PLATFORM_MASSIVE_REACH",
+  "songs": [
+    {
+      "song_id": "SI_ANTES_TE_HUBIERA_CONOCIDO_2024",
+      "title": "Si Antes Te Hubiera Conocido",
+      "artist": "KAROL G",
+      "release_date": "2024-06-20",
+      "official_release": true,
+      "youtube_video_id": "QCZZwZQ4qNs",
+      "youtube_views": 1449931548,
+      "social_evidence": [{
+        "platform": "Instagram",
+        "source_handle": "leishapatidarrr",
+        "content_id": "DbnzcXpsBpQ",
+        "views": 57900000,
+        "song_match_verified": true,
+        "match_basis": "vidIQ identifies music_track as Si Antes Te Hubiera Conocido by Karol G"
+      }],
+      "genre": "latin_pop",
+      "style": "merengue_pop",
+      "sample_status": "CROSS_PLATFORM_GATE_PASS_PENDING_ANALYZER"
+    },
+    {
+      "song_id": "BABY_CLEAN_BANDIT_2018",
+      "title": "Baby",
+      "artist": "Clean Bandit feat. MARINA & Luis Fonsi",
+      "release_date": "2018-11-02",
+      "official_release": true,
+      "youtube_video_id": "hlznpxNGFGQ",
+      "youtube_views": 346603076,
+      "social_evidence": [{
+        "platform": "TikTok",
+        "source_handle": "pawsomelife1188",
+        "content_id": "7672716635987283213",
+        "views": 67600000,
+        "song_match_verified": true,
+        "match_basis": "vidIQ identifies music_track as Baby - Clean Bandit & Marina (feat. Luis Fonsi)"
+      }],
+      "genre": "dance_pop",
+      "style": "latin_electropop",
+      "sample_status": "CROSS_PLATFORM_GATE_PASS_PENDING_ANALYZER"
+    },
+    {
+      "song_id": "BLOODY_MARY_2011",
+      "title": "Bloody Mary",
+      "artist": "Lady Gaga",
+      "release_date": "2011-05-23",
+      "official_release": true,
+      "youtube_video_id": "VFwmKL5OL-Q",
+      "youtube_views": 185283085,
+      "social_evidence": [{
+        "platform": "TikTok",
+        "source_handle": "wednesdaye0",
+        "content_id": "7670978202336087299",
+        "views": 60300000,
+        "song_match_verified": true,
+        "match_basis": "vidIQ identifies music_track as Bloody Mary by Lady Gaga"
+      }],
+      "genre": "pop",
+      "style": "dark_dance_pop",
+      "sample_status": "CROSS_PLATFORM_GATE_PASS_PENDING_ANALYZER"
+    }
+  ],
+  "provenance_note": "YouTube/social metrics were observed through vidIQ; release dates were cross-checked against public release metadata. Social inclusion requires explicit song/audio identity."
+}
