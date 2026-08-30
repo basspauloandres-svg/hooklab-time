@@ -13,14 +13,33 @@ jobs:
         with: {python-version: '3.10', cache: 'pip'}
       - run: sudo apt-get update -qq && sudo apt-get install -y ffmpeg
       - run: python -m pip install --upgrade pip && python -m pip install -r mie_core/requirements.txt faster-whisper
+      - name: Restore Beat This cache
+        id: beatcache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/beat-this
+            ~/.cache/hooklab/beat_this_models
+          key: beat-this-v1.0.0-a5f8d39d-fdd59e65
       - name: Install Beat This and verified models
         run: |
-          cargo install beat-this --version 1.0.0 --locked
-          mkdir -p /dev/shm/beat_this_models
-          curl -L --fail --silent --show-error https://raw.githubusercontent.com/danigb/beat-this-rs/main/models/beat_this_small.onnx -o /dev/shm/beat_this_models/beat_this_small.onnx
-          curl -L --fail --silent --show-error https://raw.githubusercontent.com/danigb/beat-this-rs/main/models/mel_spectrogram.onnx -o /dev/shm/beat_this_models/mel_spectrogram.onnx
-          echo 'a5f8d39d989f31859454ba27afe61c5317ca95e4d9373e6853e5361b8937172f  /dev/shm/beat_this_models/beat_this_small.onnx' | sha256sum -c -
-          echo 'fdd59e65c515331308e4c8841edf99972deca646bdf6197744c2a5b7755e3de9  /dev/shm/beat_this_models/mel_spectrogram.onnx' | sha256sum -c -
+          set -euo pipefail
+          if [ ! -x "$HOME/.cargo/bin/beat-this" ]; then
+            cargo install beat-this --version 1.0.0 --locked
+          fi
+          mkdir -p "$HOME/.cache/hooklab/beat_this_models" /dev/shm/beat_this_models
+          MODEL="$HOME/.cache/hooklab/beat_this_models/beat_this_small.onnx"
+          MEL="$HOME/.cache/hooklab/beat_this_models/mel_spectrogram.onnx"
+          if [ ! -f "$MODEL" ]; then
+            curl -L --fail --silent --show-error https://raw.githubusercontent.com/danigb/beat-this-rs/main/models/beat_this_small.onnx -o "$MODEL"
+          fi
+          if [ ! -f "$MEL" ]; then
+            curl -L --fail --silent --show-error https://raw.githubusercontent.com/danigb/beat-this-rs/main/models/mel_spectrogram.onnx -o "$MEL"
+          fi
+          echo 'a5f8d39d989f31859454ba27afe61c5317ca95e4d9373e6853e5361b8937172f  '"$MODEL" | sha256sum -c -
+          echo 'fdd59e65c515331308e4c8841edf99972deca646bdf6197744c2a5b7755e3de9  '"$MEL" | sha256sum -c -
+          cp "$MODEL" /dev/shm/beat_this_models/beat_this_small.onnx
+          cp "$MEL" /dev/shm/beat_this_models/mel_spectrogram.onnx
       - name: Build documentary Text Object
         run: |
           mkdir -p real_e2e
@@ -37,7 +56,7 @@ jobs:
             --song-id AMAZING_GRACE_1939_COMMONS \
             --source-license 'Wikimedia Commons public-domain 1939 field recording; source page File:Amazing grace.ogg' \
             --output real_e2e/acoustic \
-            --beat-this-bin beat-this \
+            --beat-this-bin "$HOME/.cargo/bin/beat-this" \
             --beat-model /dev/shm/beat_this_models/beat_this_small.onnx \
             --mel-model /dev/shm/beat_this_models/mel_spectrogram.onnx
       - name: Resolve performed documentary text from ASR timing evidence
