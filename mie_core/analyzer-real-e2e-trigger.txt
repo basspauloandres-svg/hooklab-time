@@ -1,0 +1,1 @@
+Trigger 001 — real public-domain FULL TMT end-to-end test. No threshold tuning before evidence review.
