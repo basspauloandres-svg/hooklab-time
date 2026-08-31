@@ -4,6 +4,7 @@ on:
     branches: [mie/golden-forensic-v0.3]
     paths:
       - 'mie_core/milestone_300_sampling_frame_builder.py'
+      - 'mie_core/m300_cosod_crosswalk.py'
       - '.github/workflows/milestone-300-discovery-frame.yml'
   workflow_dispatch:
 jobs:
@@ -25,7 +26,13 @@ jobs:
           json.dump(d,open(p,'w'),indent=2,ensure_ascii=False)
           print(d['spotify_success_summary'])
           PY
+      - name: Clone licensed CoSoD provider
+        run: git clone --depth 1 https://github.com/duguay-michele/CoSoD.git /tmp/cosod
+      - name: Crosswalk M300 to CoSoD
+        run: python mie_core/m300_cosod_crosswalk.py --m300 /tmp/MILESTONE_300_DISCOVERY_FRAME.json --cosod-metadata /tmp/cosod/Metadata.zip --output /tmp/M300_COSOD_CROSSWALK_CURRENT_v1.json
       - uses: actions/upload-artifact@v4
         with:
           name: milestone-300-discovery-frame
-          path: /tmp/MILESTONE_300_DISCOVERY_FRAME.json
+          path: |
+            /tmp/MILESTONE_300_DISCOVERY_FRAME.json
+            /tmp/M300_COSOD_CROSSWALK_CURRENT_v1.json
