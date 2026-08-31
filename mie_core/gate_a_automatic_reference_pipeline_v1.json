@@ -1,0 +1,42 @@
+{
+  "schema": "HOOKLAB_GATE_A_AUTOMATIC_REFERENCE_PIPELINE_v1.0",
+  "gate": "A",
+  "status": "IMPLEMENTED_RESOLUTION_LAYER_PENDING_AUTHORIZED_TARGET_AUDIO",
+  "manual_user_recording_upload_as_ordinary_procedure": false,
+  "human_intervention": "AUDIT_ONLY",
+  "pipeline": [
+    "TARGET_REGISTRY",
+    "AUTOMATIC_LEGITIMATE_REFERENCE_RESOLUTION",
+    "VERSION_IDENTITY",
+    "AUTHORIZED_TEMPORARY_COMPUTATIONAL_ACCESS",
+    "VOCAL_MELODY_EXTRACTION",
+    "AUDIO_MIDI_ALIGNMENT",
+    "METRICS",
+    "PASS_AUDIT_FAIL",
+    "PROVENANCE"
+  ],
+  "separation_invariant": "REFERENCE_ACQUISITION != VERSION_IDENTITY != MELODIC_VALIDATION",
+  "source_classes": {
+    "musicbrainz": "IDENTITY_METADATA_ONLY",
+    "youtube_api": "METADATA_REACH_ONLY_AUTOMATED_AUDIO_PROCESSING_PROHIBITED_WITHOUT_PRIOR_WRITTEN_APPROVAL",
+    "apple_itunes_preview": "IDENTITY_VERSION_METADATA_ONLY_PROMOTIONAL_STREAM_TERMS",
+    "spotify_preview": "IDENTITY_VERSION_METADATA_ONLY_PREVIEW_NOT_ASSUMED_ANALYSIS_AUTHORIZATION",
+    "jamendo_api": "CONDITIONAL_RIGHTS_CLEARED_ROUTE_REQUIRES_TRACK_LEVEL_LICENSE_COMPATIBILITY",
+    "project_authorized_master": "ELIGIBLE_WITH_EXPLICIT_PROCESSING_AUTHORIZATION_AND_AUTOMATED_REFERENCE"
+  },
+  "retention_policy": {
+    "commercial_audio_in_repository": false,
+    "temporary_audio": "DELETE_AFTER_DERIVED_EVIDENCE_WHEN_PROVIDER_OR_CONTRACT_REQUIRES",
+    "retain": [
+      "provider_and_recording_identifiers",
+      "authorization_evidence",
+      "version_identity_evidence",
+      "derived_vocal_note_events",
+      "alignment_transform",
+      "validation_metrics",
+      "decision",
+      "timestamps_and_software_versions"
+    ]
+  },
+  "scientific_promotion": false
+}
