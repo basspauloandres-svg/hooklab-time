@@ -6,7 +6,7 @@ def test_gate_b_timer_contract_present():
     s=APP.read_text(encoding='utf-8')
     required=[
         'performance.now()',
-        'HOOKLAB_GATE_B_PILOT_APP_v0.2',
+        'HOOKLAB_GATE_B_PILOT_APP_v0.3',
         'section_form_plan',
         'tempo_metric_recommendation',
         'harmonic_tonal_recommendation',
@@ -25,7 +25,6 @@ def test_finish_requires_complete_contract_and_retained_artifact():
     s=APP.read_text(encoding='utf-8')
     assert 'if(!complete()||!artifactReady()||pauseStart)return' in s
     assert 'finish.disabled=!running||finished||!ok||!aok||!!pauseStart' in s
-    assert 'if(!metadataReady())' in s
 
 def test_plain_language_ux_contract():
     s=APP.read_text(encoding='utf-8')
@@ -43,7 +42,20 @@ def test_plain_language_ux_contract():
     for token in required_ux:
         assert token in s
 
-def test_examples_are_framed_as_examples_not_answers():
+def test_preflight_is_required_before_timer_start():
     s=APP.read_text(encoding='utf-8')
-    assert 'Los ejemplos son únicamente para explicar qué se solicita' in s
-    assert 'crea tus propias decisiones' in s
+    required=[
+        'Antes de comenzar',
+        'preflightReady()',
+        'Verificación de comprensión pendiente',
+        'excluded_from_ttpf:true',
+        'start.disabled=running||finished||!ok||!metadataReady()',
+        'if(!metadataReady()||!preflightReady())'
+    ]
+    for token in required:
+        assert token in s
+
+def test_preflight_covers_all_five_scientific_outputs():
+    s=APP.read_text(encoding='utf-8')
+    for token in ['id="pf1"','id="pf2"','id="pf3"','id="pf4"','id="pf5"']:
+        assert token in s
