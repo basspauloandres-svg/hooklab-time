@@ -107,6 +107,37 @@ F. final regression/checkpoint/documentation.
 - `c25564e421f6dafba77207b3ba9e64d55e8d1ca1` P0 response template.
 - `8ac7669a25f72e7789e2d5fafacf722b0e0febd1` first UX prototype.
 - `45e7309beb8cd86ecfea2d78dc818d4cf5fcdf60` aesthetic-reference scientific contract.
+- `c170f657cbada5f899dd7c556b4e03c1286b1298` Producer Interface v0.2: aesthetic-reference provenance, SHA-256, session persistence/export, explicit scientific lock states.
+
+## 13. Post-migration progress — Producer Interface v0.2
+Approved implementation layer: `AESTHETIC_REFERENCE v0.2`.
+Canonical code: `app/prototype_v1/index.html`.
+Implemented and versioned:
+- local audio upload and playback;
+- MIME validation for audio;
+- file identity metadata: name, MIME, bytes, last-modified, duration;
+- browser-side SHA-256 fingerprint;
+- explicit role `AESTHETIC_REFERENCE`;
+- explicit `scientific_ingestion=false` and `gate_a_ingestion=false` semantics;
+- session identifier;
+- local session persistence and JSON export;
+- producer evaluation fields and timer persisted in session snapshot;
+- evidence/limits/provenance panels wired in producer language;
+- D0/SCIENTIFIC_D distinction surfaced; scientific audio/MIDI is not simulated while confirmatory gate is blocked.
+
+Verification status:
+- CODED: PASS.
+- VERSIONED: PASS (`producer-interface-v0.2`).
+- PROVENANCE CONTRACT: PASS by explicit fields and UI declaration.
+- CHECKPOINTED: PASS.
+- BROWSER INTERACTION REGRESSION: pending direct execution/openable stable-link verification.
+- STABLE PUBLIC LINK: pending repository deployment configuration.
+
+Immediate next canonical work:
+1. Execute browser-level interaction regression for every control and establish stable openable link.
+2. Connect deterministic exploratory D0 MIDI/audio generation without altering SCIENTIFIC_D lock.
+3. Execute observed melody-representation calibration in parallel.
+4. If calibration + positive conditioned association pass, promote deduction eligibility and generate SCIENTIFIC_D; otherwise document valid null/non-promotion completion.
 
 ## Migration instruction
-Read this checkpoint completely together with the canonical project documents. Continue exactly from section 11. Do not restart Gate A, acquisition design, M300 discovery, deductive-framework design, DALI integration design or P0 protocol design. Any new layer approved by the user must be corroborated, explicitly coded, versioned and checkpointed before becoming canonical.
+Read this checkpoint completely together with the canonical project documents. Continue exactly from section 11 and section 13. Do not restart Gate A, acquisition design, M300 discovery, deductive-framework design, DALI integration design or P0 protocol design. Any new layer approved by the user must be corroborated, explicitly coded, versioned and checkpointed before becoming canonical.
