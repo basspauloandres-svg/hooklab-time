@@ -1,0 +1,28 @@
+{
+  "schema":"HOOKLAB_BIMMUDA_PROVIDER_AUDIT_INPUT_v1.0",
+  "provider":"BiMMuDa",
+  "observed_date":"2026-08-31",
+  "repository":"madelinehamilton/BiMMuDa",
+  "repository_public":true,
+  "full_main_melody_midi":true,
+  "section_midis":true,
+  "metadata_available":true,
+  "manual_transcription_quality_control":true,
+  "target_population_intersection_observed":true,
+  "observed_intersections":[
+    {"title":"Umbrella","artist":"Rihanna","dataset_id":"2007_02","full_midi":"bimmuda_dataset/2007/2/2007_02_full.mid","status":"OBSERVED"},
+    {"title":"Call Me Maybe","artist":"Carly Rae Jepsen","dataset_id":"2012_02","full_midi":"bimmuda_dataset/2012/2/2012_02_full.mid","status":"OBSERVED"}
+  ],
+  "dataset_license_status":"NO_EXPLICIT_REPOSITORY_DATASET_LICENSE_OBSERVED",
+  "computational_processing_authorized":false,
+  "article_license":"CC BY 4.0 applies to the published article; it is not being treated as proof that repository dataset files carry the same license.",
+  "expected_gate_result":"PROVIDER_AUDIT_REQUIRED",
+  "provenance":[
+    "https://github.com/madelinehamilton/BiMMuDa",
+    "https://transactions.ismir.net/articles/10.5334/tismir.168",
+    "BiMMuDa repository metadata: license=null",
+    "bimmuda_dataset/2007/2/2007_02_full.mid",
+    "bimmuda_dataset/2012/2/2012_02_full.mid"
+  ],
+  "interpretation":"BiMMuDa is highly suitable technically and overlaps the target population, but scientific ingestion remains blocked until dataset-file licensing or explicit research/computational permission is established."
+}
