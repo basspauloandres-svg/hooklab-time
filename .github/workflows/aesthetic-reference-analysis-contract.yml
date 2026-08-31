@@ -1,0 +1,17 @@
+name: Aesthetic Reference Analysis Contract
+on:
+  push:
+    branches: ["mie/golden-forensic-v0.3"]
+    paths:
+      - "mie_core/aesthetic_reference_analysis_contract.py"
+      - "tests/aesthetic_reference_analysis_contract_test.py"
+      - ".github/workflows/aesthetic-reference-analysis-contract.yml"
+  workflow_dispatch:
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.10'}
+      - run: python tests/aesthetic_reference_analysis_contract_test.py
