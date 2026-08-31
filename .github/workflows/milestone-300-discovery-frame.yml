@@ -9,6 +9,7 @@ on:
       - 'mie_core/m300_cosod_formal_architecture_analysis.py'
       - 'mie_core/m300_salami_crosswalk.py'
       - 'mie_core/m300_harmonix_crosswalk.py'
+      - 'mie_core/m300_multi_provider_coverage.py'
       - '.github/workflows/milestone-300-discovery-frame.yml'
   workflow_dispatch:
 jobs:
@@ -48,6 +49,8 @@ jobs:
         run: git clone --depth 1 https://github.com/urinieto/harmonixset.git /tmp/harmonix
       - name: Crosswalk M300 to Harmonix
         run: python mie_core/m300_harmonix_crosswalk.py --m300 /tmp/MILESTONE_300_DISCOVERY_FRAME.json --harmonix-repo /tmp/harmonix --output /tmp/M300_HARMONIX_CROSSWALK_CURRENT_v1.json
+      - name: Assemble version-gated provider coverage
+        run: python mie_core/m300_multi_provider_coverage.py --cosod /tmp/M300_COSOD_CROSSWALK_CURRENT_v1.json --salami /tmp/M300_SALAMI_CROSSWALK_CURRENT_v1.json --harmonix /tmp/M300_HARMONIX_CROSSWALK_CURRENT_v1.json --output /tmp/M300_MULTI_PROVIDER_COVERAGE_CURRENT_v1.json
       - uses: actions/upload-artifact@v4
         with:
           name: milestone-300-discovery-frame
@@ -58,3 +61,4 @@ jobs:
             /tmp/M300_COSOD_FORMAL_ARCHITECTURE_ANALYSIS_CURRENT_v1.json
             /tmp/M300_SALAMI_CROSSWALK_CURRENT_v1.json
             /tmp/M300_HARMONIX_CROSSWALK_CURRENT_v1.json
+            /tmp/M300_MULTI_PROVIDER_COVERAGE_CURRENT_v1.json
