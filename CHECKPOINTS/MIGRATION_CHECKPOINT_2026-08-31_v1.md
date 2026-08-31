@@ -52,6 +52,9 @@ Implemented:
 Frozen requirements include >=30 paired independent items, performance/aligned identity, and at least one stable feature family. F0 != discrete notes; provider annotation != ground truth by default.
 Observed calibration execution is still pending.
 
+Canonical operational formulation:
+“Reutilizar el workflow existente de GitHub Pages para publicar Producer Interface v0.2. En paralelo, mantener fail-closed el gate de calibración hasta contar con ≥30 pares independientes, identidad/performance alineada y al menos una feature musical con ρ ≥ .80 y error mediano dentro de la tolerancia predeclarada.”
+
 ## 7. Listening state
 P0 exploratory listening exists and is explicitly non-confirmatory.
 Controlled P0 conditions: H, D0 exploratory, H+D0; same text/harmony/tempo/render. P0 response validator exists.
@@ -84,20 +87,19 @@ Readiness estimates, not effect sizes:
 - DALI adapter/parser engineering: 100%, observed ingestion 0% pending external approval;
 - melody calibration gate engineering: 100%, observed calibration pending;
 - MIDI/audio creative-test infrastructure: ~80%;
-- listening protocol/interface: ~85%+ and now moving into product UX iteration;
-- provenance/checkpoint discipline: ~97%;
+- listening protocol/interface: ~95% after executable deployment + browser regression; D0 engine bridge remains pending;
+- provenance/checkpoint discipline: ~98%;
 - empirical readiness for confirmatory listening: ~65-70%;
 - positive scientific rule: 0, correctly.
 
 ## 11. Immediate next work in new conversation
 Do not ask for P0 subjective ratings first. User explicitly prefers to see and iteratively test the product interface.
 Priority order:
-A. make the UX prototype actually executable/openable from a stable link and verify every button/function;
-B. integrate the aesthetic-reference upload/player and keep its provenance isolated;
-C. expose scientific evidence/boundaries clearly in producer language;
-D. continue observed melody-representation calibration in parallel without waiting for DALI;
-E. once a calibrated positive association exists, generate SCIENTIFIC_D MIDI/audio and unlock confirmatory H/D/H+D;
-F. final regression/checkpoint/documentation.
+A. connect the verified existing D0 generation architecture to the executable producer interface while preserving descriptive/non-causal semantics and manifest provenance;
+B. continue observed melody-representation calibration in parallel without waiting for DALI;
+C. keep `SCIENTIFIC_D` fail-closed until calibration and deduction eligibility pass;
+D. once a calibrated positive association exists, generate SCIENTIFIC_D MIDI/audio and unlock confirmatory H/D/H+D; if no positive eligible result exists, document valid null/non-promotion completion;
+E. final regression/checkpoint/documentation.
 
 ## 12. Key recent commits
 - `1e673678b4a684be8057c159a7537f7f27a05016` Road to 100% criteria.
@@ -108,7 +110,10 @@ F. final regression/checkpoint/documentation.
 - `8ac7669a25f72e7789e2d5fafacf722b0e0febd1` first UX prototype.
 - `45e7309beb8cd86ecfea2d78dc818d4cf5fcdf60` aesthetic-reference scientific contract.
 - `c170f657cbada5f899dd7c556b4e03c1286b1298` Producer Interface v0.2: aesthetic-reference provenance, SHA-256, session persistence/export, explicit scientific lock states.
-- `4fa26ea759a6ab3f7cfc78059f5109fc6d71447e` Pages workflow retargeted to Producer Interface v0.2; deployment execution audited as FAILURE before runner steps.
+- `4fa26ea759a6ab3f7cfc78059f5109fc6d71447e` initial Producer Interface Pages retarget; deployment from experimental branch failed before runner.
+- `1c374586add27e5e71324cc9b0e79b49d15fb7ab` default-branch deployment harness established on `main`.
+- `59f7de6d50cf19365848e995ac1ad6adcb610a8d` isolated Pages release created at `producer-interface-v0.2/index.html` on `main`.
+- `e5bdc5825f3c47ac364c7bc4421e9bc034f0b958` regression target fixed to isolated Producer Interface Pages release; dynamic Pages deployment completed successfully.
 
 ## 13. Post-migration progress — Producer Interface v0.2
 Approved implementation layer: `AESTHETIC_REFERENCE v0.2`.
@@ -131,8 +136,23 @@ Verification status:
 - VERSIONED: PASS (`producer-interface-v0.2`).
 - PROVENANCE CONTRACT: PASS by explicit fields and UI declaration.
 - CHECKPOINTED: PASS.
-- BROWSER INTERACTION REGRESSION: pending direct execution/openable stable-link verification.
-- STABLE PUBLIC LINK: pending. Existing Pages workflow was correctly retargeted, but Actions run `33444879543` concluded FAILURE before any runner step; this is classified as DEPLOYMENT_INFRASTRUCTURE_AUDIT, not interface-code failure.
+- STABLE PUBLIC LINK: PASS at `https://basspauloandres-svg.github.io/hooklab-time/producer-interface-v0.2/`.
+- ROOT URL NOTE: `https://basspauloandres-svg.github.io/hooklab-time/` remains the historical HookLab TIME site and must not be used as the Producer Interface target.
+- BROWSER INTERACTION REGRESSION: PASS after Pages deployment completion; rerun job `99667202762` in workflow run `33446499868` completed `success`.
+
+Browser regression PASS covers:
+- expected v0.2 title/session boot;
+- visible scientific boundary contract;
+- evidence/limits/provenance panel toggles;
+- authorized synthetic WAV upload;
+- local SHA-256 provenance;
+- explicit Gate A = NO and scientific ingestion = NO;
+- local session identifier persistence;
+- timer start/stop/reset;
+- D0 exploratory state and `SCIENTIFIC_D` lock;
+- save/local persistence of creative input and producer decision;
+- JSON export and provenance contract;
+- clearing the aesthetic reference.
 
 ## 14. D0 reuse audit
 Existing reusable architecture was inspected before any new generator implementation.
@@ -149,11 +169,24 @@ The calibration chain is implemented but observed calibration remains pending.
 - fail-closed gate requires >=30 paired items, independent reference, aligned/performance identity, and >=1 stable core feature meeting thresholds.
 The existing melodic cross-representation workflow is a separate symbolic validation path and does not by itself satisfy the independent vocal melody representation calibration requirement.
 
+## 16. Deployment/regression closure
+The initial root deployment created a misleading apparent success because the repository's dynamic Pages publication continued serving the historical HookLab TIME root. Browser regression correctly detected title `HookLab TIME v1.8`, preventing a false PASS.
+
+Resolution:
+- preserve historical Pages root;
+- publish Producer Interface v0.2 as isolated release `/producer-interface-v0.2/` on `main`;
+- maintain canonical implementation source on `mie/golden-forensic-v0.3`;
+- execute browser-level Playwright regression against the isolated release;
+- regression PASS only after dynamic Pages deployment completed.
+
+This closes section 11.A and 11.B at product-interface level. Aesthetic-reference provenance remains scientifically isolated. D0 engine connectivity remains the immediate product task; observed melody calibration remains the immediate scientific task.
+
 Immediate next canonical work:
-1. Resolve stable-link deployment infrastructure and execute browser-level interaction regression for every control.
-2. Build a verified bridge from existing D0 generation architecture into the producer interface, preserving descriptive/non-causal semantics and manifest provenance.
+1. Build a verified bridge from existing D0 generation architecture into Producer Interface v0.2, preserving descriptive/non-causal semantics, deterministic identifiers and manifest provenance.
+2. Add audible D0 variant selection/playback and downloadable MIDI/audio only under `stimulus_class=D0_EXPLORATORY`; do not expose it as `SCIENTIFIC_D`.
 3. Acquire/prepare >=30 independent paired calibration items and execute observed melody-representation calibration.
 4. If calibration + positive conditioned association pass, promote deduction eligibility and generate SCIENTIFIC_D; otherwise document valid null/non-promotion completion.
+5. Execute final regression/checkpoint/documentation after each approved layer.
 
 ## Migration instruction
-Read this checkpoint completely together with the canonical project documents. Continue exactly from sections 11, 13, 14 and 15. Do not restart Gate A, acquisition design, M300 discovery, deductive-framework design, DALI integration design or P0 protocol design. Any new layer approved by the user must be corroborated, explicitly coded, versioned and checkpointed before becoming canonical.
+Read this checkpoint completely together with the canonical project documents. Continue exactly from sections 11, 13, 14, 15 and 16. Do not restart Gate A, acquisition design, M300 discovery, deductive-framework design, DALI integration design or P0 protocol design. Any new layer approved by the user must be corroborated, explicitly coded, versioned and checkpointed before becoming canonical.
