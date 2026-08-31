@@ -1,10 +1,10 @@
-name: Deploy Gate B Pilot Timer to Pages
+name: Deploy HookLab Producer Interface to Pages
 
 on:
   push:
     branches: ["mie/golden-forensic-v0.3"]
     paths:
-      - "app-gate-b-pilot-timer-v0.1.html"
+      - "app/prototype_v1/index.html"
       - ".github/workflows/deploy-gate-b-pilot-pages.yml"
   workflow_dispatch:
 
@@ -30,7 +30,7 @@ jobs:
       - name: Prepare static site
         run: |
           mkdir -p _site
-          cp app-gate-b-pilot-timer-v0.1.html _site/index.html
+          cp app/prototype_v1/index.html _site/index.html
           printf '%s\n' 'User-agent: *' 'Disallow:' > _site/robots.txt
 
       - name: Configure Pages
