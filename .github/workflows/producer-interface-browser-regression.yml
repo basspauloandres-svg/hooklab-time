@@ -1,0 +1,32 @@
+name: Producer Interface v0.2 Browser Regression
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - ".github/tests/producer-interface-regression.mjs"
+      - ".github/workflows/producer-interface-browser-regression.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      HOOKLAB_URL: https://basspauloandres-svg.github.io/hooklab-time/
+    steps:
+      - name: Checkout main regression harness
+        uses: actions/checkout@v6
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install Playwright
+        run: npm install --no-save playwright@1.55.0
+      - name: Install Chromium
+        run: npx playwright install chromium --with-deps
+      - name: Run deployed-interface regression
+        run: node .github/tests/producer-interface-regression.mjs
