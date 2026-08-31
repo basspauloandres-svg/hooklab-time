@@ -1,0 +1,31 @@
+name: Milestone 300 discovery frame
+on:
+  push:
+    branches: [mie/golden-forensic-v0.3]
+    paths:
+      - 'mie_core/milestone_300_sampling_frame_builder.py'
+      - '.github/workflows/milestone-300-discovery-frame.yml'
+  workflow_dispatch:
+jobs:
+  build-frame:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch open Billboard-Spotify frame
+        run: curl -L --fail https://raw.githubusercontent.com/Crawlora-org/song-length-data/main/data/song-length-1959-2025.csv -o /tmp/song-length.csv
+      - name: Build 300-song frame
+        run: python mie_core/milestone_300_sampling_frame_builder.py --csv /tmp/song-length.csv --output /tmp/MILESTONE_300_DISCOVERY_FRAME.json
+      - name: Summarize Spotify evidence
+        run: |
+          python - <<'PY'
+          import json
+          p='/tmp/MILESTONE_300_DISCOVERY_FRAME.json';d=json.load(open(p))
+          rows=d['candidates'];thr=100_000_000
+          d['spotify_success_summary']={'threshold_playcount':thr,'pass':sum((x['spotify_playcount_observed'] or 0)>=thr for x in rows),'below_threshold':sum((x['spotify_playcount_observed'] or 0)<thr for x in rows)}
+          json.dump(d,open(p,'w'),indent=2,ensure_ascii=False)
+          print(d['spotify_success_summary'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: milestone-300-discovery-frame
+          path: /tmp/MILESTONE_300_DISCOVERY_FRAME.json
