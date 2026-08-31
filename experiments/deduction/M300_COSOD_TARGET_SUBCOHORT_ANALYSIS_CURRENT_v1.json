@@ -1,0 +1,21 @@
+{
+  "schema":"HOOKLAB_M300_COSOD_TARGET_SUBCOHORT_ANALYSIS_v1.0",
+  "source_run_id":33414440605,
+  "artifact_id":9766427416,
+  "artifact_digest":"sha256:7a690f8f0cc7d3180a6677dbd5b47fa4f4a0c479d58b0893ee8fb1e35a637e93",
+  "population_scope":"Exact M300 intersections with licensed CoSoD collaboration annotations, chart years 2010-2019",
+  "eligible_rows":52,
+  "audit_rows":1,
+  "tests":[
+    {"feature":"first_chorus_s","outcome":"m300_rank_strength","n":52,"rho":0.1395,"q_bh":0.6480593442313293,"supported_for_interpretation":false},
+    {"feature":"first_chorus_s","outcome":"log10_spotify_playcount","n":52,"rho":0.0401,"q_bh":0.7933969623719852,"supported_for_interpretation":false},
+    {"feature":"section_events","outcome":"m300_rank_strength","n":52,"rho":-0.0372,"q_bh":0.7933969623719852,"supported_for_interpretation":false},
+    {"feature":"section_events","outcome":"log10_spotify_playcount","n":52,"rho":-0.1757,"q_bh":0.6480593442313293,"supported_for_interpretation":false},
+    {"feature":"median_section_vocal_span_st","outcome":"m300_rank_strength","n":52,"rho":0.1447,"q_bh":0.6480593442313293,"supported_for_interpretation":false},
+    {"feature":"median_section_vocal_span_st","outcome":"log10_spotify_playcount","n":52,"rho":0.0647,"q_bh":0.7933969623719852,"supported_for_interpretation":false}
+  ],
+  "supported_for_interpretation":[],
+  "decision":"NO_TARGET_SUBCOHORT_ASSOCIATION_PASSED_GATE",
+  "scientific_promotion":false,
+  "boundary":"This is a top-15 Year-End collaboration subcohort embedded in M300. It cannot represent all 300 songs, all genres/styles, or causal success mechanisms. Spotify playcount is a current cumulative outcome snapshot and M300 rank strength is within-year top-15 ordering."
+}
