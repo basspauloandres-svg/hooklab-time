@@ -6,6 +6,7 @@ on:
       - 'mie_core/milestone_300_sampling_frame_builder.py'
       - 'mie_core/m300_cosod_crosswalk.py'
       - 'mie_core/m300_cosod_target_subcohort_analysis.py'
+      - 'mie_core/m300_cosod_formal_architecture_analysis.py'
       - '.github/workflows/milestone-300-discovery-frame.yml'
   workflow_dispatch:
 jobs:
@@ -35,6 +36,8 @@ jobs:
         run: python mie_core/m300_cosod_crosswalk.py --m300 /tmp/MILESTONE_300_DISCOVERY_FRAME.json --cosod-metadata /tmp/cosod/Metadata.zip --output /tmp/M300_COSOD_CROSSWALK_CURRENT_v1.json
       - name: Analyze licensed M300 target subcohort
         run: python mie_core/m300_cosod_target_subcohort_analysis.py --m300 /tmp/MILESTONE_300_DISCOVERY_FRAME.json --cosod-metadata /tmp/cosod/Metadata.zip --cosod-analysis /tmp/cosod/Analysis.zip --output /tmp/M300_COSOD_TARGET_SUBCOHORT_ANALYSIS_CURRENT_v1.json
+      - name: Analyze formal architecture layer
+        run: python mie_core/m300_cosod_formal_architecture_analysis.py --m300 /tmp/MILESTONE_300_DISCOVERY_FRAME.json --cosod-metadata /tmp/cosod/Metadata.zip --cosod-analysis /tmp/cosod/Analysis.zip --output /tmp/M300_COSOD_FORMAL_ARCHITECTURE_ANALYSIS_CURRENT_v1.json
       - uses: actions/upload-artifact@v4
         with:
           name: milestone-300-discovery-frame
@@ -42,3 +45,4 @@ jobs:
             /tmp/MILESTONE_300_DISCOVERY_FRAME.json
             /tmp/M300_COSOD_CROSSWALK_CURRENT_v1.json
             /tmp/M300_COSOD_TARGET_SUBCOHORT_ANALYSIS_CURRENT_v1.json
+            /tmp/M300_COSOD_FORMAL_ARCHITECTURE_ANALYSIS_CURRENT_v1.json
