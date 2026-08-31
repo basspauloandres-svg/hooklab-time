@@ -1,0 +1,25 @@
+{
+  "schema":"HOOKLAB_DEDUCTION_HYPOTHESIS_RECORD_v1.0",
+  "hypothesis_id":"D001-CANDIDATE-VOCAL-VARIABILITY",
+  "state":"INTERPRETATION_CANDIDATE / NOT_RULE / NOT_MIDI_ELIGIBLE",
+  "population_scope":"CoSoD multi-artist Billboard Hot 100 Year-End collaborations, 2010-2019",
+  "observed_pattern":{
+    "feature":"aggregate_vocal_pitch_span_hz",
+    "outcome":"year_end_peak_strength",
+    "n":329,
+    "rho":0.1745,
+    "q_bh":0.00743400416377191,
+    "partial_rho_after_year_and_collaboration_type_gender":0.1834,
+    "partial_p":0.0008293903919897371
+  },
+  "interpretation_boundary":"The feature aggregates provider-reported vocal pitch statistics across multiple sections and potentially multiple performers. It must not be called melodic range, vocal virtuosity, emotional expressivity, appeal, or a success mechanism without additional evidence.",
+  "theory_match":{
+    "state":"PARTIAL_PLAUSIBILITY_ONLY",
+    "support":"Peer-reviewed experimental literature shows that human voice and F0-related variation can affect perceived arousal/emotional information, providing a plausible perceptual pathway for studying vocal pitch variability.",
+    "non_support":"The reviewed literature does not establish that larger aggregate vocal pitch span causes commercial success or stronger chart performance."
+  },
+  "alternative_explanations":["genre/style","performer count","vocal gender/register mixture","artist history","exposure/platform mediation","production choices","song key/register","section composition","market and audience","unobserved confounding"],
+  "required_before_rule_promotion":["define a performer-normalized/semitone-based pitch variability feature","separate single-performer from multi-performer effects","control/stratify genre-style where defensible","add available artist/context/exposure controls","replicate in an independent authorized contemporary corpus","match interpretation to peer-reviewed literature","only then formulate a bounded melodic realization"],
+  "musical_realization":{"status":"BLOCKED","reason":"Observed association is not yet a compositional variable with an interpretable causal or robust cross-corpus basis."},
+  "scientific_promotion":false
+}
