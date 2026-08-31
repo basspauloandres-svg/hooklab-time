@@ -1,0 +1,40 @@
+{
+  "schema":"HOOKLAB_GATE_B2_EVIDENCE_PROMOTION_AUDIT_v1.0",
+  "experiment_id":"GATE_B2_CT001",
+  "canonical_branch":"mie/golden-forensic-v0.3",
+  "audit_result":"D_GENERATION_BLOCKED_PENDING_PROMOTED_COHORT_RULES",
+  "observed_repository_evidence":{
+    "tmt_pipeline":"mie_core/TMT_PIPELINE_v1_0.md",
+    "corpus_reference_builder":"mie_core/build_corpus_reference.py",
+    "data_first_guard":"mie_core/data_first_guard.py",
+    "target_symbolic_calibration":"mie_core/target_vocal_binding_calibration_v1.json"
+  },
+  "findings":[
+    {
+      "finding":"Corpus Reference Model builder produces empirical distributions without manual feature weights.",
+      "implication":"Distributions are valid descriptive/statistical evidence but are not automatically compositional prescriptions."
+    },
+    {
+      "finding":"Data First Guard allows CORPUS_EMPIRICAL evidence to control inference only when the decision evidence is non-provisional and properly declared.",
+      "implication":"A separate promotion/decision record is required before a CRM statistic can become a Gate-B2 generative constraint."
+    },
+    {
+      "finding":"The five-song Dance-Pop T0 cohort is explicitly a forensic/technical validation seed and its vocal binding remains source-internal with scientific_promotion=false.",
+      "implication":"T0 cannot be treated as a scientifically promoted Dance-Pop generative reference merely because 5/5 symbolic bindings are strong."
+    },
+    {
+      "finding":"No explicit repository promotion registry was located that maps Dance-Pop cohort statistics to scientifically promoted generative rules for FORM, TEMPO_METER, HARMONY, MELODY, RHYTHM or PRODUCTION.",
+      "implication":"Generating CT001-D now would require arbitrary or retrospective musical choices and would violate the data-first design."
+    }
+  ],
+  "dimension_status":{
+    "FORM":"PENDING_PROMOTED_RULE",
+    "TEMPO_METER":"PENDING_PROMOTED_RULE",
+    "HARMONY":"PENDING_PROMOTED_RULE",
+    "MELODY":"PENDING_PROMOTED_RULE",
+    "RHYTHM":"PENDING_PROMOTED_RULE",
+    "PRODUCTION":"PENDING_PROMOTED_RULE"
+  },
+  "next_valid_action":"Build or locate the robust Dance-Pop cohort reference at the required analytical scale, run stability/promotion controls, and persist an explicit promotion registry before CT001-D generation.",
+  "invariants":["scientific target population != songs available in Lakh/LMD","candidate discovery != scientific promotion","empirical distribution != promoted generative rule","T0 validation seed != final analytical cohort"]
+}
