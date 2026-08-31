@@ -1,0 +1,20 @@
+name: Producer Interface v0.4 Browser Regression
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "producer-interface-v0.4/**"
+      - ".github/tests/producer-interface-v04-regression.mjs"
+      - ".github/workflows/producer-interface-v04-browser-regression.yml"
+  workflow_dispatch:
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: npm install --no-save playwright@1.55.0
+      - run: npx playwright install chromium --with-deps
+      - run: timeout 120s node .github/tests/producer-interface-v04-regression.mjs
