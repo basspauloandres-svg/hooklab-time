@@ -1,0 +1,20 @@
+name: Producer Interface v0.5 Full E2E
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "producer-interface-v0.5/**"
+      - ".github/tests/producer-interface-v05-full-e2e.mjs"
+      - ".github/workflows/producer-interface-v05-full-e2e.yml"
+  workflow_dispatch:
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: npm install --no-save playwright@1.55.0
+      - run: npx playwright install chromium --with-deps
+      - run: timeout 240s node .github/tests/producer-interface-v05-full-e2e.mjs
