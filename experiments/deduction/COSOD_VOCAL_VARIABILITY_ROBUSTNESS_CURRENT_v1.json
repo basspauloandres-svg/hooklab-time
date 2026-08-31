@@ -1,0 +1,25 @@
+{
+  "schema":"HOOKLAB_COSOD_VOCAL_VARIABILITY_ROBUSTNESS_v1.0",
+  "source_run_id":33413989193,
+  "artifact_id":9766256638,
+  "artifact_digest":"sha256:b767f13b0e4c2919b1869f75bc8603c6ae547bd3072618fb39a98412b6de051f",
+  "population_scope":"CoSoD Billboard Year-End collaborations 2010-2019",
+  "joined_rows":329,
+  "feature_definition":"Section vocal span = 12*log2(PitchMax/PitchMin), using provider section-level pitch extrema; song summaries are robust aggregations in semitones.",
+  "tests":[
+    {"feature":"median_section_vocal_span_st","n":329,"rho":0.0743,"q_bh":0.23842472275803583,"exploratory_supported":false},
+    {"feature":"q75_section_vocal_span_st","n":329,"rho":0.0905,"q_bh":0.23842472275803583,"exploratory_supported":false},
+    {"feature":"max_section_vocal_span_st","n":329,"rho":0.0604,"q_bh":0.27497210363057056,"exploratory_supported":false},
+    {"feature":"median_performer_section_span_st","n":329,"rho":0.0833,"q_bh":0.23842472275803583,"exploratory_supported":false}
+  ],
+  "controlled_tests":[
+    {"feature":"median_section_vocal_span_st","partial_rho":0.0856,"p":0.12135120339922449},
+    {"feature":"q75_section_vocal_span_st","partial_rho":0.1041,"p":0.059390437204708504},
+    {"feature":"max_section_vocal_span_st","partial_rho":0.0616,"p":0.2653484080730342},
+    {"feature":"median_performer_section_span_st","partial_rho":0.1068,"p":0.052997740686323555}
+  ],
+  "controls":["year","collaboration_type_gender","performer_count_with_pitch"],
+  "decision":"DO_NOT_ADVANCE_POSITIVE_HYPOTHESIS",
+  "deductive_consequence":"The earlier Hz aggregate association is not robust to a musically interpretable section/performance-aware semitone representation. It must not be promoted to a HookLab rule or MIDI constraint.",
+  "scientific_promotion":false
+}
