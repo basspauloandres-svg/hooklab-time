@@ -1,0 +1,21 @@
+name: Milestone 300 dual-platform qualification
+on:
+  push:
+    branches: [mie/golden-forensic-v0.3]
+    paths:
+      - 'mie_core/milestone_300_dual_platform_qualifier.py'
+      - '.github/workflows/milestone-300-dual-platform.yml'
+  workflow_dispatch:
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: curl -L --fail https://raw.githubusercontent.com/Crawlora-org/song-length-data/main/data/song-length-1959-2025.csv -o /tmp/billboard.csv
+      - run: python mie_core/milestone_300_sampling_frame_builder.py --csv /tmp/billboard.csv --output /tmp/frame.json
+      - run: curl -L --fail https://raw.githubusercontent.com/SamwelMakoye/Data-Analyst-Portfolio-Project/main/Spotify_Youtube.csv -o /tmp/spotify_youtube.csv
+      - run: python mie_core/milestone_300_dual_platform_qualifier.py --frame /tmp/frame.json --youtube-csv /tmp/spotify_youtube.csv --output /tmp/MILESTONE_300_DUAL_PLATFORM.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: milestone-300-dual-platform
+          path: /tmp/MILESTONE_300_DUAL_PLATFORM.json
