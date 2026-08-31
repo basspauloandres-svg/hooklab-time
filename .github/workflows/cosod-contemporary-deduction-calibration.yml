@@ -1,0 +1,22 @@
+name: CoSoD contemporary deduction calibration
+on:
+  push:
+    branches: [mie/golden-forensic-v0.3]
+    paths:
+      - 'mie_core/cosod_contemporary_deduction_calibration.py'
+      - '.github/workflows/cosod-contemporary-deduction-calibration.yml'
+  workflow_dispatch:
+jobs:
+  calibrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python -m pip install scipy
+      - name: Clone CoSoD
+        run: git clone --depth 1 https://github.com/duguay-michele/CoSoD.git /tmp/cosod
+      - name: Run contemporary calibration
+        run: python mie_core/cosod_contemporary_deduction_calibration.py --repo /tmp/cosod --output COSOD_CONTEMPORARY_DEDUCTION_CALIBRATION_CURRENT_v1.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cosod-contemporary-deduction-calibration
+          path: COSOD_CONTEMPORARY_DEDUCTION_CALIBRATION_CURRENT_v1.json
