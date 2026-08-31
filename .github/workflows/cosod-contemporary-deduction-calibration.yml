@@ -5,6 +5,7 @@ on:
     paths:
       - 'mie_core/cosod_contemporary_deduction_calibration.py'
       - 'mie_core/cosod_schema_audit.py'
+      - 'mie_core/cosod_vocal_variability_robustness.py'
       - '.github/workflows/cosod-contemporary-deduction-calibration.yml'
   workflow_dispatch:
 jobs:
@@ -19,9 +20,12 @@ jobs:
         run: python mie_core/cosod_schema_audit.py --repo /tmp/cosod --output COSOD_SCHEMA_AUDIT_CURRENT_v1.json
       - name: Run contemporary calibration
         run: python mie_core/cosod_contemporary_deduction_calibration.py --repo /tmp/cosod --output COSOD_CONTEMPORARY_DEDUCTION_CALIBRATION_CURRENT_v1.json
+      - name: Run semitone vocal variability robustness
+        run: python mie_core/cosod_vocal_variability_robustness.py --repo /tmp/cosod --output COSOD_VOCAL_VARIABILITY_ROBUSTNESS_CURRENT_v1.json
       - uses: actions/upload-artifact@v4
         with:
           name: cosod-contemporary-deduction-calibration
           path: |
             COSOD_SCHEMA_AUDIT_CURRENT_v1.json
             COSOD_CONTEMPORARY_DEDUCTION_CALIBRATION_CURRENT_v1.json
+            COSOD_VOCAL_VARIABILITY_ROBUSTNESS_CURRENT_v1.json
