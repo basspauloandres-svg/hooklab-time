@@ -1,0 +1,13 @@
+{
+  "schema":"HOOKLAB_LISTENING_UNLOCK_INPUT_v1.0",
+  "representation_calibrated":false,
+  "deduction_eligible":false,
+  "midi_manifest_valid":false,
+  "audio_standardized":true,
+  "provenance_complete":true,
+  "condition_blinding_ready":true,
+  "evaluation_schema_ready":true,
+  "stimulus_class":"D0_EXPLORATORY",
+  "expected_status":"CONFIRMATORY_LISTENING_BLOCKED",
+  "note":"P0 audio exists and may be used for exploratory refinement. Confirmatory listening remains locked until an observed, calibrated and scientifically eligible D stimulus exists."
+}
