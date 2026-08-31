@@ -1,0 +1,16 @@
+{
+  "schema":"HOOKLAB_P0_EXPLORATORY_LISTENING_v1.0",
+  "status":"APPROVED_FOR_EXPLORATORY_USE_ONLY",
+  "scientific_promotion":false,
+  "objective":"Test whether the HookLab evidence-to-creative workflow, listening interface and producer evaluation capture useful creative information before confirmatory H/D/H+D testing.",
+  "conditions":[
+    {"id":"H","label":"Humana","definition":"Melodic proposal made without HookLab deduction guidance."},
+    {"id":"D0","label":"Deducción experimental","definition":"Melodic proposal constrained by documented exploratory parameters. D0 is not a scientifically promoted success rule."},
+    {"id":"HD0","label":"Humana + datos","definition":"Producer revision after inspecting the D0 rationale and evidence boundaries."}
+  ],
+  "controlled_material":{"text":"Vuelvo a encontrar la luz / cuando tu voz vuelve a mí / queda latiendo el lugar / donde te quiero sentir","language":"es","same_text_all_conditions":true,"same_harmony":true,"same_tempo":true,"same_render_chain":true,"target":"chorus hook / 8 bars"},
+  "primary_outcomes":["idea_retained","idea_modified","idea_rejected","producer_reason","perceived_hook_strength","singability","memorability","creative_usefulness"],
+  "secondary_outcomes":["decision_time_seconds"],
+  "blinding":"Condition labels should be hidden during first listening when technically possible.",
+  "boundary":"P0 evaluates workflow/usability and creative response. It cannot validate a causal or predictive success claim and cannot promote D0 into a HookLab rule."
+}
