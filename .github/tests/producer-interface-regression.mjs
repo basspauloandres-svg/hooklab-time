@@ -19,13 +19,21 @@ function writeSilentWav(path, seconds=1, sampleRate=8000) {
 writeSilentWav(wavPath);
 const browser = await chromium.launch({headless:true});
 const page = await browser.newPage({acceptDownloads:true});
+page.setDefaultTimeout(10000);
+page.setDefaultNavigationTimeout(20000);
 const failures = [];
 const check = async (name, fn) => {
   try { await fn(); console.log(`PASS ${name}`); }
   catch (e) { failures.push(`${name}: ${e.message}`); console.error(`FAIL ${name}: ${e.message}`); }
 };
 
-await page.goto(URL, {waitUntil:'networkidle', timeout:60000});
+try {
+  await page.goto(URL, {waitUntil:'domcontentloaded', timeout:20000});
+} catch (e) {
+  console.error(`REGRESSION_FAIL navigation: ${e.message}`);
+  await browser.close();
+  process.exit(1);
+}
 
 await check('version/title', async()=>{
   assert.match(await page.title(), /Producer Interface v0\.2/);
@@ -47,7 +55,7 @@ await check('evidence panels toggle', async()=>{
 
 await check('aesthetic reference provenance', async()=>{
   await page.locator('#ref').setInputFiles({name:'synthetic-reference.wav', mimeType:'audio/wav', buffer:fs.readFileSync(wavPath)});
-  await page.waitForFunction(()=>document.querySelector('#refState')?.textContent?.includes('AUDIT_LOCAL_REFERENCE'), null, {timeout:30000});
+  await page.waitForFunction(()=>document.querySelector('#refState')?.textContent?.includes('AUDIT_LOCAL_REFERENCE'), null, {timeout:10000});
   const meta = await page.locator('#refMeta').innerText();
   assert.match(meta, /AESTHETIC_REFERENCE/);
   assert.match(meta, /synthetic-reference\.wav/);
@@ -96,10 +104,9 @@ await check('save persistence', async()=>{
 });
 
 await check('JSON export', async()=>{
-  const [download] = await Promise.all([
-    page.waitForEvent('download'),
-    page.locator('#export').click()
-  ]);
+  const downloadPromise = page.waitForEvent('download', {timeout:10000});
+  await page.locator('#export').click();
+  const download = await downloadPromise;
   const p = await download.path();
   const obj = JSON.parse(fs.readFileSync(p, 'utf8'));
   assert.equal(obj.version, 'producer-interface-v0.2');
