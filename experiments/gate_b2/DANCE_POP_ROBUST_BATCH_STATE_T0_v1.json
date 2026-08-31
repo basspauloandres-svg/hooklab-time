@@ -1,0 +1,13 @@
+{
+  "schema":"HOOKLAB_ROBUST_BATCH_LEDGER_v1.0",
+  "cohort":"pop_rock::dance_pop",
+  "rows":[
+    {"song_id":"poker_face","title":"Poker Face","identity_pass":true,"version_pass":true,"full_song_pass":true,"provenance_pass":true,"full_tmt_pass":true,"mass_success_pass":true,"genre_style_pass":true,"scientific_promotion":false},
+    {"song_id":"bad_romance","title":"Bad Romance","identity_pass":true,"version_pass":true,"full_song_pass":true,"provenance_pass":true,"full_tmt_pass":true,"mass_success_pass":true,"genre_style_pass":true,"scientific_promotion":false},
+    {"song_id":"tik_tok","title":"TiK ToK","identity_pass":true,"version_pass":true,"full_song_pass":true,"provenance_pass":true,"full_tmt_pass":true,"mass_success_pass":true,"genre_style_pass":true,"scientific_promotion":false},
+    {"song_id":"firework","title":"Firework","identity_pass":true,"version_pass":true,"full_song_pass":true,"provenance_pass":true,"full_tmt_pass":true,"mass_success_pass":true,"genre_style_pass":true,"scientific_promotion":false},
+    {"song_id":"dynamite","title":"Dynamite","identity_pass":true,"version_pass":true,"full_song_pass":true,"provenance_pass":true,"full_tmt_pass":true,"mass_success_pass":true,"genre_style_pass":true,"scientific_promotion":false}
+  ],
+  "interpretation_boundary":"T0 rows are qualified engineering/forensic candidates. Scientific promotion remains false pending the external vocal-identity calibration boundary and later cohort/stability requirements.",
+  "provenance":["docs/TARGET_SONG_DISCOVERY_QUALIFICATION_PIPELINE_v1.md","CHECKPOINTS/CHAT_MIGRATION_2026-08-30_EXACT_STATE.md","mie_core/target_vocal_binding_calibration_v1.json"]
+}
