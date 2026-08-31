@@ -14,7 +14,7 @@ permissions:
 jobs:
   regression:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 8
     env:
       HOOKLAB_URL: https://basspauloandres-svg.github.io/hooklab-time/
     steps:
@@ -29,4 +29,4 @@ jobs:
       - name: Install Chromium
         run: npx playwright install chromium --with-deps
       - name: Run deployed-interface regression
-        run: node .github/tests/producer-interface-regression.mjs
+        run: timeout 90s node .github/tests/producer-interface-regression.mjs
