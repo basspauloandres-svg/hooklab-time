@@ -1,0 +1,21 @@
+{
+  "schema":"HOOKLAB_CREATIVE_DEDUCTION_RECORD_v1.0",
+  "evidence_id":"D001_DIRECTION_PROTOTYPE",
+  "purpose":"CREATIVE_DEDUCTION",
+  "claim_level":"ASSOCIATIVE",
+  "source_type":"OBSERVED_DATA",
+  "population_scope":"Current observed 300-song discovery frame plus future scientifically promoted musical rows; discovery rows alone cannot support the musical association.",
+  "observed_pattern":"PROTOTYPE PLACEHOLDER: a measurable musical feature X differs across explicitly defined observed-outcome strata.",
+  "association_evidence":{"method":"to be estimated only after eligible musical rows exist","causal_language":false,"current_state":"NOT_YET_OBSERVED"},
+  "interpretation":"If observed, X may support a conditioned compositional hypothesis; it cannot be interpreted as a universal mechanism of success.",
+  "alternative_explanations":["exposure","platform mediation","artist history","release period","market","genre/style","audience","unobserved confounding"],
+  "theory_support":["Required: peer-reviewed evidence matched to the actual emergent pattern before rule promotion."],
+  "deduction":"If X is empirically supported within scope and survives the relevant controls, test X as a bounded melodic/structural constraint in a MIDI prototype.",
+  "musical_realization":{"target":"MIDI","status":"BLOCKED_UNTIL_OBSERVED_ASSOCIATION","must_be_melodically_realized":true},
+  "genre_style_role":"STRATIFICATION",
+  "provenance":["CHECKPOINTS/MILESTONE_300_DISCOVERY_FRAME_OBSERVED_2026-08-31.md","mie_core/cohort_stability_gate.py"],
+  "independent_empirical_support":true,
+  "prototype_expected_gate_result":"DEDUCTION_ELIGIBLE_FOR_PROTOTYPE",
+  "scientific_promotion":false,
+  "note":"This record tests the architecture and epistemic contract, not the substantive musical hypothesis. No synthetic finding is asserted."
+}
