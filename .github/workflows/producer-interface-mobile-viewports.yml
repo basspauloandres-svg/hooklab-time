@@ -25,3 +25,6 @@ jobs:
           sleep 2
       - name: Run mobile viewport regression
         run: timeout 180s node tests/producer_interface_mobile_viewports.mjs
+      - name: Record mobile gate context
+        if: always()
+        run: echo "Touch target minimum enforced at >=36 px; canonical UI currently sets min-height 40 px."
