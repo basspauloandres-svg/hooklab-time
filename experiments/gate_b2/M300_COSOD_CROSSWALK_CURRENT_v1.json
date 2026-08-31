@@ -1,0 +1,16 @@
+{
+  "schema":"HOOKLAB_M300_COSOD_CROSSWALK_v1.0",
+  "source_run_id":33414267477,
+  "artifact_id":9766356415,
+  "artifact_digest":"sha256:df1edfc797b7f8297e8c2652631f1ed822bb7442f99a01ae3a2b1adf8fb473c9",
+  "m300_count":300,
+  "cosod_documented_count":331,
+  "match_count":52,
+  "coverage_rate":0.17333333333333334,
+  "audit_count":1,
+  "audit_case":{"candidate_id":"M300::2013::07","title":"Just Give Me a Reason","m300_artist":"Pink","cosod_artist":"P!nk Featuring Nate Ruess","cosod_index":209,"reason":"TITLE_YEAR_MATCH_ARTIST_AUDIT"},
+  "coverage_interpretation":"52 exact-resolved M300 songs have licensed CoSoD structural/vocal evidence. This exceeds the provisional N=30 threshold for a bounded contemporary collaboration subcohort, but it does not create 52 universal-pop Matrix X rows and does not establish external recording identity or FULL_TMT equivalence.",
+  "evidence_scope":["formal-section timestamps","vocal pitch statistics where annotated","vocal delivery/function/gender annotations","environment/layering/width annotations","Billboard Year-End metadata","MusicBrainz identifiers"],
+  "scientific_promotion":false,
+  "invariant":"Licensed evidence availability != scientific promotion. CoSoD coverage is collaboration-specific and supplies structural/vocal evidence only for exact resolved intersections. Full row-level match list remains reproducibly available in workflow artifact 9766356415."
+}
