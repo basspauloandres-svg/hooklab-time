@@ -1,4 +1,4 @@
-name: Deploy HookLab Producer Interface v0.2 to Pages
+name: Deploy HookLab Producer Interface v0.3 to Pages
 
 on:
   push:
@@ -32,6 +32,7 @@ jobs:
         run: |
           mkdir -p _site
           cp app/prototype_v1/index.html _site/index.html
+          cp app/prototype_v1/d0_engine.js _site/d0_engine.js
           touch _site/.nojekyll
           printf '%s\n' 'User-agent: *' 'Disallow:' > _site/robots.txt
 
