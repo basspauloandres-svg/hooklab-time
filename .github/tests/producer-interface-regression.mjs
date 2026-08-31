@@ -2,7 +2,7 @@ import { chromium } from 'playwright';
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
 
-const URL = process.env.HOOKLAB_URL || 'https://basspauloandres-svg.github.io/hooklab-time/';
+const URL = process.env.HOOKLAB_URL || 'https://basspauloandres-svg.github.io/hooklab-time/producer-interface-v0.2/';
 const wavPath = '/tmp/hooklab-reference.wav';
 
 function writeSilentWav(path, seconds=1, sampleRate=8000) {
