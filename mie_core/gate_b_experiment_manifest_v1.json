@@ -1,0 +1,13 @@
+{
+  "schema":"HOOKLAB_GATE_B_EXPERIMENT_MANIFEST_v1.0",
+  "state":"IMPLEMENTATION_COMPLETE_HUMAN_OBSERVATIONS_PENDING",
+  "protocol":"docs/HUMAN_TTFP_BASELINE_PROTOCOL_v1_0.md",
+  "machine_comparator":{"runs":30,"median_seconds":0.0982974605,"mean_seconds":0.0984798348,"p95_seconds":0.0998141370,"online_search_seconds":0,"online_corpus_reanalysis":false},
+  "conditions":[
+    {"condition":"HUMAN_TRADITIONAL","recorder":"mie_core/gate_b_human_ttpf_trial.py","primary_measure":"ttfp_seconds"},
+    {"condition":"HOOKLAB_ASSISTED","recorder":"mie_core/gate_b_assisted_ttpf_trial.py","primary_measure":"engine_latency_seconds + observed human_candidate_review_seconds"}
+  ],
+  "required_controls":["qualified_participant_or_reviewer","standardized_task_package","predeclared_output_contract","continuous_wall_clock_timing","prior_familiarity_recorded","no_hooklab_candidate_exposure_before_human_trial","raw_artifact_retained","exclusions_reason_coded"],
+  "prohibited":["simulated_human_times","literature-derived_times_substituted_for_observation","retrospective_output_contract_relaxation","claim_of_human_superiority_or_hooklab_superiority_before_observed_comparable_data"],
+  "closure":{"minimum":"at least one reproducible observed human pilot plus admissibility audit","broader_claims":"require larger and more diverse human sample"}
+}
