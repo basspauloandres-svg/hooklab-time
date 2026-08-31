@@ -1,0 +1,13 @@
+{
+  "schema":"HOOKLAB_GATE_B2_CONTROLLED_BRIEF_v1.0",
+  "experiment_id":"GATE_B2_CT001",
+  "status":"FROZEN_INPUT",
+  "controlled_text":{"id":"CT001","path":"experiments/gate_b2/CONTROLLED_TEXT_CT001_v1.txt","language":"es","lyrics_fixed":true,"text_sets_pitch":false},
+  "target":{"genre":"Dance-Pop","style":"contemporary commercial","duration_seconds":{"min":180,"max":210},"meter_preference":"4/4 unless promoted cohort evidence supports another choice"},
+  "conditions":["H","D","H_PLUS_D"],
+  "constant_across_conditions":["controlled_text","genre_style_brief","duration_range","minimum_midi_contract","standardized_audio_render_config"],
+  "minimum_midi_contract":["tempo_meter_events","section_markers","principal_melody_track","lyric_event_alignment_where_feasible","harmonic_guide","rhythmic_guide","provenance_ids"],
+  "data_first_invariant":"DATA -> STATISTICAL STRUCTURE -> PATTERN -> CONTRAST -> VALIDATION -> DECISION",
+  "generation_guard":"D may use only cohort evidence eligible under Data First Guard; genre/style routes the cohort but does not predetermine favorable musical features.",
+  "interpretation_boundary":"CT001 is a controlled experimental text, not a target commercial lyric and not evidence of creative quality."
+}
