@@ -1,0 +1,33 @@
+{
+  "schema": "HOOKLAB_GATE_B_HUMAN_TTFP_INPUT_v1.0",
+  "protocol": "docs/HUMAN_TTFP_BASELINE_PROTOCOL_v1_0.md",
+  "trials": [
+    {
+      "observed": false,
+      "participant_id": "",
+      "participant_role": "",
+      "years_experience": null,
+      "primary_tools": [],
+      "task_id": "",
+      "prior_familiarity": "UNKNOWN",
+      "t0_iso": "",
+      "t1_iso": "",
+      "ttfp_seconds": null,
+      "experimenter_pause_seconds": 0,
+      "participant_break_seconds": 0,
+      "admissible_outputs": [],
+      "artifact_reference": "",
+      "screen_recording_reference": "",
+      "consent_recorded": false,
+      "exclusion_reason": ""
+    }
+  ],
+  "required_admissible_outputs": [
+    "section_form_plan",
+    "tempo_metric_recommendation",
+    "harmonic_tonal_recommendation",
+    "melodic_rhythmic_recommendation",
+    "production_constraints"
+  ],
+  "invariant": "Unobserved, simulated, estimated, or retrospectively reconstructed human timings cannot populate Gate B."
+}
