@@ -108,6 +108,7 @@ F. final regression/checkpoint/documentation.
 - `8ac7669a25f72e7789e2d5fafacf722b0e0febd1` first UX prototype.
 - `45e7309beb8cd86ecfea2d78dc818d4cf5fcdf60` aesthetic-reference scientific contract.
 - `c170f657cbada5f899dd7c556b4e03c1286b1298` Producer Interface v0.2: aesthetic-reference provenance, SHA-256, session persistence/export, explicit scientific lock states.
+- `4fa26ea759a6ab3f7cfc78059f5109fc6d71447e` Pages workflow retargeted to Producer Interface v0.2; deployment execution audited as FAILURE before runner steps.
 
 ## 13. Post-migration progress — Producer Interface v0.2
 Approved implementation layer: `AESTHETIC_REFERENCE v0.2`.
@@ -131,13 +132,28 @@ Verification status:
 - PROVENANCE CONTRACT: PASS by explicit fields and UI declaration.
 - CHECKPOINTED: PASS.
 - BROWSER INTERACTION REGRESSION: pending direct execution/openable stable-link verification.
-- STABLE PUBLIC LINK: pending repository deployment configuration.
+- STABLE PUBLIC LINK: pending. Existing Pages workflow was correctly retargeted, but Actions run `33444879543` concluded FAILURE before any runner step; this is classified as DEPLOYMENT_INFRASTRUCTURE_AUDIT, not interface-code failure.
+
+## 14. D0 reuse audit
+Existing reusable architecture was inspected before any new generator implementation.
+- `preproduction_router.py`: cache-only cohort resolution; online path cannot search/reanalyse corpus.
+- `preproduction_constraints_compiler.py`: converts cached cohort statistics into bounded descriptive constraints with semantics `DESCRIPTIVE_COHORT_BOUNDS_NOT_CAUSAL_RULES`.
+- `tmt_candidate_generator.py`: deterministic engineering prototype generator; three variants (thetic/anacrustic/syncopated), manifest, simple audio render, no source melody input.
+- `testlane_mt_audio_demo.py`: technical MT-only smoke test and explicitly not model evidence.
+Operational decision: reuse this architecture for exploratory D0. Do not relabel it SCIENTIFIC_D. A browser integration may adapt/bridge this engine only after equivalence/provenance verification; no duplicate unverified generator should become canonical.
+
+## 15. Calibration execution audit
+The calibration chain is implemented but observed calibration remains pending.
+- provider-neutral feature extractor computes pitch range, median pitch, median interval, stepwise motion share and pitch repetition share;
+- paired agreement computes Spearman rho and median absolute error;
+- fail-closed gate requires >=30 paired items, independent reference, aligned/performance identity, and >=1 stable core feature meeting thresholds.
+The existing melodic cross-representation workflow is a separate symbolic validation path and does not by itself satisfy the independent vocal melody representation calibration requirement.
 
 Immediate next canonical work:
-1. Execute browser-level interaction regression for every control and establish stable openable link.
-2. Connect deterministic exploratory D0 MIDI/audio generation without altering SCIENTIFIC_D lock.
-3. Execute observed melody-representation calibration in parallel.
+1. Resolve stable-link deployment infrastructure and execute browser-level interaction regression for every control.
+2. Build a verified bridge from existing D0 generation architecture into the producer interface, preserving descriptive/non-causal semantics and manifest provenance.
+3. Acquire/prepare >=30 independent paired calibration items and execute observed melody-representation calibration.
 4. If calibration + positive conditioned association pass, promote deduction eligibility and generate SCIENTIFIC_D; otherwise document valid null/non-promotion completion.
 
 ## Migration instruction
-Read this checkpoint completely together with the canonical project documents. Continue exactly from section 11 and section 13. Do not restart Gate A, acquisition design, M300 discovery, deductive-framework design, DALI integration design or P0 protocol design. Any new layer approved by the user must be corroborated, explicitly coded, versioned and checkpointed before becoming canonical.
+Read this checkpoint completely together with the canonical project documents. Continue exactly from sections 11, 13, 14 and 15. Do not restart Gate A, acquisition design, M300 discovery, deductive-framework design, DALI integration design or P0 protocol design. Any new layer approved by the user must be corroborated, explicitly coded, versioned and checkpointed before becoming canonical.
