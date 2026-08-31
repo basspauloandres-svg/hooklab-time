@@ -5,7 +5,9 @@ on:
     paths:
       - "app/prototype_v1/index.html"
       - "app/prototype_v1/d0_engine.js"
+      - "app/prototype_v1/analysis_bridge.js"
       - "tests/producer_interface_d0_regression.js"
+      - "tests/analysis_bridge_client_test.js"
       - ".github/workflows/producer-interface-d0-regression.yml"
   workflow_dispatch:
 jobs:
@@ -16,12 +18,19 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Syntax check D0 adapter
-        run: node --check app/prototype_v1/d0_engine.js
+      - name: Syntax check browser adapters
+        run: |
+          node --check app/prototype_v1/d0_engine.js
+          node --check app/prototype_v1/analysis_bridge.js
       - name: Run deterministic D0 regression
         run: node tests/producer_interface_d0_regression.js
+      - name: Run analyzer bridge client contract
+        run: node tests/analysis_bridge_client_test.js
       - name: Static interface contract
         run: |
-          grep -q 'Producer Interface v0.3' app/prototype_v1/index.html
+          grep -q 'Producer Interface v0.4' app/prototype_v1/index.html
           grep -q 'D0_EXPLORATORY != SCIENTIFIC_D' app/prototype_v1/index.html
           grep -q 'd0_engine.js' app/prototype_v1/index.html
+          grep -q 'analysis_bridge.js' app/prototype_v1/index.html
+          grep -q 'Analizar tempo/beat' app/prototype_v1/index.html
+          grep -q 'HOOKLAB_AESTHETIC_REFERENCE_ANALYSIS_v0.1' app/prototype_v1/index.html
