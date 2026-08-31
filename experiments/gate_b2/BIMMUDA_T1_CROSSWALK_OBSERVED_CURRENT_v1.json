@@ -1,31 +1,21 @@
 {
-  "schema":"HOOKLAB_BIMMUDA_T1_CROSSWALK_OBSERVED_v1.0",
-  "status":"PARTIAL_OBSERVED_CROSSWALK / FULL_AUTOMATED_RUN_PENDING",
+  "schema":"HOOKLAB_BIMMUDA_T1_CROSSWALK_OBSERVED_v1.1",
+  "status":"FULL_METADATA_CROSSWALK_OBSERVED / PROVIDER_LICENSE_AUDIT_PENDING",
   "provider":"madelinehamilton/BiMMuDa",
   "provider_license_status":"AUDIT_REQUIRED",
+  "metadata_scope":"BiMMuDa per-song metadata observed through 2024; T1 queue crosswalk by title/artist against top-five annual entries.",
   "confirmed_matches":[
-    {
-      "title":"Umbrella",
-      "artist":"Rihanna",
-      "bimmuda_id":"2007_02",
-      "full_midi":true,
-      "section_midis":true,
-      "lyrics":true,
-      "scientific_eligibility":"BLOCKED_LICENSE_AUDIT",
-      "provenance":"BiMMuDa bimmuda_dataset/2007/2"
-    },
-    {
-      "title":"Call Me Maybe",
-      "artist":"Carly Rae Jepsen",
-      "bimmuda_id":"2012_02",
-      "full_midi":true,
-      "section_midis":true,
-      "lyrics":true,
-      "scientific_eligibility":"BLOCKED_LICENSE_AUDIT",
-      "provenance":"BiMMuDa bimmuda_dataset/2012/2"
-    }
+    {"title":"Umbrella","artist":"Rihanna","bimmuda_id":"2007_02","full_midi_expected":true,"section_midis_expected":true,"lyrics_expected":true,"scientific_eligibility":"BLOCKED_LICENSE_AUDIT","provenance":"BiMMuDa metadata 2007 position 2; dataset path bimmuda_dataset/2007/2"},
+    {"title":"Just Dance","artist":"Lady Gaga","bimmuda_id":"2009_03","full_midi_expected":true,"section_midis_expected":true,"lyrics_expected":true,"scientific_eligibility":"BLOCKED_LICENSE_AUDIT","provenance":"BiMMuDa metadata 2009 position 3"},
+    {"title":"Party Rock Anthem","artist":"LMFAO","bimmuda_id":"2011_02","full_midi_expected":true,"section_midis_expected":true,"lyrics_expected":true,"scientific_eligibility":"BLOCKED_LICENSE_AUDIT","provenance":"BiMMuDa metadata 2011 position 2"},
+    {"title":"E.T.","artist":"Katy Perry","bimmuda_id":"2011_04","full_midi_expected":true,"section_midis_expected":true,"lyrics_expected":true,"scientific_eligibility":"BLOCKED_LICENSE_AUDIT","provenance":"BiMMuDa metadata 2011 position 4"},
+    {"title":"Call Me Maybe","artist":"Carly Rae Jepsen","bimmuda_id":"2012_02","full_midi_expected":true,"section_midis_expected":true,"lyrics_expected":true,"scientific_eligibility":"BLOCKED_LICENSE_AUDIT","provenance":"BiMMuDa metadata 2012 position 2; dataset path bimmuda_dataset/2012/2"},
+    {"title":"Blinding Lights","artist":"The Weeknd","bimmuda_id":"2020_01","full_midi_expected":true,"section_midis_expected":true,"lyrics_expected":true,"scientific_eligibility":"BLOCKED_LICENSE_AUDIT","provenance":"BiMMuDa metadata 2020 position 1"},
+    {"title":"Don't Start Now","artist":"Dua Lipa","bimmuda_id":"2020_04","full_midi_expected":true,"section_midis_expected":true,"lyrics_expected":true,"scientific_eligibility":"BLOCKED_LICENSE_AUDIT","provenance":"BiMMuDa metadata 2020 position 4"}
   ],
-  "counts":{"t1_candidates":25,"confirmed_covered_so_far":2,"scientifically_promoted_rows":0},
-  "next_action":"Run mie_core/bimmuda_t1_crosswalk_builder.py against the full BiMMuDa per-song metadata CSV and T1 discovery queue; then resolve provider authorization before any processing/promotion.",
+  "not_present_in_bimmuda_t1":["Born This Way","We R Who We R","Telephone","Only Girl (In the World)","S&M","Blow","Hold It Against Me","Till the World Ends","On the Floor","Moves Like Jagger","We Found Love","Last Friday Night (T.G.I.F.)","I Wanna Go","The Edge of Glory","Take It Off","I Kissed a Girl","So What","I Love It"],
+  "counts":{"t1_candidates":25,"covered_by_bimmuda":7,"coverage_rate":0.28,"not_covered":18,"scientifically_promoted_rows":0},
+  "interpretation":"BiMMuDa potentially resolves the symbolic-source layer for 7/25 T1 candidates if provider authorization is later confirmed. Coverage does not change scientific N while license/computational permission remains unresolved.",
+  "next_action":"Resolve provider authorization from an authoritative source; in parallel audit alternative research-authorized providers for the 18 uncovered T1 candidates.",
   "invariants":["dataset presence != license authorization","dataset available != scientific target population","candidate discovery != scientific promotion"]
 }
