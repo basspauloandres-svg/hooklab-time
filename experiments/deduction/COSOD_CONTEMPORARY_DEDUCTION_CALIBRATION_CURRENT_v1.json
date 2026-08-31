@@ -1,0 +1,30 @@
+{
+  "schema":"HOOKLAB_COSOD_CONTEMPORARY_DEDUCTION_CALIBRATION_v1.1",
+  "source_run_id":33413625906,
+  "artifact_id":9766118491,
+  "artifact_digest":"sha256:9249be0172c3bc5ed40bfc0c85a7f9b1f1fefcaf2466b9a91d5f110ada3cf3e7",
+  "provider":"CoSoD / CC0",
+  "population_scope":"multi-artist Billboard Hot 100 Year-End collaborations, 2010-2019",
+  "documented_song_count":331,
+  "metadata_rows_resolved":331,
+  "analysis_rows_resolved":331,
+  "joined_eligible_rows":331,
+  "feature_semantics":{
+    "first_chorus_s":"absolute onset of first chorus/refrain/hook annotation",
+    "first_chorus_annotated_timeline_ratio":"first chorus onset divided by last annotated section start; NOT song-duration proportion",
+    "aggregate_vocal_pitch_span_hz":"max minus min across provider-reported vocal pitch statistics over all analyzed sections/performers; NOT single-melody range"
+  },
+  "observed_results":{
+    "first_chorus_s":{"n":330,"rho":0.0948,"q_bh":0.15762949954123173,"exploratory_supported":false,"partial_rho_year_collaboration_control":0.0748,"partial_p":0.17548505060870118},
+    "first_chorus_annotated_timeline_ratio":{"n":330,"rho":0.0922,"q_bh":0.15762949954123173,"exploratory_supported":false},
+    "section_events":{"n":331,"rho":0.0416,"q_bh":0.5633842347791175,"exploratory_supported":false},
+    "last_section_start_s":{"n":331,"rho":0.0147,"q_bh":0.7898694679317015,"exploratory_supported":false},
+    "aggregate_vocal_pitch_span_hz":{"n":329,"rho":0.1745,"q_bh":0.00743400416377191,"exploratory_supported":true,"partial_rho_year_collaboration_control":0.1834,"partial_p":0.0008293903919897371}
+  },
+  "deductive_decisions":[
+    {"claim":"Earlier first chorus predicts stronger Year-End outcome","decision":"DO_NOT_PROMOTE","reason":"No supported association in this contemporary collaboration cohort, including after year + collaboration-type/gender control."},
+    {"claim":"Larger aggregate vocal pitch span is associated with stronger Year-End outcome","decision":"HYPOTHESIS_ONLY_THEORY_AND_CONFOUND_AUDIT_REQUIRED","reason":"Small positive association survives year + collaboration-type/gender control but the measure aggregates multiple performers/sections and genre-style, exposure, artist history and other confounds remain."}
+  ],
+  "scientific_promotion":false,
+  "boundary":"This is an authorized contemporary calibration subpopulation, not the universal contemporary song population. Observed outcome is not equivalent to musical quality or causation."
+}
