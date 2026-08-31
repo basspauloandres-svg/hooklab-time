@@ -1,0 +1,22 @@
+{
+  "schema":"HOOKLAB_MCGILL_BILLBOARD_DEDUCTION_CALIBRATION_v1.0",
+  "source_run_id":33412991819,
+  "artifact_id":9765881790,
+  "artifact_digest":"sha256:e5207da6b99ef1fccb2d40016641f34edb3ce518c47eeb0231382b80ff25d577",
+  "provider":"McGill Billboard Project / CC0 annotations",
+  "role":"HISTORICAL_METHOD_CALIBRATION_NOT_CONTEMPORARY_TARGET_POPULATION",
+  "observed_parser_rows":742,
+  "provider_documented_distinct_songs":740,
+  "integrity_state":"AUDIT_ROW_COUNT_DISCREPANCY",
+  "key_results":{
+    "first_chorus_ratio_vs_weeks_on_chart":{"n":619,"rho":-0.0212,"p":0.5988525240419159,"q_bh":0.6387760256447103,"status":"NO_ASSOCIATION_OBSERVED"},
+    "first_chorus_ratio_vs_peak_strength":{"n":619,"rho":-0.0236,"p":0.5583509909049899,"q_bh":0.6381154181771312,"status":"NO_ASSOCIATION_OBSERVED"},
+    "duration_s_vs_weeks_on_chart":{"n":742,"rho":0.2394,"q_bh":6.248165932164439e-10,"status":"EXPLORATORY_ASSOCIATION_REQUIRES_CONFOUND_AUDIT"},
+    "chord_tokens_vs_weeks_on_chart":{"n":742,"rho":0.2194,"q_bh":1.230843528668388e-08,"status":"EXPLORATORY_ASSOCIATION_REQUIRES_DURATION_CONTROL"},
+    "high_level_section_events_vs_weeks_on_chart":{"n":742,"rho":0.1684,"q_bh":2.132779549121829e-05,"status":"EXPLORATORY_ASSOCIATION_REQUIRES_CONFOUND_AUDIT"},
+    "named_section_events_vs_weeks_on_chart":{"n":742,"rho":0.1622,"q_bh":3.60540132983607e-05,"status":"EXPLORATORY_ASSOCIATION_REQUIRES_CONFOUND_AUDIT"}
+  },
+  "deductive_consequence":{"claim_level":"DESCRIPTIVE_ASSOCIATIVE_CALIBRATION","decision":"DO_NOT_PROMOTE_EARLY_CHORUS_AS_UNIVERSAL_SUCCESS_RULE","reason":"No association was observed in this historical Billboard calibration cohort. This does not prove absence of an effect in contemporary or genre-specific populations."},
+  "scientific_promotion":false,
+  "boundary":"1958-1991 historical calibration; exposure, genre/style and other confounds are not controlled. Row-count discrepancy must be reconciled before using this cohort for stronger inference."
+}
