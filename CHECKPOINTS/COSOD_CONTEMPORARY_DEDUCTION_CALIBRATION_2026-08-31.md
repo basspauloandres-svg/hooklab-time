@@ -1,46 +1,54 @@
-# CoSoD contemporary Evidence-to-Creative Deduction calibration
+# CoSoD contemporary evidence-to-deduction calibration checkpoint
 
 Date: 2026-08-31
 Branch: `mie/golden-forensic-v0.3`
-State: `OBSERVED CONTEMPORARY ASSOCIATION / THEORY+REPLICATION REQUIRED / NO GENERATIVE PROMOTION`
+State: `CONTEMPORARY_CALIBRATION_OBSERVED / 331 AUTHORIZED ROWS / NO GENERATIVE RULE PROMOTED`
 
-## Observed run
-Workflow run `33413476817` completed successfully on the canonical branch and produced artifact `cosod-contemporary-deduction-calibration` (id `9766062366`, digest `sha256:2315f157fe55f29d94fcde01eb66bf4f22bd93676cc69417d66461c3f63a27da`).
+## Provider and admissibility
+CoSoD is a CC0 dataset of 331 multi-artist collaborations appearing on Billboard Hot 100 Year-End charts from 2010 through 2019. Its documented analytical schema contains formal-section timestamps plus vocal pitch statistics and production annotations. All 331 metadata rows and all 331 analysis identities resolved and joined in the observed run.
 
-The schema audit resolved 331/331 metadata rows and 331/331 analysis rows from the CC0 CoSoD dataset. The contemporary calibration therefore supplies N=331 joined observations for a bounded 2010-2019 Billboard Year-End collaboration subpopulation.
+Observed controlled run: `33413625906`
+Artifact: `9766118491`
+Digest: `sha256:9249be0172c3bc5ed40bfc0c85a7f9b1f1fefcaf2466b9a91d5f110ada3cf3e7`
 
-## Exploratory association results
-Predeclared gate: N>=100, |Spearman rho|>=0.15, BH-adjusted q<0.05.
+## Falsification-oriented result: chorus timing
+First chorus onset did not meet the exploratory association gate for Year-End chart strength:
+- absolute first-chorus onset: n=330, rho=.0948, BH q=.1576.
+- controlled for year + collaboration-type/gender: partial rho=.0748, p=.1755.
+- first-chorus onset / last annotated section start: n=330, rho=.0922, BH q=.1576.
 
-Did not pass:
-- first chorus time: rho=0.0948, q=0.1576, N=330
-- first chorus ratio: rho=0.0922, q=0.1576, N=330
-- section-event count: rho=0.0416, q=0.5634, N=331
-- duration proxy: rho=0.0147, q=0.7899, N=331
+Together with the independent McGill historical calibration, this provides cross-cohort evidence against promoting a universal HookLab rule that an earlier chorus implies greater chart success. It does not establish that chorus timing is irrelevant in every contemporary, genre-specific, platform-specific or experimental population.
 
-Passed exploratory gate:
-- vocal pitch span (Hz) vs year-end peak-strength: rho=0.1745, p=0.00149, BH q=0.00743, N=329
+## Exploratory vocal result
+`aggregate_vocal_pitch_span_hz` showed a small association with stronger Year-End position:
+- n=329, rho=.1745, BH q=.00743.
+- after year + collaboration-type/gender controls: partial rho=.1834, p=.000829.
 
-## Interpretation boundary
-This is a small observational association in a specific contemporary subpopulation. It is not evidence that increasing vocal pitch span causes commercial success, not a universal pop rule, and not yet a HookLab generative constraint. Exposure, artist history, genre/style, collaboration type and other confounds remain unmodeled here.
+This is registered only as `INTERPRETATION_CANDIDATE`. It is NOT a melodic-range rule: the feature spans provider-reported vocal pitch statistics across sections and potentially multiple performers. Genre/style, exposure, artist history, performer count/register mixture, production and other confounds remain.
 
-The four non-supported variables are scientifically useful negative evidence and remain part of the record. In particular, this calibration does not support an industry-style claim that earlier chorus entry or shorter duration is universally associated with stronger year-end chart position in this subpopulation.
+## Feature-semantic correction
+The schema audit confirmed the exact CoSoD columns: Pitch min, Pitch Q1, Pitch median, Pitch Q3 and Pitch max. The observed pitch association is therefore not a column-selection artifact. The implementation now explicitly names the feature `aggregate_vocal_pitch_span_hz` and labels the ratio to the last annotated section start as an annotated-timeline ratio rather than true song-duration proportion.
 
-## Consequence for D001
-The Evidence-to-Creative Deduction direction has now crossed a stronger prototype threshold: an actual N>300 contemporary dataset produced one bounded association and four explicit non-support results. The supported association advances only to `CANDIDATE_FOR_THEORY_MATCHING_AND_INDEPENDENT_REPLICATION`.
+## Theoretical matching boundary
+Peer-reviewed experimental literature supports the general proposition that vocal presence and F0-related variation can carry perceptual/emotional information and influence perceived arousal. That literature does not demonstrate that a larger aggregate pitch span causes commercial success. Theory therefore provides plausibility for further investigation, not promotion.
 
-Required before MIDI deduction:
-1. verify feature semantics for pitch-span and robustness to outliers/representation;
-2. inspect relevant peer-reviewed theory without retrofitting a causal story;
-3. stratify/control at least year and available context variables; genre/style remains analytical stratification rather than universal gate;
-4. seek independent replication in a second admissible dataset;
-5. only then consider a bounded melodic realization experiment.
+## Epistemic result
+The evidence-to-creative deduction architecture has now passed two observed-data calibrations:
+1. historical Billboard structural/harmonic evidence;
+2. contemporary Billboard collaboration structural/vocal evidence.
 
-## Development impact
-- Evidence-to-deduction structural prototype: 100%
-- Contemporary observed-association calibration: 100%
-- Theory matching for first real candidate: 0% at this checkpoint
-- Independent replication: 0% at this checkpoint
-- Generative promotion: 0%
+It has also demonstrated non-promotion: a plausible industry-style early-chorus rule was not accepted when two observed cohorts failed to support it.
 
-This checkpoint does not replace the target 300-song discovery frame or promote CoSoD rows into the target Matrix X. Its role is methodological calibration with observed contemporary evidence.
+## Current readiness
+Readiness estimates, not effect sizes:
+- evidence-to-deduction conceptual framework: 100%
+- fail-closed code: 100%
+- observed historical calibration: 100%
+- observed contemporary subpopulation calibration: 100%
+- cross-cohort non-promotion test: 100%
+- candidate positive-hypothesis interpretation: ~45% (association + partial controls + partial theory plausibility; independent replication/stronger confound control absent)
+- MIDI promotion for D001: 0% and correctly blocked.
+- overall project readiness estimate: ~89%.
+
+## Next gate
+Build a normalized vocal-variability feature suitable for musical interpretation (prefer semitone/log-frequency scale and performer-aware aggregation), test whether the CoSoD association survives that correction, and seek independent authorized replication. In parallel continue mapping the 300-song contemporary outcome frame to licensed musical evidence. No MIDI should be generated from D001 until these gates pass.
