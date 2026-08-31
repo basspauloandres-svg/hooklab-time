@@ -1,0 +1,27 @@
+name: Producer Interface D0 Regression
+on:
+  push:
+    branches: ["mie/golden-forensic-v0.3"]
+    paths:
+      - "app/prototype_v1/index.html"
+      - "app/prototype_v1/d0_engine.js"
+      - "tests/producer_interface_d0_regression.js"
+      - ".github/workflows/producer-interface-d0-regression.yml"
+  workflow_dispatch:
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax check D0 adapter
+        run: node --check app/prototype_v1/d0_engine.js
+      - name: Run deterministic D0 regression
+        run: node tests/producer_interface_d0_regression.js
+      - name: Static interface contract
+        run: |
+          grep -q 'Producer Interface v0.3' app/prototype_v1/index.html
+          grep -q 'D0_EXPLORATORY != SCIENTIFIC_D' app/prototype_v1/index.html
+          grep -q 'd0_engine.js' app/prototype_v1/index.html
