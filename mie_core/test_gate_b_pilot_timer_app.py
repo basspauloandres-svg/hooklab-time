@@ -14,13 +14,15 @@ def test_gate_b_timer_contract_present():
         'production_constraints',
         'experimenter_pause_seconds',
         'hooklab_candidates_seen_before_t1:false',
-        "document.getElementById('finish').disabled=!running||finished||!ok||!!pauseStart",
+        'artifactReady()',
+        'retained:true',
         'Exportar JSON'
     ]
     for token in required:
         assert token in s
 
-def test_finish_requires_complete_contract():
+def test_finish_requires_complete_contract_and_retained_artifact():
     s=APP.read_text(encoding='utf-8')
-    assert 'if(!complete()||pauseStart)return' in s
+    assert 'if(!complete()||!artifactReady()||pauseStart)return' in s
+    assert "document.getElementById('finish').disabled=!running||finished||!ok||!aok||!!pauseStart" in s
     assert "if(!metadataReady())" in s
