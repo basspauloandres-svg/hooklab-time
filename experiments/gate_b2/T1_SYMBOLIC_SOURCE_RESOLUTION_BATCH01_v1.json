@@ -1,0 +1,27 @@
+{
+  "schema":"HOOKLAB_T1_SYMBOLIC_SOURCE_RESOLUTION_BATCH01_v1.0",
+  "date":"2026-08-31",
+  "branch":"mie/golden-forensic-v0.3",
+  "cases":[
+    {
+      "title":"Umbrella","artist":"Rihanna feat. Jay-Z","qualification_context":{"mass_success":"PASS","identity":"PASS","genre_style":"PASS"},
+      "sources":[
+        {"provider":"MidiShow","provider_item":"Umbrella MIDI download 193675","source_kind":"FULL_MIDI_CLAIMED","declared_duration":"03:52","declared_license":"CC0/Public Domain","access_mode":"PUBLIC_DOWNLOAD","identity_resolved":true,"version_resolved":false,"full_length":true,"provenance_available":true,"computational_processing_authorized":false,"resolution":"AUDIT","reason":"Provider declares CC0/Public Domain for the uploaded MIDI, but authority to license a copyrighted-song arrangement and explicit computational research authorization are not independently established."},
+        {"provider":"Nonstop2k","provider_item":"Rihanna Umbrella MIDI 17327","source_kind":"FULL_MIDI","declared_duration":"04:08","declared_use":"educational and remix purposes","access_mode":"PUBLIC_DOWNLOAD","identity_resolved":true,"version_resolved":false,"full_length":true,"provenance_available":true,"computational_processing_authorized":false,"resolution":"AUDIT","reason":"Full sequence is described, but explicit permission for automated computational corpus processing is not stated."},
+        {"provider":"Hit Trax / midi.com.au","provider_item":"Rihanna MIDI catalog","source_kind":"COMMERCIAL_LICENSED_MIDI","declared_license":"AMCOS licensed and royalty paid","access_mode":"PURCHASE_REQUIRED","identity_resolved":true,"version_resolved":false,"full_length":null,"provenance_available":true,"computational_processing_authorized":false,"resolution":"AUDIT","reason":"Commercial licensing is documented, but access and computational processing rights for this scientific pipeline are not established."}
+      ],
+      "symbolic_source_gate":"AUDIT"
+    },
+    {
+      "title":"Call Me Maybe","artist":"Carly Rae Jepsen","qualification_context":{"mass_success":"PASS","identity":"PASS","genre_style":"PASS"},
+      "sources":[
+        {"provider":"Hit Trax / midi.com.au","provider_item":"CM0012","source_kind":"COMMERCIAL_LICENSED_MIDI","declared_duration":"03:08","declared_features":["karaoke lyrics","MIDI melody","harmony parts"],"declared_license":"AMCOS licensed and royalty paid","access_mode":"PURCHASE_REQUIRED","identity_resolved":true,"version_resolved":false,"full_length":true,"provenance_available":true,"computational_processing_authorized":false,"resolution":"AUDIT","reason":"Licensed full MIDI exists, but visible terms do not explicitly authorize automated computational research processing."},
+        {"provider":"MIDIdb","provider_item":"Call Me Maybe free MIDI demo","source_kind":"DEMO_FRAGMENT","access_mode":"PUBLIC_DOWNLOAD","identity_resolved":true,"version_resolved":false,"full_length":false,"provenance_available":true,"computational_processing_authorized":false,"resolution":"AUDIT","reason":"Provider states free files are demos of variable length; insufficient for FULL_SONG qualification."},
+        {"provider":"Nonstop2k","provider_item":"Call Me Maybe MIDI 30118","source_kind":"FULL_MIDI_COMMERCIAL","declared_duration":"03:11","declared_features":["lyrics","melody","drums","synthesizers"],"access_mode":"PURCHASE_REQUIRED","identity_resolved":true,"version_resolved":false,"full_length":true,"provenance_available":true,"computational_processing_authorized":false,"resolution":"AUDIT","reason":"Full sequence is available commercially, but explicit automated computational research permission is not established."}
+      ],
+      "symbolic_source_gate":"AUDIT"
+    }
+  ],
+  "summary":{"cases":2,"symbolic_source_pass":0,"symbolic_source_audit":2,"new_matrix_x_rows":0},
+  "boundary":"A legitimate commercial or downloadable MIDI is not automatically admissible for automated scientific processing. Explicit access and processing authorization must be established before PASS."
+}
