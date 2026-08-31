@@ -1,0 +1,16 @@
+{
+  "schema":"HOOKLAB_FIRST_OBSERVED_DEDUCTION_READINESS_INPUT_v1.0",
+  "scientifically_eligible_musical_rows":5,
+  "minimum_rows_for_first_association":30,
+  "observed_association_available":false,
+  "provenance_complete":true,
+  "feature_semantics_defined":true,
+  "alternative_explanations_recorded":true,
+  "theory_support_matched_to_pattern":false,
+  "evidence_basis":{
+    "discovery_frame":{"candidate_count":300,"scientific_boundary":"discovery/outcome frame; not 300 musical observations"},
+    "strong_symbolic_seed":{"accepted_candidate_n":5,"strong_symbolic_binding_n":5,"scientific_promotion":false,"boundary":"source-internal vocal binding; independent released-recording validation remains external"}
+  },
+  "expected_status":"D001_OBSERVED_BLOCKED",
+  "note":"The architecture prototype is valid, but a substantive deduction is intentionally blocked. Five seed cases cannot be promoted into a population-level musical association, and theory cannot be matched before the actual pattern is observed."
+}
