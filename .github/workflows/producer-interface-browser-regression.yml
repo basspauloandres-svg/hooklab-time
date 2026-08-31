@@ -6,6 +6,7 @@ on:
     paths:
       - ".github/tests/producer-interface-regression.mjs"
       - ".github/workflows/producer-interface-browser-regression.yml"
+      - "producer-interface-v0.2/index.html"
   workflow_dispatch:
 
 permissions:
@@ -16,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 8
     env:
-      HOOKLAB_URL: https://basspauloandres-svg.github.io/hooklab-time/
+      HOOKLAB_URL: https://basspauloandres-svg.github.io/hooklab-time/producer-interface-v0.2/
     steps:
       - name: Checkout main regression harness
         uses: actions/checkout@v6
