@@ -14,7 +14,14 @@ def analyze(rows):
    a,b=zip(*pairs);rho=float(spearmanr(a,b).statistic);mae=statistics.median(abs(x-y) for x,y in pairs)
   else:rho=0.0;mae=999.0
   out[f]={'n':len(pairs),'spearman_rho':rho,'median_abs_error':mae,'max_allowed_median_abs_error':DEFAULT_TOL[f]}
- return {'paired_items':len(rows),'minimum_paired_items':30,'independent_reference':True,'same_performance_or_aligned_identity':all(r.get('identity')=='PASS' for r in rows),'feature_agreement':out}
+ return {
+  'paired_items':len(rows),
+  'minimum_paired_items':30,
+  'independent_reference':bool(rows) and all(r.get('independent_reference') is True for r in rows),
+  'same_performance_or_aligned_identity':bool(rows) and all(r.get('identity')=='PASS' for r in rows),
+  'feature_agreement':out,
+  'row_contract':{'independent_reference':'must be explicit true per pair','identity':'must equal PASS per pair'}
+ }
 def main():
  ap=argparse.ArgumentParser();ap.add_argument('--input',required=True);ap.add_argument('--output',required=True);a=ap.parse_args();rows=json.loads(Path(a.input).read_text())['rows'];Path(a.output).write_text(json.dumps(analyze(rows),indent=2));
 if __name__=='__main__':main()
