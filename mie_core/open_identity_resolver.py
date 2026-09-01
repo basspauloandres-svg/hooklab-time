@@ -23,15 +23,19 @@ from pathlib import Path
 from typing import Any, Callable
 
 
-RESOLVER_VERSION = "hooklab-open-identity-resolver-v1.2"
+RESOLVER_VERSION = "hooklab-open-identity-resolver-v1.3"
 USER_AGENT = "HookLabResearchPrototype/1.0 (https://github.com/basspauloandres-svg/hooklab-time)"
 VIDEO_ID_RE = re.compile(r"(?:youtu\.be/|youtube\.com/(?:watch\?v=|shorts/|embed/))([A-Za-z0-9_-]{11})")
 PLAIN_VIDEO_ID_RE = re.compile(r"^[A-Za-z0-9_-]{11}$")
 SOURCE_NAMES = {"MUSICBRAINZ", "WIKIDATA", "YOUTUBE_OEMBED", "YTDLP_SEARCH"}
 NON_PRIMARY_ARTIFACT_MARKERS = {
+    "acoustic",
     "alternate",
+    "alternative",
     "animated",
     "audio",
+    "cover",
+    "karaoke",
     "live",
     "lyric",
     "lyrics",
@@ -40,6 +44,8 @@ NON_PRIMARY_ARTIFACT_MARKERS = {
     "subtitles",
     "teaser",
     "topic",
+    "unplugged",
+    "visualizer",
 }
 PRIMARY_VIDEO_MARKERS = {
     "official music video",
@@ -92,11 +98,31 @@ def _artifact_role_assessment(evidence: list[dict[str, Any]]) -> str:
         for row in evidence
         for field in ("title", "description", "author_name", "channel")
     ).lower()
-    if any(marker in text for marker in NON_PRIMARY_ARTIFACT_MARKERS):
+    def contains_marker(marker: str) -> bool:
+        return bool(re.search(rf"(?<![a-z0-9]){re.escape(marker)}(?![a-z0-9])", text))
+
+    if any(contains_marker(marker) for marker in NON_PRIMARY_ARTIFACT_MARKERS):
         return "NON_PRIMARY_VARIANT"
-    if any(marker in text for marker in PRIMARY_VIDEO_MARKERS):
+    if any(contains_marker(marker) for marker in PRIMARY_VIDEO_MARKERS):
         return "PRIMARY_OFFICIAL_MUSIC_VIDEO"
     return "DOCUMENTED_ARTIFACT_ROLE_UNRESOLVED"
+
+
+def _review_disposition(candidate: dict[str, Any]) -> tuple[str, list[str]]:
+    evidence = candidate.get("evidence") or []
+    search_rows = [row for row in evidence if row.get("source") == "YTDLP_SEARCH"]
+    title_mismatch = bool(search_rows) and not any(row.get("title_match") is True for row in search_rows)
+    role = candidate.get("artifact_role_assessment")
+    source_count = int(candidate.get("source_count") or 0)
+    if title_mismatch:
+        return "EXCLUDE_TITLE_MISMATCH", ["SEARCH_RESULT_DOES_NOT_MATCH_CASE_TITLE"]
+    if role == "NON_PRIMARY_VARIANT":
+        return "EXCLUDE_NON_PRIMARY_VARIANT", ["ARTIFACT_IS_NOT_PRIMARY_OFFICIAL_MUSIC_VIDEO"]
+    if source_count < 2:
+        return "SINGLE_SOURCE_REVIEW_CANDIDATE", ["SECOND_INDEPENDENT_DOCUMENTARY_SOURCE_REQUIRED"]
+    if role == "PRIMARY_OFFICIAL_MUSIC_VIDEO":
+        return "CROSS_SOURCE_PRIMARY_CANDIDATE", []
+    return "CROSS_SOURCE_ARTIFACT_ROLE_REVIEW_REQUIRED", ["EXACT_RELEASE_ARTIFACT_ROLE_UNRESOLVED"]
 
 
 def _http_json(url: str, attempts: int = 3) -> dict[str, Any]:
@@ -471,6 +497,15 @@ def build_review_queue(audit: dict[str, Any]) -> dict[str, Any]:
         status = resolution.get("resolution_status")
         if status not in {"AUDIT_AMBIGUOUS_CROSS_SOURCE", "IDENTITY_REVIEW_PENDING"}:
             continue
+        candidates = []
+        for candidate in resolution.get("candidates") or []:
+            review_disposition, blocking_reasons = _review_disposition(candidate)
+            candidates.append({
+                **candidate,
+                "review_disposition": review_disposition,
+                "blocking_reasons": blocking_reasons,
+                "eligible_for_automatic_promotion": False,
+            })
         unresolved.append({
             "case_id": resolution.get("case_id"),
             "title": resolution.get("title"),
@@ -478,7 +513,17 @@ def build_review_queue(audit: dict[str, Any]) -> dict[str, Any]:
             "review_class": status,
             "decision_state": "HUMAN_DOCUMENTARY_REVIEW_REQUIRED",
             "provider_status": resolution.get("provider_status") or {},
-            "candidates": resolution.get("candidates") or [],
+            "candidates": candidates,
+            "candidate_disposition_counts": {
+                disposition: sum(row["review_disposition"] == disposition for row in candidates)
+                for disposition in (
+                    "CROSS_SOURCE_PRIMARY_CANDIDATE",
+                    "CROSS_SOURCE_ARTIFACT_ROLE_REVIEW_REQUIRED",
+                    "SINGLE_SOURCE_REVIEW_CANDIDATE",
+                    "EXCLUDE_NON_PRIMARY_VARIANT",
+                    "EXCLUDE_TITLE_MISMATCH",
+                )
+            },
             "selection_rule": "VERIFY_EXACT_RELEASE_ARTIFACT_WITH_INDEPENDENT_DOCUMENTARY_EVIDENCE",
             "popularity_based_selection_forbidden": True,
             "single_source_promotion_forbidden": True,

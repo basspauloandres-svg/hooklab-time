@@ -147,6 +147,9 @@ assert review_queue["unresolved_count"] == 1
 assert review_queue["records"][0]["case_id"] == "C007"
 assert review_queue["records"][0]["popularity_based_selection_forbidden"] is True
 assert review_queue["records"][0]["single_source_promotion_forbidden"] is True
+assert review_queue["records"][0]["candidates"][0]["review_disposition"] == "SINGLE_SOURCE_REVIEW_CANDIDATE"
+assert review_queue["records"][0]["candidates"][0]["eligible_for_automatic_promotion"] is False
+assert review_queue["records"][0]["candidate_disposition_counts"]["SINGLE_SOURCE_REVIEW_CANDIDATE"] == 1
 assert review_queue["automatic_single_source_promotion"] is False
 assert review_queue["scientific_d_unlocked"] is False
 assert "VIEW_COUNT" in review_queue["forbidden_selection_inputs"]
@@ -154,5 +157,35 @@ assert "VIEW_COUNT" in review_queue["forbidden_selection_inputs"]
 resolved_only = dict(discovery_audit)
 resolved_only["resolutions"] = [{"case_id": "C008", "resolution_status": "AUTO_VERIFIED_CROSS_SOURCE"}]
 assert build_review_queue(resolved_only)["records"] == []
+
+classification_audit = dict(discovery_audit)
+classification_audit["resolutions"] = [{
+    "case_id": "C009",
+    "title": "Target",
+    "artist": "Artist",
+    "resolution_status": "IDENTITY_REVIEW_PENDING",
+    "provider_status": {},
+    "candidates": [
+        {
+            "video_id": "wrongtitle1",
+            "independent_sources": ["YTDLP_SEARCH"],
+            "source_count": 1,
+            "artifact_role_assessment": "PRIMARY_OFFICIAL_MUSIC_VIDEO",
+            "evidence": [{"source": "YTDLP_SEARCH", "title_match": False}],
+        },
+        {
+            "video_id": "visualizer1",
+            "independent_sources": ["YTDLP_SEARCH"],
+            "source_count": 1,
+            "artifact_role_assessment": "NON_PRIMARY_VARIANT",
+            "evidence": [{"source": "YTDLP_SEARCH", "title_match": True}],
+        },
+    ],
+}]
+classified = build_review_queue(classification_audit)["records"][0]
+assert classified["candidates"][0]["review_disposition"] == "EXCLUDE_TITLE_MISMATCH"
+assert classified["candidates"][1]["review_disposition"] == "EXCLUDE_NON_PRIMARY_VARIANT"
+assert classified["candidate_disposition_counts"]["EXCLUDE_TITLE_MISMATCH"] == 1
+assert classified["candidate_disposition_counts"]["EXCLUDE_NON_PRIMARY_VARIANT"] == 1
 
 print("OPEN_IDENTITY_RESOLVER_PASS")

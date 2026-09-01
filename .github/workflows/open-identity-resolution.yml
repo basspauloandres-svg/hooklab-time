@@ -61,6 +61,17 @@ jobs:
           assert review['unresolved_count'] == len(review['records'])
           assert all(row['review_class'] in {'AUDIT_AMBIGUOUS_CROSS_SOURCE', 'IDENTITY_REVIEW_PENDING'} for row in review['records'])
           assert all(row['popularity_based_selection_forbidden'] is True for row in review['records'])
+          allowed_dispositions = {
+              'CROSS_SOURCE_PRIMARY_CANDIDATE',
+              'CROSS_SOURCE_ARTIFACT_ROLE_REVIEW_REQUIRED',
+              'SINGLE_SOURCE_REVIEW_CANDIDATE',
+              'EXCLUDE_NON_PRIMARY_VARIANT',
+              'EXCLUDE_TITLE_MISMATCH',
+          }
+          for row in review['records']:
+              assert sum(row['candidate_disposition_counts'].values()) == len(row['candidates'])
+              assert all(candidate['review_disposition'] in allowed_dispositions for candidate in row['candidates'])
+              assert all(candidate['eligible_for_automatic_promotion'] is False for candidate in row['candidates'])
           for row in identity['records']:
               if row.get('identity_verification_method') == 'AUTOMATED_CROSS_SOURCE_V1':
                   evidence = row.get('identity_evidence') or []
