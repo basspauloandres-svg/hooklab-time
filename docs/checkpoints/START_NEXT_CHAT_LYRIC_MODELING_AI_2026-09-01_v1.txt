@@ -1,0 +1,62 @@
+HOOKLAB/TIME-MIE — START NEXT CHAT — LYRIC MODELING + AI — 2026-09-01 v1
+
+You are continuing an existing research/software development project. DO NOT reconstruct the project from general knowledge and DO NOT restart previously resolved methodological discussions.
+
+Repository: basspauloandres-svg/hooklab-time
+Branch: main
+
+MANDATORY FIRST READ:
+1. docs/checkpoints/MIGRATION_CHECKPOINT_2026-09-01_LYRIC_MODELING_AI_v1.md
+2. docs/checkpoints/LYRIC_MODELING_STATISTICAL_EVIDENCE_PRINCIPLE_v1.md
+3. docs/checkpoints/AI_COHERENCE_REASONING_LAYER_INVARIANT_v1.md
+4. docs/checkpoints/AI_PERSONAL_ACCOUNT_LOCAL_FIRST_INVARIANT_v1.md
+5. app/prototype_v1/lyric_statistical_model_contract.js
+6. app/prototype_v1/narrative_state_engine.js
+7. app/prototype_v1/ai_coherence_reasoning_layer.js
+8. app/prototype_v1/personal_ai_adapter.js
+9. app/prototype_v1/hook_composition_assistant.js
+10. app/prototype_v1/studio.html
+11. tests/lyric_modeling_coherence_contract.test.js
+12. .github/workflows/lyric-modeling-coherence-contract.yml
+
+If an artifact is missing, return AUDIT_MIGRATION_MISSING_ARTIFACT and investigate repository history. Do not silently recreate it.
+
+CANONICAL SCIENTIFIC ORDER:
+DATA SAYS -> STATISTICS SAY -> THEORY SAYS -> GENERATION TESTS -> PRODUCER DECIDES.
+
+The data/statistical analysis define the observed trend. Literature supports construct definition/operationalization and interpretation of results; literature does not prescribe the empirical direction/existence of a trend.
+
+Mandatory inference gate:
+FEATURE ADMISSIBILITY -> ANALYSIS REGISTRATION -> STATISTICAL TEST.
+
+Only PROMOTE_TO_CONDITIONED_DEDUCTION may enter evidence-assisted generation.
+HOLD_FOR_REPLICATION, NO_PROMOTION and AUDIT must remain blocked.
+Null results are legitimate.
+
+AI is a coherence/reasoning/generative integration layer. AI is NOT the statistical trend engine and may not promote its own empirical rules.
+
+Story architecture invariant:
+STORY_BRIEF != SECTION_FUNCTION != LYRIC_CONTENT.
+Never allow Verse/Chorus/Bridge/etc. metadata to become lyric vocabulary merely because it is a section label.
+
+Story Brief modes:
+A. Manual/visible — operational.
+B. Evidence-assisted — FAIL-CLOSED until promoted lyric/narrative deductions exist.
+
+Personal AI invariant:
+First validate with the user's own authorized account/environment through a local/private adapter. No commercial/multi-user architecture yet. Never embed credentials in public code or GitHub.
+
+Do not create parallel UI versions. app/prototype_v1/studio.html is canonical. Use commits for rollback. A prior large write truncated studio.html; it was restored in commit 73907a94f63e76e7daa6af9115aad00ebbd1bbaa. Inspect before modifying.
+
+Do not reopen already frozen analyses (early chorus, repetition/formal architecture already tested, raw aggregated vocal range/amplitude family) without NEW_EVIDENCE=true and a new ANALYSIS_ID.
+
+CURRENT MANAGEMENT ESTIMATE: integrated development approximately 79%. This is not a scientific measurement.
+
+FIRST TASK IN THIS NEW CHAT:
+Build and audit the initial scientific lyric/narrative feature registry. Candidate domains may include narrative perspective, characters, relationships, conflict, temporality, emotional progression, textual repetition, section function and narrative information progression. These are candidates, not automatically admissible features.
+
+For each candidate feature require construct, analytical layer, operational definition, unit, provider/version, measurement error, calibration, relevance, research question, outcome, population, confounders, forbidden interpretations and provenance. If incomplete: AUDIT_FEATURE_NOT_DEFINED.
+
+Then register analyses BEFORE calculating associations. Continue toward the first legitimate conditioned deductions without forcing positive findings.
+
+Maintain complete provenance and no-reprocess behavior throughout.
