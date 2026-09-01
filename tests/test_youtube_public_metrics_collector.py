@@ -8,6 +8,7 @@ from mie_core.youtube_public_metrics_collector import (  # noqa: E402
     _duration_seconds,
     collect_snapshots,
     initialize_map,
+    search_candidates,
 )
 
 
@@ -48,5 +49,37 @@ assert snapshot["records"][0]["view_count"] == 123456
 assert snapshot["records"][0]["duration_seconds"] == 252
 assert snapshot["scientific_d_unlocked"] is False
 assert snapshot["interpretation"] == "TIMESTAMPED_PUBLIC_SNAPSHOT_NOT_TRAFFIC_PEAK_OR_CAUSAL_EFFECT"
+
+search_manifest = {
+    "records": [
+        {"case_id": "C001", "title": "Song One", "artist": "Artist"},
+        {"case_id": "C002", "title": "Song Two", "artist": "Artist"},
+    ]
+}
+search_calls = []
+sleep_calls = []
+
+
+def fake_search_request(endpoint, params, key):
+    search_calls.append((endpoint, params["q"]))
+    return {"items": []}
+
+
+candidate_path = ROOT / "tests" / ".youtube_candidates_test.json"
+try:
+    candidates = search_candidates(
+        search_manifest,
+        candidate_path,
+        "TEST_KEY",
+        request=fake_search_request,
+        search_interval_seconds=3.2,
+        sleep=sleep_calls.append,
+    )
+    assert len(candidates["records"]) == 2
+    assert len(search_calls) == 2
+    assert sleep_calls == [3.2]
+    assert candidates["scientific_d_unlocked"] is False
+finally:
+    candidate_path.unlink(missing_ok=True)
 
 print("YOUTUBE_PUBLIC_METRICS_COLLECTOR_PASS")

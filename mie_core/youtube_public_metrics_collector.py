@@ -13,6 +13,7 @@ import json
 import os
 import re
 import tempfile
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -23,6 +24,9 @@ from typing import Any, Callable, Iterable
 COLLECTOR_VERSION = "hooklab-youtube-public-metrics-collector-v0.1"
 API_ROOT = "https://www.googleapis.com/youtube/v3"
 KEY_ENV = "HOOKLAB_YOUTUBE_API_KEY"
+DEFAULT_SEARCH_INTERVAL_SECONDS = 3.2
+DEFAULT_RATE_LIMIT_RETRY_SECONDS = 65.0
+MAX_RATE_LIMIT_ATTEMPTS = 4
 
 
 class CollectorError(RuntimeError):
@@ -49,20 +53,35 @@ def _api_key() -> str:
     return key
 
 
-def _request(endpoint: str, params: dict[str, Any], key: str) -> dict[str, Any]:
+def _request(
+    endpoint: str,
+    params: dict[str, Any],
+    key: str,
+    sleep: Callable[[float], None] = time.sleep,
+) -> dict[str, Any]:
     query = urllib.parse.urlencode({**params, "key": key})
     request = urllib.request.Request(
         f"{API_ROOT}/{endpoint}?{query}",
         headers={"Accept": "application/json", "User-Agent": COLLECTOR_VERSION},
     )
-    try:
-        with urllib.request.urlopen(request, timeout=30) as response:
-            return json.loads(response.read().decode("utf-8"))
-    except urllib.error.HTTPError as error:
-        body = error.read().decode("utf-8", errors="replace")[:1000]
-        raise CollectorError(f"YOUTUBE_API_HTTP_{error.code}:{body}") from error
-    except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as error:
-        raise CollectorError(f"YOUTUBE_API_REQUEST_FAILED:{type(error).__name__}") from error
+    for attempt in range(1, MAX_RATE_LIMIT_ATTEMPTS + 1):
+        try:
+            with urllib.request.urlopen(request, timeout=30) as response:
+                return json.loads(response.read().decode("utf-8"))
+        except urllib.error.HTTPError as error:
+            body = error.read().decode("utf-8", errors="replace")[:1000]
+            if error.code == 429 and attempt < MAX_RATE_LIMIT_ATTEMPTS:
+                retry_after = error.headers.get("Retry-After") if error.headers else None
+                try:
+                    delay = max(float(retry_after), 1.0) if retry_after else DEFAULT_RATE_LIMIT_RETRY_SECONDS
+                except ValueError:
+                    delay = DEFAULT_RATE_LIMIT_RETRY_SECONDS
+                sleep(delay)
+                continue
+            raise CollectorError(f"YOUTUBE_API_HTTP_{error.code}:{body}") from error
+        except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as error:
+            raise CollectorError(f"YOUTUBE_API_REQUEST_FAILED:{type(error).__name__}") from error
+    raise CollectorError("YOUTUBE_API_RATE_LIMIT_RETRY_EXHAUSTED")
 
 
 def _chunks(values: list[str], size: int = 50) -> Iterable[list[str]]:
@@ -155,6 +174,8 @@ def search_candidates(
     key: str,
     max_results: int = 5,
     request: Callable = _request,
+    search_interval_seconds: float = DEFAULT_SEARCH_INTERVAL_SECONDS,
+    sleep: Callable[[float], None] = time.sleep,
 ) -> dict[str, Any]:
     existing: dict[str, Any] = {}
     if output_path.exists():
@@ -171,11 +192,14 @@ def search_candidates(
         "scientific_d_unlocked": False,
     }
     records = [r for r in case_manifest.get("records", []) if str(r.get("case_id", "")).startswith("C")]
+    executed_searches = 0
     for case in records:
         case_id = case["case_id"]
         if existing.get(case_id, {}).get("search_status") == "COMPLETE":
             output["records"].append(existing[case_id])
             continue
+        if executed_searches and search_interval_seconds > 0:
+            sleep(search_interval_seconds)
         query = f'{case.get("title", "")} {case.get("artist", "")} official music video'
         response = request(
             "search",
@@ -190,6 +214,7 @@ def search_candidates(
             },
             key,
         )
+        executed_searches += 1
         candidates = []
         for rank, item in enumerate(response.get("items", []), start=1):
             video_id = (item.get("id") or {}).get("videoId")
@@ -266,6 +291,12 @@ def main() -> int:
     search.add_argument("--case-manifest", required=True, type=Path)
     search.add_argument("--output", required=True, type=Path)
     search.add_argument("--max-results", type=int, default=5)
+    search.add_argument(
+        "--search-interval-seconds",
+        type=float,
+        default=DEFAULT_SEARCH_INTERVAL_SECONDS,
+        help="Minimum pause between search.list calls to respect per-minute quota.",
+    )
     snapshot = sub.add_parser("collect-snapshots")
     snapshot.add_argument("--identity-map", required=True, type=Path)
     snapshot.add_argument("--output", required=True, type=Path)
@@ -275,7 +306,13 @@ def main() -> int:
         if args.command == "init-map":
             _atomic_json(args.output, initialize_map(_load(args.case_manifest)))
         elif args.command == "search-candidates":
-            search_candidates(_load(args.case_manifest), args.output, _api_key(), args.max_results)
+            search_candidates(
+                _load(args.case_manifest),
+                args.output,
+                _api_key(),
+                args.max_results,
+                search_interval_seconds=args.search_interval_seconds,
+            )
         else:
             _atomic_json(args.output, collect_snapshots(_load(args.identity_map), _api_key()))
     except CollectorError as error:
