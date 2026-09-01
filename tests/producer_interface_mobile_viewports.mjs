@@ -39,9 +39,11 @@ for(const p of profiles){
   await page.selectOption('#decision',{label:'Modificar'});
   await page.fill('#reason','mobile regression');
   await page.click('#save');
-  const saved=await page.evaluate(()=>Object.keys(localStorage).some(k=>k.startsWith('hooklab_session_')));
-  if(!saved) throw new Error(`${p.name}: session not persisted`);
-  results.push({profile:p.name,title,viewport:p.viewport,min_button_height:minButton,horizontal_overflow:false,d0:true,multimodal_candidates:candidateCount,candidate_selected:true,persisted:true});
+  const persistence=await page.evaluate(()=>({session:Object.keys(localStorage).some(k=>k.startsWith('hooklab_session_')),trace:Object.keys(localStorage).some(k=>k.startsWith('hooklab_trace_')),current:!!localStorage.getItem('hooklab_current_candidate')}));
+  if(!persistence.session) throw new Error(`${p.name}: session not persisted`);
+  if(!persistence.current) throw new Error(`${p.name}: selected candidate pointer not persisted`);
+  if(!persistence.trace) throw new Error(`${p.name}: candidate-to-evaluation provenance not persisted`);
+  results.push({profile:p.name,title,viewport:p.viewport,min_button_height:minButton,horizontal_overflow:false,d0:true,multimodal_candidates:candidateCount,candidate_selected:true,persisted:true,evaluation_trace:true});
   await browser.close();
 }
 console.log(JSON.stringify({status:'PASS',results},null,2));
