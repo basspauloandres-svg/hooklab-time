@@ -34,7 +34,9 @@ jobs:
           mkdir -p _site
           cp -R app/prototype_v1/. _site/
           printf '%s\n' 'User-agent: *' 'Disallow:' > _site/robots.txt
+          touch _site/.nojekyll
           test -f _site/index.html
+          test -f _site/studio.html
           test -f _site/d0_engine.js
           test -f _site/local_beat_this.js
           test -f _site/lyric_prosody_ui_bridge.js
@@ -46,6 +48,7 @@ jobs:
         with:
           name: hooklab-producer-interface-static
           path: _site
+          include-hidden-files: true
 
   deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -63,7 +66,9 @@ jobs:
           mkdir -p _site
           cp -R app/prototype_v1/. _site/
           printf '%s\n' 'User-agent: *' 'Disallow:' > _site/robots.txt
+          touch _site/.nojekyll
           test -f _site/index.html
+          test -f _site/studio.html
           test -f _site/d0_engine.js
           test -f _site/local_beat_this.js
           test -f _site/lyric_prosody_ui_bridge.js
@@ -79,3 +84,22 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Verify live root and Studio
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          set -euxo pipefail
+          echo "Deployment URL: $PAGE_URL"
+          for i in 1 2 3 4 5 6; do
+            ROOT_CODE=$(curl -L -sS -o /tmp/root.html -w '%{http_code}' "$PAGE_URL" || true)
+            STUDIO_CODE=$(curl -L -sS -o /tmp/studio.html -w '%{http_code}' "${PAGE_URL%/}/studio.html" || true)
+            echo "Attempt $i root=$ROOT_CODE studio=$STUDIO_CODE"
+            if [ "$ROOT_CODE" = "200" ] && [ "$STUDIO_CODE" = "200" ]; then
+              grep -q 'HookLab' /tmp/root.html
+              grep -q 'HookLab Studio' /tmp/studio.html
+              exit 0
+            fi
+            sleep 10
+          done
+          echo 'Pages deployment reported success but public HTTP verification failed.' >&2
+          exit 1
