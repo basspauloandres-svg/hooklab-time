@@ -1,0 +1,11 @@
+const assert=require('assert');
+const A=require('../app/prototype_v1/hook_composition_assistant.js');
+const x=A.candidate({hook_id:'H1',language:'es',intention:'reencuentro',text_candidate:'vuelvo a ti\nsin mirar atrás',reference_sha256:'abc',reference_analysis:{tempo_bpm_median:96,beat_count:120,analysis_mode:'LOCAL'}});
+assert.equal(A.validate(x).status,'PASS');
+assert.equal(x.generation_class,'D0_EXPLORATORY');
+assert.equal(x.scientific_d_unlocked,false);
+assert.equal(x.constraint_set.tempo_bpm,96);
+assert.equal(x.prosody_status,'GENERATED_PROSODY_CANDIDATE');
+assert.equal(x.required_next_gate,'PRODUCER_CURATES_SYLLABIFICATION_AND_STRESS');
+assert.equal(A.candidate({}).status,'AUDIT_TEXT_REQUIRED');
+console.log('HOOK_MULTIMODAL_COMPOSITION_ASSISTANT_PASS');
