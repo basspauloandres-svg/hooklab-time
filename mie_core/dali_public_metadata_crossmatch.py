@@ -14,13 +14,20 @@ import argparse,json,re,urllib.request
 from pathlib import Path
 
 DALI_METADATA_URL='https://raw.githubusercontent.com/gabolsgabs/DALI/master/code/DALI/files/dali_v1_metadata.json'
+ARTIST_IDENTITY_ALIASES={
+    'p nk':'pink',  # audited orthographic identity: P!nk == Pink
+}
 
 def norm(s):
     return re.sub(r'[^a-z0-9]+',' ',str(s or '').lower()).strip()
 
+def norm_artist(s):
+    x=norm(s)
+    return ARTIST_IDENTITY_ALIASES.get(x,x)
+
 def score(track,artist,entry):
-    tt,aa=norm(track),norm(artist)
-    et,ea=norm(entry.get('title')),norm(entry.get('artist'))
+    tt,aa=norm(track),norm_artist(artist)
+    et,ea=norm(entry.get('title')),norm_artist(entry.get('artist'))
     s=0
     if tt==et:s+=6
     elif tt and (tt in et or et in tt):s+=3
@@ -47,6 +54,7 @@ def main():
                         'ground_truth':best.get('ground-truth') if exact else None,
                         'ncc':best.get('scores',{}).get('NCC') if exact else None,
                         'audio_working_flag':best.get('audio',{}).get('working') if exact else None,
+                        'artist_identity_alias_applied':norm(artist)!=norm_artist(artist) or norm(best.get('artist'))!=norm_artist(best.get('artist')),
                         'audit_best_dali_id':best.get('id'),'audit_best_dali_artist':best.get('artist'),
                         'audit_best_dali_title':best.get('title'),'audit_best_ground_truth':best.get('ground-truth'),
                         'audit_best_ncc':best.get('scores',{}).get('NCC'),
@@ -54,9 +62,10 @@ def main():
                         'audit_best_album':(best.get('metadata') or {}).get('album'),
                         'audit_semantics':'BEST_CANDIDATE_RETAINED_FOR_REVIEW_NOT_AUTOMATIC_PROMOTION',
                         'coverage_semantics':'PUBLIC_METADATA_ONLY_ANNOTATIONS_ACCESS_RESTRICTED'})
-    out={'schema':'HOOKLAB_DALI_PUBLIC_CROSSMATCH_v1.1','metadata_source':DALI_METADATA_URL,
+    out={'schema':'HOOKLAB_DALI_PUBLIC_CROSSMATCH_v1.2','metadata_source':DALI_METADATA_URL,
          'annotation_access':'RESTRICTED_ZENODO_REQUEST_REQUIRED',
          'automatic_match_threshold':8,
+         'artist_identity_aliases':ARTIST_IDENTITY_ALIASES,
          'rule':'A public metadata match cannot satisfy M_FULL, TEXT_FULL, Matrix-X eligibility, or generation readiness by itself.',
          'results':results}
     Path(a.output).write_text(json.dumps(out,indent=2,ensure_ascii=False))
