@@ -1,0 +1,34 @@
+name: M300 DALI target annotation extractor tests
+on:
+  push:
+    branches: [mie/golden-forensic-v0.3]
+    paths:
+      - 'mie_core/m300_dali_target_annotation_extractor.py'
+      - 'mie_core/representation_calibration_feature_extractor.py'
+      - 'manifests/M300_DALI_TARGET_MANIFEST_v1.json'
+      - 'tests/test_m300_dali_target_annotation_extractor.py'
+      - '.github/workflows/m300-dali-target-annotation-extractor-tests.yml'
+  workflow_dispatch:
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Verify frozen target manifest
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('manifests/M300_DALI_TARGET_MANIFEST_v1.json'))
+          assert d['schema']=='HOOKLAB_M300_DALI_TARGET_MANIFEST_v1.1'
+          assert d['candidate_count']==30
+          assert len(d['targets'])==30
+          assert len({x['candidate_id'] for x in d['targets']})==30
+          assert len({x['dali_id'] for x in d['targets']})==30
+          assert all(x.get('candidate_id') and x.get('dali_id') for x in d['targets'])
+          print('PASS: target manifest 30 unique M300-DALI bindings')
+          PY
+      - name: Run extractor regression
+        run: python tests/test_m300_dali_target_annotation_extractor.py
