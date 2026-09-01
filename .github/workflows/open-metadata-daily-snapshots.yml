@@ -1,0 +1,74 @@
+name: Open Metadata Daily Snapshots
+
+on:
+  schedule:
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hooklab-open-metadata-daily-snapshots
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pinned open metadata extractor
+        run: python3 -m pip install --disable-pip-version-check 'yt-dlp==2026.8.19'
+
+      - name: Validate fail-closed collector contract
+        run: python3 tests/test_open_metadata_stack_collector.py
+
+      - name: Collect verified public snapshots without media download
+        run: |
+          python3 mie_core/open_metadata_stack_collector.py collect-verified-snapshot \
+            --identity-map data/engagement_modeling/youtube_video_identity_map_v0_1.json \
+            --snapshot-dir data/engagement_modeling/snapshots/youtube
+
+      - name: Validate snapshot scientific boundary
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          payload = json.loads(Path('data/engagement_modeling/snapshots/youtube/latest.json').read_text())
+          assert payload['downloads_media'] is False
+          assert payload['generation_class'] == 'D0_EXPLORATORY'
+          assert payload['scientific_d_unlocked'] is False
+          assert all(row.get('identity_review_status') == 'VERIFIED' for row in payload['records'])
+          print('AUTOMATED_SNAPSHOT_BOUNDARY_PASS')
+          PY
+
+      - name: Commit timestamped snapshot
+        shell: bash
+        run: |
+          git config user.name 'hooklab-metrics-bot'
+          git config user.email 'hooklab-metrics-bot@users.noreply.github.com'
+          git add data/engagement_modeling/snapshots/youtube
+          if git diff --cached --quiet; then
+            echo 'AUDIT_NO_SNAPSHOT_CHANGE'
+            exit 0
+          fi
+          git commit -m "data: automated public metric snapshot $(date -u +%Y-%m-%d)"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: Upload snapshot artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hooklab-open-metadata-snapshot-${{ github.run_id }}
+          path: data/engagement_modeling/snapshots/youtube
+          if-no-files-found: warn
+          retention-days: 30
