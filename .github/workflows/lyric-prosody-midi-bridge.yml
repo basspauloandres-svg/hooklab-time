@@ -1,0 +1,18 @@
+name: Lyric Prosody MIDI Bridge
+on:
+  push:
+    paths:
+      - 'mie_core/lyric_prosody_midi_bridge.py'
+      - 'mie_core/test_lyric_prosody_midi_bridge.py'
+      - '.github/workflows/lyric-prosody-midi-bridge.yml'
+  workflow_dispatch:
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install mido
+      - run: python mie_core/test_lyric_prosody_midi_bridge.py

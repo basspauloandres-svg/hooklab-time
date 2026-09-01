@@ -1,0 +1,12 @@
+const assert=require('assert');
+const B=require('../app/prototype_v1/local_beat_this.js');
+assert.deepStrictEqual(B.startsFor(100),[-6]);
+assert.deepStrictEqual(B.startsFor(1500),[-6,6]);
+assert.deepStrictEqual(B.startsFor(2000),[-6,506]);
+const logits=new Float32Array(200);logits.fill(-5);logits[25]=2;logits[50]=3;logits[75]=2;
+assert.deepStrictEqual(B.findPeaks(logits),[25,50,75]);
+assert(Math.abs(B.bpmFromBeats([0,0.5,1,1.5])-120)<1e-9);
+assert.equal(B.MODEL_COMMIT,'089b509247e6fdcec666511c0dcf0d5f39c21e73');
+assert.equal(B.MEL_SHA256,'fdd59e65c515331308e4c8841edf99972deca646bdf6197744c2a5b7755e3de9');
+assert.equal(B.BEAT_SHA256,'a5f8d39d989f31859454ba27afe61c5317ca95e4d9373e6853e5361b8937172f');
+console.log('PASS local Beat This helper contract');

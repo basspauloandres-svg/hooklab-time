@@ -1,0 +1,17 @@
+name: Online Fallback Client Contract
+on:
+  push:
+    branches: ["mie/golden-forensic-v0.3"]
+    paths:
+      - "app/prototype_v1/online_fallback.js"
+      - "tests/online_fallback_client_test.mjs"
+      - ".github/workflows/online-fallback-client-contract.yml"
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: node tests/online_fallback_client_test.mjs

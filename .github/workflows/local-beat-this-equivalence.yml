@@ -1,0 +1,52 @@
+name: Local Beat This Browser Equivalence
+on:
+  push:
+    branches: ["mie/golden-forensic-v0.3"]
+    paths:
+      - "app/prototype_v1/local_beat_this.js"
+      - "tests/local_beat_this_equivalence.mjs"
+      - "tests/fixtures/local_beat_this_equivalence.html"
+      - ".github/workflows/local-beat-this-equivalence.yml"
+  workflow_dispatch:
+jobs:
+  equivalence:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Install browser test runtime
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install chromium --with-deps
+      - name: Install ffmpeg and Beat This CLI
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+          cargo install beat-this --version 1.0.0 --locked
+      - name: Fetch verified Beat This models
+        run: |
+          mkdir -p /tmp/beat_models
+          curl -L --fail --silent --show-error https://raw.githubusercontent.com/danigb/beat-this-rs/089b509247e6fdcec666511c0dcf0d5f39c21e73/models/beat_this_small.onnx -o /tmp/beat_models/beat_this_small.onnx
+          curl -L --fail --silent --show-error https://raw.githubusercontent.com/danigb/beat-this-rs/089b509247e6fdcec666511c0dcf0d5f39c21e73/models/mel_spectrogram.onnx -o /tmp/beat_models/mel_spectrogram.onnx
+          echo 'a5f8d39d989f31859454ba27afe61c5317ca95e4d9373e6853e5361b8937172f  /tmp/beat_models/beat_this_small.onnx' | sha256sum -c -
+          echo 'fdd59e65c515331308e4c8841edf99972deca646bdf6197744c2a5b7755e3de9  /tmp/beat_models/mel_spectrogram.onnx' | sha256sum -c -
+      - name: Prepare public-domain reference audio
+        run: |
+          curl -L --fail --silent --show-error 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Amazing_grace.ogg' -o /tmp/hooklab_test.ogg
+          ffmpeg -y -v error -i /tmp/hooklab_test.ogg -ar 22050 -ac 1 /tmp/hooklab_test.wav
+      - name: Authoritative CLI beats
+        run: |
+          beat-this /tmp/hooklab_test.wav --model /tmp/beat_models/beat_this_small.onnx --mel-model /tmp/beat_models/mel_spectrogram.onnx --beats=/tmp/hooklab_cli.beats
+      - name: Serve test page
+        run: |
+          python3 -m http.server 8000 >/tmp/hooklab_http.log 2>&1 &
+          echo $! >/tmp/hooklab_http.pid
+          sleep 2
+      - name: Browser equivalence test
+        run: timeout 360s node tests/local_beat_this_equivalence.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: local-beat-this-equivalence-report
+          path: local_beat_this_equivalence_report.json

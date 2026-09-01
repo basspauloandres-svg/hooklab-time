@@ -1,0 +1,15 @@
+const assert=require('assert');
+const B=require('../app/prototype_v1/lyric_prosody_ui_bridge.js');
+const hook={schema:'HOOKLAB_CURATED_HOOK_PROSODY_v1.0',hook_id:'H1',language:'es',prosody_status:'CURATED_PROSODY_PASS',provenance:{source:'TEST'},lines:[{words:[{text:'vuelvo',syllables:[{text:'vuel',stressed:true},{text:'vo',stressed:false}]},{text:'a',syllables:[{text:'a',stressed:true}]},{text:'ti',syllables:[{text:'ti',stressed:true}]}]}]};
+const events=[{onset_s:0,midi:60,duration_s:.4},{onset_s:.5,midi:62,duration_s:.4},{onset_s:1,midi:64,duration_s:.4},{onset_s:1.5,midi:65,duration_s:.4},{onset_s:2,midi:67,duration_s:.4},{onset_s:2.5,midi:69,duration_s:.4}];
+const d0={stimulus_class:'D0_EXPLORATORY',scientific_d:'BLOCKED',variants:['thetic','anacrustic','syncopated'].map(variant=>({variant,tempo_bpm:100,events}))};
+assert.equal(B.validateHook(hook).status,'PASS');
+const out=B.build(d0,hook);
+assert.equal(out.status,'LYRIC_PROSODY_MIDI_BRIDGE_PASS');
+assert.equal(out.scientific_d_unlocked,false);
+assert.equal(out.variants.length,3);
+assert(out.variants.every(v=>v.mapping_count>=4));
+assert(out.variants.every(v=>v.midi_bytes.length>20));
+const bad=B.build({stimulus_class:'SCIENTIFIC_D',scientific_d:'UNLOCKED',variants:[]},hook);
+assert.equal(bad.status,'AUDIT_D0_CONTRACT');
+console.log('LYRIC_PROSODY_UI_BRIDGE_PASS');
