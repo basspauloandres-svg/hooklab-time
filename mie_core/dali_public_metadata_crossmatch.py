@@ -5,6 +5,10 @@ This module deliberately does not assume access to DALI annotations. The public
 metadata can be queried without credentials and is useful for discovery, but DALI
 annotation files are access-restricted on Zenodo. A metadata hit therefore means
 DALI_CANDIDATE_MATCH, never FULL_TMT_READY.
+
+For fail-closed auditability, the best metadata candidate is retained even when it
+does not pass the automatic match threshold. This does not lower that threshold or
+promote an audit candidate.
 """
 import argparse,json,re,urllib.request
 from pathlib import Path
@@ -43,9 +47,16 @@ def main():
                         'ground_truth':best.get('ground-truth') if exact else None,
                         'ncc':best.get('scores',{}).get('NCC') if exact else None,
                         'audio_working_flag':best.get('audio',{}).get('working') if exact else None,
+                        'audit_best_dali_id':best.get('id'),'audit_best_dali_artist':best.get('artist'),
+                        'audit_best_dali_title':best.get('title'),'audit_best_ground_truth':best.get('ground-truth'),
+                        'audit_best_ncc':best.get('scores',{}).get('NCC'),
+                        'audit_best_release_date':(best.get('metadata') or {}).get('release_date'),
+                        'audit_best_album':(best.get('metadata') or {}).get('album'),
+                        'audit_semantics':'BEST_CANDIDATE_RETAINED_FOR_REVIEW_NOT_AUTOMATIC_PROMOTION',
                         'coverage_semantics':'PUBLIC_METADATA_ONLY_ANNOTATIONS_ACCESS_RESTRICTED'})
-    out={'schema':'HOOKLAB_DALI_PUBLIC_CROSSMATCH_v1.0','metadata_source':DALI_METADATA_URL,
+    out={'schema':'HOOKLAB_DALI_PUBLIC_CROSSMATCH_v1.1','metadata_source':DALI_METADATA_URL,
          'annotation_access':'RESTRICTED_ZENODO_REQUEST_REQUIRED',
+         'automatic_match_threshold':8,
          'rule':'A public metadata match cannot satisfy M_FULL, TEXT_FULL, Matrix-X eligibility, or generation readiness by itself.',
          'results':results}
     Path(a.output).write_text(json.dumps(out,indent=2,ensure_ascii=False))
