@@ -1,0 +1,31 @@
+FIELD,ROLE,TYPE,DESCRIPTION
+SESSION_ID,identifier,string,Unique composition session identifier
+BRIEF_ID,design,string,Standardized creative brief identifier
+CONDITION,design,enum,HUMAN_ONLY|GENERAL_AI|HOOKLAB
+ORDER_INDEX,design,integer,Order position of condition for the brief
+SOFTWARE_VERSION,provenance,string,HookLab or comparison tool version where applicable
+START_UTC,process,datetime,Session start timestamp
+END_UTC,process,datetime,Session end timestamp
+TIME_TO_ACCEPTABLE_HOOK_MIN,outcome,float,Minutes until producer acceptance or timeout
+ITERATION_COUNT,outcome,integer,Number of substantive revisions
+COMPLETION_WITHIN_20_MIN,outcome,boolean,Whether a complete candidate was frozen within 20 minutes
+TEXT_ARTIFACT_ID,artifact,string,Final hook text artifact
+MIDI_ARTIFACT_ID,artifact,string,Final MIDI or equivalent symbolic artifact
+AUDIO_ARTIFACT_ID,artifact,string,Final audio rendering where available
+TEMPO_BPM,music,float,Tempo context
+PRODUCER_DECISION,outcome,enum,ACCEPT|MODIFY|REJECT|TIMEOUT
+PRODUCER_CONFIDENCE_1_7,outcome,integer,Producer confidence in final candidate
+RATER_ID,evaluation,string,Blind expert rater identifier
+HOOK_MEMORABILITY_1_7,outcome,integer,Blind rating
+TEXT_MELODY_FIT_1_7,outcome,integer,Blind rating
+PROSODIC_NATURALNESS_1_7,outcome,integer,Blind rating
+MELODIC_COHERENCE_1_7,outcome,integer,Blind rating
+RHYTHMIC_FIT_TO_BEAT_1_7,outcome,integer,Blind rating
+SINGABILITY_1_7,outcome,integer,Blind rating
+LYRICAL_COHERENCE_1_7,outcome,integer,Blind rating
+PERCEIVED_ORIGINALITY_1_7,outcome,integer,Blind rating
+OVERALL_HOOK_EFFECTIVENESS_1_7,primary_outcome,integer,Primary perceptual outcome
+BLIND_LABEL,blinding,string,Randomized label used for evaluator presentation
+CONDITION_LEAK,quality,boolean,Whether condition identity became apparent to rater
+PROVENANCE_COMPLETE,quality,boolean,Whether required artifacts and metadata are present
+NOTES,metadata,string,Protocol deviations or relevant observations
