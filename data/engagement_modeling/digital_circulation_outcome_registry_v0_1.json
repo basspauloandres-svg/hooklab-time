@@ -1,25 +1,30 @@
 {
   "schema": "HOOKLAB_DIGITAL_CIRCULATION_OUTCOME_REGISTRY_v0.1",
   "registry_id": "HL-DIGITAL-CIRCULATION-2026-09-01-v0.1",
-  "status": "AUDIT_SOURCE_NOT_MAPPED_NO_OUTCOME_ADMISSIBLE",
-  "platform_scope": "YOUTUBE_FIRST_PROVIDER_VIDIQ",
+  "status": "PROSPECTIVE_SOURCE_PARTIALLY_MAPPED_OUTCOME_NOT_ADMISSIBLE",
+  "platform_scope": "YOUTUBE_FIRST_QUOTA_FREE_PUBLIC_SNAPSHOT",
   "identity_namespace": "HOOKLAB_C001_C100",
   "source_audit": {
     "canonical_matrix": "1JPNYWgm4s-q2EF9ZGtdmv4JefcHTuPnuJhpO1QfKFGA",
     "matrix_tabs_inspected": 11,
-    "youtube_video_id_present": false,
-    "views_or_streams_present": false,
+    "youtube_video_id_present": true,
+    "views_or_streams_present": true,
     "traffic_time_series_present": false,
     "audience_retention_present": false,
     "vidiq_connection_status": "CONNECTED_ZERO_CREDITS",
     "vidiq_total_credits": 0,
     "vidiq_renewable_resets_at": "2026-09-22T13:26:48.585205Z",
-    "verified_youtube_video_identities": 4,
+    "verified_youtube_video_identities": 15,
     "youtube_identity_map": "youtube_video_identity_map_v0_1.json",
-    "alternative_public_provider": "YouTube Data API v3",
-    "alternative_collector": "mie_core/youtube_public_metrics_collector.py",
-    "alternative_provider_status": "READY_REQUIRES_PRIVATE_LOCAL_API_KEY",
-    "records_collected": 0
+    "alternative_public_provider": "Return YouTube Dislike public votes API",
+    "alternative_collector": "mie_core/open_metadata_stack_collector.py",
+    "alternative_provider_status": "ACTIVE_QUOTA_FREE_15_OF_15_VERIFIED_SNAPSHOT_COMPLETE",
+    "provider_cache_policy": "PROVIDER_DOCUMENTED_APPROXIMATELY_2_TO_3_DAYS",
+    "provider_fields_retained": ["view_count", "like_count"],
+    "provider_fields_forbidden": ["dislikes", "rawDislikes", "rawLikes", "rating"],
+    "records_collected": 15,
+    "complete_snapshot_series_points": 1,
+    "pilot_snapshot_in_inferential_window": false
   },
   "scientific_boundary": {
     "circulation_is_outcome_not_compositional_feature": true,
@@ -54,11 +59,11 @@
       "construct": "cumulative public YouTube circulation at a documented observation time",
       "operational_definition": "Public view count for one verified canonical video at captured_at.",
       "unit": "verified video snapshot",
-      "provider": "vidIQ get-videos-by-id or YouTube search result resolved by video_id",
+      "provider": "Return YouTube Dislike cached public views for verified video_id",
       "measurement_error": "Platform validation and revisions, unavailable private traffic, duplicate releases and capture-time variation.",
       "required_covariates": ["days_since_publication", "channel_subscriber_count_at_capture", "release_year", "genre", "artist_or_channel_cluster"],
       "forbidden_interpretations": ["traffic peak", "audience retention", "chorus effect", "causal success", "musical quality"],
-      "lifecycle_status": "AUDIT_OUTCOME_SOURCE_NOT_MAPPED"
+      "lifecycle_status": "PILOT_SNAPSHOT_COLLECTED_BLOCKED_COVERAGE_AND_PROSPECTIVE_WINDOW"
     },
     {
       "outcome_id": "CIRC_YT_LOG_VIEW_VELOCITY_v0_1",
@@ -69,7 +74,7 @@
       "measurement_error": "Lifetime average obscures bursts, paid campaigns, recommendation shocks and changes in platform scale.",
       "required_covariates": ["publication_cohort", "channel_scale", "genre", "language", "artist_cluster", "official_video_type"],
       "forbidden_interpretations": ["instantaneous VPH", "organic demand", "causal effect of lyrics", "universal popularity"],
-      "lifecycle_status": "AUDIT_OUTCOME_SOURCE_NOT_MAPPED"
+      "lifecycle_status": "AUDIT_PUBLICATION_TIMESTAMP_AND_COMPLETE_COVERAGE_NOT_READY"
     },
     {
       "outcome_id": "CIRC_YT_PEAK_VPH_v0_1",
@@ -110,5 +115,5 @@
     "content_clock": "Elapsed seconds or elapsedVideoTimeRatio within the audiovisual artifact",
     "rule": "Publication-time peaks cannot be assigned to a chorus. Chorus claims require content-clock audience-retention data aligned with independently measured section boundaries."
   },
-  "next_gate": "SET_PRIVATE_HOOKLAB_YOUTUBE_API_KEY_RESOLVE_REMAINING_96_IDENTITIES_AND_FREEZE_HIGH_TRAFFIC_DEFINITION_BEFORE_METRIC_COLLECTION"
+  "next_gate": "COMPLETE_C001_C100_IDENTITIES_FREEZE_PROSPECTIVE_OBSERVATION_WINDOW_AND_HIGH_TRAFFIC_RULE_THEN_ACCUMULATE_SERIES"
 }
