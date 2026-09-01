@@ -1,0 +1,31 @@
+{
+  "schema": "HOOKLAB_MIGRATION_MANIFEST_v1",
+  "date": "2026-09-01",
+  "repository": "basspauloandres-svg/hooklab-time",
+  "branch": "main",
+  "checkpoint": "docs/checkpoints/MIGRATION_CHECKPOINT_2026-09-01_LYRIC_MODELING_AI_v1.md",
+  "startup_prompt": "docs/checkpoints/START_NEXT_CHAT_LYRIC_MODELING_AI_2026-09-01_v1.txt",
+  "management_progress_estimate_pct": 79,
+  "canonical_ui": "app/prototype_v1/studio.html",
+  "required_artifacts": [
+    "docs/checkpoints/LYRIC_MODELING_STATISTICAL_EVIDENCE_PRINCIPLE_v1.md",
+    "docs/checkpoints/AI_COHERENCE_REASONING_LAYER_INVARIANT_v1.md",
+    "docs/checkpoints/AI_PERSONAL_ACCOUNT_LOCAL_FIRST_INVARIANT_v1.md",
+    "app/prototype_v1/lyric_statistical_model_contract.js",
+    "app/prototype_v1/narrative_state_engine.js",
+    "app/prototype_v1/ai_coherence_reasoning_layer.js",
+    "app/prototype_v1/personal_ai_adapter.js",
+    "app/prototype_v1/hook_composition_assistant.js",
+    "app/prototype_v1/studio.html",
+    "tests/lyric_modeling_coherence_contract.test.js",
+    ".github/workflows/lyric-modeling-coherence-contract.yml"
+  ],
+  "canonical_order": ["DATA_SAYS","STATISTICS_SAY","THEORY_SAYS","GENERATION_TESTS","PRODUCER_DECIDES"],
+  "promotion_states": ["PROMOTE_TO_CONDITIONED_DEDUCTION","HOLD_FOR_REPLICATION","NO_PROMOTION","AUDIT"],
+  "evidence_assisted_generation_requires": "PROMOTE_TO_CONDITIONED_DEDUCTION",
+  "story_separation": ["STORY_BRIEF","SECTION_FUNCTION","LYRIC_CONTENT"],
+  "personal_ai": {"commercial_mode": false, "multi_user_mode": false, "credentials_in_public_code": false},
+  "frozen_analysis_families": ["EARLY_CHORUS","REPETITION_FORMAL_ARCHITECTURE_ALREADY_TESTED","RAW_AGGREGATED_VOCAL_RANGE_AMPLITUDE"],
+  "next_gate": "BUILD_AND_AUDIT_INITIAL_SCIENTIFIC_LYRIC_NARRATIVE_FEATURE_REGISTRY",
+  "fail_closed": true
+}
