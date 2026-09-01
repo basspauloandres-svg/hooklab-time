@@ -1,0 +1,37 @@
+name: Lakh Era Global Crossmatch
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'mie_core/lakh_era_global_massive_candidates_v1.json'
+      - 'mie_core/lakh_filename_crossmatch.py'
+      - '.github/workflows/lakh-era-global-crossmatch.yml'
+
+concurrency:
+  group: lakh-era-global-crossmatch-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  crossmatch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Crossmatch Lakh-era global candidates
+        run: |
+          mkdir -p lakh_global_out
+          python mie_core/lakh_filename_crossmatch.py \
+            --candidates mie_core/lakh_era_global_massive_candidates_v1.json \
+            --output lakh_global_out/lakh_era_global_matches.json \
+            --min-score 0.70 \
+            --top-k 8
+      - name: Upload metadata-only crossmatch evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: hooklab-lakh-era-global-crossmatch-v1
+          path: lakh_global_out/
+          if-no-files-found: error

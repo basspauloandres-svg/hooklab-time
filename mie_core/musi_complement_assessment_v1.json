@@ -1,0 +1,26 @@
+{
+  "schema":"HOOKLAB_MUSI_COMPLEMENT_ASSESSMENT_v1.0",
+  "date":"2026-08-30",
+  "service":"Musi - Simple Music Streaming",
+  "observed_public_capabilities":[
+    "searches YouTube content through the Musi interface",
+    "organizes YouTube videos as music-oriented playlists/favorites",
+    "requires internet connectivity for playback",
+    "does not provide downloading or caching as a supported feature"
+  ],
+  "hooklab_role":"DISCOVERY_AND_MANUAL_SOURCE_CONFIRMATION_ONLY",
+  "allowed_uses":[
+    "confirm that an official/full-length YouTube representation is discoverable",
+    "assist title/artist/version disambiguation",
+    "support candidate discovery for later processing through authorized/public data paths"
+  ],
+  "prohibited_as_evidence":[
+    "treat Musi playback as an extractable full-song corpus source",
+    "download/cache/rip audio through Musi",
+    "mark a song FULL_TMT merely because it is playable in Musi",
+    "use Musi as a replacement for M_FULL, T_FULL or TEXT_FULL evidence"
+  ],
+  "integration_decision":"COMPLEMENTARY_NOT_PRIMARY",
+  "reason":"Musi can reduce discovery friction because it exposes YouTube search/playback, but public information does not establish a research API or symbolic/full-song descriptor export. HookLab therefore keeps its full-song evidence gates unchanged.",
+  "future_adapter":"If Musi exposes a documented authorized API/export later, reassess only the metadata/discovery interface first."
+}

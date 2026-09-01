@@ -1,0 +1,13 @@
+{
+  "schema":"HOOKLAB_DEDUCTION_HYPOTHESIS_RECORD_v1.1",
+  "hypothesis_id":"D001-CANDIDATE-VOCAL-VARIABILITY",
+  "state":"CLOSED / DO_NOT_ADVANCE / NOT_RULE / NOT_MIDI_ELIGIBLE",
+  "population_scope":"CoSoD multi-artist Billboard Hot 100 Year-End collaborations, 2010-2019",
+  "initial_observed_pattern":{"feature":"aggregate_vocal_pitch_span_hz","outcome":"year_end_peak_strength","n":329,"rho":0.1745,"q_bh":0.00743400416377191,"partial_rho_after_year_and_collaboration_type_gender":0.1834,"partial_p":0.0008293903919897371},
+  "robustness_test":{"representation":"section/performance-aware pitch span in semitones = 12*log2(PitchMax/PitchMin)","n":329,"features_tested":["median_section_vocal_span_st","q75_section_vocal_span_st","max_section_vocal_span_st","median_performer_section_span_st"],"controls":["year","collaboration_type_gender","performer_count_with_pitch"],"result":"NO FEATURE PASSED THE EXPLORATORY ASSOCIATION GATE; controlled p-values ranged from .0530 to .2653"},
+  "deductive_decision":"The initial Hz aggregate association is representation-sensitive and is not sufficiently robust for interpretation or rule promotion.",
+  "theory_match":{"state":"NOT_NEEDED_FOR_PROMOTION","note":"Literature on vocal F0/arousal remains relevant background, but it cannot rescue an empirical association that fails the musically interpretable robustness test."},
+  "musical_realization":{"status":"PROHIBITED_FROM_THIS_HYPOTHESIS","reason":"Fail-closed robustness gate rejected the candidate."},
+  "scientific_value":"Negative evidence demonstrates that HookLab tests feature semantics and robustness before converting an association into a creative deduction.",
+  "scientific_promotion":false
+}

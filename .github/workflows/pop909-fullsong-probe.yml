@@ -1,0 +1,28 @@
+name: POP909 Fullsong Probe
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'mie_core/pop909_fullsong_tmt_probe.py'
+      - '.github/workflows/pop909-fullsong-probe.yml'
+jobs:
+  fullsong-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install symbolic dependency
+        run: pip install pretty_midi
+      - name: Fetch POP909 test corpus
+        run: git clone --depth 1 https://github.com/music-x-lab/POP909-Dataset.git /tmp/POP909
+      - name: Run full-song symbolic probe
+        run: python mie_core/pop909_fullsong_tmt_probe.py --root /tmp/POP909 --output pop909_probe/matrix_x_test.csv --limit 12
+      - name: Upload test-lane evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: hooklab-pop909-fullsong-testlane-v1
+          path: pop909_probe/
+          if-no-files-found: error

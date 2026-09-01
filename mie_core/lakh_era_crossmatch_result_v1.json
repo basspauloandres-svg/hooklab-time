@@ -1,0 +1,27 @@
+{
+  "schema":"HOOKLAB_LAKH_ERA_CROSSMATCH_RESULT_v1.0",
+  "source_run":33318124481,
+  "candidate_n":22,
+  "metadata_hit_n":13,
+  "metadata_hit_rate":0.5909,
+  "interpretation":"Lakh is materially useful for the 2007-2011 global-hit stratum, unlike the contemporary Hispanic queue where the same metadata crossmatch produced no hits.",
+  "high_priority_identity_audit":[
+    {"title":"Poker Face","artist":"Lady Gaga","md5":"43d021abadffa2ec5144f5f12c707708","score":0.9524},
+    {"title":"Viva La Vida","artist":"Coldplay","md5":"054daecfb0ba7190455dc4c73fb048f0","score":0.9545},
+    {"title":"I Gotta Feeling","artist":"The Black Eyed Peas","md5":"10e5bf6c837873feb38b1eb767d34f2c","score":0.9412},
+    {"title":"Bad Romance","artist":"Lady Gaga","md5":"7b3be01c008f3acd9906739120097480","score":0.9545},
+    {"title":"Tik Tok","artist":"Kesha","md5":"42742e6e6ab9dada1c76da39c11b7dee","score":0.9286},
+    {"title":"Firework","artist":"Katy Perry","md5":"501cfb8935c06a6f7c28f2d5aec33e56","score":0.95},
+    {"title":"Rolling in the Deep","artist":"Adele","md5":"00d6f762a1ca9dfb47886f2f55f73256","score":0.9615},
+    {"title":"Just the Way You Are","artist":"Bruno Mars","md5":"426db36f97b355d7456deaf189e7d7cb","score":0.9688},
+    {"title":"Dynamite","artist":"Taio Cruz","md5":"a3fd1182c0466d141ce7d322778c59fd","score":0.9474},
+    {"title":"Party Rock Anthem","artist":"LMFAO","md5":"77c23f602499cdf73972dbe9de7593e4","score":0.9583},
+    {"title":"Someone Like You","artist":"Adele","md5":"fd469251b246c9af91c586e03e2aee66","score":0.9565}
+  ],
+  "manual_or_enriched_metadata_review":[
+    {"title":"Love the Way You Lie","reason":"Correct-looking filename exists but combined fuzzy score fell below configured threshold; identity resolver should use artist/title/version metadata rather than discard it."},
+    {"title":"We Found Love","reason":"Plausible Rihanna filename hit with lower fuzzy score; requires enriched identity audit."}
+  ],
+  "next_gate":"IDENTITY -> MIDI_STRUCTURAL_PLAUSIBILITY -> FULL_SONG_COVERAGE -> TMT_ELIGIBILITY",
+  "automatic_promotion":false
+}

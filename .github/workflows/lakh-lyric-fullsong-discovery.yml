@@ -1,0 +1,54 @@
+name: Lakh Lyric Fullsong Discovery
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'mie_core/lakh_lyric_fullsong_discovery.py'
+      - 'mie_core/testlane_cohort_builder.py'
+      - 'mie_core/tmt_structural_candidate_generator_v2.py'
+      - 'mie_core/prototype_readiness_gate.py'
+      - 'mie_core/preproduction_router.py'
+      - 'mie_core/preproduction_constraints_compiler.py'
+      - '.github/workflows/lakh-lyric-fullsong-discovery.yml'
+jobs:
+  discover-and-e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install MIDI dependencies
+        run: pip install mido pretty_midi
+      - name: Discover lyric-bearing full-song symbolic cases
+        run: python mie_core/lakh_lyric_fullsong_discovery.py --output-dir lakh_lyric_tmt --target-n 5 --scan-max 2500
+      - name: Run FULL_TMT readiness gate
+        run: python mie_core/prototype_readiness_gate.py --matrix lakh_lyric_tmt/matrix_x_full_tmt_test.csv --output lakh_lyric_tmt/readiness.json --min-n 3
+      - name: Build cached cohort reference
+        run: python mie_core/testlane_cohort_builder.py --matrix lakh_lyric_tmt/matrix_x_full_tmt_test.csv --output lakh_lyric_tmt/cohort_cache.json
+      - name: Route online request from cache only
+        run: python mie_core/preproduction_router.py --cache lakh_lyric_tmt/cohort_cache.json --genre lakh_lyric_test --style full_tmt_symbolic --purpose 'full TMT engineering walkthrough' --output lakh_lyric_tmt/router.json
+      - name: Compile traceable cohort constraints
+        run: python mie_core/preproduction_constraints_compiler.py --router-output lakh_lyric_tmt/router.json --output lakh_lyric_tmt/constraints.json
+      - name: Generate text-aware structural candidates
+        run: python mie_core/tmt_structural_candidate_generator_v2.py --constraints lakh_lyric_tmt/constraints.json --output lakh_lyric_tmt/structural_candidates.json
+      - name: Write E2E checkpoint
+        run: |
+          python - <<'PY'
+          import json,time
+          from pathlib import Path
+          p=Path('lakh_lyric_tmt')
+          r=json.loads((p/'readiness.json').read_text())
+          ro=json.loads((p/'router.json').read_text())
+          c=json.loads((p/'constraints.json').read_text())
+          g=json.loads((p/'structural_candidates.json').read_text())
+          out={'schema':'HOOKLAB_FULL_TMT_TESTLANE_E2E_v1.0','status':'FULL_TMT_E2E_PASS' if r['status']=='READY_FOR_DATA_CONDITIONED_GENERATION' and ro['status']=='CACHE_HIT_READY_FOR_GENERATION' and g['status']=='THREE_FULL_TMT_STRUCTURAL_CANDIDATES_READY' else 'E2E_FAIL','readiness':r['status'],'router':ro['status'],'constraint_count':len(c.get('constraints',{})),'generation':g['status'],'T_online_search_seconds':0,'online_corpus_reanalysis':False,'evidence_boundary':'TEST_LANE_ONLY; NOT MASSIVE_HIT_EVIDENCE'}
+          (p/'e2e_checkpoint.json').write_text(json.dumps(out,indent=2));print(json.dumps(out))
+          PY
+      - name: Upload FULL_TMT end-to-end test-lane evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: hooklab-full-tmt-e2e-testlane-v1
+          path: lakh_lyric_tmt/
+          if-no-files-found: error

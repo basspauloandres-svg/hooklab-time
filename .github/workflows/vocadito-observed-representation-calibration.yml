@@ -1,0 +1,71 @@
+name: Vocadito Observed Representation Calibration
+on:
+  workflow_dispatch:
+  push:
+    branches: ["mie/golden-forensic-v0.3"]
+    paths:
+      - "mie_core/vocadito_dual_reference_calibration.py"
+      - "mie_core/representation_calibration_feature_extractor.py"
+      - "mie_core/paired_representation_agreement.py"
+      - "mie_core/melody_representation_calibration_gate.py"
+      - ".github/workflows/vocadito-observed-representation-calibration.yml"
+jobs:
+  calibrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      - name: Install calibration runtime
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          python -m pip install --upgrade pip
+          pip install scipy mirdata 'basic-pitch[onnx]'
+          python - <<'PY'
+          import onnxruntime
+          from basic_pitch import build_icassp_2022_model_path, FilenameSuffix
+          p=build_icassp_2022_model_path(FilenameSuffix.onnx)
+          print('onnxruntime', onnxruntime.__version__)
+          print('basic_pitch_onnx_model', p, 'exists=',p.exists(),'bytes=',p.stat().st_size if p.exists() else None)
+          if not p.exists() or p.stat().st_size == 0: raise SystemExit('Basic Pitch ONNX model missing/empty')
+          PY
+      - name: Download Vocadito public release
+        run: |
+          python - <<'PY'
+          import mirdata
+          ds=mirdata.initialize('vocadito', data_home='external_data/vocadito')
+          ds.download()
+          print('tracks', len(ds.track_ids))
+          PY
+      - name: Execute observed dual-reference calibration
+        id: calibration
+        continue-on-error: true
+        run: |
+          mkdir -p artifacts/vocadito_calibration
+          python mie_core/vocadito_dual_reference_calibration.py \
+            --data-home external_data/vocadito \
+            --output artifacts/vocadito_calibration/report.json
+      - name: Summarize gate without hiding a scientifically valid FAIL/PENDING
+        run: |
+          python - <<'PY'
+          import json, pathlib
+          p=pathlib.Path('artifacts/vocadito_calibration/report.json')
+          if not p.exists(): raise SystemExit('calibration report missing')
+          r=json.loads(p.read_text())
+          print('status=',r['status'])
+          print('candidate_system=',r['candidate_system'])
+          print('observed A1=',r['observed_tracks_a1'],'A2=',r['observed_tracks_a2'])
+          print('dual_reference_stable_features=',r['dual_reference_stable_features'])
+          print('A1 gate=',r['gate_A1']['status'],r['gate_A1']['blocking_reasons'])
+          print('A2 gate=',r['gate_A2']['status'],r['gate_A2']['blocking_reasons'])
+          print('failed_tracks=',len(r['failed_tracks']))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vocadito-observed-representation-calibration
+          path: artifacts/vocadito_calibration/report.json
+          if-no-files-found: error

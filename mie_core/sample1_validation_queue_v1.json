@@ -1,0 +1,38 @@
+{
+  "schema": "SAMPLE1_VALIDATION_QUEUE_v1.0",
+  "goal_verified": 30,
+  "current_verified": 12,
+  "remaining_to_checkpoint": 18,
+  "policy": "PRESELECTION_ONLY_UNTIL_EXPLICIT_VIDIQ_SOCIAL_MATCH",
+  "rules": [
+    "No candidate enters Sample 1 from this queue alone.",
+    "Admission still requires exact 20-year release window, official YouTube >=100M, social item >=50M, and explicit song/audio identity.",
+    "Public-web or YouTube evidence may prioritize candidates but cannot replace the vidIQ social identity gate.",
+    "Failed or ambiguous candidates remain logged as audit evidence."
+  ],
+  "queue": [
+    {"priority":1,"title":"Shape of You","artist":"Ed Sheeran","release_year":2017,"youtube_video_id":"JGwWNGJdvx8","youtube_views_seed":6792979111,"status":"SOCIAL_EXPLICIT_MATCH_PENDING"},
+    {"priority":2,"title":"Sugar","artist":"Maroon 5","release_year":2015,"youtube_video_id":"09R8_2nJtjg","youtube_views_seed":4419678966,"status":"SOCIAL_EXPLICIT_MATCH_PENDING"},
+    {"priority":3,"title":"Sorry","artist":"Justin Bieber","release_year":2015,"youtube_video_id":"fRh_vgS2dFE","youtube_views_seed":4146585602,"status":"SOCIAL_EXPLICIT_MATCH_PENDING"},
+    {"priority":4,"title":"APT.","artist":"ROSÉ & Bruno Mars","release_year":2024,"youtube_video_id":"ekr2nIex040","youtube_views_seed":2645300569,"status":"SOCIAL_EXPLICIT_MATCH_PENDING"},
+    {"priority":5,"title":"Life Is Good","artist":"Future ft. Drake","release_year":2020,"youtube_video_id":"l0U7SxXHkPY","youtube_views_seed":2274636878,"status":"SOCIAL_EXPLICIT_MATCH_PENDING"},
+    {"priority":6,"title":"Let Me Love You","artist":"DJ Snake ft. Justin Bieber","release_year":2016,"youtube_video_id":"euCqAq6BRa4","youtube_views_seed":2115891236,"status":"SOCIAL_EXPLICIT_MATCH_PENDING"},
+    {"priority":7,"title":"7 Years","artist":"Lukas Graham","release_year":2015,"youtube_video_id":"LHCob76kigA","youtube_views_seed":1808042718,"status":"SOCIAL_EXPLICIT_MATCH_PENDING"},
+    {"priority":8,"title":"DÁKITI","artist":"Bad Bunny x Jhay Cortez","release_year":2020,"youtube_video_id":"TmKh7lAwnBI","youtube_views_seed":1788009586,"status":"SOCIAL_RECHECK_REQUIRED_PREVIOUS_AMBIGUOUS"},
+    {"priority":9,"title":"Me Porto Bonito","artist":"Bad Bunny ft. Chencho Corleone","release_year":2022,"youtube_video_id":"saGYMhApaH8","youtube_views_seed":1179814393,"status":"SOCIAL_EXPLICIT_MATCH_PENDING"},
+    {"priority":10,"title":"Tití Me Preguntó","artist":"Bad Bunny","release_year":2022,"youtube_video_id":"Cr8K88UcO0s","youtube_views_seed":1109202324,"status":"SOCIAL_EXPLICIT_MATCH_PENDING"},
+    {"priority":11,"title":"Beautiful Things","artist":"Benson Boone","release_year":2024,"youtube_video_id":"Oa_RSwwpPaA","youtube_views_seed":1088754172,"status":"SOCIAL_EXPLICIT_MATCH_PENDING"},
+    {"priority":12,"title":"La Bachata","artist":"Manuel Turizo","release_year":2022,"youtube_video_id":"TiM_TFpT_DE","youtube_views_seed":993601618,"status":"SOCIAL_RECHECK_REQUIRED_PREVIOUS_AMBIGUOUS"},
+    {"priority":13,"title":"BIRDS OF A FEATHER","artist":"Billie Eilish","release_year":2024,"youtube_video_id":"V9PVRfjEBTI","youtube_views_seed":928625459,"status":"SOCIAL_EXPLICIT_MATCH_PENDING"},
+    {"priority":14,"title":"Lala","artist":"Myke Towers","release_year":2023,"youtube_video_id":"BVdngsy95mY","youtube_views_seed":758648138,"status":"SOCIAL_EXPLICIT_MATCH_PENDING"},
+    {"priority":15,"title":"BELLAKEO","artist":"Peso Pluma, Anitta","release_year":2023,"youtube_video_id":"fOT0BUpITw8","youtube_views_seed":755468794,"status":"SOCIAL_EXPLICIT_MATCH_PENDING"},
+    {"priority":16,"title":"Water","artist":"Tyla","release_year":2023,"youtube_video_id":"XoiOOiuH8iI","youtube_views_seed":405269016,"status":"SOCIAL_EXPLICIT_MATCH_PENDING"},
+    {"priority":17,"title":"Solo","artist":"Clean Bandit feat. Demi Lovato","release_year":2018,"youtube_video_id":"8JnfIa84TnU","youtube_views_seed":1093964937,"status":"SOCIAL_EXPLICIT_MATCH_PENDING"},
+    {"priority":18,"title":"Die With A Smile","artist":"Lady Gaga & Bruno Mars","release_year":2024,"youtube_video_id":"kPa7bsKwL-c","youtube_views_seed":1646848800,"status":"SOCIAL_EXPLICIT_MATCH_PENDING"},
+    {"priority":19,"title":"TQG","artist":"KAROL G & Shakira","release_year":2023,"youtube_video_id":"jZGpkLElSu8","youtube_views_seed":1560326723,"status":"SOCIAL_EXPLICIT_MATCH_PENDING"},
+    {"priority":20,"title":"Tusa","artist":"KAROL G & Nicki Minaj","release_year":2019,"youtube_video_id":"tbneQDc2H3I","youtube_views_seed":1657859265,"status":"SOCIAL_EXPLICIT_MATCH_PENDING"},
+    {"priority":21,"title":"BICHOTA","artist":"KAROL G","release_year":2020,"youtube_video_id":"QaXhVryxVBk","youtube_views_seed":1478681254,"status":"SOCIAL_EXPLICIT_MATCH_PENDING"},
+    {"priority":22,"title":"Provenza","artist":"KAROL G","release_year":2022,"youtube_video_id":"ca48oMV59LU","youtube_views_seed":1409864365,"status":"SOCIAL_EXPLICIT_MATCH_PENDING"}
+  ],
+  "source_note": "Seed YouTube metrics derive from prior vidIQ observations and later spot checks. Queue status is not admission status."
+}

@@ -1,0 +1,10 @@
+{
+  "schema":"HOOKLAB_GATE_B_PILOT_001_OBSERVATION_v1.0",
+  "protocol":"docs/HUMAN_TTFP_BASELINE_PROTOCOL_v1_0.md",
+  "task_package":"experiments/gate_b/PILOT_001_TASK_PACKAGE.md",
+  "participant":{"participant_id":null,"primary_role":null,"years_experience":null,"principal_tools":[],"prior_familiarity":"NONE_OR_GENERAL_GENRE_ONLY"},
+  "trial":{"observed":true,"task_id":"GATE_B_PILOT_001_DANCE_POP","start_timestamp":null,"stop_timestamp":null,"experimenter_pause_seconds":0,"ttfp_seconds":null,"major_tools_used":[],"interruptions":[],"admissible_outputs":[]},
+  "artifact":{"path_or_reference":null,"retained":false,"created_during_timed_trial":false},
+  "audit":{"auditor_id":null,"contract_complete":false,"exclusion_reason":null},
+  "prohibited":{"estimated_time":false,"reconstructed_time":false,"hooklab_candidates_seen_before_t1":false}
+}

@@ -1,0 +1,79 @@
+{
+  "schema":"HOOKLAB_INTERNATIONAL_RESEARCH_SYMBOLIC_PROVIDER_REGISTRY_v1.0",
+  "date":"2026-08-31",
+  "branch":"mie/golden-forensic-v0.3",
+  "providers":[
+    {
+      "provider_id":"BIMMUDA",
+      "country_region":"United States/UK academic project",
+      "scope":"Billboard top-five year-end melodies",
+      "symbolic_content":"full main-melody MIDI + section MIDI + lyrics + metadata",
+      "license_state":"AUDIT_REQUIRED",
+      "computational_processing_explicit":false,
+      "provenance_available":true,
+      "target_population_status":"PARTIAL_T1_MATCH",
+      "notes":"7/25 T1 matches observed; repository has no explicit dataset license."
+    },
+    {
+      "provider_id":"CCMUSIC",
+      "country_region":"China",
+      "scope":"Chinese pop and MIR research datasets",
+      "symbolic_content":"MIDI/WAV/lyrics and MIR annotations",
+      "license_state":"RESEARCH_AUTHORIZED",
+      "computational_processing_explicit":true,
+      "provenance_available":true,
+      "target_population_status":"NOT_YET_CROSSED_WITH_T1",
+      "notes":"Zenodo description states free use by computational musicology/MIR researchers."
+    },
+    {
+      "provider_id":"POP909",
+      "country_region":"China",
+      "scope":"909 pop songs for arrangement-generation research",
+      "symbolic_content":"MIDI, melody/bridge/piano tracks, beat/chord/structure annotations",
+      "license_state":"LICENSED_OPEN",
+      "computational_processing_explicit":true,
+      "provenance_available":true,
+      "target_population_status":"NOT_YET_CROSSED_WITH_T1",
+      "notes":"Public repository includes MIT LICENSE and data-processing examples. Dataset-song copyright scope remains subject to target-level audit before promotion."
+    },
+    {
+      "provider_id":"LAKH_PIANOROLL",
+      "country_region":"International/Academia Sinica",
+      "scope":"174154 multitrack pianorolls derived from Lakh MIDI",
+      "symbolic_content":"multitrack pianorolls with matched metadata subsets",
+      "license_state":"LICENSED_OPEN",
+      "computational_processing_explicit":true,
+      "provenance_available":true,
+      "target_population_status":"AUXILIARY_ONLY_UNLESS_TSDQP_MATCH",
+      "notes":"CC BY 4.0; availability does not define HookLab target population and alternative-Lakh search is not primary route."
+    },
+    {
+      "provider_id":"POP_K",
+      "country_region":"Zenodo/international",
+      "scope":"augmented modern-pop symbolic melodies",
+      "symbolic_content":"8-bar vocal lead/chords/bass MIDI-derived augmented data",
+      "license_state":"NONCOMMERCIAL_RESEARCH_AUTHORIZED",
+      "computational_processing_explicit":true,
+      "provenance_available":true,
+      "target_population_status":"METHOD_VALIDATION_ONLY",
+      "notes":"CC BY-NC; augmented segments are not direct full-song target representations."
+    },
+    {
+      "provider_id":"POP1K7",
+      "country_region":"Taiwan/US",
+      "scope":"1747 Western/Japanese/Korean pop piano transcriptions",
+      "symbolic_content":"full-song piano MIDI/REMI/CP representations",
+      "license_state":"AUDIT_REQUIRED",
+      "computational_processing_explicit":true,
+      "provenance_available":true,
+      "target_population_status":"NOT_YET_CROSSED_WITH_T1",
+      "notes":"Open Zenodo dataset intended for research, but exact license must be verified before provider PASS."
+    }
+  ],
+  "invariants":[
+    "scientific target population != songs available in a provider",
+    "provider admissibility != song qualification",
+    "candidate discovery != scientific promotion",
+    "Lakh alternative-arrangement search is not the primary route"
+  ]
+}

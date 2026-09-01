@@ -1,0 +1,24 @@
+name: Golden M Substitution Guard
+
+on:
+  push:
+    paths:
+      - 'golden_pipeline/**'
+      - 'app-mie-p30-harmony-beat-v0.1.html'
+      - '.github/workflows/golden-m-substitution-guard.yml'
+  workflow_dispatch:
+
+jobs:
+  refusal-invariants:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify guarded substitution refuses unverified alignment and renderer drift
+        run: python golden_pipeline/test_m_v0_5_substitution_guard.py

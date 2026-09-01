@@ -1,0 +1,28 @@
+{
+  "schema": "HOOKLAB_TARGET_VOCAL_BINDING_CALIBRATION_v1.0",
+  "source_run_id": 33338265583,
+  "source_commit": "b0c9fc6846af571179f14c3c7e299bb4136c1341",
+  "rows": 11,
+  "strong_symbolic_binding_n": 8,
+  "strong_symbolic_binding_rate": 0.727273,
+  "status_counts": {
+    "DIRECT_CHANNEL_PREFIX_LYRIC_BINDING": 1,
+    "DIRECT_SAME_TRACK_LYRIC_NOTE_BINDING": 7,
+    "WEAK_BINDING_REQUIRES_REFERENCE": 3
+  },
+  "dance_pop_target_cohort": {
+    "accepted_candidate_n": 5,
+    "strong_symbolic_binding_n": 5,
+    "strong_symbolic_binding_rate": 1.0,
+    "cases": [
+      {"title":"Poker Face","status":"DIRECT_SAME_TRACK_LYRIC_NOTE_BINDING","alignment":0.9914},
+      {"title":"Bad Romance","status":"DIRECT_SAME_TRACK_LYRIC_NOTE_BINDING","alignment":0.9883},
+      {"title":"Tik Tok","status":"DIRECT_SAME_TRACK_LYRIC_NOTE_BINDING","alignment":0.9982},
+      {"title":"Firework","status":"DIRECT_CHANNEL_PREFIX_LYRIC_BINDING","alignment":0.9977},
+      {"title":"Dynamite","status":"DIRECT_SAME_TRACK_LYRIC_NOTE_BINDING","alignment":1.0}
+    ]
+  },
+  "interpretation_boundary": "Strong binding demonstrates that the symbolic source directly couples lyric timing to a note-bearing track. It substantially strengthens vocal-track identification inside the MIDI/KAR representation, but remains source-internal evidence rather than independent comparison with the commercial recording.",
+  "scientific_promotion": false,
+  "remaining_validation": "External or directly labeled reference sample for calibration of vocal identity against the released recording."
+}

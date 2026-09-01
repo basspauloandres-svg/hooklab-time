@@ -1,0 +1,51 @@
+{
+  "schema": "HOOKLAB_FULL_SONG_SOURCE_REGISTRY_v1.0",
+  "objective": "Prioritize complete-song representations that avoid persistent audio storage and prevent fragment-selection bias from entering Matrix X or generation readiness.",
+  "sources": [
+    {
+      "name": "DALI",
+      "role": "FULL_SONG_M_PLUS_TEXT",
+      "coverage": ["vocal_notes", "note_times", "word_times", "line_times", "paragraph_times", "lyrics"],
+      "audio_required_by_hooklab": false,
+      "license": "CC BY-NC-SA 4.0 for dataset annotations",
+      "temporal_scope": "dataset released 2018; candidate availability must be checked per song",
+      "epistemic_use": "Prototype/research only; annotation quality and ground-truth flag must be retained.",
+      "priority": 1
+    },
+    {
+      "name": "AcousticBrainz",
+      "role": "FULL_SONG_TONAL_RHYTHMIC_AGGREGATES",
+      "coverage": ["bpm", "beat_count", "key", "scale", "danceability", "onset_rate", "low_level_descriptors"],
+      "audio_required_by_hooklab": false,
+      "license": "CC0",
+      "temporal_scope": "submissions collected through 2022-07-06",
+      "epistemic_use": "Full-track aggregate corroboration and T-layer source; not a vocal-melody substitute.",
+      "priority": 1
+    },
+    {
+      "name": "LRCLIB",
+      "role": "FULL_SONG_TEXT_REFERENCE",
+      "coverage": ["plain_lyrics", "synced_lyrics_when_available"],
+      "audio_required_by_hooklab": false,
+      "license": "source-specific/public API; persist provenance",
+      "epistemic_use": "Text layer only; synchronized text cannot substitute for complete melody coverage.",
+      "priority": 2
+    },
+    {
+      "name": "Apple_iTunes_preview",
+      "role": "ENGINEERING_PROBE_ONLY",
+      "coverage": ["short_audio_preview"],
+      "audio_required_by_hooklab": true,
+      "persistence": "temporary offline engineering artifact only",
+      "epistemic_use": "Excluded from Matrix X, cohort rules and generation readiness.",
+      "priority": 9
+    }
+  ],
+  "dimension_gate": {
+    "M": "FULL_SONG vocal melody/note representation required",
+    "T": "FULL_SONG temporal/rhythmic representation required",
+    "Text": "FULL_SONG textual representation required",
+    "generation_ready": "M_FULL AND T_FULL AND TEXT_FULL"
+  },
+  "invariant": "No source with PREVIEW or SHORT coverage may upgrade any TMT dimension to FULL."
+}

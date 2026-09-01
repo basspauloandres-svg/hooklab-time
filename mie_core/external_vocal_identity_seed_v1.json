@@ -1,0 +1,106 @@
+{
+  "schema": "HOOKLAB_EXTERNAL_VOCAL_IDENTITY_SEED_v1.0",
+  "gate": "A",
+  "status": "PENDING_EXTERNAL_AUDIO_ANNOTATION",
+  "scientific_promotion": false,
+  "independence_rule": "Released-recording reference must be annotated and frozen before the candidate MIDI/KAR melody is exposed for comparison.",
+  "repository_audio_policy": "NO_COPYRIGHTED_AUDIO_STORED",
+  "excerpt_plan": {
+    "minimum_excerpts_per_song": 3,
+    "preferred_structural_distribution": [
+      "VERSE",
+      "CONTRASTING_SECTION_IF_PRESENT",
+      "CHORUS_OR_HOOK"
+    ],
+    "minimum_content_rule": "Each excerpt contains at least one complete, audibly identifiable principal lead-vocal phrase.",
+    "exclusion_reasons": [
+      "INSTRUMENTAL_ONLY",
+      "SPOKEN_OR_RAP_WITHOUT_STABLE_F0",
+      "DENSE_VOCAL_STACKING_NO_OPERATIONAL_PRINCIPAL_LINE",
+      "REFERENCE_VERSION_AMBIGUOUS",
+      "INSUFFICIENT_AUDIO_QUALITY"
+    ]
+  },
+  "annotation_fields": [
+    "song_id",
+    "excerpt_id",
+    "release_reference",
+    "release_version_id",
+    "reference_start_s",
+    "reference_end_s",
+    "note_start_s",
+    "note_end_s",
+    "midi_pitch",
+    "annotator_id",
+    "annotation_pass",
+    "annotation_source"
+  ],
+  "comparison_outputs": [
+    "precision_no_offset",
+    "recall_no_offset",
+    "f1_no_offset",
+    "average_overlap_no_offset",
+    "precision_with_offset",
+    "recall_with_offset",
+    "f1_with_offset",
+    "average_overlap_with_offset",
+    "interval_sequence_agreement",
+    "pitch_class_contour_agreement",
+    "direction_sequence_agreement",
+    "excerpt_decision",
+    "song_decision",
+    "audit_notes"
+  ],
+  "decision_states": [
+    "AUDIO_REFERENCE_PASS",
+    "AUDIO_REFERENCE_AUDIT",
+    "AUDIO_REFERENCE_FAIL"
+  ],
+  "seed_promotion_rule": {
+    "five_of_five_pass": "SEED_EXTERNALLY_CALIBRATED",
+    "four_of_five_pass": "AUDIT_DISCREPANT_CASE_BEFORE_PROMOTION",
+    "fewer_than_four_pass": "SCIENTIFIC_PROMOTION_BLOCKED"
+  },
+  "cases": [
+    {
+      "song_id": "poker_face_lady_gaga",
+      "title": "Poker Face",
+      "artist": "Lady Gaga",
+      "symbolic_binding_status": "DIRECT_SAME_TRACK_LYRIC_NOTE_BINDING",
+      "symbolic_alignment": 0.9914,
+      "external_audio_status": "PENDING"
+    },
+    {
+      "song_id": "bad_romance_lady_gaga",
+      "title": "Bad Romance",
+      "artist": "Lady Gaga",
+      "symbolic_binding_status": "DIRECT_SAME_TRACK_LYRIC_NOTE_BINDING",
+      "symbolic_alignment": 0.9883,
+      "external_audio_status": "PENDING"
+    },
+    {
+      "song_id": "tik_tok_kesha",
+      "title": "Tik Tok",
+      "artist": "Kesha",
+      "symbolic_binding_status": "DIRECT_SAME_TRACK_LYRIC_NOTE_BINDING",
+      "symbolic_alignment": 0.9982,
+      "external_audio_status": "PENDING"
+    },
+    {
+      "song_id": "firework_katy_perry",
+      "title": "Firework",
+      "artist": "Katy Perry",
+      "symbolic_binding_status": "DIRECT_CHANNEL_PREFIX_LYRIC_BINDING",
+      "symbolic_alignment": 0.9977,
+      "external_audio_status": "PENDING"
+    },
+    {
+      "song_id": "dynamite_taio_cruz",
+      "title": "Dynamite",
+      "artist": "Taio Cruz",
+      "symbolic_binding_status": "DIRECT_SAME_TRACK_LYRIC_NOTE_BINDING",
+      "symbolic_alignment": 1.0,
+      "external_audio_status": "PENDING"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "schema":"HOOKLAB_FULL_TMT_E2E_CHECKPOINT_v1.0",
+  "status":"FULL_TMT_E2E_PASS",
+  "workflow_run_id":33324430044,
+  "cohort_key":"lakh_lyric_test::full_tmt_symbolic",
+  "cohort_n":5,
+  "coverage":"FULL_SONG",
+  "dimensions":{"M":"FULL","T":"FULL","Text":"FULL_TIMED_MIDI_META_EVENTS"},
+  "readiness":"READY_FOR_DATA_CONDITIONED_GENERATION",
+  "router":"CACHE_HIT_READY_FOR_GENERATION",
+  "constraints":6,
+  "generation":"THREE_FULL_TMT_STRUCTURAL_CANDIDATES_READY",
+  "online_invariants":{"T_online_search_seconds":0,"online_corpus_reanalysis":false},
+  "evidence_boundary":"TEST_LANE_ONLY; NOT MASSIVE_HIT_EVIDENCE",
+  "scientific_boundary":"This proves the technical E2E path with full-song symbolic TMT evidence. It does not establish massive-hit population validity, genre/style generalization, causal rules, or inferential sufficiency.",
+  "next_scientific_task":"Replicate the same E2E path on a coherent full-song cohort of contemporary massive hits and compare generated structural candidates under human evaluation and TTFP baseline."
+}

@@ -1,0 +1,8 @@
+{
+  "schema":"HOOKLAB_DANCE_POP_T1_QUALIFICATION_EVIDENCE_v1.0",
+  "status":"INITIAL_FAIL_CLOSED_STATE",
+  "records":[],
+  "interpretation":"The discovery queue provides candidate-discovery evidence only. No new T1 candidate receives PASS in a scientific qualification gate until observed evidence is added explicitly with provenance.",
+  "allowed_gate_states":["PASS","AUDIT","FAIL","PENDING"],
+  "gate_order":["mass_success","identity","genre_style","version","symbolic_source","full_song","provenance","full_tmt"]
+}

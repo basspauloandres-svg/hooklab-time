@@ -1,0 +1,9 @@
+{
+  "schema":"HOOKLAB_GATE_B2_ROBUST_COHORT_READINESS_INPUT_v1.0",
+  "cohort":{"genre":"Pop","style":"Dance-Pop","stage":"CURRENT_OBSERVED_REPOSITORY_STATE"},
+  "qualification":{"scientific_population_defined":true,"candidate_discovery_separate_from_promotion":true,"identity_version_full_song_provenance_gates":true,"basis":"docs/TARGET_SONG_DISCOVERY_QUALIFICATION_PIPELINE_v1.md"},
+  "matrix":{"qualified_rows":5,"full_tmt_complete":true,"scope":"T0 forensic/technical validation seed only","basis":"CHECKPOINTS/CHAT_MIGRATION_2026-08-30_EXACT_STATE.md"},
+  "stability":{"status":"MORE_ROBUST_DATA_REQUIRED","persistent_drift_detected":false,"note":"No observed N>=50 Dance-Pop Matrix-X stability artifact located in canonical branch."},
+  "expected_result":"ROBUST_COHORT_NOT_READY",
+  "provenance":["docs/TARGET_SONG_DISCOVERY_QUALIFICATION_PIPELINE_v1.md","CHECKPOINTS/CHAT_MIGRATION_2026-08-30_EXACT_STATE.md","mie_core/cohort_stability_gate.py","mie_core/target_vocal_binding_calibration_v1.json"]
+}

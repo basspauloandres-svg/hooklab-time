@@ -1,0 +1,47 @@
+name: Cache HTDemucs Model
+
+on:
+  push:
+    paths:
+      - '.github/workflows/cache-htdemucs-model.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cache-model:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Demucs
+        run: pip install 'demucs==4.0.1'
+      - name: Download htdemucs checkpoint only
+        run: |
+          python - <<'PY'
+          from demucs.pretrained import get_model
+          m = get_model('htdemucs')
+          print(type(m).__name__)
+          PY
+      - name: Build ephemeral local execution bundle
+        run: |
+          mkdir -p model_artifact/source model_artifact/wheels
+          find "$HOME/.cache/torch/hub/checkpoints" -maxdepth 1 -type f -name '955717e8-8726e21a.th' -print -exec cp {} model_artifact/ \;
+          test -f model_artifact/955717e8-8726e21a.th
+          sha256sum model_artifact/955717e8-8726e21a.th | tee model_artifact/sha256.txt
+          printf "models: ['955717e8']\n" > model_artifact/htdemucs.yaml
+          pip download --no-deps 'basic-pitch==0.4.0' -d model_artifact/wheels
+          cp -R mie_core model_artifact/source/
+          cp -R golden_pipeline model_artifact/source/
+          cp app-mie-p30-harmony-beat-v0.1.html model_artifact/source/
+          git rev-parse HEAD > model_artifact/source_commit.txt
+      - name: Upload model cache and exact MIE source
+        uses: actions/upload-artifact@v4
+        with:
+          name: htdemucs-local-execution-bundle
+          path: model_artifact/
+          if-no-files-found: error
+          retention-days: 1

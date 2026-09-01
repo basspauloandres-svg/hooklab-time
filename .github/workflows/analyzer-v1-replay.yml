@@ -1,0 +1,60 @@
+name: Analyzer v1 Fast Replay
+on:
+  push:
+    branches: [mie/golden-forensic-v0.3]
+    paths: ['mie_core/analyzer-replay-trigger.json']
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: 'Source Analyzer v1 Real E2E run id'
+        required: false
+      artifact_name:
+        description: 'Source artifact name'
+        required: false
+        default: 'analyzer-v1-real-e2e-evidence'
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Resolve replay source
+        id: src
+        env:
+          INPUT_RUN_ID: ${{ inputs.run_id }}
+          INPUT_ARTIFACT: ${{ inputs.artifact_name }}
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json,os,pathlib
+          p=pathlib.Path('mie_core/analyzer-replay-trigger.json')
+          cfg=json.loads(p.read_text()) if p.exists() else {}
+          run_id=os.environ.get('INPUT_RUN_ID') or str(cfg.get('run_id',''))
+          artifact=os.environ.get('INPUT_ARTIFACT') or cfg.get('artifact_name','analyzer-v1-real-e2e-evidence')
+          if not run_id: raise SystemExit('No replay run_id supplied')
+          print('run_id='+run_id);print('artifact_name='+artifact)
+          PY
+      - name: Download source derived-evidence artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ steps.src.outputs.run_id }}
+          ARTIFACT_NAME: ${{ steps.src.outputs.artifact_name }}
+        run: |
+          set -euo pipefail
+          mkdir -p replay_source
+          ART_ID=$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${RUN_ID}/artifacts" --jq ".artifacts[] | select(.name==\"${ARTIFACT_NAME}\") | .id" | head -1)
+          test -n "$ART_ID" || { echo "Artifact not found"; exit 2; }
+          gh api "repos/${GITHUB_REPOSITORY}/actions/artifacts/${ART_ID}/zip" > replay.zip
+          unzip -q replay.zip -d replay_source
+      - name: Run strict replay
+        run: |
+          python mie_core/analyzer_v1_replay.py --evidence replay_source --output replay_out
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: analyzer-v1-fast-replay-result
+          path: replay_out/**/*.json

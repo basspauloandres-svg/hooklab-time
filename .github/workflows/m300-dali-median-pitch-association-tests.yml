@@ -1,0 +1,20 @@
+name: M300 DALI median pitch association tests
+on:
+  workflow_dispatch:
+  push:
+    branches: ["mie/golden-forensic-v0.3"]
+    paths:
+      - "mie_core/m300_dali_median_pitch_association.py"
+      - "mie_core/test_m300_dali_median_pitch_association.py"
+      - "config/representation_stable_features_v1.json"
+      - ".github/workflows/m300-dali-median-pitch-association-tests.yml"
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install scipy
+      - run: python mie_core/test_m300_dali_median_pitch_association.py

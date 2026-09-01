@@ -1,0 +1,23 @@
+{
+  "schema": "HOOKLAB_GATE_A_PROVIDER_MATRIX_SUMMARY_v1.0",
+  "date": "2026-08-30",
+  "song_n": 5,
+  "resolver_coverage_rate": {"n": 0, "denominator": 5, "percent": 0.0},
+  "automatic_validation_rate": {"n": 0, "denominator": 5, "percent": 0.0},
+  "audit_rate": {"n": 5, "denominator": 5, "percent": 100.0},
+  "true_validation_failure_rate": {"n": 0, "denominator": 5, "percent": 0.0},
+  "song_states": {
+    "poker_face_lady_gaga": "AUDIT",
+    "bad_romance_lady_gaga": "AUDIT",
+    "tik_tok_kesha": "AUDIT",
+    "firework_katy_perry": "AUDIT",
+    "dynamite_taio_cruz": "AUDIT"
+  },
+  "preferred_scalable_route": {
+    "provider": "MassiveMusic/7digital Fingerprinting Environment",
+    "status": "LEGITIMATE_AUTOMATABLE_ROUTE_IDENTIFIED_NOT_PROJECT_PROVISIONED",
+    "reason": "Provider documentation explicitly permits bulk computational analysis inside provider infrastructure while media remains within licensed boundaries; project access requires partner ID, source-IP whitelist, and label-group whitelist."
+  },
+  "interpretation": "All five cases are REFERENCE_UNAVAILABLE/AUDIT under current project provider provisioning. No audio-to-MIDI algorithmic failure has been observed because no authorized processable released-master reference was available to execute the validator.",
+  "invariant": "REFERENCE_UNAVAILABLE_IS_AUDIT_NOT_ALGORITHMIC_FAIL"
+}

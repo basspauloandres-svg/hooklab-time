@@ -1,0 +1,108 @@
+/* HookLab Producer Interface D0 browser adapter v0.1
+ * Source architecture: mie_core/tmt_candidate_generator.py
+ * Canonical semantics preserved: three deterministic exploratory variants, 8 bars/4-4,
+ * neutral engineering defaults when no cohort constraints are supplied, no source melody input.
+ * This adapter is D0_EXPLORATORY only and must never be relabeled SCIENTIFIC_D.
+ */
+(function(root,factory){
+  const api=factory();
+  if(typeof module==='object'&&module.exports) module.exports=api;
+  root.HookLabD0=api;
+})(typeof globalThis!=='undefined'?globalThis:this,function(){
+  'use strict';
+  const VERSION='hooklab-d0-browser-adapter-v0.1';
+  const SOURCE_MODULE='mie_core/tmt_candidate_generator.py';
+  const DEFAULTS={tempo_bpm:105,melodic_register_midi:64,melodic_range_semitones:8,near_tactus_share:.55,melodic_events_per_token:1.0};
+  const PPQ=480;
+
+  function clamp(x,lo,hi){return Math.max(lo,Math.min(hi,x));}
+  function target(c,key,d){const v=c&&c[key];return Number(v&&typeof v==='object'&&v.target!=null?v.target:d);}
+  function mulberry32(seed){let a=seed>>>0;return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return ((t^t>>>14)>>>0)/4294967296;};}
+  function choice(rng,a){return a[Math.floor(rng()*a.length)];}
+
+  function makeVariant(name,constraints={},seed=1701){
+    const rng=mulberry32(seed);
+    const bpm=clamp(target(constraints,'tempo_bpm',DEFAULTS.tempo_bpm),55,190);
+    const beat=60/bpm;
+    const reg=Math.round(target(constraints,'melodic_register_midi',DEFAULTS.melodic_register_midi));
+    const span=clamp(Math.round(target(constraints,'melodic_range_semitones',DEFAULTS.melodic_range_semitones)),3,18);
+    const near=clamp(target(constraints,'near_tactus_share',DEFAULTS.near_tactus_share),.15,.95);
+    const ept=clamp(target(constraints,'melodic_events_per_token',DEFAULTS.melodic_events_per_token),.4,3.0);
+    const bars=8,total=bars*4*beat;
+    const offset=name==='thetic'?0:name==='anacrustic'?-0.5*beat:0.5*beat;
+    const baseStep=beat/clamp(ept,.5,2.0);
+    const scale=[0,2,4,5,7,9,11];
+    let t=Math.max(0,offset),prev=reg;const events=[];
+    while(t<total-.1){
+      let dur,onset;
+      if(name==='syncopated'){
+        dur=(rng()<near?.75:.5)*beat;
+        onset=t+(rng()>.45?.5*beat:0);
+      }else{
+        dur=(rng()<near?1:.5)*beat;
+        onset=t;
+      }
+      const lo=reg-Math.floor(span/2),hi=reg+Math.floor(span/2);let candidates=[];
+      for(const octv of [-12,0,12]) for(const s of scale){const m=60+s+octv;if(m>=lo&&m<=hi)candidates.push(m);}
+      if(!candidates.length) for(let m=lo;m<=hi;m++) candidates.push(m);
+      const ranked=candidates.slice().sort((a,b)=>Math.abs(a-prev)-Math.abs(b-prev)).slice(0,clamp(candidates.length,3,7));
+      const midi=choice(rng,ranked);prev=midi;
+      events.push({onset_s:+onset.toFixed(4),duration_s:+dur.toFixed(4),midi});
+      t+=baseStep;
+    }
+    return {variant:name,tempo_bpm:bpm,meter:'4/4',bars,events,derived:{register_target_midi:reg,range_target_semitones:span,near_tactus_target:near,events_per_token_target:ept}};
+  }
+
+  function generate(options={}){
+    const t0=Date.now();
+    const constraints=options.constraints||{};
+    const seed=Number.isFinite(options.seed)?options.seed:1701;
+    const variants=['thetic','anacrustic','syncopated'].map((n,i)=>makeVariant(n,constraints,seed+i));
+    return {schema:'HOOKLAB_D0_BROWSER_GENERATION_MANIFEST_v0.1',adapter_version:VERSION,stimulus_class:'D0_EXPLORATORY',scientific_d:'BLOCKED',semantics:Object.keys(constraints).length?'DESCRIPTIVE_CONSTRAINT_BROWSER_ADAPTER':'NEUTRAL_ENGINEERING_D0',source_engine:{module:SOURCE_MODULE,relationship:'STRUCTURAL_PORT',python_prng_byte_parity:false},constraints_trace:options.constraints_trace||{source:'NEUTRAL_ENGINEERING_DEFAULTS',defaults:DEFAULTS},copying_policy:'NO_SOURCE_MELODY_INPUT; aesthetic reference is never sampled or copied',online_corpus_reanalysis:false,seed,variants,latency:{generation_ms:Date.now()-t0}};
+  }
+
+  function vlq(n){let b=n&0x7f,out=[b];while((n>>=7)){b=(n&0x7f)|0x80;out.unshift(b);}return out;}
+  function u16(n){return [(n>>8)&255,n&255];} function u32(n){return [(n>>>24)&255,(n>>>16)&255,(n>>>8)&255,n&255];}
+  function strBytes(s){return Array.from(new TextEncoder().encode(s));}
+  function midiBytes(variant){
+    const bpm=variant.tempo_bpm,us=Math.round(60000000/bpm),track=[];
+    track.push(...vlq(0),0xff,0x51,0x03,(us>>16)&255,(us>>8)&255,us&255);
+    track.push(...vlq(0),0xff,0x58,0x04,0x04,0x02,0x18,0x08);
+    const name=strBytes('HookLab D0 '+variant.variant);track.push(...vlq(0),0xff,0x03,name.length,...name);
+    const ev=[];
+    for(const e of variant.events){
+      const on=Math.max(0,Math.round(e.onset_s*bpm/60*PPQ));
+      const off=Math.max(on+1,Math.round((e.onset_s+e.duration_s)*bpm/60*PPQ));
+      ev.push({tick:on,ord:1,data:[0x90,e.midi,96]},{tick:off,ord:0,data:[0x80,e.midi,0]});
+    }
+    ev.sort((a,b)=>a.tick-b.tick||a.ord-b.ord);let last=0;
+    for(const e of ev){track.push(...vlq(e.tick-last),...e.data);last=e.tick;}
+    track.push(...vlq(0),0xff,0x2f,0x00);
+    return new Uint8Array([...strBytes('MThd'),...u32(6),...u16(0),...u16(1),...u16(PPQ),...strBytes('MTrk'),...u32(track.length),...track]);
+  }
+
+  function midiBlob(variant){return new Blob([midiBytes(variant)],{type:'audio/midi'});}
+  function midiDataUri(variant){const bytes=midiBytes(variant);let s='';for(const b of bytes)s+=String.fromCharCode(b);return 'data:audio/midi;base64,'+btoa(s);}
+
+  function scheduleAudio(ctx,variant,destination){
+    const dest=destination||ctx.destination;const now=ctx.currentTime+.03;const bpm=variant.tempo_bpm,beat=60/bpm;const stops=[];
+    for(let i=0;i<variant.bars*4;i++){
+      const o=ctx.createOscillator(),g=ctx.createGain();o.frequency.value=1800;g.gain.setValueAtTime(.0001,now+i*beat);g.gain.exponentialRampToValueAtTime(.08,now+i*beat+.002);g.gain.exponentialRampToValueAtTime(.0001,now+i*beat+.035);o.connect(g).connect(dest);o.start(now+i*beat);o.stop(now+i*beat+.04);stops.push(o);
+    }
+    for(const e of variant.events){
+      const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.value=440*Math.pow(2,(e.midi-69)/12);const s=now+e.onset_s,d=Math.max(.08,e.duration_s*.86);g.gain.setValueAtTime(.0001,s);g.gain.exponentialRampToValueAtTime(.20,s+.01);g.gain.setValueAtTime(.20,s+Math.max(.02,d-.04));g.gain.exponentialRampToValueAtTime(.0001,s+d);o.connect(g).connect(dest);o.start(s);o.stop(s+d+.02);stops.push(o);
+    }
+    return {started_at:now,stop(){for(const o of stops){try{o.stop();}catch(_){}}},duration_seconds:variant.bars*4*beat+beat};
+  }
+
+  function validate(manifest){
+    const reasons=[];
+    if(!manifest||manifest.stimulus_class!=='D0_EXPLORATORY')reasons.push('BAD_STIMULUS_CLASS');
+    if(manifest&&manifest.scientific_d!=='BLOCKED')reasons.push('SCIENTIFIC_D_MUST_REMAIN_BLOCKED');
+    if(!manifest||!Array.isArray(manifest.variants)||manifest.variants.length!==3)reasons.push('THREE_VARIANTS_REQUIRED');
+    for(const v of manifest&&manifest.variants||[]){if(!['thetic','anacrustic','syncopated'].includes(v.variant))reasons.push('UNKNOWN_VARIANT');if(!v.events||!v.events.length)reasons.push('EMPTY_VARIANT');if(v.tempo_bpm<55||v.tempo_bpm>190)reasons.push('TEMPO_OUT_OF_BOUNDS');}
+    return {status:reasons.length?'FAIL':'PASS',reasons};
+  }
+
+  return {VERSION,DEFAULTS,generate,makeVariant,midiBytes,midiBlob,midiDataUri,scheduleAudio,validate};
+});

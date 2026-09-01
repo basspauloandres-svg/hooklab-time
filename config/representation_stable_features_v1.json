@@ -1,0 +1,23 @@
+{
+  "schema": "HOOKLAB_REPRESENTATION_STABLE_FEATURE_ALLOWLIST_v1.0",
+  "status": "REPRESENTATION_CALIBRATED",
+  "source_dataset": "vocadito",
+  "source_workflow_run": 33453594919,
+  "source_commit": "f5d36568a70b67ad31ba9117844d9cbd31850f94",
+  "paired_items": 40,
+  "independent_references": ["A1", "A2"],
+  "frozen_requirements": {
+    "minimum_paired_items": 30,
+    "minimum_spearman_rho": 0.8,
+    "same_performance_or_aligned_identity": true
+  },
+  "allowed_for_population_association_testing": ["median_pitch_st"],
+  "blocked_features": {
+    "pitch_range_st": "REPRESENTATION_UNSTABLE",
+    "median_interval_st": "REPRESENTATION_UNSTABLE",
+    "stepwise_motion_share": "REPRESENTATION_UNSTABLE",
+    "pitch_repetition_share": "REPRESENTATION_UNSTABLE"
+  },
+  "semantics": "ALLOWLIST_FOR_DOWNSTREAM_ASSOCIATION_TESTING_ONLY__NOT_A_CREATIVE_RULE",
+  "scientific_d": "BLOCKED"
+}

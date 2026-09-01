@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HookLab-TIME Song Object TMT Schema v1.0",
+  "description": "Generic song-level representation for Text-Melody-Time analysis. Harmony is optional contextual data.",
+  "type": "object",
+  "required": ["schema_version", "song_id", "provenance", "text", "melody", "time", "relations", "quality"],
+  "properties": {
+    "schema_version": {"const": "TMT_SONG_OBJECT_v1.0"},
+    "song_id": {"type": "string"},
+    "provenance": {"type": "object"},
+    "text": {"type": "object"},
+    "melody": {"type": "object"},
+    "time": {"type": "object"},
+    "harmony": {"type": "object", "description": "Optional contextual layer; not required by TMT core."},
+    "relations": {"type": "object"},
+    "quality": {"type": "object"}
+  }
+}

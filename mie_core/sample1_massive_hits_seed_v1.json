@@ -1,0 +1,135 @@
+{
+  "schema": "SAMPLE1_MASSIVE_HITS_SEED_v1.0",
+  "selection_policy": "LAST_20_YEARS_AND_VERIFIED_CROSS_PLATFORM_MASSIVE_REACH",
+  "notes": [
+    "YouTube and social metrics are external selection variables only.",
+    "A social item is admissible only when the song/audio match is explicitly identifiable.",
+    "Artist popularity, unrelated viral posts and catalog uploads of older songs do not satisfy inclusion.",
+    "Candidates with YouTube-only evidence remain pending until social evidence is verified."
+  ],
+  "dual_verified_seed": [
+    {
+      "song_id": "SEE_YOU_AGAIN_2015",
+      "title": "See You Again",
+      "artist": "Wiz Khalifa ft. Charlie Puth",
+      "release_year": 2015,
+      "official_release": true,
+      "youtube_video_id": "RgKAFK5djSk",
+      "youtube_views": 7074563077,
+      "social_evidence": [
+        {
+          "platform": "Instagram",
+          "source_handle": "charlieputh",
+          "content_id": "DXxgbouhVrI",
+          "views": 99600000,
+          "song_match_verified": true,
+          "match_basis": "vidIQ identifies music_track as See You Again by Wiz Khalifa ft. Charlie Puth"
+        }
+      ],
+      "genre": "pop_rap",
+      "style": "memorial_ballad",
+      "sample_status": "CROSS_PLATFORM_GATE_PASS_PENDING_ANALYZER"
+    },
+    {
+      "song_id": "LOVE_ME_LIKE_YOU_DO_2015",
+      "title": "Love Me Like You Do",
+      "artist": "Ellie Goulding",
+      "release_year": 2015,
+      "official_release": true,
+      "youtube_video_id": "AJtDXIazrMo",
+      "youtube_views": 2413685493,
+      "social_evidence": [
+        {
+          "platform": "Instagram",
+          "source_handle": "findmusicfeeds",
+          "content_id": "DS99xHlAb20",
+          "views": 78400000,
+          "song_match_verified": true,
+          "match_basis": "vidIQ identifies music_track as Love Me Like You Do by Ellie Goulding"
+        }
+      ],
+      "genre": "pop",
+      "style": "cinematic_pop_ballad",
+      "sample_status": "CROSS_PLATFORM_GATE_PASS_PENDING_ANALYZER"
+    },
+    {
+      "song_id": "BEAUTY_AND_A_BEAT_2012",
+      "title": "Beauty And A Beat",
+      "artist": "Justin Bieber ft. Nicki Minaj",
+      "release_year": 2012,
+      "official_release": true,
+      "youtube_video_id": "Ys7-6_t7OEQ",
+      "youtube_views": 1350569458,
+      "social_evidence": [
+        {
+          "platform": "TikTok",
+          "source_handle": "ridon_official",
+          "content_id": "7632040786560929056",
+          "views": 58800000,
+          "song_match_verified": true,
+          "match_basis": "vidIQ identifies music_track as Beauty and a Beat by Justin Bieber"
+        }
+      ],
+      "genre": "pop",
+      "style": "electropop_dance",
+      "sample_status": "CROSS_PLATFORM_GATE_PASS_PENDING_ANALYZER"
+    },
+    {
+      "song_id": "BABY_2010",
+      "title": "Baby",
+      "artist": "Justin Bieber ft. Ludacris",
+      "release_year": 2010,
+      "official_release": true,
+      "youtube_video_id": "kffacxfA7G4",
+      "youtube_views": 3736219013,
+      "social_evidence": [
+        {
+          "platform": "TikTok",
+          "source_handle": "certified.dre_",
+          "content_id": "7628004412132216084",
+          "views": 58500000,
+          "song_match_verified": true,
+          "match_basis": "vidIQ identifies music_track as Baby by Justin Bieber"
+        }
+      ],
+      "genre": "pop",
+      "style": "teen_pop_rnb",
+      "sample_status": "CROSS_PLATFORM_GATE_PASS_PENDING_ANALYZER"
+    }
+  ],
+  "youtube_priority_social_pending": [
+    {"title":"Shape of You","artist":"Ed Sheeran","release_year":2017,"youtube_video_id":"JGwWNGJdvx8","youtube_views":6792979111},
+    {"title":"Sugar","artist":"Maroon 5","release_year":2015,"youtube_video_id":"09R8_2nJtjg","youtube_views":4419678966},
+    {"title":"Sorry","artist":"Justin Bieber","release_year":2015,"youtube_video_id":"fRh_vgS2dFE","youtube_views":4146585602},
+    {"title":"The Lazy Song","artist":"Bruno Mars","release_year":2011,"youtube_video_id":"fLexgOxsZu0","youtube_views":3281274117},
+    {"title":"APT.","artist":"ROSÉ & Bruno Mars","release_year":2024,"youtube_video_id":"ekr2nIex040","youtube_views":2645300569},
+    {"title":"Life Is Good","artist":"Future ft. Drake","release_year":2020,"youtube_video_id":"l0U7SxXHkPY","youtube_views":2274636878},
+    {"title":"Just The Way You Are","artist":"Bruno Mars","release_year":2010,"youtube_video_id":"LjhCEhWiKXk","youtube_views":2204498768},
+    {"title":"El Farsante (Remix)","artist":"Ozuna x Romeo Santos","release_year":2018,"youtube_video_id":"wfWkmURBNv8","youtube_views":2102922274},
+    {"title":"Let Me Love You","artist":"DJ Snake ft. Justin Bieber","release_year":2016,"youtube_video_id":"euCqAq6BRa4","youtube_views":2115891236},
+    {"title":"7 Years","artist":"Lukas Graham","release_year":2015,"youtube_video_id":"LHCob76kigA","youtube_views":1808042718},
+    {"title":"DÁKITI","artist":"Bad Bunny x Jhay Cortez","release_year":2020,"youtube_video_id":"TmKh7lAwnBI","youtube_views":1788009586},
+    {"title":"When I Was Your Man","artist":"Bruno Mars","release_year":2013,"youtube_video_id":"ekzHIouo8Q4","youtube_views":1570671188},
+    {"title":"Hot N Cold","artist":"Katy Perry","release_year":2008,"youtube_video_id":"kTHNpusq654","youtube_views":1365867612},
+    {"title":"Say It Right","artist":"Nelly Furtado","release_year":2006,"youtube_video_id":"6JnGBs88sL0","youtube_views":1317469426},
+    {"title":"Grenade","artist":"Bruno Mars","release_year":2010,"youtube_video_id":"SR6iYWJxHqs","youtube_views":1273963645},
+    {"title":"Meant to Be","artist":"Bebe Rexha ft. Florida Georgia Line","release_year":2017,"youtube_video_id":"zDo0H8Fm7d0","youtube_views":1272790850},
+    {"title":"The Sound of Silence","artist":"Disturbed","release_year":2015,"youtube_video_id":"u9Dg-g7t2l4","youtube_views":1195266544},
+    {"title":"Me Porto Bonito","artist":"Bad Bunny ft. Chencho Corleone","release_year":2022,"youtube_video_id":"saGYMhApaH8","youtube_views":1179814393},
+    {"title":"Vaina Loca","artist":"Ozuna x Manuel Turizo","release_year":2018,"youtube_video_id":"bx-fuY7LpSU","youtube_views":1120724170},
+    {"title":"Tití Me Preguntó","artist":"Bad Bunny","release_year":2022,"youtube_video_id":"Cr8K88UcO0s","youtube_views":1109202324},
+    {"title":"Que Tire Pa' 'Lante","artist":"Daddy Yankee","release_year":2019,"youtube_video_id":"fAgvmh1jaCE","youtube_views":1098236125},
+    {"title":"Beautiful Things","artist":"Benson Boone","release_year":2024,"youtube_video_id":"Oa_RSwwpPaA","youtube_views":1088754172},
+    {"title":"Wiggle","artist":"Jason Derulo ft. Snoop Dogg","release_year":2014,"youtube_video_id":"hiP14ED28CA","youtube_views":1034524253},
+    {"title":"Dile Que Tu Me Quieres","artist":"Ozuna","release_year":2016,"youtube_video_id":"WAcnWtZjDWE","youtube_views":1017446059},
+    {"title":"Payphone","artist":"Maroon 5 ft. Wiz Khalifa","release_year":2012,"youtube_video_id":"KRaWnd3LJfs","youtube_views":997464571},
+    {"title":"La Bachata","artist":"Manuel Turizo","release_year":2022,"youtube_video_id":"TiM_TFpT_DE","youtube_views":993601618},
+    {"title":"Downtown","artist":"Anitta & J Balvin","release_year":2017,"youtube_video_id":"wlS6Ix7mA0w","youtube_views":968577238},
+    {"title":"BIRDS OF A FEATHER","artist":"Billie Eilish","release_year":2024,"youtube_video_id":"V9PVRfjEBTI","youtube_views":928625459},
+    {"title":"Vuelve","artist":"Daddy Yankee & Bad Bunny","release_year":2017,"youtube_video_id":"YxZXLWIx6ik","youtube_views":867118206},
+    {"title":"Moscow Mule","artist":"Bad Bunny","release_year":2022,"youtube_video_id":"p38WgakuYDo","youtube_views":824047288},
+    {"title":"Lala","artist":"Myke Towers","release_year":2023,"youtube_video_id":"BVdngsy95mY","youtube_views":758648138},
+    {"title":"BELLAKEO","artist":"Peso Pluma, Anitta","release_year":2023,"youtube_video_id":"fOT0BUpITw8","youtube_views":755468794},
+    {"title":"Water","artist":"Tyla","release_year":2023,"youtube_video_id":"XoiOOiuH8iI","youtube_views":405269016}
+  ]
+}

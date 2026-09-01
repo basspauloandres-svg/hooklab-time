@@ -1,0 +1,43 @@
+name: M300 DALI public metadata coverage
+on:
+  workflow_dispatch:
+  push:
+    branches: ["mie/golden-forensic-v0.3"]
+    paths:
+      - "mie_core/dali_public_metadata_crossmatch.py"
+      - "mie_core/milestone_300_sampling_frame_builder.py"
+      - ".github/workflows/m300-dali-public-crossmatch.yml"
+jobs:
+  crossmatch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch open Billboard-Spotify frame
+        run: curl -L --fail https://raw.githubusercontent.com/Crawlora-org/song-length-data/main/data/song-length-1959-2025.csv -o /tmp/song-length.csv
+      - name: Rebuild canonical M300 frame
+        run: python mie_core/milestone_300_sampling_frame_builder.py --csv /tmp/song-length.csv --output /tmp/MILESTONE_300_DISCOVERY_FRAME.json
+      - name: Crossmatch M300 against DALI public metadata only
+        run: python mie_core/dali_public_metadata_crossmatch.py --candidates /tmp/MILESTONE_300_DISCOVERY_FRAME.json --output /tmp/M300_DALI_PUBLIC_CROSSMATCH_CURRENT_v1.json
+      - name: Summarize fail-closed coverage
+        run: |
+          python - <<'PY'
+          import json
+          p='/tmp/M300_DALI_PUBLIC_CROSSMATCH_CURRENT_v1.json'
+          d=json.load(open(p))
+          rows=d['results']
+          matched=[r for r in rows if r['match_status']=='DALI_CANDIDATE_MATCH']
+          high=[r for r in matched if r.get('ground_truth') or (isinstance(r.get('ncc'),(int,float)) and r['ncc']>=0.8)]
+          print('M300_total=',len(rows))
+          print('DALI_candidate_matches=',len(matched))
+          print('ground_truth_or_high_NCC_metadata_candidates=',len(high))
+          print('scientific_promotion=False')
+          print('annotation_access=',d['annotation_access'])
+          assert len(rows)==300
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: m300-dali-public-crossmatch
+          path: |
+            /tmp/MILESTONE_300_DISCOVERY_FRAME.json
+            /tmp/M300_DALI_PUBLIC_CROSSMATCH_CURRENT_v1.json
+          if-no-files-found: error

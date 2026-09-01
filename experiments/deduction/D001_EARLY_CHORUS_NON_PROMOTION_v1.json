@@ -1,0 +1,16 @@
+{
+  "schema":"HOOKLAB_NON_PROMOTION_RECORD_v1.0",
+  "decision_id":"D001-NP-EARLY-CHORUS",
+  "claim_under_test":"Earlier chorus entry is generally associated with stronger commercial/chart outcomes.",
+  "decision":"DO_NOT_PROMOTE_AS_HOOKLAB_RULE",
+  "evidence":[
+    {"cohort":"McGill Billboard historical calibration 1958-1991","result":"first chorus relative position vs weeks on chart: rho=-0.0212, q=.6388; vs peak strength: rho=-0.0236, q=.6381"},
+    {"cohort":"CoSoD contemporary Billboard collaboration calibration 2010-2019","result":"first chorus seconds vs Year-End strength: rho=.0948, q=.1576; controlled partial rho=.0748, p=.1755"},
+    {"cohort":"M300 exact CoSoD licensed intersection, N=52","result":"first chorus seconds vs M300 rank strength: rho=.1395, q=.6481; vs current log Spotify playcount: rho=.0401, q=.7934"}
+  ],
+  "interpretation":"Across three bounded analyses, no evidence passed the predeclared association gates. This is evidence against adopting a universal early-chorus success rule, not proof that chorus timing has no effect in every genre/style, audience, platform or experimental condition.",
+  "generative_consequence":"No MIDI timing constraint may be justified from an early-chorus-equals-success claim on the current evidence.",
+  "future_test_status":"May be reopened only for a clearly scoped population with new evidence and predeclared analysis.",
+  "scientific_promotion":true,
+  "promotion_type":"NEGATIVE_KNOWLEDGE / RULE_NON_PROMOTION"
+}

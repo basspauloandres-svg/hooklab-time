@@ -1,0 +1,22 @@
+{
+  "schema":"HOOKLAB_GATE_B2_CREATIVE_LINEAGE_v0.1",
+  "status":"TEMPLATE_NOT_OBSERVED",
+  "experiment_id":null,
+  "controlled_text":{"id":null,"version":null,"sha256":null,"frozen":false},
+  "brief":{"genre":null,"target_duration_seconds":null,"version":null},
+  "condition":"D_OR_H_PLUS_D",
+  "prototype":{"midi_path":null,"audio_path":null,"render_config_id":null},
+  "contributions":[
+    {
+      "contribution_id":null,
+      "musical_dimension":"FORM|TEMPO_METER|HARMONY|MELODY|RHYTHM|PRODUCTION",
+      "evidence":{"evidence_id":null,"cohort_version":null,"feature":null,"statistical_statement":null,"promotion_state":null,"confidence":null},
+      "rule":{"rule_id":null,"statement":null,"conditioned_on_melody_when_applicable":true},
+      "generated_realization":{"section_ids":[],"midi_event_ids":[],"audio_time_ranges":[]},
+      "producer_evaluation":{"action":null,"rationale":null,"resulting_section_ids":[],"resulting_midi_event_ids":[]}
+    }
+  ],
+  "allowed_producer_actions":["RETAIN","MODIFY","REJECT","EXTEND"],
+  "metrics":{"creative_contribution_retention":null,"creative_lineage_coverage":null,"producer_action_profile":null},
+  "interpretation_boundary":"Contribution retention measures observed professional use under the controlled task; it is not artistic superiority or commercial-success evidence."
+}

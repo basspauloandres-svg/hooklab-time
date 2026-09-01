@@ -1,0 +1,14 @@
+{
+  "schema":"HOOKLAB_PROTOTYPE_FREE_EVIDENCE_BATCH_v1.0",
+  "evidence_class":"PROTOTYPE_EVIDENCE_NOT_FINAL_SAMPLE",
+  "songs":[
+    {"song_id":"DESPACITO_2017","title":"Despacito","artist":"Luis Fonsi & Daddy Yankee","release_date":"2017-01-13","genre":"latin_pop","style":"reggaeton_pop","signals":[{"source":"Spotify","metric":"track_streams","value":2204967415,"observed":"2026-08"},{"source":"RIAA","metric":"latin_certification_units_millions","value":8.46,"certification_date":"2024-08-19"}],"prototype_eligible":true},
+    {"song_id":"SHAPE_OF_YOU_2017","title":"Shape of You","artist":"Ed Sheeran","release_date":"2017-01-06","genre":"pop","style":"dancehall_influenced_pop","signals":[{"source":"Spotify","metric":"track_streams","value":4780344929,"observed":"2026-02"},{"source":"Spotify","metric":"all_time_rank","value":2,"observed":"2026-04"}],"prototype_eligible":true},
+    {"song_id":"HAVANA_2017","title":"Havana","artist":"Camila Cabello ft. Young Thug","release_date":"2017","genre":"pop","style":"latin_pop_crossover","signals":[{"source":"Spotify","metric":"track_streams","value":2510372519,"observed":"2026-07"},{"source":"Spotify","metric":"streaming_era_editorial_inclusion","value":1,"observed":"2026-02"}],"prototype_eligible":true},
+    {"song_id":"ONE_DANCE_2016","title":"One Dance","artist":"Drake ft. Wizkid & Kyla","release_date":"2016","genre":"pop_rap","style":"dancehall_afrobeats_crossover","signals":[{"source":"Spotify","metric":"all_time_rank","value":8,"observed":"2026-04"},{"source":"Spotify","metric":"track_streams","value":4052520623,"observed":"2026-02"}],"prototype_eligible":true},
+    {"song_id":"BIRDS_OF_A_FEATHER_2024","title":"BIRDS OF A FEATHER","artist":"Billie Eilish","release_date":"2024","genre":"pop","style":"dream_pop","signals":[{"source":"Spotify","metric":"all_time_rank","value":18,"observed":"2026-04"}],"prototype_eligible":true},
+    {"song_id":"DIE_WITH_A_SMILE_2024","title":"Die With A Smile","artist":"Lady Gaga & Bruno Mars","release_date":"2024","genre":"pop","style":"soft_rock_soul_ballad","signals":[{"source":"Spotify","metric":"all_time_rank","value":20,"observed":"2026-04"}],"prototype_eligible":true}
+  ],
+  "policy":"Public platform/chart/certification signals are sufficient for prototype cohort construction only. They do not replace the stricter final cross-platform scientific sample gate.",
+  "next":"Expand rapidly to 20-30, then process with frozen Analyzer and build provisional Matrix X."
+}

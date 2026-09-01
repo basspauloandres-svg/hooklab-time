@@ -1,0 +1,36 @@
+name: Lakh Fullsong Crossmatch Prototype
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'mie_core/lakh_filename_crossmatch.py'
+      - 'mie_core/sample1_hispanic_priority_queue_v1.json'
+      - '.github/workflows/lakh-crossmatch-prototype.yml'
+
+concurrency:
+  group: lakh-crossmatch-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  crossmatch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Crossmatch massive-hit candidates against Lakh metadata
+        run: |
+          mkdir -p lakh_crossmatch
+          python mie_core/lakh_filename_crossmatch.py \
+            --candidates mie_core/sample1_hispanic_priority_queue_v1.json \
+            --output lakh_crossmatch/hispanic_priority_matches.json \
+            --min-score 0.72 --top-k 5
+      - name: Upload metadata-only evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: hooklab-lakh-hispanic-crossmatch-v1
+          path: lakh_crossmatch/
+          if-no-files-found: error

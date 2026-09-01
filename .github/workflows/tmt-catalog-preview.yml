@@ -1,0 +1,39 @@
+name: TMT Catalog Preview Regression
+on:
+  workflow_dispatch:
+    inputs:
+      preview_url:
+        description: Authorized catalog preview URL
+        required: true
+        type: string
+      song_id:
+        description: Catalog song identifier
+        required: true
+        type: string
+      isrc:
+        description: ISRC
+        required: false
+        type: string
+jobs:
+  preview-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y ffmpeg
+      - name: Acquire preview ephemerally and emit provenance only
+        run: |
+          python mie_core/run_catalog_preview_tmt.py \
+            --url '${{ inputs.preview_url }}' \
+            --song-id '${{ inputs.song_id }}' \
+            --isrc '${{ inputs.isrc }}' \
+            --output tmt_preview_output
+      - name: Verify no audio persistence
+        run: |
+          if find tmt_preview_output -type f \( -name '*.wav' -o -name '*.mp3' -o -name '*.m4a' -o -name '*.aac' \) | grep -q .; then
+            echo 'Audio persistence violation'; exit 1
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tmt-preview-regression
+          path: tmt_preview_output/*.json

@@ -1,0 +1,17 @@
+{
+  "schema": "HOOKLAB_GATE_A_TARGET_REGISTRY_T0_v1.0",
+  "purpose": "Automatic released-recording identity resolution upstream of authorized audio-reference resolution.",
+  "invariants": [
+    "scientific target population != songs available in Lakh/LMD",
+    "candidate discovery != scientific promotion",
+    "recording identity != audio authorization != melodic validation",
+    "manual user audio upload is not an ordinary Gate A route"
+  ],
+  "targets": [
+    {"song_id":"poker_face_lady_gaga","title":"Poker Face","artist":"Lady Gaga","release_year":2008,"target_version":"original commercial studio recording"},
+    {"song_id":"bad_romance_lady_gaga","title":"Bad Romance","artist":"Lady Gaga","release_year":2009,"target_version":"original commercial studio recording"},
+    {"song_id":"tik_tok_kesha","title":"TiK ToK","artist":"Kesha","release_year":2009,"target_version":"original commercial studio recording"},
+    {"song_id":"firework_katy_perry","title":"Firework","artist":"Katy Perry","release_year":2010,"target_version":"original commercial studio recording"},
+    {"song_id":"dynamite_taio_cruz","title":"Dynamite","artist":"Taio Cruz","release_year":2010,"target_version":"original commercial studio recording"}
+  ]
+}

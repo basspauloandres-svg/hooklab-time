@@ -1,0 +1,37 @@
+{
+  "schema":"HOOKLAB_T1_QUALIFICATION_BATCH_OBSERVED_v1.0",
+  "batch_id":"T1_BATCH01",
+  "observed_date":"2026-08-31",
+  "cohort_key":"pop_rock::dance_pop",
+  "status":"PARTIAL_EXTERNAL_GATES_OBSERVED",
+  "success_floor":{"youtube_views":100000000,"spotify_streams":100000000},
+  "rows":[
+    {
+      "title":"Born This Way","artist":"Lady Gaga",
+      "gates":{"mass_success":"PASS","identity":"PASS","genre_style":"AUDIT","version":"PENDING","symbolic_source":"PENDING","full_song":"PENDING","provenance":"PENDING","full_tmt":"PENDING"},
+      "evidence":{"youtube_views":327758542,"spotify_streams":854944504,"genre_style_note":"AllMusic album/release-level evidence lists Dance-Pop, Pop, Club/Dance; direct song-level style corroboration remains pending.","sources":["https://www.kworb.net/youtube/video/wV1FrqwZyKw.html","https://www.kworb.net/spotify/artist/1HY2Jd0NmPuamShAr6KMms_songs.html","https://www.allmusic.com/album/born-this-way-mw0002132518"]}
+    },
+    {
+      "title":"Umbrella","artist":"Rihanna",
+      "gates":{"mass_success":"PASS","identity":"PASS","genre_style":"PASS","version":"PENDING","symbolic_source":"PENDING","full_song":"PENDING","provenance":"PENDING","full_tmt":"PENDING"},
+      "evidence":{"youtube_views":1283288653,"spotify_streams":2371704268,"genre_style_note":"AllMusic song page explicitly lists Dance-Pop.","sources":["https://www.kworb.net/youtube/artist/rihanna.html","https://kworb.net/spotify/artist/5pKCCKE2ajJHZ9KAiaK11H_songs.html","https://www.allmusic.com/song/umbrella-mt0066483070"]}
+    },
+    {
+      "title":"Call Me Maybe","artist":"Carly Rae Jepsen",
+      "gates":{"mass_success":"PASS","identity":"PASS","genre_style":"PASS","version":"PENDING","symbolic_source":"PENDING","full_song":"PENDING","provenance":"PENDING","full_tmt":"PENDING"},
+      "evidence":{"youtube_views":1868579507,"spotify_streams":2125750616,"genre_style_note":"AllMusic song page explicitly lists Dance-Pop; 2012 release listing gives approximately 3:13-3:14 track duration.","sources":["https://kworb.net/youtube/artist/carlyraejepsen.html","https://kworb.net/spotify/artist/6sFIWsNpZYqfjUpaCgueju_songs.html","https://www.allmusic.com/song/call-me-maybe-mt0045605848","https://www.allmusic.com/album/call-me-maybe-mw0002325085"]}
+    },
+    {
+      "title":"Don't Start Now","artist":"Dua Lipa",
+      "gates":{"mass_success":"PASS","identity":"PASS","genre_style":"AUDIT","version":"PENDING","symbolic_source":"PENDING","full_song":"PENDING","provenance":"PENDING","full_tmt":"PENDING"},
+      "evidence":{"youtube_views":775921459,"spotify_streams":3309137973,"genre_style_note":"AllMusic release/song evidence identifies Electronic and Club/Dance; direct Dance-Pop classification requires independent corroboration before cohort qualification.","sources":["https://kworb.net/youtube/artist/dualipa.html","https://kworb.net/spotify/artist/6M2wZ9GZgrQXHCFfjv46we_songs.html","https://www.allmusic.com/album/dont-start-now-mw0003332720","https://www.allmusic.com/album/release/dont-start-now-mr0005147960"]}
+    },
+    {
+      "title":"We R Who We R","artist":"Kesha",
+      "gates":{"mass_success":"PASS","identity":"PASS","genre_style":"AUDIT","version":"PENDING","symbolic_source":"PENDING","full_song":"PENDING","provenance":"PENDING","full_tmt":"PENDING"},
+      "evidence":{"youtube_views":127847103,"spotify_streams":514027876,"genre_style_note":"Kesha is classified by AllMusic within Dance-Pop context, but direct song-level style corroboration remains insufficient in the retrieved song/release record.","sources":["https://www.kworb.net/youtube/artist/ke%24ha.html","https://www.kworb.net/spotify/artist/6LqNN22kT3074XbTVUrhzX_songs.html","https://www.allmusic.com/song/we-r-who-we-r-mt0041398732","https://www.allmusic.com/artist/kesha-mn0000080358"]}
+    }
+  ],
+  "batch_summary":{"rows":5,"mass_success_pass":5,"identity_pass":5,"genre_style_pass":2,"genre_style_audit":3,"qualified_for_matrix_x":0},
+  "interpretation_boundary":"Mass-success and metadata identity evidence do not establish symbolic-source identity, version match, full-song coverage, FULL_TMT completion or scientific promotion."
+}

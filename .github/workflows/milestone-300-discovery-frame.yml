@@ -1,0 +1,64 @@
+name: Milestone 300 discovery frame
+on:
+  push:
+    branches: [mie/golden-forensic-v0.3]
+    paths:
+      - 'mie_core/milestone_300_sampling_frame_builder.py'
+      - 'mie_core/m300_cosod_crosswalk.py'
+      - 'mie_core/m300_cosod_target_subcohort_analysis.py'
+      - 'mie_core/m300_cosod_formal_architecture_analysis.py'
+      - 'mie_core/m300_salami_crosswalk.py'
+      - 'mie_core/m300_harmonix_crosswalk.py'
+      - 'mie_core/m300_multi_provider_coverage.py'
+      - '.github/workflows/milestone-300-discovery-frame.yml'
+  workflow_dispatch:
+jobs:
+  build-frame:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install scipy
+        run: python -m pip install scipy
+      - name: Fetch open Billboard-Spotify frame
+        run: curl -L --fail https://raw.githubusercontent.com/Crawlora-org/song-length-data/main/data/song-length-1959-2025.csv -o /tmp/song-length.csv
+      - name: Build 300-song frame
+        run: python mie_core/milestone_300_sampling_frame_builder.py --csv /tmp/song-length.csv --output /tmp/MILESTONE_300_DISCOVERY_FRAME.json
+      - name: Summarize Spotify evidence
+        run: |
+          python - <<'PY'
+          import json
+          p='/tmp/MILESTONE_300_DISCOVERY_FRAME.json';d=json.load(open(p))
+          rows=d['candidates'];thr=100_000_000
+          d['spotify_success_summary']={'threshold_playcount':thr,'pass':sum((x['spotify_playcount_observed'] or 0)>=thr for x in rows),'below_threshold':sum((x['spotify_playcount_observed'] or 0)<thr for x in rows)}
+          json.dump(d,open(p,'w'),indent=2,ensure_ascii=False)
+          print(d['spotify_success_summary'])
+          PY
+      - name: Clone licensed CoSoD provider
+        run: git clone --depth 1 https://github.com/duguay-michele/CoSoD.git /tmp/cosod
+      - name: Crosswalk M300 to CoSoD
+        run: python mie_core/m300_cosod_crosswalk.py --m300 /tmp/MILESTONE_300_DISCOVERY_FRAME.json --cosod-metadata /tmp/cosod/Metadata.zip --output /tmp/M300_COSOD_CROSSWALK_CURRENT_v1.json
+      - name: Analyze licensed M300 target subcohort
+        run: python mie_core/m300_cosod_target_subcohort_analysis.py --m300 /tmp/MILESTONE_300_DISCOVERY_FRAME.json --cosod-metadata /tmp/cosod/Metadata.zip --cosod-analysis /tmp/cosod/Analysis.zip --output /tmp/M300_COSOD_TARGET_SUBCOHORT_ANALYSIS_CURRENT_v1.json
+      - name: Analyze formal architecture layer
+        run: python mie_core/m300_cosod_formal_architecture_analysis.py --m300 /tmp/MILESTONE_300_DISCOVERY_FRAME.json --cosod-metadata /tmp/cosod/Metadata.zip --cosod-analysis /tmp/cosod/Analysis.zip --output /tmp/M300_COSOD_FORMAL_ARCHITECTURE_ANALYSIS_CURRENT_v1.json
+      - name: Clone licensed SALAMI annotations
+        run: git clone --depth 1 https://github.com/DDMAL/salami-data-public.git /tmp/salami
+      - name: Crosswalk M300 to SALAMI
+        run: python mie_core/m300_salami_crosswalk.py --m300 /tmp/MILESTONE_300_DISCOVERY_FRAME.json --salami-repo /tmp/salami --output /tmp/M300_SALAMI_CROSSWALK_CURRENT_v1.json
+      - name: Clone licensed Harmonix annotations
+        run: git clone --depth 1 https://github.com/urinieto/harmonixset.git /tmp/harmonix
+      - name: Crosswalk M300 to Harmonix
+        run: python mie_core/m300_harmonix_crosswalk.py --m300 /tmp/MILESTONE_300_DISCOVERY_FRAME.json --harmonix-repo /tmp/harmonix --output /tmp/M300_HARMONIX_CROSSWALK_CURRENT_v1.json
+      - name: Assemble version-gated provider coverage
+        run: python mie_core/m300_multi_provider_coverage.py --cosod /tmp/M300_COSOD_CROSSWALK_CURRENT_v1.json --salami /tmp/M300_SALAMI_CROSSWALK_CURRENT_v1.json --harmonix /tmp/M300_HARMONIX_CROSSWALK_CURRENT_v1.json --output /tmp/M300_MULTI_PROVIDER_COVERAGE_CURRENT_v1.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: milestone-300-discovery-frame
+          path: |
+            /tmp/MILESTONE_300_DISCOVERY_FRAME.json
+            /tmp/M300_COSOD_CROSSWALK_CURRENT_v1.json
+            /tmp/M300_COSOD_TARGET_SUBCOHORT_ANALYSIS_CURRENT_v1.json
+            /tmp/M300_COSOD_FORMAL_ARCHITECTURE_ANALYSIS_CURRENT_v1.json
+            /tmp/M300_SALAMI_CROSSWALK_CURRENT_v1.json
+            /tmp/M300_HARMONIX_CROSSWALK_CURRENT_v1.json
+            /tmp/M300_MULTI_PROVIDER_COVERAGE_CURRENT_v1.json

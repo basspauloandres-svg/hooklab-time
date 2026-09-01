@@ -1,0 +1,15 @@
+{
+  "schema":"HOOKLAB_P0_PRODUCER_RESPONSE_v1.0",
+  "preferred_condition":"",
+  "retain":"",
+  "modify":"",
+  "reject":"",
+  "reason":"",
+  "hook_strength":null,
+  "singability":null,
+  "memorability":null,
+  "creative_usefulness":null,
+  "decision_time_seconds":null,
+  "scale":"1=very low, 7=very high",
+  "scientific_promotion":false
+}

@@ -1,0 +1,36 @@
+name: DALI optional provider smoke
+on:
+  push:
+    branches: [mie/golden-forensic-v0.3]
+    paths:
+      - 'mie_core/dali_optional_provider.py'
+      - '.github/workflows/dali-optional-provider-smoke.yml'
+  workflow_dispatch:
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch open Billboard-Spotify frame
+        run: curl -L --fail https://raw.githubusercontent.com/Crawlora-org/song-length-data/main/data/song-length-1959-2025.csv -o /tmp/song-length.csv
+      - name: Build 300-song frame
+        run: python mie_core/milestone_300_sampling_frame_builder.py --csv /tmp/song-length.csv --output /tmp/MILESTONE_300_DISCOVERY_FRAME.json
+      - name: Assert deterministic fail-closed without provisioning
+        run: |
+          unset DALI_DATA_ROOT
+          python mie_core/dali_optional_provider.py --m300 /tmp/MILESTONE_300_DISCOVERY_FRAME.json --output /tmp/DALI_OPTIONAL_PROVIDER_CURRENT_v1.json
+          python - <<'PY'
+          import json
+          d=json.load(open('/tmp/DALI_OPTIONAL_PROVIDER_CURRENT_v1.json'))
+          assert d['state']=='REFERENCE_UNAVAILABLE'
+          assert d['reason']=='DALI_DATA_ROOT_NOT_PROVISIONED'
+          assert d['reference_unavailable_count']==300
+          assert d['network_audio_attempted'] is False
+          assert d['video_link_attempted'] is False
+          assert d['scientific_promotion'] is False
+          print({'state':d['state'],'reason':d['reason'],'count':d['reference_unavailable_count']})
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dali-optional-provider-smoke
+          path: /tmp/DALI_OPTIONAL_PROVIDER_CURRENT_v1.json

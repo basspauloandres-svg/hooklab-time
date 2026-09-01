@@ -1,0 +1,36 @@
+{
+  "schema": "HOOKLAB_CORPUS_SCALE_ARCHITECTURE_v1.0",
+  "decision": "FIVE_SONG_COHORT_IS_VALIDATION_SEED_NOT_FINAL_ANALYTIC_CORPUS",
+  "principle": "Validation depth and corpus scale are separate engineering problems. The validated analyzer contract is applied batchwise after gates stabilize.",
+  "tiers": [
+    {"tier":"T0_VALIDATION_SEED","target_n":5,"purpose":"forensic validation, gate debugging, E2E proof"},
+    {"tier":"T1_PILOT","target_n":30,"purpose":"first distributional estimates, outlier detection, genre-style coherence"},
+    {"tier":"T2_DEVELOPMENT","target_n":100,"purpose":"stable descriptive distributions and rule stress testing"},
+    {"tier":"T3_SCALE","target_n":500,"purpose":"large-data batch analysis and subgroup comparison"},
+    {"tier":"T4_EXTENDED","target_n":1000,"purpose":"optional expansion when source coverage supports it"}
+  ],
+  "batch_contract": {
+    "unit":"song",
+    "batch_size_default":25,
+    "parallelizable":true,
+    "resume_from_checkpoint":true,
+    "idempotent_by_song_id_and_source_hash":true,
+    "cache_first":true,
+    "failed_rows_quarantined":true,
+    "matrix_append_only_until_audit":true
+  },
+  "pipeline": [
+    "candidate_registry",
+    "cheap_metadata_gates",
+    "identity_version_gate",
+    "full_song_source_resolution",
+    "FULL_TMT_analyzer",
+    "quality_gate",
+    "Matrix_X_append",
+    "cohort_statistics_refresh",
+    "cached_reference_publish"
+  ],
+  "cost_order": "CHEAP_GATES_BEFORE_EXPENSIVE_ANALYSIS",
+  "stopping_rule": "Do not wait for the entire target universe. Publish a cohort snapshot when the prespecified tier N and quality gates are reached; continue expansion as a new version.",
+  "scientific_note": "N=5 proves the processing contract only. Distributional or genre-level inference must use the larger prespecified tiers and report coverage/selection limitations."
+}

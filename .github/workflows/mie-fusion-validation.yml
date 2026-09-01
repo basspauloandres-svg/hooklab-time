@@ -1,0 +1,73 @@
+name: MIE Melody Fusion Validation
+
+on:
+  push:
+    paths:
+      - 'mie_core/sensor_fusion.py'
+      - 'mie_core/run_fused_probe.py'
+      - 'mie_core/structural_reduction.py'
+      - 'mie_core/ornament_reduction.py'
+      - 'mie_core/plane_resolver.py'
+      - '.github/workflows/mie-fusion-validation.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: mie-fusion-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  generic-a:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - run: pip install -r mie_core/requirements.txt
+      - name: Acquire Generic A
+        run: |
+          mkdir -p run/input run/output
+          curl -L --fail 'https://audio-ssl.itunes.apple.com/itunes-assets/Music7/v4/68/46/97/6846978e-3c21-f67a-1b3c-ccb50b39af23/mzaf_6442408816188928529.plus.aac.p.m4a' -o run/input/source.m4a
+          ffmpeg -y -i run/input/source.m4a -ar 44100 -ac 2 run/input/source.wav
+      - name: HTDemucs vocals
+        run: python -m demucs -n htdemucs --two-stems=vocals -o run/stems run/input/source.wav
+      - name: Fused probe
+        run: |
+          V=$(find run/stems -type f -name vocals.wav | head -1)
+          python mie_core/run_fused_probe.py --vocal "$V" --output run/output
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mie-fusion-generic-a-v0-1
+          path: run/output/
+          if-no-files-found: error
+
+  generic-b:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - run: pip install -r mie_core/requirements.txt
+      - name: Acquire Generic B
+        run: |
+          mkdir -p run/input run/output
+          curl -L --fail 'https://upload.wikimedia.org/wikipedia/commons/d/d3/Believe.ogg' -o run/input/source.ogg
+          ffmpeg -y -i run/input/source.ogg -t 30 -ar 44100 -ac 2 run/input/source.wav
+      - name: HTDemucs vocals
+        run: python -m demucs -n htdemucs --two-stems=vocals -o run/stems run/input/source.wav
+      - name: Fused probe
+        run: |
+          V=$(find run/stems -type f -name vocals.wav | head -1)
+          python mie_core/run_fused_probe.py --vocal "$V" --output run/output
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mie-fusion-generic-b-v0-1
+          path: run/output/
+          if-no-files-found: error

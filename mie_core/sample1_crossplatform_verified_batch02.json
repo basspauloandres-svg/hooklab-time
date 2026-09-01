@@ -1,0 +1,72 @@
+{
+  "schema": "SAMPLE1_CROSSPLATFORM_VERIFIED_BATCH_v1.0",
+  "batch_id": "BATCH02_2026-08-29",
+  "selection_policy": "LAST_20_YEARS_AND_VERIFIED_CROSS_PLATFORM_MASSIVE_REACH",
+  "source_system": "vidIQ",
+  "songs": [
+    {
+      "song_id": "UNAVAILABLE_2023",
+      "title": "UNAVAILABLE",
+      "artist": "Davido ft. Musa Keys",
+      "release_year": 2023,
+      "official_release": true,
+      "youtube_video_id": "OSBan_sH_b8",
+      "youtube_views_observed": 150878001,
+      "youtube_observed_at": "2026-08-29",
+      "social_evidence": [{
+        "platform": "TikTok",
+        "source_handle": "davido",
+        "content_id": "7627534326195883271",
+        "views_observed": 64500000,
+        "song_match_verified": true,
+        "match_basis": "vidIQ identifies music_track as Unavailable by Davido and describes the artist performing/promoting the song"
+      }],
+      "genre": "afrobeats",
+      "style": "afrobeats_amapiano_pop",
+      "sample_status": "CROSS_PLATFORM_GATE_PASS_PENDING_ANALYZER"
+    },
+    {
+      "song_id": "MISS_YOU_2022",
+      "title": "Miss You",
+      "artist": "Oliver Tree & Robin Schulz",
+      "release_year": 2022,
+      "official_release": true,
+      "youtube_video_id": "BX0lKSa_PTk",
+      "youtube_views_observed": 514055611,
+      "youtube_observed_at": "2026-08-29",
+      "social_evidence": [{
+        "platform": "Instagram",
+        "source_handle": "olivertree",
+        "content_id": "DWJ0Wwwjokc",
+        "views_observed": 64400000,
+        "song_match_verified": true,
+        "match_basis": "vidIQ identifies music_track as Miss You by Oliver Tree and Robin Schulz"
+      }],
+      "genre": "electronic_pop",
+      "style": "dance_pop_electropop",
+      "sample_status": "CROSS_PLATFORM_GATE_PASS_PENDING_ANALYZER"
+    },
+    {
+      "song_id": "ONE_THING_RIGHT_2019",
+      "title": "One Thing Right",
+      "artist": "Marshmello & Kane Brown",
+      "release_year": 2019,
+      "official_release": true,
+      "youtube_video_id": "29a6o5vRKVM",
+      "youtube_views_observed": 217218691,
+      "youtube_observed_at": "2026-08-29",
+      "social_evidence": [{
+        "platform": "Instagram",
+        "source_handle": "kelseaballerini",
+        "content_id": "DaD7ZlrPH1R",
+        "views_observed": 107500000,
+        "song_match_verified": true,
+        "match_basis": "vidIQ identifies music_track as One Thing Right by Marshmello & Kane Brown"
+      }],
+      "genre": "country_pop",
+      "style": "country_edm_crossover",
+      "sample_status": "CROSS_PLATFORM_GATE_PASS_PENDING_ANALYZER"
+    }
+  ],
+  "epistemic_note": "Platform view counts are time-indexed selection evidence. They are not predictors, weights, or outcome labels in the musical model."
+}

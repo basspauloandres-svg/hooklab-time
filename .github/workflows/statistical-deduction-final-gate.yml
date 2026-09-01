@@ -1,0 +1,39 @@
+name: Statistical Deduction Final Gate
+on:
+  push:
+    branches: ["mie/golden-forensic-v0.3"]
+    paths:
+      - "mie_core/statistical_deduction_master_registry.py"
+      - "mie_core/statistical_deduction_final_gate.py"
+      - "mie_core/test_statistical_deduction_final_gate.py"
+      - "experiments/deduction/MCGILL_BILLBOARD_DEDUCTION_CALIBRATION_CURRENT_v1.json"
+      - "experiments/deduction/COSOD_CONTEMPORARY_DEDUCTION_CALIBRATION_CURRENT_v1.json"
+      - "experiments/deduction/COSOD_VOCAL_VARIABILITY_ROBUSTNESS_CURRENT_v1.json"
+      - "experiments/deduction/M300_COSOD_TARGET_SUBCOHORT_ANALYSIS_CURRENT_v1.json"
+      - ".github/workflows/statistical-deduction-final-gate.yml"
+  workflow_dispatch:
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - name: Software fail-closed regression
+        run: python mie_core/test_statistical_deduction_final_gate.py
+      - name: Build observed master registry
+        run: |
+          python mie_core/statistical_deduction_master_registry.py \
+            --mcgill experiments/deduction/MCGILL_BILLBOARD_DEDUCTION_CALIBRATION_CURRENT_v1.json \
+            --cosod experiments/deduction/COSOD_CONTEMPORARY_DEDUCTION_CALIBRATION_CURRENT_v1.json \
+            --robustness experiments/deduction/COSOD_VOCAL_VARIABILITY_ROBUSTNESS_CURRENT_v1.json \
+            --m300 experiments/deduction/M300_COSOD_TARGET_SUBCOHORT_ANALYSIS_CURRENT_v1.json \
+            --output experiments/deduction/STATISTICAL_DEDUCTION_MASTER_REGISTRY_CURRENT_v1.json
+      - name: Execute final observed gate
+        run: python mie_core/statistical_deduction_final_gate.py --registry experiments/deduction/STATISTICAL_DEDUCTION_MASTER_REGISTRY_CURRENT_v1.json --output experiments/deduction/STATISTICAL_DEDUCTION_FINAL_GATE_CURRENT_v1.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: statistical-deduction-final-gate
+          path: |
+            experiments/deduction/STATISTICAL_DEDUCTION_MASTER_REGISTRY_CURRENT_v1.json
+            experiments/deduction/STATISTICAL_DEDUCTION_FINAL_GATE_CURRENT_v1.json

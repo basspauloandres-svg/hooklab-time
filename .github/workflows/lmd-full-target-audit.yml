@@ -1,0 +1,75 @@
+name: LMD Full Target Audit
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'mie_core/lakh_full_md5_target_audit.py'
+      - 'mie_core/build_target_scientific_candidate_matrix.py'
+      - 'mie_core/build_shadow_target_cohort_cache.py'
+      - 'mie_core/target_scientific_promotion_gate.py'
+      - 'mie_core/definitive_completion_gate.py'
+      - 'mie_core/melodic_confidence_gate.py'
+      - 'mie_core/midi_vocal_binding_audit.py'
+      - 'mie_core/target_dance_pop_evidence_registry_v1.json'
+      - 'mie_core/preproduction_router.py'
+      - 'mie_core/preproduction_constraints_compiler.py'
+      - 'mie_core/tmt_structural_candidate_generator_v2.py'
+      - '.github/workflows/lmd-full-target-audit.yml'
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install symbolic dependencies
+        run: pip install mido pretty_midi
+      - name: Restore exact target MIDI cache
+        uses: actions/cache@v4
+        with:
+          path: .hooklab_cache/lmd_targets
+          key: hooklab-lmd-targets-v1-11-md5
+      - name: Audit exact MD5 targets
+        run: python mie_core/lakh_full_md5_target_audit.py --targets mie_core/lakh_era_crossmatch_result_v1.json --output-dir lmd_full_target_audit --midi-cache-dir .hooklab_cache/lmd_targets
+      - name: Calibrate melodic confidence on real target rows
+        run: python mie_core/melodic_confidence_gate.py --input lmd_full_target_audit/target_audit.csv --output lmd_full_target_audit/target_melodic_confidence.csv
+      - name: Audit direct lyric-to-note vocal binding
+        run: python mie_core/midi_vocal_binding_audit.py --audit lmd_full_target_audit/target_audit.csv --midi-dir .hooklab_cache/lmd_targets --output lmd_full_target_audit/target_vocal_binding.csv
+      - name: Build genre-style scientific candidate matrix
+        run: python mie_core/build_target_scientific_candidate_matrix.py --audit lmd_full_target_audit/target_audit.csv --registry mie_core/target_dance_pop_evidence_registry_v1.json --output lmd_full_target_audit/target_dance_pop_candidate_matrix.csv
+      - name: Build target shadow cohort cache
+        run: python mie_core/build_shadow_target_cohort_cache.py --matrix lmd_full_target_audit/target_dance_pop_candidate_matrix.csv --output lmd_full_target_audit/shadow_cohort_cache.json --min-n 3
+      - name: Route target shadow request from cache only
+        run: python mie_core/preproduction_router.py --cache lmd_full_target_audit/shadow_cohort_cache.json --genre pop_rock --style dance_pop --purpose 'massive-hit target shadow engineering test' --output lmd_full_target_audit/shadow_router.json
+      - name: Compile target shadow constraints
+        run: python mie_core/preproduction_constraints_compiler.py --router-output lmd_full_target_audit/shadow_router.json --output lmd_full_target_audit/shadow_constraints.json
+      - name: Generate target shadow structural candidates
+        run: python mie_core/tmt_structural_candidate_generator_v2.py --constraints lmd_full_target_audit/shadow_constraints.json --output lmd_full_target_audit/shadow_structural_candidates.json
+      - name: Write target shadow E2E checkpoint
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('lmd_full_target_audit')
+          m=json.loads((p/'target_dance_pop_candidate_matrix.summary.json').read_text())
+          mc=json.loads((p/'target_melodic_confidence.summary.json').read_text())
+          vb=json.loads((p/'target_vocal_binding.summary.json').read_text())
+          r=json.loads((p/'shadow_router.json').read_text())
+          c=json.loads((p/'shadow_constraints.json').read_text())
+          g=json.loads((p/'shadow_structural_candidates.json').read_text())
+          ok=(m['target_cohort_candidates']>=3 and r['status']=='CACHE_HIT_READY_FOR_GENERATION' and g['status']=='THREE_FULL_TMT_STRUCTURAL_CANDIDATES_READY')
+          out={'schema':'HOOKLAB_TARGET_SHADOW_E2E_v1.4','status':'TARGET_SHADOW_E2E_PASS' if ok else 'TARGET_SHADOW_E2E_FAIL','target_cohort_candidates':m['target_cohort_candidates'],'cohort_key':m['cohort_key'],'melodic_confidence_counts':mc['counts'],'melodic_confidence_semantics':mc['semantics'],'strong_symbolic_vocal_binding_n':vb['strong_symbolic_binding_n'],'vocal_binding_semantics':vb['semantics'],'router':r['status'],'constraint_count':len(c.get('constraints',{})),'generation':g['status'],'T_online_search_seconds':0,'online_corpus_reanalysis':False,'scientific_promotion':False,'remaining_gates':['external_or_directly_labeled_vocal_identity_validation','ttfp_vs_traditional','final_validation_documentation'],'deferred_scope':['social_network_reach -> future release analytics'],'evidence_boundary':'REAL_MASSIVE_HIT_TARGET_CANDIDATES; ENGINEERING_SHADOW_ONLY UNTIL CURRENT DEFINITIVE GATES PASS'}
+          (p/'target_shadow_e2e_checkpoint.json').write_text(json.dumps(out,indent=2));print(json.dumps(out))
+          PY
+      - name: Compute scientific promotion gate
+        run: python mie_core/target_scientific_promotion_gate.py --matrix lmd_full_target_audit/target_dance_pop_candidate_matrix.csv --output lmd_full_target_audit/scientific_promotion.json --min-n 3 || test $? -eq 4
+      - name: Compute definitive stage completion
+        run: python mie_core/definitive_completion_gate.py --matrix lmd_full_target_audit/target_dance_pop_candidate_matrix.csv --checkpoint lmd_full_target_audit/target_shadow_e2e_checkpoint.json --output lmd_full_target_audit/definitive_completion.json || test $? -eq 4
+      - name: Upload target audit and shadow E2E evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: hooklab-lmd-full-target-shadow-e2e-v5
+          path: lmd_full_target_audit/
+          if-no-files-found: error

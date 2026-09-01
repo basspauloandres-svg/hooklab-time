@@ -1,0 +1,31 @@
+{
+  "schema":"HOOKLAB_FULL_SONG_SOURCE_DECISION_v2.0",
+  "decision":"KEEP_FULL_SONG_COVERAGE_AS_HARD_GATE_AND_AVOID_ANY_CORE_DEPENDENCY_ON_RESTRICTED_DATASETS",
+  "evidence":{
+    "DALI_public_metadata":"Public metadata can identify candidate songs and reports full-duration synchronized lyrics and vocal notes in the dataset.",
+    "DALI_annotation_access":"Annotation files are restricted on Zenodo and require login/access approval; therefore DALI cannot be a mandatory autonomous runtime dependency.",
+    "observed_candidate_matches":[
+      {"title":"Chandelier","artist":"Sia","dali_id":"a828936b0cc446469bde58458fa3376e","release":"2014","role":"possible optional full-song accelerator after authorized dataset access"},
+      {"title":"All Of Me","artist":"John Legend","dali_id":"dbe4ea432c5d4d65995f8deb1776373e","release":"2013","role":"possible optional full-song accelerator after authorized dataset access"},
+      {"title":"Royals","artist":"Lorde","dali_id":"b78005c19ffa450aa1b9d1ec48c32710","release":"2012","role":"possible optional full-song accelerator after authorized dataset access"},
+      {"title":"See You Again","artist":"Wiz Khalifa","dali_id":"b9696b1aad60461e94f020133ccdde84","release":"unspecified_in_public_metadata","role":"possible optional full-song accelerator after authorized dataset access"}
+    ],
+    "observed_nonmatches":["Despacito","Mi Gente","Taki Taki","Con Calma","Shape of You","Havana","One Dance"]
+  },
+  "architecture":{
+    "P0_autonomous_open_sources":[
+      "AcousticBrainz or equivalent full-song derived descriptors for T when available",
+      "LRCLIB or equivalent public synchronized lyric reference for Text when available",
+      "public full-song symbolic/annotation sources that require no per-user approval for M"
+    ],
+    "P1_optional_research_datasets":["DALI after authorized access; never required for core operation"],
+    "P2_engineering_only":["Apple/iTunes short previews for extraction regression and latency engineering"]
+  },
+  "hard_rules":[
+    "SHORT_PREVIEW never enters Matrix X or cohort generation readiness.",
+    "DALI public metadata match alone never counts as M_FULL or TEXT_FULL.",
+    "The prototype must remain executable without paid credits and without approval-gated datasets.",
+    "When a restricted research dataset is available, use it as validation/acceleration evidence, not as a single point of failure."
+  ],
+  "next_engineering_problem":"Identify or derive a zero-credit, authorization-free full-song M representation for enough massive-hit candidates; otherwise select massive hits already covered by genuinely open full-song symbolic annotations."
+}

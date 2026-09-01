@@ -1,0 +1,24 @@
+{
+  "schema":"HOOKLAB_COSOD_CONTEMPORARY_DEDUCTION_CALIBRATION_v1.0",
+  "provider":"CoSoD / CC0",
+  "source_workflow_run":33413476817,
+  "source_artifact_id":9766062366,
+  "source_artifact_digest":"sha256:2315f157fe55f29d94fcde01eb66bf4f22bd93676cc69417d66461c3f63a27da",
+  "population_scope":"multi-artist Billboard Hot 100 Year-End collaborations, 2010-2019",
+  "documented_song_count":331,
+  "metadata_rows_resolved":331,
+  "analysis_rows_resolved":331,
+  "joined_eligible_rows":331,
+  "tests":[
+    {"feature":"first_chorus_s","outcome":"year_end_peak_strength","n":330,"rho":0.0948,"p":0.08537434381350642,"q_bh":0.15762949954123173,"exploratory_supported":false},
+    {"feature":"first_chorus_ratio","outcome":"year_end_peak_strength","n":330,"rho":0.0922,"p":0.09457769972473903,"q_bh":0.15762949954123173,"exploratory_supported":false},
+    {"feature":"section_events","outcome":"year_end_peak_strength","n":331,"rho":0.0416,"p":0.45070738782329395,"q_bh":0.5633842347791175,"exploratory_supported":false},
+    {"feature":"duration_proxy_s","outcome":"year_end_peak_strength","n":331,"rho":0.0147,"p":0.7898694679317015,"q_bh":0.7898694679317015,"exploratory_supported":false},
+    {"feature":"pitch_span_hz","outcome":"year_end_peak_strength","n":329,"rho":0.1745,"p":0.001486800832754382,"q_bh":0.00743400416377191,"exploratory_supported":true}
+  ],
+  "supported_exploratory_associations":[{"feature":"pitch_span_hz","outcome":"year_end_peak_strength","n":329,"rho":0.1745,"p":0.001486800832754382,"q_bh":0.00743400416377191}],
+  "negative_evidence":"Four tested structural/time variables did not pass the predeclared exploratory gate; they are retained as observed non-support rather than discarded.",
+  "deduction_state":"CANDIDATE_FOR_THEORY_MATCHING_AND_INDEPENDENT_REPLICATION",
+  "scientific_promotion":false,
+  "boundary":"Contemporary calibration subpopulation only. The supported pitch-span association is small and observational. Year-end chart position is an observed outcome, not musical quality; exposure, artist history, genre/style, collaboration structure and other confounds remain separate. No generative rule or causal claim is promoted from this result alone."
+}
