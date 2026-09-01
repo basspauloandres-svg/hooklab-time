@@ -1,0 +1,3406 @@
+{
+  "schema": "HOOKLAB_OPEN_IDENTITY_RESOLUTION_AUDIT_v1",
+  "created_at": "2026-09-01T20:44:38.833759Z",
+  "resolver_version": "hooklab-open-identity-resolver-v1",
+  "provider_versions": {
+    "yt-dlp": "2026.08.19",
+    "MusicBrainz": "WS2",
+    "Wikidata": "Action API"
+  },
+  "promotion_rule": "EXACTLY_ONE_VIDEO_ID_SUPPORTED_BY_AT_LEAST_TWO_INDEPENDENT_PROVIDERS",
+  "previously_verified_preserved": 4,
+  "auto_verified_this_run": 11,
+  "verified_after_run": 15,
+  "total_cases": 100,
+  "resolutions": [
+    {
+      "case_id": "C005",
+      "title": "Uptown Funk",
+      "artist": "Mark Ronson ft. Bruno Mars",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "COMPLETE"
+      },
+      "candidates": [
+        {
+          "video_id": "6s8bQdj7bkg",
+          "video_url": "https://www.youtube.com/watch?v=6s8bQdj7bkg",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "6s8bQdj7bkg",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "6s8bQdj7bkg",
+              "source_url": "https://www.youtube.com/watch?v=6s8bQdj7bkg",
+              "rank": 5,
+              "title": "Mark Ronson - Uptown Funk (Official Visualiser) ft. Bruno Mars",
+              "channel": "Mark Ronson",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "7Ya2U8XN_Zw",
+          "video_url": "https://www.youtube.com/watch?v=7Ya2U8XN_Zw",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "7Ya2U8XN_Zw",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "7Ya2U8XN_Zw",
+              "source_url": "https://www.youtube.com/watch?v=7Ya2U8XN_Zw",
+              "rank": 4,
+              "title": "Mark Ronson - Uptown Funk (Official Audio) ft. Bruno Mars",
+              "channel": "Mark Ronson",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "OPf0YbXqDm0",
+          "video_url": "https://www.youtube.com/watch?v=OPf0YbXqDm0",
+          "independent_sources": [
+            "MUSICBRAINZ",
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 2,
+          "evidence": [
+            {
+              "video_id": "OPf0YbXqDm0",
+              "source": "MUSICBRAINZ",
+              "source_record_id": "38e06968-af06-44ea-9eba-a1a275832767",
+              "source_url": "https://musicbrainz.org/recording/38e06968-af06-44ea-9eba-a1a275832767",
+              "title": "Uptown Funk",
+              "artist": "Mark Ronson Bruno Mars"
+            },
+            {
+              "video_id": "OPf0YbXqDm0",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "OPf0YbXqDm0",
+              "source_url": "https://www.youtube.com/watch?v=OPf0YbXqDm0",
+              "rank": 1,
+              "title": "Mark Ronson - Uptown Funk (Official Video) ft. Bruno Mars",
+              "channel": "Mark Ronson",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "W8FUmkw3a4U",
+          "video_url": "https://www.youtube.com/watch?v=W8FUmkw3a4U",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "W8FUmkw3a4U",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "W8FUmkw3a4U",
+              "source_url": "https://www.youtube.com/watch?v=W8FUmkw3a4U",
+              "rank": 3,
+              "title": "Mark Ronson - Uptown Funk (Lyrics) ft. Bruno Mars",
+              "channel": "7clouds",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "neDP7tvqZdY",
+          "video_url": "https://www.youtube.com/watch?v=neDP7tvqZdY",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "neDP7tvqZdY",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "neDP7tvqZdY",
+              "source_url": "https://www.youtube.com/watch?v=neDP7tvqZdY",
+              "rank": 2,
+              "title": "Mark Ronson - Uptown Funk ft. Bruno Mars // 𝗡𝗨𝗘𝗩𝗢 𝗩𝗜𝗗𝗘𝗢 𝟰𝗞 𝗘𝗡 𝗗𝗘𝗦𝗖𝗥𝗜𝗣𝗖𝗜𝗢́𝗡",
+              "channel": "BrunoTraductor Official and BrunoTraductor Official 2",
+              "title_match": true
+            }
+          ]
+        }
+      ],
+      "resolution_status": "AUTO_VERIFIED_CROSS_SOURCE",
+      "selected_video_id": "OPf0YbXqDm0",
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C006",
+      "title": "Mi Gente",
+      "artist": "J Balvin & Willy William",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C007",
+      "title": "Chantaje",
+      "artist": "Shakira ft. Maluma",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C008",
+      "title": "Bailando",
+      "artist": "Enrique Iglesias ft. Descemer Bueno & Gente de Zona",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C009",
+      "title": "Con Calma",
+      "artist": "Daddy Yankee ft. Snow",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "COMPLETE"
+      },
+      "candidates": [
+        {
+          "video_id": "DiItGE3eAyQ",
+          "video_url": "https://www.youtube.com/watch?v=DiItGE3eAyQ",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "DiItGE3eAyQ",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "DiItGE3eAyQ",
+              "source_url": "https://www.youtube.com/watch?v=DiItGE3eAyQ",
+              "rank": 1,
+              "title": "Daddy Yankee & Snow - Con Calma (Official Video)",
+              "channel": "Daddy Yankee",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "GQwj_FRntp8",
+          "video_url": "https://www.youtube.com/watch?v=GQwj_FRntp8",
+          "independent_sources": [
+            "MUSICBRAINZ"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "GQwj_FRntp8",
+              "source": "MUSICBRAINZ",
+              "source_record_id": "f7804162-6ca7-4f8e-8bdf-029b6636f29e",
+              "source_url": "https://musicbrainz.org/recording/f7804162-6ca7-4f8e-8bdf-029b6636f29e",
+              "title": "Con calma",
+              "artist": "Daddy Yankee Snow"
+            }
+          ]
+        },
+        {
+          "video_id": "bNTRIdraX8c",
+          "video_url": "https://www.youtube.com/watch?v=bNTRIdraX8c",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "bNTRIdraX8c",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "bNTRIdraX8c",
+              "source_url": "https://www.youtube.com/watch?v=bNTRIdraX8c",
+              "rank": 3,
+              "title": "Con Calma - Daddy Yankee & Snow (Lyrics) 🎵",
+              "channel": "Musical Reality",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "jX0zZd73lhQ",
+          "video_url": "https://www.youtube.com/watch?v=jX0zZd73lhQ",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "jX0zZd73lhQ",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "jX0zZd73lhQ",
+              "source_url": "https://www.youtube.com/watch?v=jX0zZd73lhQ",
+              "rank": 5,
+              "title": "Daddy Yankee, Katy Perry, Snow - Con Calma Remix (Music Video).",
+              "channel": "EL GURU ",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "lmCEZhb-z-Q",
+          "video_url": "https://www.youtube.com/watch?v=lmCEZhb-z-Q",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "lmCEZhb-z-Q",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "lmCEZhb-z-Q",
+              "source_url": "https://www.youtube.com/watch?v=lmCEZhb-z-Q",
+              "rank": 2,
+              "title": "Daddy Yankee + Katy Perry Feat. Snow - Con Calma Remix (Official Video Lyric)",
+              "channel": "Daddy Yankee",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "r_wb7GAiCg4",
+          "video_url": "https://www.youtube.com/watch?v=r_wb7GAiCg4",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "r_wb7GAiCg4",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "r_wb7GAiCg4",
+              "source_url": "https://www.youtube.com/watch?v=r_wb7GAiCg4",
+              "rank": 4,
+              "title": "Daddy Yankee - Con Calma (Audio) ft. Snow",
+              "channel": "Encuentro Vumesto",
+              "title_match": true
+            }
+          ]
+        }
+      ],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C010",
+      "title": "Lean On",
+      "artist": "Major Lazer & DJ Snake ft. MØ",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C011",
+      "title": "Billie Jean",
+      "artist": "Michael Jackson",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C012",
+      "title": "Bohemian Rhapsody",
+      "artist": "Queen",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C013",
+      "title": "Hotel California",
+      "artist": "Eagles",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C014",
+      "title": "Wonderwall",
+      "artist": "Oasis",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C015",
+      "title": "Viva La Vida",
+      "artist": "Coldplay",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "COMPLETE"
+      },
+      "candidates": [
+        {
+          "video_id": "-ZvsGmYKhcU",
+          "video_url": "https://www.youtube.com/watch?v=-ZvsGmYKhcU",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "-ZvsGmYKhcU",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "-ZvsGmYKhcU",
+              "source_url": "https://www.youtube.com/watch?v=-ZvsGmYKhcU",
+              "rank": 3,
+              "title": "Coldplay - Viva La Vida (Live In São Paulo)",
+              "channel": "Coldplay",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "1kVxpsi1XQ4",
+          "video_url": "https://www.youtube.com/watch?v=1kVxpsi1XQ4",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "1kVxpsi1XQ4",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "1kVxpsi1XQ4",
+              "source_url": "https://www.youtube.com/watch?v=1kVxpsi1XQ4",
+              "rank": 2,
+              "title": "Coldplay - Viva La Vida (Anton Corbijn Version)",
+              "channel": "Coldplay",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "9ldOuVuas1c",
+          "video_url": "https://www.youtube.com/watch?v=9ldOuVuas1c",
+          "independent_sources": [
+            "MUSICBRAINZ",
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 2,
+          "evidence": [
+            {
+              "video_id": "9ldOuVuas1c",
+              "source": "MUSICBRAINZ",
+              "source_record_id": "498ab52f-c72e-4f1d-9130-0bdb8f331521",
+              "source_url": "https://musicbrainz.org/recording/498ab52f-c72e-4f1d-9130-0bdb8f331521",
+              "title": "Viva la Vida",
+              "artist": "Coldplay"
+            },
+            {
+              "video_id": "9ldOuVuas1c",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "9ldOuVuas1c",
+              "source_url": "https://www.youtube.com/watch?v=9ldOuVuas1c",
+              "rank": 5,
+              "title": "Coldplay - Viva La Vida (Live in Madrid 2011)",
+              "channel": "Coldplay",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "dvgZkm1xWPE",
+          "video_url": "https://www.youtube.com/watch?v=dvgZkm1xWPE",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "dvgZkm1xWPE",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "dvgZkm1xWPE",
+              "source_url": "https://www.youtube.com/watch?v=dvgZkm1xWPE",
+              "rank": 1,
+              "title": "Coldplay - Viva La Vida (Official Video)",
+              "channel": "Coldplay",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "y4zdDXPYo0I",
+          "video_url": "https://www.youtube.com/watch?v=y4zdDXPYo0I",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "y4zdDXPYo0I",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "y4zdDXPYo0I",
+              "source_url": "https://www.youtube.com/watch?v=y4zdDXPYo0I",
+              "rank": 4,
+              "title": "Coldplay - Viva la Vida (Lyrics)",
+              "channel": "Dan Music",
+              "title_match": true
+            }
+          ]
+        }
+      ],
+      "resolution_status": "AUTO_VERIFIED_CROSS_SOURCE",
+      "selected_video_id": "9ldOuVuas1c",
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C016",
+      "title": "Rolling in the Deep",
+      "artist": "Adele",
+      "provider_status": {
+        "MUSICBRAINZ": "FAILED_IdentityResolverError",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C017",
+      "title": "Someone Like You",
+      "artist": "Adele",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "COMPLETE"
+      },
+      "candidates": [
+        {
+          "video_id": "22c3_LoIfZQ",
+          "video_url": "https://www.youtube.com/watch?v=22c3_LoIfZQ",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "22c3_LoIfZQ",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "22c3_LoIfZQ",
+              "source_url": "https://www.youtube.com/watch?v=22c3_LoIfZQ",
+              "rank": 3,
+              "title": "Adele - Someone Like You",
+              "channel": "Adele - Topic",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "3y1JNdHvuPw",
+          "video_url": "https://www.youtube.com/watch?v=3y1JNdHvuPw",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "3y1JNdHvuPw",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "3y1JNdHvuPw",
+              "source_url": "https://www.youtube.com/watch?v=3y1JNdHvuPw",
+              "rank": 5,
+              "title": "Adele - Someone Like You // Sub Español + Lyrics // Video Oficial",
+              "channel": "BrunoTraductor Official and BrunoTraductor Official 2",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "NAc83CF8Ejk",
+          "video_url": "https://www.youtube.com/watch?v=NAc83CF8Ejk",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "NAc83CF8Ejk",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "NAc83CF8Ejk",
+              "source_url": "https://www.youtube.com/watch?v=NAc83CF8Ejk",
+              "rank": 4,
+              "title": "Adele - Someone Like You (Live in Her Home)",
+              "channel": "Adele",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "hLQl3WQQoQ0",
+          "video_url": "https://www.youtube.com/watch?v=hLQl3WQQoQ0",
+          "independent_sources": [
+            "MUSICBRAINZ",
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 2,
+          "evidence": [
+            {
+              "video_id": "hLQl3WQQoQ0",
+              "source": "MUSICBRAINZ",
+              "source_record_id": "028efe7f-cdfb-4135-846f-848f2fff15b1",
+              "source_url": "https://musicbrainz.org/recording/028efe7f-cdfb-4135-846f-848f2fff15b1",
+              "title": "Someone Like You",
+              "artist": "Adele"
+            },
+            {
+              "video_id": "hLQl3WQQoQ0",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "hLQl3WQQoQ0",
+              "source_url": "https://www.youtube.com/watch?v=hLQl3WQQoQ0",
+              "rank": 1,
+              "title": "Adele - Someone Like You (Official Music Video)",
+              "channel": "Adele",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "z7GCiVTlv04",
+          "video_url": "https://www.youtube.com/watch?v=z7GCiVTlv04",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "z7GCiVTlv04",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "z7GCiVTlv04",
+              "source_url": "https://www.youtube.com/watch?v=z7GCiVTlv04",
+              "rank": 2,
+              "title": "Someone Like You - Adele (Lyrics) 🎵",
+              "channel": "Pillow",
+              "title_match": true
+            }
+          ]
+        }
+      ],
+      "resolution_status": "AUTO_VERIFIED_CROSS_SOURCE",
+      "selected_video_id": "hLQl3WQQoQ0",
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C018",
+      "title": "Smells Like Teen Spirit",
+      "artist": "Nirvana",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C019",
+      "title": "Livin' on a Prayer",
+      "artist": "Bon Jovi",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C020",
+      "title": "Every Breath You Take",
+      "artist": "The Police",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C021",
+      "title": "Blinding Lights",
+      "artist": "The Weeknd",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "COMPLETE"
+      },
+      "candidates": [
+        {
+          "video_id": "4NRXx6U8ABQ",
+          "video_url": "https://www.youtube.com/watch?v=4NRXx6U8ABQ",
+          "independent_sources": [
+            "MUSICBRAINZ",
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 2,
+          "evidence": [
+            {
+              "video_id": "4NRXx6U8ABQ",
+              "source": "MUSICBRAINZ",
+              "source_record_id": "5bdbfe86-4ad5-4c19-8d29-ee5f30ba628b",
+              "source_url": "https://musicbrainz.org/recording/5bdbfe86-4ad5-4c19-8d29-ee5f30ba628b",
+              "title": "Blinding Lights",
+              "artist": "The Weeknd"
+            },
+            {
+              "video_id": "4NRXx6U8ABQ",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "4NRXx6U8ABQ",
+              "source_url": "https://www.youtube.com/watch?v=4NRXx6U8ABQ",
+              "rank": 1,
+              "title": "The Weeknd - Blinding Lights (Official Video)",
+              "channel": "The Weeknd",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "XwxLwG2_Sxk",
+          "video_url": "https://www.youtube.com/watch?v=XwxLwG2_Sxk",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "XwxLwG2_Sxk",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "XwxLwG2_Sxk",
+              "source_url": "https://www.youtube.com/watch?v=XwxLwG2_Sxk",
+              "rank": 4,
+              "title": "The Weeknd - Blinding Lights (Lyrics)",
+              "channel": "7clouds",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "ewfdRy5jfF8",
+          "video_url": "https://www.youtube.com/watch?v=ewfdRy5jfF8",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "ewfdRy5jfF8",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "ewfdRy5jfF8",
+              "source_url": "https://www.youtube.com/watch?v=ewfdRy5jfF8",
+              "rank": 5,
+              "title": "The Weeknd - Blinding Lights (Live On The 2020 MTV VMAs)",
+              "channel": "The Weeknd",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "fHI8X4OXluQ",
+          "video_url": "https://www.youtube.com/watch?v=fHI8X4OXluQ",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "fHI8X4OXluQ",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "fHI8X4OXluQ",
+              "source_url": "https://www.youtube.com/watch?v=fHI8X4OXluQ",
+              "rank": 3,
+              "title": "The Weeknd - Blinding Lights (Official Audio)",
+              "channel": "The Weeknd",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "ozSQPSnQOSQ",
+          "video_url": "https://www.youtube.com/watch?v=ozSQPSnQOSQ",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "ozSQPSnQOSQ",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "ozSQPSnQOSQ",
+              "source_url": "https://www.youtube.com/watch?v=ozSQPSnQOSQ",
+              "rank": 2,
+              "title": "The Weeknd \"Blinding Lights\" (Music Video)",
+              "channel": "Pop Stars Inc.",
+              "title_match": true
+            }
+          ]
+        }
+      ],
+      "resolution_status": "AUTO_VERIFIED_CROSS_SOURCE",
+      "selected_video_id": "4NRXx6U8ABQ",
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C022",
+      "title": "bad guy",
+      "artist": "Billie Eilish",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "COMPLETE"
+      },
+      "candidates": [
+        {
+          "video_id": "4-TbQnONe_w",
+          "video_url": "https://www.youtube.com/watch?v=4-TbQnONe_w",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "4-TbQnONe_w",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "4-TbQnONe_w",
+              "source_url": "https://www.youtube.com/watch?v=4-TbQnONe_w",
+              "rank": 4,
+              "title": "Billie Eilish - bad guy (Lyrics)",
+              "channel": "7clouds",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "CkrkQmLiIbA",
+          "video_url": "https://www.youtube.com/watch?v=CkrkQmLiIbA",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "CkrkQmLiIbA",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "CkrkQmLiIbA",
+              "source_url": "https://www.youtube.com/watch?v=CkrkQmLiIbA",
+              "rank": 3,
+              "title": "Billie Eilish  - bad guy",
+              "channel": "SkripchaN New Music TV",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "DyDfgMOUjCI",
+          "video_url": "https://www.youtube.com/watch?v=DyDfgMOUjCI",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "DyDfgMOUjCI",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "DyDfgMOUjCI",
+              "source_url": "https://www.youtube.com/watch?v=DyDfgMOUjCI",
+              "rank": 1,
+              "title": "Billie Eilish - bad guy",
+              "channel": "Billie Eilish",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "Jld-gAI7ZIg",
+          "video_url": "https://www.youtube.com/watch?v=Jld-gAI7ZIg",
+          "independent_sources": [
+            "MUSICBRAINZ"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "Jld-gAI7ZIg",
+              "source": "MUSICBRAINZ",
+              "source_record_id": "1e9792da-e83d-4a4f-843b-6799efa84108",
+              "source_url": "https://musicbrainz.org/recording/1e9792da-e83d-4a4f-843b-6799efa84108",
+              "title": "bad guy",
+              "artist": "Billie Eilish"
+            }
+          ]
+        },
+        {
+          "video_id": "eoiWhRo3A7w",
+          "video_url": "https://www.youtube.com/watch?v=eoiWhRo3A7w",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "eoiWhRo3A7w",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "eoiWhRo3A7w",
+              "source_url": "https://www.youtube.com/watch?v=eoiWhRo3A7w",
+              "rank": 2,
+              "title": "Billie Eilish, Justin Bieber - bad guy",
+              "channel": "eyelafd",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "vlxGlUvC604",
+          "video_url": "https://www.youtube.com/watch?v=vlxGlUvC604",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "vlxGlUvC604",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "vlxGlUvC604",
+              "source_url": "https://www.youtube.com/watch?v=vlxGlUvC604",
+              "rank": 5,
+              "title": "Billie Eilish - bad guy (Lyrics)",
+              "channel": "DopeMusic",
+              "title_match": true
+            }
+          ]
+        }
+      ],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C023",
+      "title": "Flowers",
+      "artist": "Miley Cyrus",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "COMPLETE"
+      },
+      "candidates": [
+        {
+          "video_id": "G7KNmW9a75Y",
+          "video_url": "https://www.youtube.com/watch?v=G7KNmW9a75Y",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "G7KNmW9a75Y",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "G7KNmW9a75Y",
+              "source_url": "https://www.youtube.com/watch?v=G7KNmW9a75Y",
+              "rank": 1,
+              "title": "Miley Cyrus - Flowers (Official Video)",
+              "channel": "Miley Cyrus",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "QNv8iODCAwE",
+          "video_url": "https://www.youtube.com/watch?v=QNv8iODCAwE",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "QNv8iODCAwE",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "QNv8iODCAwE",
+              "source_url": "https://www.youtube.com/watch?v=QNv8iODCAwE",
+              "rank": 2,
+              "title": "Miley Cyrus - Flowers (Backyard Sessions)",
+              "channel": "Miley Cyrus",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "SuehATaxMEQ",
+          "video_url": "https://www.youtube.com/watch?v=SuehATaxMEQ",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "SuehATaxMEQ",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "SuehATaxMEQ",
+              "source_url": "https://www.youtube.com/watch?v=SuehATaxMEQ",
+              "rank": 4,
+              "title": "Miley Cyrus - Flowers",
+              "channel": "RIGHT VIBES",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "d_456Kvj7Nk",
+          "video_url": "https://www.youtube.com/watch?v=d_456Kvj7Nk",
+          "independent_sources": [
+            "MUSICBRAINZ"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "d_456Kvj7Nk",
+              "source": "MUSICBRAINZ",
+              "source_record_id": "4ddebe69-6db5-4338-97d3-299cfdc72fb2",
+              "source_url": "https://musicbrainz.org/recording/4ddebe69-6db5-4338-97d3-299cfdc72fb2",
+              "title": "Flowers",
+              "artist": "Miley Cyrus"
+            }
+          ]
+        },
+        {
+          "video_id": "fQemUin8g-I",
+          "video_url": "https://www.youtube.com/watch?v=fQemUin8g-I",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "fQemUin8g-I",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "fQemUin8g-I",
+              "source_url": "https://www.youtube.com/watch?v=fQemUin8g-I",
+              "rank": 3,
+              "title": "Miley Cyrus - Flowers (Lyrics)",
+              "channel": "7clouds Rock",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "knXXnh0dzlw",
+          "video_url": "https://www.youtube.com/watch?v=knXXnh0dzlw",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "knXXnh0dzlw",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "knXXnh0dzlw",
+              "source_url": "https://www.youtube.com/watch?v=knXXnh0dzlw",
+              "rank": 5,
+              "title": "Miley Cyrus REVEALS the TRUTH about ‘Flowers’",
+              "channel": "Miley Nation",
+              "title_match": true
+            }
+          ]
+        }
+      ],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C024",
+      "title": "Levitating",
+      "artist": "Dua Lipa",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "COMPLETE"
+      },
+      "candidates": [
+        {
+          "video_id": "N000qglmmY0",
+          "video_url": "https://www.youtube.com/watch?v=N000qglmmY0",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "N000qglmmY0",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "N000qglmmY0",
+              "source_url": "https://www.youtube.com/watch?v=N000qglmmY0",
+              "rank": 2,
+              "title": "Dua Lipa - Levitating (Official Animated Music Video)",
+              "channel": "Dua Lipa",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "OsfAnsMY21M",
+          "video_url": "https://www.youtube.com/watch?v=OsfAnsMY21M",
+          "independent_sources": [
+            "MUSICBRAINZ"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "OsfAnsMY21M",
+              "source": "MUSICBRAINZ",
+              "source_record_id": "957df7c5-9c3a-4dbc-b139-f339f2378986",
+              "source_url": "https://musicbrainz.org/recording/957df7c5-9c3a-4dbc-b139-f339f2378986",
+              "title": "Levitating",
+              "artist": "Dua Lipa"
+            }
+          ]
+        },
+        {
+          "video_id": "TUVcZfQe-Kw",
+          "video_url": "https://www.youtube.com/watch?v=TUVcZfQe-Kw",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "TUVcZfQe-Kw",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "TUVcZfQe-Kw",
+              "source_url": "https://www.youtube.com/watch?v=TUVcZfQe-Kw",
+              "rank": 1,
+              "title": "Dua Lipa - Levitating Featuring DaBaby (Official Music Video)",
+              "channel": "Dua Lipa",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "WHuBW3qKm9g",
+          "video_url": "https://www.youtube.com/watch?v=WHuBW3qKm9g",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "WHuBW3qKm9g",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "WHuBW3qKm9g",
+              "source_url": "https://www.youtube.com/watch?v=WHuBW3qKm9g",
+              "rank": 5,
+              "title": "Dua Lipa - Levitating (Official Lyrics Video)",
+              "channel": "Dua Lipa",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "miP66ukUkTw",
+          "video_url": "https://www.youtube.com/watch?v=miP66ukUkTw",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "miP66ukUkTw",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "miP66ukUkTw",
+              "source_url": "https://www.youtube.com/watch?v=miP66ukUkTw",
+              "rank": 3,
+              "title": "Dua Lipa - Levitating (Solo Version, NO DaBaby) [Music Video]",
+              "channel": "Music Gems",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "ovG2QwiObhk",
+          "video_url": "https://www.youtube.com/watch?v=ovG2QwiObhk",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "ovG2QwiObhk",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "ovG2QwiObhk",
+              "source_url": "https://www.youtube.com/watch?v=ovG2QwiObhk",
+              "rank": 4,
+              "title": "Dua Lipa - Levitating (Lyrics)",
+              "channel": "MusiCat",
+              "title_match": true
+            }
+          ]
+        }
+      ],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C025",
+      "title": "As It Was",
+      "artist": "Harry Styles",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C026",
+      "title": "Watermelon Sugar",
+      "artist": "Harry Styles",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "COMPLETE"
+      },
+      "candidates": [
+        {
+          "video_id": "7-x3uD5z1bQ",
+          "video_url": "https://www.youtube.com/watch?v=7-x3uD5z1bQ",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "7-x3uD5z1bQ",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "7-x3uD5z1bQ",
+              "source_url": "https://www.youtube.com/watch?v=7-x3uD5z1bQ",
+              "rank": 3,
+              "title": "Harry Styles - Watermelon Sugar (Official Audio)",
+              "channel": "Harry Styles",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "E07s5ZYygMg",
+          "video_url": "https://www.youtube.com/watch?v=E07s5ZYygMg",
+          "independent_sources": [
+            "MUSICBRAINZ",
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 2,
+          "evidence": [
+            {
+              "video_id": "E07s5ZYygMg",
+              "source": "MUSICBRAINZ",
+              "source_record_id": "a4318e30-2496-4c5b-a4e6-d8a610d16c1e",
+              "source_url": "https://musicbrainz.org/recording/a4318e30-2496-4c5b-a4e6-d8a610d16c1e",
+              "title": "Watermelon Sugar",
+              "artist": "Harry Styles"
+            },
+            {
+              "video_id": "E07s5ZYygMg",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "E07s5ZYygMg",
+              "source_url": "https://www.youtube.com/watch?v=E07s5ZYygMg",
+              "rank": 1,
+              "title": "Harry Styles - Watermelon Sugar (Official Video)",
+              "channel": "Harry Styles",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "Xz7Y3GH7Tso",
+          "video_url": "https://www.youtube.com/watch?v=Xz7Y3GH7Tso",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "Xz7Y3GH7Tso",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "Xz7Y3GH7Tso",
+              "source_url": "https://www.youtube.com/watch?v=Xz7Y3GH7Tso",
+              "rank": 2,
+              "title": "Harry Styles   Watermelon Sugar Official Video",
+              "channel": "Shamrock Restaurant",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "dZwffaluIgg",
+          "video_url": "https://www.youtube.com/watch?v=dZwffaluIgg",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "dZwffaluIgg",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "dZwffaluIgg",
+              "source_url": "https://www.youtube.com/watch?v=dZwffaluIgg",
+              "rank": 4,
+              "title": "Harry Styles - Watermelon Sugar (Lyrics)",
+              "channel": "Dan Music",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "zhjBetvgQXA",
+          "video_url": "https://www.youtube.com/watch?v=zhjBetvgQXA",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "zhjBetvgQXA",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "zhjBetvgQXA",
+              "source_url": "https://www.youtube.com/watch?v=zhjBetvgQXA",
+              "rank": 5,
+              "title": "Harry Styles - Watermelon Sugar (Official Video Teaser)",
+              "channel": "Harry Styles",
+              "title_match": true
+            }
+          ]
+        }
+      ],
+      "resolution_status": "AUTO_VERIFIED_CROSS_SOURCE",
+      "selected_video_id": "E07s5ZYygMg",
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C027",
+      "title": "Shallow",
+      "artist": "Lady Gaga",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C028",
+      "title": "Perfect",
+      "artist": "Ed Sheeran",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C029",
+      "title": "Thinking Out Loud",
+      "artist": "Ed Sheeran",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C030",
+      "title": "Stay With Me",
+      "artist": "Sam Smith",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C031",
+      "title": "Halo",
+      "artist": "Beyoncé",
+      "provider_status": {
+        "MUSICBRAINZ": "FAILED_IdentityResolverError",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C032",
+      "title": "Crazy in Love",
+      "artist": "Beyoncé",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C033",
+      "title": "Umbrella",
+      "artist": "Rihanna",
+      "provider_status": {
+        "MUSICBRAINZ": "FAILED_IdentityResolverError",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C034",
+      "title": "Diamonds",
+      "artist": "Rihanna",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "COMPLETE"
+      },
+      "candidates": [
+        {
+          "video_id": "0-p5EbAsxUM",
+          "video_url": "https://www.youtube.com/watch?v=0-p5EbAsxUM",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "0-p5EbAsxUM",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "0-p5EbAsxUM",
+              "source_url": "https://www.youtube.com/watch?v=0-p5EbAsxUM",
+              "rank": 4,
+              "title": "Rihanna - Diamonds",
+              "channel": "LatinHype",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "LyKYV_7vs6k",
+          "video_url": "https://www.youtube.com/watch?v=LyKYV_7vs6k",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "LyKYV_7vs6k",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "LyKYV_7vs6k",
+              "source_url": "https://www.youtube.com/watch?v=LyKYV_7vs6k",
+              "rank": 2,
+              "title": "Rihanna - Diamonds HD (Official Video)",
+              "channel": "PremiunMusicHD",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "SZGgjpjnzOs",
+          "video_url": "https://www.youtube.com/watch?v=SZGgjpjnzOs",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "SZGgjpjnzOs",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "SZGgjpjnzOs",
+              "source_url": "https://www.youtube.com/watch?v=SZGgjpjnzOs",
+              "rank": 5,
+              "title": "Rihanna - Diamonds (Lyrics) \"Shine bright like a diamond, We're beautiful, like diamonds in the sky\"",
+              "channel": "7clouds",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "fIeKy8mD-1k",
+          "video_url": "https://www.youtube.com/watch?v=fIeKy8mD-1k",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "fIeKy8mD-1k",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "fIeKy8mD-1k",
+              "source_url": "https://www.youtube.com/watch?v=fIeKy8mD-1k",
+              "rank": 3,
+              "title": "Diamonds - Rihanna (written by Sia) | One Voice Children's Choir | Kids Cover (Official Music Video)",
+              "channel": "One Voice Children's Choir",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "lWA2pjMjpBs",
+          "video_url": "https://www.youtube.com/watch?v=lWA2pjMjpBs",
+          "independent_sources": [
+            "MUSICBRAINZ",
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 2,
+          "evidence": [
+            {
+              "video_id": "lWA2pjMjpBs",
+              "source": "MUSICBRAINZ",
+              "source_record_id": "8167c0cc-afb9-470c-987f-883625777610",
+              "source_url": "https://musicbrainz.org/recording/8167c0cc-afb9-470c-987f-883625777610",
+              "title": "Diamonds",
+              "artist": "Rihanna"
+            },
+            {
+              "video_id": "lWA2pjMjpBs",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "lWA2pjMjpBs",
+              "source_url": "https://www.youtube.com/watch?v=lWA2pjMjpBs",
+              "rank": 1,
+              "title": "Rihanna - Diamonds",
+              "channel": "Rihanna",
+              "title_match": true
+            }
+          ]
+        }
+      ],
+      "resolution_status": "AUTO_VERIFIED_CROSS_SOURCE",
+      "selected_video_id": "lWA2pjMjpBs",
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C035",
+      "title": "Toxic",
+      "artist": "Britney Spears",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C036",
+      "title": "...Baby One More Time",
+      "artist": "Britney Spears",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "COMPLETE"
+      },
+      "candidates": [
+        {
+          "video_id": "C-u5WLJ9Yk4",
+          "video_url": "https://www.youtube.com/watch?v=C-u5WLJ9Yk4",
+          "independent_sources": [
+            "MUSICBRAINZ",
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 2,
+          "evidence": [
+            {
+              "video_id": "C-u5WLJ9Yk4",
+              "source": "MUSICBRAINZ",
+              "source_record_id": "d181941c-3e24-49f8-bb87-d3cc7c46ba9f",
+              "source_url": "https://musicbrainz.org/recording/d181941c-3e24-49f8-bb87-d3cc7c46ba9f",
+              "title": "…Baby One More Time",
+              "artist": "Britney Spears"
+            },
+            {
+              "video_id": "C-u5WLJ9Yk4",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "C-u5WLJ9Yk4",
+              "source_url": "https://www.youtube.com/watch?v=C-u5WLJ9Yk4",
+              "rank": 1,
+              "title": "Britney Spears - ...Baby One More Time (Official Video)",
+              "channel": "Britney Spears",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "CduA0TULnow",
+          "video_url": "https://www.youtube.com/watch?v=CduA0TULnow",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "CduA0TULnow",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "CduA0TULnow",
+              "source_url": "https://www.youtube.com/watch?v=CduA0TULnow",
+              "rank": 2,
+              "title": "Britney Spears - Oops!...I Did It Again (Official HD Video)",
+              "channel": "Britney Spears",
+              "title_match": false
+            }
+          ]
+        },
+        {
+          "video_id": "hitIxB22QcI",
+          "video_url": "https://www.youtube.com/watch?v=hitIxB22QcI",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "hitIxB22QcI",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "hitIxB22QcI",
+              "source_url": "https://www.youtube.com/watch?v=hitIxB22QcI",
+              "rank": 3,
+              "title": "Britney Spears - ...Baby One More Time (Official Audio)",
+              "channel": "Nielson Lucas",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "kAJz7c97Cyo",
+          "video_url": "https://www.youtube.com/watch?v=kAJz7c97Cyo",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "kAJz7c97Cyo",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "kAJz7c97Cyo",
+              "source_url": "https://www.youtube.com/watch?v=kAJz7c97Cyo",
+              "rank": 4,
+              "title": "Britney Spears - Baby One More Time (Lyrics)",
+              "channel": "7clouds",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "nT2NsKhKsYs",
+          "video_url": "https://www.youtube.com/watch?v=nT2NsKhKsYs",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "nT2NsKhKsYs",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "nT2NsKhKsYs",
+              "source_url": "https://www.youtube.com/watch?v=nT2NsKhKsYs",
+              "rank": 5,
+              "title": "Britney Spears Performs \"Baby One More Time\" | 1999 VMAs",
+              "channel": "MTV",
+              "title_match": true
+            }
+          ]
+        }
+      ],
+      "resolution_status": "AUTO_VERIFIED_CROSS_SOURCE",
+      "selected_video_id": "C-u5WLJ9Yk4",
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C037",
+      "title": "Since U Been Gone",
+      "artist": "Kelly Clarkson",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "COMPLETE"
+      },
+      "candidates": [
+        {
+          "video_id": "E5Lt9MHuUNc",
+          "video_url": "https://www.youtube.com/watch?v=E5Lt9MHuUNc",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "E5Lt9MHuUNc",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "E5Lt9MHuUNc",
+              "source_url": "https://www.youtube.com/watch?v=E5Lt9MHuUNc",
+              "rank": 4,
+              "title": "Kelly Clarkson - Since U Been Gone",
+              "channel": "RockHype",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "QY66CxUYFHg",
+          "video_url": "https://www.youtube.com/watch?v=QY66CxUYFHg",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "QY66CxUYFHg",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "QY66CxUYFHg",
+              "source_url": "https://www.youtube.com/watch?v=QY66CxUYFHg",
+              "rank": 3,
+              "title": "Kelly Clarkson - Since U Been Gone | MTV Video Music Awards 2005 (4K)",
+              "channel": "Silas Oliveira ©",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "R7UrFYvl5TE",
+          "video_url": "https://www.youtube.com/watch?v=R7UrFYvl5TE",
+          "independent_sources": [
+            "MUSICBRAINZ"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "R7UrFYvl5TE",
+              "source": "MUSICBRAINZ",
+              "source_record_id": "c7b76f7e-d1dc-4881-8313-1ccd18cbe108",
+              "source_url": "https://musicbrainz.org/recording/c7b76f7e-d1dc-4881-8313-1ccd18cbe108",
+              "title": "Since U Been Gone",
+              "artist": "Kelly Clarkson"
+            }
+          ]
+        },
+        {
+          "video_id": "cfmRtPQu8Qk",
+          "video_url": "https://www.youtube.com/watch?v=cfmRtPQu8Qk",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "cfmRtPQu8Qk",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "cfmRtPQu8Qk",
+              "source_url": "https://www.youtube.com/watch?v=cfmRtPQu8Qk",
+              "rank": 5,
+              "title": "Since U Been Gone - Kelly Clarkson",
+              "channel": "MuzicStrikeTv",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "eRlsE9bD7HM",
+          "video_url": "https://www.youtube.com/watch?v=eRlsE9bD7HM",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "eRlsE9bD7HM",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "eRlsE9bD7HM",
+              "source_url": "https://www.youtube.com/watch?v=eRlsE9bD7HM",
+              "rank": 1,
+              "title": "Kelly Clarkson - Since U Been Gone (Remastered 1080p)",
+              "channel": "RicDiOlive",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "syLb04NsLwY",
+          "video_url": "https://www.youtube.com/watch?v=syLb04NsLwY",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "syLb04NsLwY",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "syLb04NsLwY",
+              "source_url": "https://www.youtube.com/watch?v=syLb04NsLwY",
+              "rank": 2,
+              "title": "Kelly Clarkson - Since U Been Gone Official Music Video",
+              "channel": "Bad Boy Edd",
+              "title_match": true
+            }
+          ]
+        }
+      ],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C038",
+      "title": "Firework",
+      "artist": "Katy Perry",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "COMPLETE"
+      },
+      "candidates": [
+        {
+          "video_id": "2_PBpSirt3M",
+          "video_url": "https://www.youtube.com/watch?v=2_PBpSirt3M",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "2_PBpSirt3M",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "2_PBpSirt3M",
+              "source_url": "https://www.youtube.com/watch?v=2_PBpSirt3M",
+              "rank": 4,
+              "title": "Katy Perry - Firework (Lyrics)",
+              "channel": "TikTokHymn",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "ISvCx_3e414",
+          "video_url": "https://www.youtube.com/watch?v=ISvCx_3e414",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "ISvCx_3e414",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "ISvCx_3e414",
+              "source_url": "https://www.youtube.com/watch?v=ISvCx_3e414",
+              "rank": 3,
+              "title": "Katy Perry Firework (Official Music Video)",
+              "channel": "Top YouTube Music (T.Y.T.Msc.)",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "QGJuMBdaqIw",
+          "video_url": "https://www.youtube.com/watch?v=QGJuMBdaqIw",
+          "independent_sources": [
+            "MUSICBRAINZ",
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 2,
+          "evidence": [
+            {
+              "video_id": "QGJuMBdaqIw",
+              "source": "MUSICBRAINZ",
+              "source_record_id": "52442b05-8fe5-46f3-a836-407ce30c8dd9",
+              "source_url": "https://musicbrainz.org/recording/52442b05-8fe5-46f3-a836-407ce30c8dd9",
+              "title": "Firework",
+              "artist": "Katy Perry"
+            },
+            {
+              "video_id": "QGJuMBdaqIw",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "QGJuMBdaqIw",
+              "source_url": "https://www.youtube.com/watch?v=QGJuMBdaqIw",
+              "rank": 1,
+              "title": "Katy Perry - Firework (Official Music Video)",
+              "channel": "Katy Perry",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "S5EJkDpvWrE",
+          "video_url": "https://www.youtube.com/watch?v=S5EJkDpvWrE",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "S5EJkDpvWrE",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "S5EJkDpvWrE",
+              "source_url": "https://www.youtube.com/watch?v=S5EJkDpvWrE",
+              "rank": 2,
+              "title": "Katy Perry - Firework (Official Video) [4K Remastered]",
+              "channel": "MASTER RJ",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "s2KtzWvoYCw",
+          "video_url": "https://www.youtube.com/watch?v=s2KtzWvoYCw",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "s2KtzWvoYCw",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "s2KtzWvoYCw",
+              "source_url": "https://www.youtube.com/watch?v=s2KtzWvoYCw",
+              "rank": 5,
+              "title": "Katy Perry Firework - the REAL music video!!!",
+              "channel": "Devon Parks",
+              "title_match": true
+            }
+          ]
+        }
+      ],
+      "resolution_status": "AUTO_VERIFIED_CROSS_SOURCE",
+      "selected_video_id": "QGJuMBdaqIw",
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C039",
+      "title": "Roar",
+      "artist": "Katy Perry",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C040",
+      "title": "Just the Way You Are",
+      "artist": "Bruno Mars",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "COMPLETE"
+      },
+      "candidates": [
+        {
+          "video_id": "E-UJTGXof6Q",
+          "video_url": "https://www.youtube.com/watch?v=E-UJTGXof6Q",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "E-UJTGXof6Q",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "E-UJTGXof6Q",
+              "source_url": "https://www.youtube.com/watch?v=E-UJTGXof6Q",
+              "rank": 4,
+              "title": "Bruno Mars - Just The Way You Are (Audio)",
+              "channel": "MusicHearing",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "LjhCEhWiKXk",
+          "video_url": "https://www.youtube.com/watch?v=LjhCEhWiKXk",
+          "independent_sources": [
+            "MUSICBRAINZ",
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 2,
+          "evidence": [
+            {
+              "video_id": "LjhCEhWiKXk",
+              "source": "MUSICBRAINZ",
+              "source_record_id": "f3334d3c-2fed-4104-995e-cd1f37234f6f",
+              "source_url": "https://musicbrainz.org/recording/f3334d3c-2fed-4104-995e-cd1f37234f6f",
+              "title": "Just the Way You Are",
+              "artist": "Bruno Mars"
+            },
+            {
+              "video_id": "LjhCEhWiKXk",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "LjhCEhWiKXk",
+              "source_url": "https://www.youtube.com/watch?v=LjhCEhWiKXk",
+              "rank": 1,
+              "title": "Bruno Mars - Just The Way You Are (Official Music Video)",
+              "channel": "Bruno Mars",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "cSK1bwikHCg",
+          "video_url": "https://www.youtube.com/watch?v=cSK1bwikHCg",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "cSK1bwikHCg",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "cSK1bwikHCg",
+              "source_url": "https://www.youtube.com/watch?v=cSK1bwikHCg",
+              "rank": 5,
+              "title": "Bruno Mars - Just the Way You Are (Remix) [feat. Lupe Fiasco] [Official Lyric Video]",
+              "channel": "Bruno Mars",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "r-s8R6jQjdc",
+          "video_url": "https://www.youtube.com/watch?v=r-s8R6jQjdc",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "r-s8R6jQjdc",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "r-s8R6jQjdc",
+              "source_url": "https://www.youtube.com/watch?v=r-s8R6jQjdc",
+              "rank": 3,
+              "title": "Bruno Mars - The Making Of The Just The Way You Are (Official Video)",
+              "channel": "Bruno Mars",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "u7XjPmN-tHw",
+          "video_url": "https://www.youtube.com/watch?v=u7XjPmN-tHw",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "u7XjPmN-tHw",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "u7XjPmN-tHw",
+              "source_url": "https://www.youtube.com/watch?v=u7XjPmN-tHw",
+              "rank": 2,
+              "title": "Bruno Mars - Just The Way You Are (Lyrics)",
+              "channel": "Dan Music",
+              "title_match": true
+            }
+          ]
+        }
+      ],
+      "resolution_status": "AUTO_VERIFIED_CROSS_SOURCE",
+      "selected_video_id": "LjhCEhWiKXk",
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C041",
+      "title": "Locked Out of Heaven",
+      "artist": "Bruno Mars",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "COMPLETE"
+      },
+      "candidates": [
+        {
+          "video_id": "13oXf68zRcM",
+          "video_url": "https://www.youtube.com/watch?v=13oXf68zRcM",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "13oXf68zRcM",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "13oXf68zRcM",
+              "source_url": "https://www.youtube.com/watch?v=13oXf68zRcM",
+              "rank": 2,
+              "title": "Bruno Mars - Locked Out Of Heaven (from La Maroquinerie in Paris) (Official Live Performance)",
+              "channel": "Bruno Mars",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "Bgn_Um3U91E",
+          "video_url": "https://www.youtube.com/watch?v=Bgn_Um3U91E",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "Bgn_Um3U91E",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "Bgn_Um3U91E",
+              "source_url": "https://www.youtube.com/watch?v=Bgn_Um3U91E",
+              "rank": 4,
+              "title": "Bruno Mars - Locked Out of Heaven [THE MUSIC DAY 2026 Live Performance]",
+              "channel": "Bruno Mars",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "OK_b2-w0u60",
+          "video_url": "https://www.youtube.com/watch?v=OK_b2-w0u60",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "OK_b2-w0u60",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "OK_b2-w0u60",
+              "source_url": "https://www.youtube.com/watch?v=OK_b2-w0u60",
+              "rank": 3,
+              "title": "Bruno Mars - Locked Out Of Heaven",
+              "channel": "LatinHype",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "RQFRjP_vYmM",
+          "video_url": "https://www.youtube.com/watch?v=RQFRjP_vYmM",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "RQFRjP_vYmM",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "RQFRjP_vYmM",
+              "source_url": "https://www.youtube.com/watch?v=RQFRjP_vYmM",
+              "rank": 5,
+              "title": "Bruno Mars - Locked Out Of Heaven | Lyrics",
+              "channel": "Sunset Sounds",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "e-fA-gBCkj0",
+          "video_url": "https://www.youtube.com/watch?v=e-fA-gBCkj0",
+          "independent_sources": [
+            "MUSICBRAINZ",
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 2,
+          "evidence": [
+            {
+              "video_id": "e-fA-gBCkj0",
+              "source": "MUSICBRAINZ",
+              "source_record_id": "9dbd4c26-c4ad-4abe-ba3e-88bfe6750518",
+              "source_url": "https://musicbrainz.org/recording/9dbd4c26-c4ad-4abe-ba3e-88bfe6750518",
+              "title": "Locked Out of Heaven",
+              "artist": "Bruno Mars"
+            },
+            {
+              "video_id": "e-fA-gBCkj0",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "e-fA-gBCkj0",
+              "source_url": "https://www.youtube.com/watch?v=e-fA-gBCkj0",
+              "rank": 1,
+              "title": "Bruno Mars - Locked Out Of Heaven (Official Music Video)",
+              "channel": "Bruno Mars",
+              "title_match": true
+            }
+          ]
+        }
+      ],
+      "resolution_status": "AUTO_VERIFIED_CROSS_SOURCE",
+      "selected_video_id": "e-fA-gBCkj0",
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C042",
+      "title": "Happy",
+      "artist": "Pharrell Williams",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C043",
+      "title": "Get Lucky",
+      "artist": "Daft Punk",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C044",
+      "title": "Can't Stop the Feeling!",
+      "artist": "Justin Timberlake",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C045",
+      "title": "Counting Stars",
+      "artist": "OneRepublic",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C046",
+      "title": "Radioactive",
+      "artist": "Imagine Dragons",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C047",
+      "title": "Demons",
+      "artist": "Imagine Dragons",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "COMPLETE"
+      },
+      "candidates": [
+        {
+          "video_id": "MA0aCUxItYA",
+          "video_url": "https://www.youtube.com/watch?v=MA0aCUxItYA",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "MA0aCUxItYA",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "MA0aCUxItYA",
+              "source_url": "https://www.youtube.com/watch?v=MA0aCUxItYA",
+              "rank": 5,
+              "title": "Imagine Dragons - Demons (Lyrics)",
+              "channel": "7clouds",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "_YRUYdTQ8kQ",
+          "video_url": "https://www.youtube.com/watch?v=_YRUYdTQ8kQ",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "_YRUYdTQ8kQ",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "_YRUYdTQ8kQ",
+              "source_url": "https://www.youtube.com/watch?v=_YRUYdTQ8kQ",
+              "rank": 2,
+              "title": "Demons - Imagine Dragons (Official Music Video Original FULL HD) Play7Gamer",
+              "channel": "Lennodge",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "mWRsgZuwf_8",
+          "video_url": "https://www.youtube.com/watch?v=mWRsgZuwf_8",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "mWRsgZuwf_8",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "mWRsgZuwf_8",
+              "source_url": "https://www.youtube.com/watch?v=mWRsgZuwf_8",
+              "rank": 1,
+              "title": "Imagine Dragons - Demons (Official Music Video)",
+              "channel": "ImagineDragons",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "orhJ1TzREZU",
+          "video_url": "https://www.youtube.com/watch?v=orhJ1TzREZU",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "orhJ1TzREZU",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "orhJ1TzREZU",
+              "source_url": "https://www.youtube.com/watch?v=orhJ1TzREZU",
+              "rank": 4,
+              "title": "Demons by Imagine Dragons Music Video",
+              "channel": "Change Is",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "pvrkfb1C4tE",
+          "video_url": "https://www.youtube.com/watch?v=pvrkfb1C4tE",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "pvrkfb1C4tE",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "pvrkfb1C4tE",
+              "source_url": "https://www.youtube.com/watch?v=pvrkfb1C4tE",
+              "rank": 3,
+              "title": "Imagine Dragons - Demons (Lyric Video)",
+              "channel": "ImagineDragons",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "y4FiCl-tUJc",
+          "video_url": "https://www.youtube.com/watch?v=y4FiCl-tUJc",
+          "independent_sources": [
+            "MUSICBRAINZ"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "y4FiCl-tUJc",
+              "source": "MUSICBRAINZ",
+              "source_record_id": "87dede50-097f-4064-9a9b-bd4851363971",
+              "source_url": "https://musicbrainz.org/recording/87dede50-097f-4064-9a9b-bd4851363971",
+              "title": "Demons",
+              "artist": "Imagine Dragons"
+            }
+          ]
+        }
+      ],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C048",
+      "title": "Chandelier",
+      "artist": "Sia",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "COMPLETE"
+      },
+      "candidates": [
+        {
+          "video_id": "2vjPBrBU-TM",
+          "video_url": "https://www.youtube.com/watch?v=2vjPBrBU-TM",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "2vjPBrBU-TM",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "2vjPBrBU-TM",
+              "source_url": "https://www.youtube.com/watch?v=2vjPBrBU-TM",
+              "rank": 1,
+              "title": "Sia - Chandelier (Official Video)",
+              "channel": "Sia",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "8DS-h67qEiY",
+          "video_url": "https://www.youtube.com/watch?v=8DS-h67qEiY",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "8DS-h67qEiY",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "8DS-h67qEiY",
+              "source_url": "https://www.youtube.com/watch?v=8DS-h67qEiY",
+              "rank": 2,
+              "title": "Sia - Chandelier (Official Lyric Video)",
+              "channel": "Sia",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "8Hg_rIqOZHc",
+          "video_url": "https://www.youtube.com/watch?v=8Hg_rIqOZHc",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "8Hg_rIqOZHc",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "8Hg_rIqOZHc",
+              "source_url": "https://www.youtube.com/watch?v=8Hg_rIqOZHc",
+              "rank": 4,
+              "title": "Sia - Chandelier (Live on SNL)",
+              "channel": "Sia",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "ILTZ8qZbNK0",
+          "video_url": "https://www.youtube.com/watch?v=ILTZ8qZbNK0",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "ILTZ8qZbNK0",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "ILTZ8qZbNK0",
+              "source_url": "https://www.youtube.com/watch?v=ILTZ8qZbNK0",
+              "rank": 3,
+              "title": "Sia Performs 'Chandelier'",
+              "channel": "TheEllenShow",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "KWZGAExj-es",
+          "video_url": "https://www.youtube.com/watch?v=KWZGAExj-es",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "KWZGAExj-es",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "KWZGAExj-es",
+              "source_url": "https://www.youtube.com/watch?v=KWZGAExj-es",
+              "rank": 5,
+              "title": "Sia - Elastic Heart feat. Shia LaBeouf & Maddie Ziegler (Official Video)",
+              "channel": "Sia",
+              "title_match": false
+            }
+          ]
+        },
+        {
+          "video_id": "wEhVCG8Emfo",
+          "video_url": "https://www.youtube.com/watch?v=wEhVCG8Emfo",
+          "independent_sources": [
+            "MUSICBRAINZ"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "wEhVCG8Emfo",
+              "source": "MUSICBRAINZ",
+              "source_record_id": "852536e7-4fad-43d6-baa4-1e33e0b2cde2",
+              "source_url": "https://musicbrainz.org/recording/852536e7-4fad-43d6-baa4-1e33e0b2cde2",
+              "title": "Chandelier",
+              "artist": "Sia"
+            }
+          ]
+        }
+      ],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C049",
+      "title": "Cheap Thrills",
+      "artist": "Sia",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C050",
+      "title": "Titanium",
+      "artist": "David Guetta",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C051",
+      "title": "Take on Me",
+      "artist": "a-ha",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C052",
+      "title": "Africa",
+      "artist": "Toto",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C053",
+      "title": "Sweet Dreams (Are Made of This)",
+      "artist": "Eurythmics",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C054",
+      "title": "Girls Just Want to Have Fun",
+      "artist": "Cyndi Lauper",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C055",
+      "title": "Like a Prayer",
+      "artist": "Madonna",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C056",
+      "title": "I Wanna Dance with Somebody",
+      "artist": "Whitney Houston",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C057",
+      "title": "Careless Whisper",
+      "artist": "George Michael",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C058",
+      "title": "Wake Me Up Before You Go-Go",
+      "artist": "Wham!",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C059",
+      "title": "The Power of Love",
+      "artist": "Huey Lewis and the News",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C060",
+      "title": "Time After Time",
+      "artist": "Cyndi Lauper",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C061",
+      "title": "Another One Bites the Dust",
+      "artist": "Queen",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C062",
+      "title": "Don't Stop Me Now",
+      "artist": "Queen",
+      "provider_status": {
+        "MUSICBRAINZ": "FAILED_IdentityResolverError",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C063",
+      "title": "Sweet Child o' Mine",
+      "artist": "Guns N' Roses",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C064",
+      "title": "November Rain",
+      "artist": "Guns N' Roses",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C065",
+      "title": "Don't Stop Believin'",
+      "artist": "Journey",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C066",
+      "title": "Eye of the Tiger",
+      "artist": "Survivor",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C067",
+      "title": "With or Without You",
+      "artist": "U2",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C068",
+      "title": "I Still Haven't Found What I'm Looking For",
+      "artist": "U2",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C069",
+      "title": "Zombie",
+      "artist": "The Cranberries",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C070",
+      "title": "Creep",
+      "artist": "Radiohead",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C071",
+      "title": "Losing My Religion",
+      "artist": "R.E.M.",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C072",
+      "title": "Nothing Else Matters",
+      "artist": "Metallica",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C073",
+      "title": "Enter Sandman",
+      "artist": "Metallica",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C074",
+      "title": "Californication",
+      "artist": "Red Hot Chili Peppers",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C075",
+      "title": "Under the Bridge",
+      "artist": "Red Hot Chili Peppers",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C076",
+      "title": "Numb",
+      "artist": "Linkin Park",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C077",
+      "title": "In the End",
+      "artist": "Linkin Park",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C078",
+      "title": "Bring Me to Life",
+      "artist": "Evanescence",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C079",
+      "title": "Boulevard of Broken Dreams",
+      "artist": "Green Day",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C080",
+      "title": "Mr. Brightside",
+      "artist": "The Killers",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C081",
+      "title": "La Camisa Negra",
+      "artist": "Juanes",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C082",
+      "title": "A Dios le Pido",
+      "artist": "Juanes",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C083",
+      "title": "Hips Don't Lie",
+      "artist": "Shakira",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C084",
+      "title": "Waka Waka (This Time for Africa)",
+      "artist": "Shakira",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C085",
+      "title": "La Tortura",
+      "artist": "Shakira",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C086",
+      "title": "Felices los 4",
+      "artist": "Maluma",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C087",
+      "title": "Hawái",
+      "artist": "Maluma",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C088",
+      "title": "Tusa",
+      "artist": "KAROL G",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "COMPLETE"
+      },
+      "candidates": [
+        {
+          "video_id": "BliBqF7_pFE",
+          "video_url": "https://www.youtube.com/watch?v=BliBqF7_pFE",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "BliBqF7_pFE",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "BliBqF7_pFE",
+              "source_url": "https://www.youtube.com/watch?v=BliBqF7_pFE",
+              "rank": 3,
+              "title": "KAROL G, Nicki Minaj - Tusa (Official Video)",
+              "channel": "Karol G",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "F1vVR51ZINs",
+          "video_url": "https://www.youtube.com/watch?v=F1vVR51ZINs",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "F1vVR51ZINs",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "F1vVR51ZINs",
+              "source_url": "https://www.youtube.com/watch?v=F1vVR51ZINs",
+              "rank": 5,
+              "title": "Tusa (Letra/Lyrics) - Karol G, Nicki Minaj",
+              "channel": "Fans Music",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "HND7qHLpyUI",
+          "video_url": "https://www.youtube.com/watch?v=HND7qHLpyUI",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "HND7qHLpyUI",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "HND7qHLpyUI",
+              "source_url": "https://www.youtube.com/watch?v=HND7qHLpyUI",
+              "rank": 4,
+              "title": "KAROL G, Nicki Minaj - Tusa (Official Lyric Video)",
+              "channel": "KAROL G",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "kpNrHsqSMAs",
+          "video_url": "https://www.youtube.com/watch?v=kpNrHsqSMAs",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "evidence": [
+            {
+              "video_id": "kpNrHsqSMAs",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "kpNrHsqSMAs",
+              "source_url": "https://www.youtube.com/watch?v=kpNrHsqSMAs",
+              "rank": 2,
+              "title": "KAROL G, Nicki Minaj - Tusa (Lyrics / Letra)",
+              "channel": "7clouds",
+              "title_match": true
+            }
+          ]
+        },
+        {
+          "video_id": "tbneQDc2H3I",
+          "video_url": "https://www.youtube.com/watch?v=tbneQDc2H3I",
+          "independent_sources": [
+            "MUSICBRAINZ",
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 2,
+          "evidence": [
+            {
+              "video_id": "tbneQDc2H3I",
+              "source": "MUSICBRAINZ",
+              "source_record_id": "29f2c9dc-620d-44ea-97e6-94d7ad93ecc8",
+              "source_url": "https://musicbrainz.org/recording/29f2c9dc-620d-44ea-97e6-94d7ad93ecc8",
+              "title": "Tusa",
+              "artist": "Karol G Nicki Minaj"
+            },
+            {
+              "video_id": "tbneQDc2H3I",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "tbneQDc2H3I",
+              "source_url": "https://www.youtube.com/watch?v=tbneQDc2H3I",
+              "rank": 1,
+              "title": "KAROL G, Nicki Minaj - Tusa (Official Video)",
+              "channel": "KAROL G",
+              "title_match": true
+            }
+          ]
+        }
+      ],
+      "resolution_status": "AUTO_VERIFIED_CROSS_SOURCE",
+      "selected_video_id": "tbneQDc2H3I",
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C089",
+      "title": "PROVENZA",
+      "artist": "KAROL G",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C090",
+      "title": "Vivir Mi Vida",
+      "artist": "Marc Anthony",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C091",
+      "title": "La Vida Es un Carnaval",
+      "artist": "Celia Cruz",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C092",
+      "title": "Corazón Espinado",
+      "artist": "Santana",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C093",
+      "title": "Rayando el Sol",
+      "artist": "Maná",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C094",
+      "title": "Eres",
+      "artist": "Café Tacvba",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C095",
+      "title": "Me Rehúso",
+      "artist": "Danny Ocean",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C096",
+      "title": "Robarte un Beso",
+      "artist": "Carlos Vives",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C097",
+      "title": "Colgando en Tus Manos",
+      "artist": "Carlos Baute",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C098",
+      "title": "La Bicicleta",
+      "artist": "Carlos Vives",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C099",
+      "title": "DÁKITI",
+      "artist": "Bad Bunny",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    },
+    {
+      "case_id": "C100",
+      "title": "Ojitos Lindos",
+      "artist": "Bad Bunny",
+      "provider_status": {
+        "MUSICBRAINZ": "COMPLETE",
+        "WIKIDATA": "COMPLETE",
+        "YTDLP_SEARCH": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+      },
+      "candidates": [],
+      "resolution_status": "IDENTITY_REVIEW_PENDING",
+      "selected_video_id": null,
+      "scientific_d_unlocked": false
+    }
+  ],
+  "automatic_single_source_promotion": false,
+  "scientific_d_unlocked": false
+}

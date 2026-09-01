@@ -1,6 +1,6 @@
 {
   "schema": "HOOKLAB_YOUTUBE_VIDEO_IDENTITY_MAP_v0.1",
-  "status": "PARTIAL_IDENTITY_REVIEW_4_OF_100",
+  "status": "PARTIAL_IDENTITY_REVIEW_15_OF_100",
   "created_at": "2026-09-01T18:42:11.663988Z",
   "collector_version": "hooklab-youtube-public-metrics-collector-v0.1",
   "source_case_manifest_id": "HOOKLAB-C001-C100-METADATA-2026-09-01-v1",
@@ -13,7 +13,9 @@
       "video_url": "https://www.youtube.com/watch?v=kJQP7kiw5Fk",
       "artifact_role": "PRIMARY_OFFICIAL_MUSIC_VIDEO",
       "identity_review_status": "VERIFIED",
-      "identity_evidence": ["Exact artist/title match; YouTube result identifies Luis Fonsi and Universal Music Latino copyright."]
+      "identity_evidence": [
+        "Exact artist/title match; YouTube result identifies Luis Fonsi and Universal Music Latino copyright."
+      ]
     },
     {
       "case_id": "C002",
@@ -23,7 +25,9 @@
       "video_url": "https://www.youtube.com/watch?v=JGwWNGJdvx8",
       "artifact_role": "PRIMARY_OFFICIAL_MUSIC_VIDEO",
       "identity_review_status": "VERIFIED",
-      "identity_evidence": ["Exact artist/title match; YouTube result title states Official Music Video."]
+      "identity_evidence": [
+        "Exact artist/title match; YouTube result title states Official Music Video."
+      ]
     },
     {
       "case_id": "C003",
@@ -33,7 +37,9 @@
       "video_url": "https://www.youtube.com/watch?v=RgKAFK5djSk",
       "artifact_role": "PRIMARY_OFFICIAL_MUSIC_VIDEO",
       "identity_review_status": "VERIFIED",
-      "identity_evidence": ["Exact artist/featured-artist/title match; YouTube result title states Official Video and Furious 7 soundtrack."]
+      "identity_evidence": [
+        "Exact artist/featured-artist/title match; YouTube result title states Official Video and Furious 7 soundtrack."
+      ]
     },
     {
       "case_id": "C004",
@@ -43,15 +49,22 @@
       "video_url": "https://www.youtube.com/watch?v=9bZkp7q19f0",
       "artifact_role": "PRIMARY_OFFICIAL_MUSIC_VIDEO",
       "identity_review_status": "VERIFIED",
-      "identity_evidence": ["Exact title/artist match; result is the officialpsy M/V artifact."]
+      "identity_evidence": [
+        "Exact title/artist match; result is the officialpsy M/V artifact."
+      ]
     },
     {
       "case_id": "C005",
       "title": "Uptown Funk",
       "artist": "Mark Ronson ft. Bruno Mars",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "OPf0YbXqDm0",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: MUSICBRAINZ, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=OPf0YbXqDm0",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C006",
@@ -129,9 +142,14 @@
       "case_id": "C015",
       "title": "Viva La Vida",
       "artist": "Coldplay",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "9ldOuVuas1c",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: MUSICBRAINZ, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=9ldOuVuas1c",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C016",
@@ -145,9 +163,14 @@
       "case_id": "C017",
       "title": "Someone Like You",
       "artist": "Adele",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "hLQl3WQQoQ0",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: MUSICBRAINZ, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=hLQl3WQQoQ0",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C018",
@@ -177,9 +200,14 @@
       "case_id": "C021",
       "title": "Blinding Lights",
       "artist": "The Weeknd",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "4NRXx6U8ABQ",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: MUSICBRAINZ, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=4NRXx6U8ABQ",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C022",
@@ -217,9 +245,14 @@
       "case_id": "C026",
       "title": "Watermelon Sugar",
       "artist": "Harry Styles",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "E07s5ZYygMg",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: MUSICBRAINZ, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=E07s5ZYygMg",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C027",
@@ -281,9 +314,14 @@
       "case_id": "C034",
       "title": "Diamonds",
       "artist": "Rihanna",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "lWA2pjMjpBs",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: MUSICBRAINZ, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=lWA2pjMjpBs",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C035",
@@ -297,9 +335,14 @@
       "case_id": "C036",
       "title": "...Baby One More Time",
       "artist": "Britney Spears",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "C-u5WLJ9Yk4",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: MUSICBRAINZ, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=C-u5WLJ9Yk4",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C037",
@@ -313,9 +356,14 @@
       "case_id": "C038",
       "title": "Firework",
       "artist": "Katy Perry",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "QGJuMBdaqIw",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: MUSICBRAINZ, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=QGJuMBdaqIw",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C039",
@@ -329,17 +377,27 @@
       "case_id": "C040",
       "title": "Just the Way You Are",
       "artist": "Bruno Mars",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "LjhCEhWiKXk",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: MUSICBRAINZ, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=LjhCEhWiKXk",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C041",
       "title": "Locked Out of Heaven",
       "artist": "Bruno Mars",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "e-fA-gBCkj0",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: MUSICBRAINZ, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=e-fA-gBCkj0",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C042",
@@ -713,9 +771,14 @@
       "case_id": "C088",
       "title": "Tusa",
       "artist": "KAROL G",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "tbneQDc2H3I",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: MUSICBRAINZ, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=tbneQDc2H3I",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C089",
@@ -814,5 +877,7 @@
       "identity_evidence": []
     }
   ],
-  "scientific_d_unlocked": false
+  "scientific_d_unlocked": false,
+  "updated_at": "2026-09-01T20:44:38.833735Z",
+  "identity_resolver_version": "hooklab-open-identity-resolver-v1"
 }
