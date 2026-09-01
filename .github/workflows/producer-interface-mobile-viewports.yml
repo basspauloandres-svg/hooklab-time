@@ -1,0 +1,36 @@
+name: Producer Interface Mobile Viewports
+on:
+  push:
+    branches: ["mie/golden-forensic-v0.3", "release/producer-interface-v0.6", "main"]
+    paths:
+      - "app/prototype_v1/**"
+      - "tests/producer_interface_mobile_viewports.mjs"
+      - ".github/workflows/producer-interface-mobile-viewports.yml"
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "app/prototype_v1/**"
+      - "tests/producer_interface_mobile_viewports.mjs"
+      - ".github/workflows/producer-interface-mobile-viewports.yml"
+  workflow_dispatch:
+jobs:
+  mobile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Install Playwright
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install chromium webkit --with-deps
+      - name: Serve Producer Interface
+        run: |
+          python3 -m http.server 8000 >/tmp/hooklab_mobile_http.log 2>&1 &
+          echo $! >/tmp/hooklab_mobile_http.pid
+          sleep 2
+      - name: Run mobile viewport regression
+        run: timeout 180s node tests/producer_interface_mobile_viewports.mjs
+      - name: Record mobile gate context
+        if: always()
+        run: echo "Touch target minimum enforced at >=36 px; canonical UI currently sets min-height 40 px."

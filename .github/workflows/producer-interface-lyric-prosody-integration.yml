@@ -1,0 +1,28 @@
+name: Producer Interface Lyric Prosody Integration
+on:
+  push:
+    branches: ["mie/golden-forensic-v0.3", "release/producer-interface-v0.6", "main"]
+    paths:
+      - "app/prototype_v1/index.html"
+      - "app/prototype_v1/d0_engine.js"
+      - "app/prototype_v1/lyric_prosody_ui_bridge.js"
+      - "tests/producer_interface_lyric_prosody_integration.js"
+      - ".github/workflows/producer-interface-lyric-prosody-integration.yml"
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "app/prototype_v1/index.html"
+      - "app/prototype_v1/d0_engine.js"
+      - "app/prototype_v1/lyric_prosody_ui_bridge.js"
+      - "tests/producer_interface_lyric_prosody_integration.js"
+      - ".github/workflows/producer-interface-lyric-prosody-integration.yml"
+  workflow_dispatch:
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Run lyric-prosody-MIDI integration regression
+        run: node tests/producer_interface_lyric_prosody_integration.js

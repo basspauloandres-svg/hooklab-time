@@ -1,0 +1,51 @@
+name: Producer Interface D0 Regression
+on:
+  push:
+    branches: ["mie/golden-forensic-v0.3", "release/producer-interface-v0.6", "main"]
+    paths:
+      - "app/prototype_v1/index.html"
+      - "app/prototype_v1/d0_engine.js"
+      - "app/prototype_v1/local_beat_this.js"
+      - "tests/producer_interface_d0_regression.js"
+      - "tests/local_beat_this_contract_test.js"
+      - ".github/workflows/producer-interface-d0-regression.yml"
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "app/prototype_v1/index.html"
+      - "app/prototype_v1/d0_engine.js"
+      - "app/prototype_v1/local_beat_this.js"
+      - "tests/producer_interface_d0_regression.js"
+      - "tests/local_beat_this_contract_test.js"
+      - ".github/workflows/producer-interface-d0-regression.yml"
+  workflow_dispatch:
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Syntax check browser JavaScript
+        run: |
+          node --check app/prototype_v1/d0_engine.js
+          node --check app/prototype_v1/local_beat_this.js
+          python - <<'PY'
+          import re
+          from pathlib import Path
+          s=Path('app/prototype_v1/index.html').read_text()
+          scripts=re.findall(r'<script(?:\s[^>]*)?>(.*?)</script>',s,re.S)
+          inline=[x for x in scripts if x.strip()]
+          assert inline, 'No inline JavaScript found'
+          Path('/tmp/hooklab_inline.js').write_text('\n'.join(inline))
+          PY
+          node --check /tmp/hooklab_inline.js
+      - run: node tests/producer_interface_d0_regression.js
+      - run: node tests/local_beat_this_contract_test.js
+      - name: Static interface contract
+        run: |
+          grep -q 'Producer Interface v0.6' app/prototype_v1/index.html
+          grep -q 'D0_EXPLORATORY != SCIENTIFIC_D' app/prototype_v1/index.html
+          grep -q 'local_beat_this.js' app/prototype_v1/index.html
+          grep -q 'Analizar tempo/beat local' app/prototype_v1/index.html
+          grep -q 'onnxruntime-web@1.29.0' app/prototype_v1/index.html
