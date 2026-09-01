@@ -12,6 +12,8 @@ manifest = {
         {"case_id": "C001", "title": "Preserved", "artist": "Artist"},
         {"case_id": "C002", "title": "Exact Song", "artist": "Artist feat. Guest"},
         {"case_id": "C003", "title": "Ambiguous", "artist": "Artist"},
+        {"case_id": "C004", "title": "Official Choice", "artist": "Artist"},
+        {"case_id": "C005", "title": "Two Variants", "artist": "Artist"},
     ]
 }
 identity_map = {
@@ -19,6 +21,8 @@ identity_map = {
         {"case_id": "C001", "video_id": "preserved01", "identity_review_status": "VERIFIED"},
         {"case_id": "C002", "video_id": None, "identity_review_status": "PENDING"},
         {"case_id": "C003", "video_id": None, "identity_review_status": "PENDING"},
+        {"case_id": "C004", "video_id": None, "identity_review_status": "PENDING"},
+        {"case_id": "C005", "video_id": None, "identity_review_status": "PENDING"},
     ]
 }
 
@@ -26,6 +30,16 @@ identity_map = {
 def musicbrainz(title, artist):
     if title == "Exact Song":
         return [{"video_id": "abcdefghijk", "source": "MUSICBRAINZ", "source_record_id": "mbid"}]
+    if title == "Official Choice":
+        return [
+            {"video_id": "official001", "source": "MUSICBRAINZ", "source_record_id": "mb1"},
+            {"video_id": "topic000001", "source": "MUSICBRAINZ", "source_record_id": "mb2"},
+        ]
+    if title == "Two Variants":
+        return [
+            {"video_id": "variant0001", "source": "MUSICBRAINZ", "source_record_id": "mb3"},
+            {"video_id": "variant0002", "source": "MUSICBRAINZ", "source_record_id": "mb4"},
+        ]
     return []
 
 
@@ -64,6 +78,14 @@ def oembed(video_id, title, artist):
         }
     if video_id == "zyxwvutsrqp":
         return None
+    if video_id == "official001":
+        return {"video_id": video_id, "source": "YOUTUBE_OEMBED", "title": "Artist - Official Choice (Official Music Video)", "title_match": True, "artist_match": True}
+    if video_id == "topic000001":
+        return {"video_id": video_id, "source": "YOUTUBE_OEMBED", "title": "Official Choice", "author_name": "Artist - Topic", "title_match": True, "artist_match": True}
+    if video_id == "variant0001":
+        return {"video_id": video_id, "source": "YOUTUBE_OEMBED", "title": "Artist - Two Variants (Live)", "title_match": True, "artist_match": True}
+    if video_id == "variant0002":
+        return {"video_id": video_id, "source": "YOUTUBE_OEMBED", "title": "Artist - Two Variants (Remix)", "title_match": True, "artist_match": True}
     return None
 
 
@@ -73,14 +95,17 @@ assert by_id["C001"]["video_id"] == "preserved01"
 assert by_id["C002"]["video_id"] == "abcdefghijk"
 assert by_id["C002"]["identity_verification_method"] == "AUTOMATED_CROSS_SOURCE_V1"
 assert by_id["C003"]["identity_review_status"] == "PENDING"
+assert by_id["C004"]["video_id"] == "official001"
+assert by_id["C004"]["identity_review_status"] == "VERIFIED"
+assert by_id["C005"]["identity_review_status"] == "PENDING"
 assert audit["previously_verified_preserved"] == 1
-assert audit["auto_verified_this_run"] == 1
+assert audit["auto_verified_this_run"] == 2
 assert audit["automatic_single_source_promotion"] is False
 assert audit["scientific_d_unlocked"] is False
 
 youtube_calls = []
-empty_map = {"records": [{"case_id": "C004", "video_id": None, "identity_review_status": "PENDING"}]}
-empty_manifest = {"records": [{"case_id": "C004", "title": "No Anchor", "artist": "Artist"}]}
+empty_map = {"records": [{"case_id": "C006", "video_id": None, "identity_review_status": "PENDING"}]}
+empty_manifest = {"records": [{"case_id": "C006", "title": "No Anchor", "artist": "Artist"}]}
 _, empty_audit = resolve_identity_map(
     empty_manifest,
     empty_map,

@@ -28,6 +28,25 @@ USER_AGENT = "HookLabResearchPrototype/1.0 (https://github.com/basspauloandres-s
 VIDEO_ID_RE = re.compile(r"(?:youtu\.be/|youtube\.com/(?:watch\?v=|shorts/|embed/))([A-Za-z0-9_-]{11})")
 PLAIN_VIDEO_ID_RE = re.compile(r"^[A-Za-z0-9_-]{11}$")
 SOURCE_NAMES = {"MUSICBRAINZ", "WIKIDATA", "YOUTUBE_OEMBED", "YTDLP_SEARCH"}
+NON_PRIMARY_ARTIFACT_MARKERS = {
+    "alternate",
+    "animated",
+    "audio",
+    "live",
+    "lyric",
+    "lyrics",
+    "performance edit",
+    "remix",
+    "subtitles",
+    "teaser",
+    "topic",
+}
+PRIMARY_VIDEO_MARKERS = {
+    "official music video",
+    "official video",
+    "official hd video",
+    "video oficial",
+}
 
 
 class IdentityResolverError(RuntimeError):
@@ -65,6 +84,19 @@ def _youtube_id(value: Any) -> str | None:
         return text
     match = VIDEO_ID_RE.search(text)
     return match.group(1) if match else None
+
+
+def _artifact_role_assessment(evidence: list[dict[str, Any]]) -> str:
+    text = " ".join(
+        str(row.get(field) or "")
+        for row in evidence
+        for field in ("title", "description", "author_name", "channel")
+    ).lower()
+    if any(marker in text for marker in NON_PRIMARY_ARTIFACT_MARKERS):
+        return "NON_PRIMARY_VARIANT"
+    if any(marker in text for marker in PRIMARY_VIDEO_MARKERS):
+        return "PRIMARY_OFFICIAL_MUSIC_VIDEO"
+    return "DOCUMENTED_ARTIFACT_ROLE_UNRESOLVED"
 
 
 def _http_json(url: str, attempts: int = 3) -> dict[str, Any]:
@@ -336,7 +368,18 @@ def resolve_case(
         if len(sources) >= 2 and title_supported:
             eligible.append(video_id)
 
-    selected = eligible[0] if len(eligible) == 1 else None
+    role_by_id = {
+        video_id: _artifact_role_assessment(by_id[video_id]["evidence"])
+        for video_id in eligible
+    }
+    if len(eligible) == 1:
+        selected = eligible[0]
+    else:
+        primary_official = [
+            video_id for video_id in eligible
+            if role_by_id.get(video_id) == "PRIMARY_OFFICIAL_MUSIC_VIDEO"
+        ]
+        selected = primary_official[0] if len(primary_official) == 1 else None
     compact_candidates = []
     for video_id, bucket in sorted(by_id.items()):
         compact_candidates.append({
@@ -344,6 +387,7 @@ def resolve_case(
             "video_url": f"https://www.youtube.com/watch?v={video_id}",
             "independent_sources": sorted(bucket["sources"]),
             "source_count": len(bucket["sources"]),
+            "artifact_role_assessment": _artifact_role_assessment(bucket["evidence"]),
             "evidence": bucket["evidence"],
         })
     return {
