@@ -1,0 +1,390 @@
+{
+  "schema": "HOOKLAB_YOUTUBE_SEARCH_CANDIDATES_v0.1",
+  "status": "CANDIDATES_ONLY_NOT_IDENTITY_MAP",
+  "updated_at": "2026-09-01T19:41:13.771069Z",
+  "collector_version": "hooklab-youtube-public-metrics-collector-v0.1",
+  "provider": "YouTube Data API v3",
+  "records": [
+    {
+      "case_id": "C001",
+      "corpus_title": "Despacito",
+      "corpus_artist": "Luis Fonsi ft. Daddy Yankee",
+      "query": "Despacito Luis Fonsi ft. Daddy Yankee official music video",
+      "search_status": "COMPLETE",
+      "candidates": [
+        {
+          "rank": 1,
+          "video_id": "kJQP7kiw5Fk",
+          "video_url": "https://www.youtube.com/watch?v=kJQP7kiw5Fk",
+          "title": "Luis Fonsi - Despacito ft. Daddy Yankee",
+          "channel_id": "UCLp8RBhQHu9wSsq62j_Md6A",
+          "channel_title": "LuisFonsiVEVO",
+          "published_at": "2017-01-13T05:00:02Z"
+        },
+        {
+          "rank": 2,
+          "video_id": "gm3-m2CFVWM",
+          "video_url": "https://www.youtube.com/watch?v=gm3-m2CFVWM",
+          "title": "Luis Fonsi ‒ Despacito (Lyrics / Lyric Video) ft. Daddy Yankee",
+          "channel_id": "UCJ6ERWrxZzb9Ua3oeRcIe0g",
+          "channel_title": "Taz Network",
+          "published_at": "2017-07-31T16:34:01Z"
+        },
+        {
+          "rank": 3,
+          "video_id": "UCQg99qha8g",
+          "video_url": "https://www.youtube.com/watch?v=UCQg99qha8g",
+          "title": "Luis Fonsi - Despacito (Official 8K Video) ft. Daddy Yankee",
+          "channel_id": "UCaXmbdX-CEN-Q5GvArmmA7w",
+          "channel_title": "DJ S Universe Q",
+          "published_at": "2023-03-12T07:08:14Z"
+        },
+        {
+          "rank": 4,
+          "video_id": "DWir_XczIE8",
+          "video_url": "https://www.youtube.com/watch?v=DWir_XczIE8",
+          "title": "Luis Fonsi, Despacito ft,Daddy Yankee (Official Video)",
+          "channel_id": "UCjUQQLRSfODi-bCbfP1EMsg",
+          "channel_title": "DJ DY",
+          "published_at": "2023-12-28T05:45:20Z"
+        },
+        {
+          "rank": 5,
+          "video_id": "dr_GAJZviR0",
+          "video_url": "https://www.youtube.com/watch?v=dr_GAJZviR0",
+          "title": "Luis Fonsi, Daddy Yankee - Despacito ft. Justin Bieber",
+          "channel_id": "UC_s5dj6ILpVm3KdSHwpx7zw",
+          "channel_title": "MasterDumb",
+          "published_at": "2017-05-09T00:18:23Z"
+        }
+      ]
+    },
+    {
+      "case_id": "C002",
+      "corpus_title": "Shape of You",
+      "corpus_artist": "Ed Sheeran",
+      "query": "Shape of You Ed Sheeran official music video",
+      "search_status": "COMPLETE",
+      "candidates": [
+        {
+          "rank": 1,
+          "video_id": "JGwWNGJdvx8",
+          "video_url": "https://www.youtube.com/watch?v=JGwWNGJdvx8",
+          "title": "Ed Sheeran - Shape of You (Official Music Video)",
+          "channel_id": "UC0C-w0YjGpqDXGB8IHb662A",
+          "channel_title": "Ed Sheeran",
+          "published_at": "2017-01-30T10:57:50Z"
+        },
+        {
+          "rank": 2,
+          "video_id": "liTfD88dbCo",
+          "video_url": "https://www.youtube.com/watch?v=liTfD88dbCo",
+          "title": "Ed Sheeran - Shape of You (Lyrics)",
+          "channel_id": "UCNqFDjYTexJDET3rPDrmJKg",
+          "channel_title": "7clouds",
+          "published_at": "2024-12-13T19:33:36Z"
+        },
+        {
+          "rank": 3,
+          "video_id": "uPvARJW_iVI",
+          "video_url": "https://www.youtube.com/watch?v=uPvARJW_iVI",
+          "title": "Ed Sheeran - Shape of You (Live from the 59th Grammy Awards)",
+          "channel_id": "UC2pmfLm7iq6Ov1UwYrWYkZA",
+          "channel_title": "Vevo",
+          "published_at": "2017-02-13T16:49:14Z"
+        },
+        {
+          "rank": 4,
+          "video_id": "erd3fTm-2t8",
+          "video_url": "https://www.youtube.com/watch?v=erd3fTm-2t8",
+          "title": "Ed Sheeran – Shape of You (Lyrics)",
+          "channel_id": "UCMhlipBOCB760EFv2MzGDJg",
+          "channel_title": "Latin City",
+          "published_at": "2025-02-05T14:42:40Z"
+        },
+        {
+          "rank": 5,
+          "video_id": "_dK2tDK9grQ",
+          "video_url": "https://www.youtube.com/watch?v=_dK2tDK9grQ",
+          "title": "Ed Sheeran - Shape Of You [Official Lyric Video]",
+          "channel_id": "UC0C-w0YjGpqDXGB8IHb662A",
+          "channel_title": "Ed Sheeran",
+          "published_at": "2017-01-06T04:59:03Z"
+        }
+      ]
+    },
+    {
+      "case_id": "C003",
+      "corpus_title": "See You Again",
+      "corpus_artist": "Wiz Khalifa ft. Charlie Puth",
+      "query": "See You Again Wiz Khalifa ft. Charlie Puth official music video",
+      "search_status": "COMPLETE",
+      "candidates": [
+        {
+          "rank": 1,
+          "video_id": "RgKAFK5djSk",
+          "video_url": "https://www.youtube.com/watch?v=RgKAFK5djSk",
+          "title": "Wiz Khalifa - See You Again ft. Charlie Puth [Official Video] Furious 7 Soundtrack",
+          "channel_id": "UCLxOm-UQ1gtyQgfz8Rn34iQ",
+          "channel_title": "Wiz Khalifa Music",
+          "published_at": "2015-04-07T03:00:03Z"
+        },
+        {
+          "rank": 2,
+          "video_id": "NDEWXnMRq3c",
+          "video_url": "https://www.youtube.com/watch?v=NDEWXnMRq3c",
+          "title": "Wiz Khalifa - See You Again ft. Charlie Puth (Lyrics)",
+          "channel_id": "UChO8h2G8UjOVc081rgYU8XQ",
+          "channel_title": "Vibe Music",
+          "published_at": "2023-07-11T13:26:41Z"
+        },
+        {
+          "rank": 3,
+          "video_id": "_qhWbLWe1kU",
+          "video_url": "https://www.youtube.com/watch?v=_qhWbLWe1kU",
+          "title": "Tribute to Kobe Bryan. Charlie Puth and Wiz Khalifa &quot;See You Again&quot; at Lakers Half Time Show",
+          "channel_id": "UCHhf2IroxJeNmGxfC1Zd0wg",
+          "channel_title": "Charlie Puth FAMILY",
+          "published_at": "2020-02-02T03:53:06Z"
+        },
+        {
+          "rank": 4,
+          "video_id": "37Vh_etC18w",
+          "video_url": "https://www.youtube.com/watch?v=37Vh_etC18w",
+          "title": "Wiz Khalifa, Charlie Puth, Lindsey Stirling - See You Again (2015 Billboard Music Awards)",
+          "channel_id": "UCQ0yqla_mR9u4z8N6QBtMsA",
+          "channel_title": "inazumaeleven24",
+          "published_at": "2015-05-18T13:16:14Z"
+        },
+        {
+          "rank": 5,
+          "video_id": "HePvoVv9ogU",
+          "video_url": "https://www.youtube.com/watch?v=HePvoVv9ogU",
+          "title": "Fast &amp; Furious 9. Charlie Puth &amp; Wiz Khalifa &quot;See You Again&quot; LIVE at &quot;The Road To F9&quot; Concert",
+          "channel_id": "UCHhf2IroxJeNmGxfC1Zd0wg",
+          "channel_title": "Charlie Puth FAMILY",
+          "published_at": "2020-02-01T05:54:51Z"
+        }
+      ]
+    },
+    {
+      "case_id": "C004",
+      "corpus_title": "Gangnam Style",
+      "corpus_artist": "PSY",
+      "query": "Gangnam Style PSY official music video",
+      "search_status": "COMPLETE",
+      "candidates": [
+        {
+          "rank": 1,
+          "video_id": "SW_iujvUAzQ",
+          "video_url": "https://www.youtube.com/watch?v=SW_iujvUAzQ",
+          "title": "PSY - GANGNAM STYLE (Official Music Video)",
+          "channel_id": "UCzazoieHXu-Wufg3egJpVNg",
+          "channel_title": "WeAreTheMusicBosses",
+          "published_at": "2013-02-05T19:19:49Z"
+        },
+        {
+          "rank": 2,
+          "video_id": "9bZkp7q19f0",
+          "video_url": "https://www.youtube.com/watch?v=9bZkp7q19f0",
+          "title": "PSY - GANGNAM STYLE(강남스타일) M/V",
+          "channel_id": "UCrDkAvwZum-UTjHmzDI2iIw",
+          "channel_title": "officialpsy",
+          "published_at": "2012-07-15T07:46:32Z"
+        },
+        {
+          "rank": 3,
+          "video_id": "C6nepAVZK-0",
+          "video_url": "https://www.youtube.com/watch?v=C6nepAVZK-0",
+          "title": "Oppa gangnam style (Official Video)",
+          "channel_id": "UCH017esgeXmFxRuPtyuIBTw",
+          "channel_title": "oppa gangnam style",
+          "published_at": "2014-02-02T20:12:32Z"
+        },
+        {
+          "rank": 4,
+          "video_id": "wMMp-09BHa0",
+          "video_url": "https://www.youtube.com/watch?v=wMMp-09BHa0",
+          "title": "PSY - GANGNAM STYLE English Subtitle Full HD",
+          "channel_id": "UCChBehZVJsjnKTOTdbyup6g",
+          "channel_title": "TheDevilgamerX1",
+          "published_at": "2012-12-15T08:45:00Z"
+        },
+        {
+          "rank": 5,
+          "video_id": "wcLNteez3c4",
+          "video_url": "https://www.youtube.com/watch?v=wcLNteez3c4",
+          "title": "PSY (ft. HYUNA) - 오빤 딱 내 스타일 M/V",
+          "channel_id": "UCrDkAvwZum-UTjHmzDI2iIw",
+          "channel_title": "officialpsy",
+          "published_at": "2012-08-14T15:00:06Z"
+        }
+      ]
+    },
+    {
+      "case_id": "C005",
+      "corpus_title": "Uptown Funk",
+      "corpus_artist": "Mark Ronson ft. Bruno Mars",
+      "query": "Uptown Funk Mark Ronson ft. Bruno Mars official music video",
+      "search_status": "COMPLETE",
+      "candidates": [
+        {
+          "rank": 1,
+          "video_id": "OPf0YbXqDm0",
+          "video_url": "https://www.youtube.com/watch?v=OPf0YbXqDm0",
+          "title": "Mark Ronson - Uptown Funk (Official Video) ft. Bruno Mars",
+          "channel_id": "UCmfFGTSsfJVu6CGvL8r75qg",
+          "channel_title": "MarkRonsonVEVO",
+          "published_at": "2014-11-19T14:00:18Z"
+        },
+        {
+          "rank": 2,
+          "video_id": "W8FUmkw3a4U",
+          "video_url": "https://www.youtube.com/watch?v=W8FUmkw3a4U",
+          "title": "Mark Ronson - Uptown Funk (Lyrics) ft. Bruno Mars",
+          "channel_id": "UCNqFDjYTexJDET3rPDrmJKg",
+          "channel_title": "7clouds",
+          "published_at": "2024-06-01T13:20:25Z"
+        },
+        {
+          "rank": 3,
+          "video_id": "79ohzFLDCUU",
+          "video_url": "https://www.youtube.com/watch?v=79ohzFLDCUU",
+          "title": "Mark Ronson - Uptown Funk ft. Bruno Mars // Lyrics + Español // Video Oficial",
+          "channel_id": "UClL6dfCaMz9h0y66jHeMiVQ",
+          "channel_title": "BrunoTraductor Official",
+          "published_at": "2024-08-24T19:00:07Z"
+        },
+        {
+          "rank": 4,
+          "video_id": "eNQlxTCBQQM",
+          "video_url": "https://www.youtube.com/watch?v=eNQlxTCBQQM",
+          "title": "Mark Ronson - Uptown Funk (Lyrics) ft. Bruno Mars",
+          "channel_id": "UCa2Nr1Qm93k07VuwEXCnrog",
+          "channel_title": "Pizza Music",
+          "published_at": "2025-10-31T17:42:34Z"
+        },
+        {
+          "rank": 5,
+          "video_id": "7Ya2U8XN_Zw",
+          "video_url": "https://www.youtube.com/watch?v=7Ya2U8XN_Zw",
+          "title": "Mark Ronson - Uptown Funk (Official Audio) ft. Bruno Mars",
+          "channel_id": "UCmfFGTSsfJVu6CGvL8r75qg",
+          "channel_title": "MarkRonsonVEVO",
+          "published_at": "2014-11-10T05:01:00Z"
+        }
+      ]
+    },
+    {
+      "case_id": "C006",
+      "corpus_title": "Mi Gente",
+      "corpus_artist": "J Balvin & Willy William",
+      "query": "Mi Gente J Balvin & Willy William official music video",
+      "search_status": "COMPLETE",
+      "candidates": [
+        {
+          "rank": 1,
+          "video_id": "wnJ6LuUFpMo",
+          "video_url": "https://www.youtube.com/watch?v=wnJ6LuUFpMo",
+          "title": "J Balvin, Willy William - Mi Gente (Official Video)",
+          "channel_id": "UCrHL_BF5lHyK43BxLU8-vBQ",
+          "channel_title": "jbalvinVEVO",
+          "published_at": "2017-06-30T04:00:05Z"
+        },
+        {
+          "rank": 2,
+          "video_id": "APHgDFRpCi0",
+          "video_url": "https://www.youtube.com/watch?v=APHgDFRpCi0",
+          "title": "J Balvin, Willy William - Mi Gente ft. Beyoncé",
+          "channel_id": "UCrHL_BF5lHyK43BxLU8-vBQ",
+          "channel_title": "jbalvinVEVO",
+          "published_at": "2017-09-29T01:01:06Z"
+        },
+        {
+          "rank": 3,
+          "video_id": "xlXp9OFX8QM",
+          "video_url": "https://www.youtube.com/watch?v=xlXp9OFX8QM",
+          "title": "J Balvin, Willy William – Mi Gente (Letra)",
+          "channel_id": "UCMhlipBOCB760EFv2MzGDJg",
+          "channel_title": "Latin City",
+          "published_at": "2025-01-26T21:35:09Z"
+        },
+        {
+          "rank": 4,
+          "video_id": "FLpgHLqCxbE",
+          "video_url": "https://www.youtube.com/watch?v=FLpgHLqCxbE",
+          "title": "Mi Gente - J Balvin Ft Willy Williams ( Extended Mix Dj Mario Andretti )",
+          "channel_id": "UCWK2g2GC2zrtWLB2ixK7w0g",
+          "channel_title": "Dj Mario Andretti",
+          "published_at": "2017-08-09T03:27:21Z"
+        },
+        {
+          "rank": 5,
+          "video_id": "ArtPRIlxXHA",
+          "video_url": "https://www.youtube.com/watch?v=ArtPRIlxXHA",
+          "title": "J Balvin, Willy William - Mi Gente (TheFloudy &amp; AZVRE Remix) | BLACK PANTHER HD",
+          "channel_id": "UCKMCUlpipv_dV_jY_qXkkfw",
+          "channel_title": "SINA MUSIC HD",
+          "published_at": "2021-03-22T19:29:32Z"
+        }
+      ]
+    },
+    {
+      "case_id": "C007",
+      "corpus_title": "Chantaje",
+      "corpus_artist": "Shakira ft. Maluma",
+      "query": "Chantaje Shakira ft. Maluma official music video",
+      "search_status": "COMPLETE",
+      "candidates": [
+        {
+          "rank": 1,
+          "video_id": "6Mgqbai3fKo",
+          "video_url": "https://www.youtube.com/watch?v=6Mgqbai3fKo",
+          "title": "Shakira - Chantaje (Official Video) ft. Maluma",
+          "channel_id": "UCGnjeahCJW1AF34HBmQTJ-Q",
+          "channel_title": "shakiraVEVO",
+          "published_at": "2016-11-18T14:00:01Z"
+        },
+        {
+          "rank": 2,
+          "video_id": "tVcE5PFXpbQ",
+          "video_url": "https://www.youtube.com/watch?v=tVcE5PFXpbQ",
+          "title": "Shakira - Chantaje (Versión Salsa)[Official Video] ft. Maluma",
+          "channel_id": "UCGnjeahCJW1AF34HBmQTJ-Q",
+          "channel_title": "shakiraVEVO",
+          "published_at": "2017-02-02T15:00:04Z"
+        },
+        {
+          "rank": 3,
+          "video_id": "Tk2uziy3PC4",
+          "video_url": "https://www.youtube.com/watch?v=Tk2uziy3PC4",
+          "title": "Shakira - Chantaje ft. Maluma",
+          "channel_id": "UC-AlofdKECUdhXrbJQZ6iEg",
+          "channel_title": "LatinHype",
+          "published_at": "2024-11-27T16:13:24Z"
+        },
+        {
+          "rank": 4,
+          "video_id": "pMxJgBoosU0",
+          "video_url": "https://www.youtube.com/watch?v=pMxJgBoosU0",
+          "title": "Shakira - Chantaje (Audio) ft. Maluma",
+          "channel_id": "UCGnjeahCJW1AF34HBmQTJ-Q",
+          "channel_title": "shakiraVEVO",
+          "published_at": "2016-10-28T04:00:01Z"
+        },
+        {
+          "rank": 5,
+          "video_id": "kIrnLpFK8To",
+          "video_url": "https://www.youtube.com/watch?v=kIrnLpFK8To",
+          "title": "Shakira - Chantaje (Official Lyric Video) ft. Maluma",
+          "channel_id": "UCGnjeahCJW1AF34HBmQTJ-Q",
+          "channel_title": "shakiraVEVO",
+          "published_at": "2016-11-16T17:00:03Z"
+        }
+      ]
+    }
+  ],
+  "automatic_identity_selection": false,
+  "scientific_d_unlocked": false
+}
+

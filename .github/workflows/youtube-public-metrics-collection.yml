@@ -44,7 +44,7 @@ jobs:
         run: |
           python3 mie_core/youtube_public_metrics_collector.py search-candidates \
             --case-manifest data/lyric_modeling/hooklab_corpus_case_metadata_manifest_v1.json \
-            --output youtube_search_candidates_v0_1.json
+            --output data/engagement_modeling/youtube_search_candidates_v0_1.json
 
       - name: Collect exact snapshots for verified identities
         if: inputs.mode == 'collect_verified_snapshots'
@@ -58,7 +58,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: hooklab-youtube-search-candidates-v0-1
-          path: youtube_search_candidates_v0_1.json
+          path: data/engagement_modeling/youtube_search_candidates_v0_1.json
           if-no-files-found: warn
           retention-days: 30
 
