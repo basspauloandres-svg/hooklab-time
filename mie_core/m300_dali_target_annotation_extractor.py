@@ -12,7 +12,7 @@ from pathlib import Path
 
 from representation_calibration_feature_extractor import features
 
-EXPECTED_TARGET_SCHEMA = 'HOOKLAB_M300_DALI_TARGET_MANIFEST_v1.0'
+EXPECTED_TARGET_SCHEMA = 'HOOKLAB_M300_DALI_TARGET_MANIFEST_v1.1'
 OUTPUT_SCHEMA = 'HOOKLAB_DALI_ANNOTATION_EVIDENCE_v1.0'
 REPRESENTATION_ORIGIN = 'DALI_NOTE_EVENTS'
 
@@ -28,7 +28,6 @@ def _notes_from_entry(entry):
             raise ValueError('DALI_HORIZONTAL_NOTES_MISSING')
         return notes
     if typ == 'vertical':
-        # Use the provider's own hierarchy conversion rather than reimplementing it.
         from DALI.extra import unroll
         notes = unroll(data).get('notes')
         if not isinstance(notes, list):
@@ -98,7 +97,7 @@ def build(target_manifest, dali_root):
         did = t['dali_id']
         p = locate_annotation_file(dali_root, did)
         if p is None:
-            audit.append({'dali_id': did, 'title': t.get('title'), 'artist': t.get('artist'), 'status': 'ANNOTATION_FILE_MISSING'})
+            audit.append({'candidate_id': t.get('candidate_id'), 'dali_id': did, 'title': t.get('title'), 'artist': t.get('artist'), 'status': 'ANNOTATION_FILE_MISSING'})
             continue
         try:
             entry = load_entry(p)
@@ -116,9 +115,9 @@ def build(target_manifest, dali_root):
                 'ncc': (entry.info.get('scores') or {}).get('NCC'),
                 'annotation_sha256': sha256_file(p),
             })
-            audit.append({'dali_id': did, 'status': 'ANNOTATION_EXTRACTED', 'n_note_events': x['n_note_events']})
+            audit.append({'candidate_id': t.get('candidate_id'), 'dali_id': did, 'status': 'ANNOTATION_EXTRACTED', 'n_note_events': x['n_note_events']})
         except Exception as e:
-            audit.append({'dali_id': did, 'title': t.get('title'), 'artist': t.get('artist'), 'status': 'ANNOTATION_REJECTED', 'reason': str(e)})
+            audit.append({'candidate_id': t.get('candidate_id'), 'dali_id': did, 'title': t.get('title'), 'artist': t.get('artist'), 'status': 'ANNOTATION_REJECTED', 'reason': str(e)})
     expected = len(target_manifest.get('targets', []))
     complete = len(rows) == expected and expected >= int(target_manifest.get('minimum_population_gate_n', 30))
     return {
@@ -126,6 +125,7 @@ def build(target_manifest, dali_root):
         'feature_allowlist': ['median_pitch_st'],
         'feature_definition': 'median of note-event MIDI pitches; Hz converted as 69 + 12*log2(f/440)',
         'representation_origin': REPRESENTATION_ORIGIN,
+        'target_manifest_schema': EXPECTED_TARGET_SCHEMA,
         'target_count': expected,
         'eligible_annotation_rows': len(rows),
         'status': 'ANNOTATION_EVIDENCE_COMPLETE_FOR_IDENTITY_GATE' if complete else 'ANNOTATION_EVIDENCE_INCOMPLETE',
