@@ -11,7 +11,7 @@ Design:
 Vocadito calibration never changes M300 N and never creates a creative rule.
 """
 from __future__ import annotations
-import argparse, json, tempfile
+import argparse, json
 from pathlib import Path
 
 from representation_calibration_feature_extractor import features
@@ -29,8 +29,12 @@ def note_events(note_data):
 
 
 def basic_pitch_events(audio_path):
+    # Runtime-only decision: force the packaged ONNX serialization so Linux does
+    # not silently select TFLite. Scientific features/thresholds remain unchanged.
     from basic_pitch.inference import predict
-    _, _, notes = predict(str(audio_path))
+    from basic_pitch import build_icassp_2022_model_path, FilenameSuffix
+    model_path = build_icassp_2022_model_path(FilenameSuffix.onnx)
+    _, _, notes = predict(str(audio_path), model_or_model_path=model_path)
     out=[]
     for row in notes:
         # basic-pitch note event: start, end, midi_pitch, amplitude, pitch_bend(optional)
@@ -50,7 +54,7 @@ def row(track_id, ref_events, cand_events, annotator):
       'same_performance':True,
       'reference':features(ref_events),
       'candidate':features(cand_events),
-      'candidate_system':'basic_pitch',
+      'candidate_system':'basic_pitch_onnx',
       'calibration_only':True,
       'm300_ingestion':False,
     }
@@ -73,10 +77,11 @@ def run(data_home):
     stable_both=sorted(set(g1['stable_features']) & set(g2['stable_features']))
     status='REPRESENTATION_CALIBRATED_DUAL_REFERENCE' if stable_both and g1['status']=='REPRESENTATION_CALIBRATED' and g2['status']=='REPRESENTATION_CALIBRATED' else 'REPRESENTATION_CALIBRATION_PENDING'
     return {
-      'schema':'HOOKLAB_VOCADITO_DUAL_REFERENCE_CALIBRATION_v0.1',
+      'schema':'HOOKLAB_VOCADITO_DUAL_REFERENCE_CALIBRATION_v0.2',
       'status':status,
       'dataset':'vocadito',
-      'candidate_system':'basic_pitch',
+      'candidate_system':'basic_pitch_onnx',
+      'runtime_decision':'FORCE_ONNX_SERIALIZATION_ONLY__SCIENTIFIC_THRESHOLDS_UNCHANGED',
       'observed_tracks_a1':len(rows_a1),
       'observed_tracks_a2':len(rows_a2),
       'failed_tracks':failures,
