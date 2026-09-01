@@ -64,4 +64,17 @@ assert audit["auto_verified_this_run"] == 1
 assert audit["automatic_single_source_promotion"] is False
 assert audit["scientific_d_unlocked"] is False
 
+youtube_calls = []
+empty_map = {"records": [{"case_id": "C004", "video_id": None, "identity_review_status": "PENDING"}]}
+empty_manifest = {"records": [{"case_id": "C004", "title": "No Anchor", "artist": "Artist"}]}
+_, empty_audit = resolve_identity_map(
+    empty_manifest,
+    empty_map,
+    lambda title, artist: [],
+    lambda title, artist: [],
+    lambda title, artist: youtube_calls.append((title, artist)) or [],
+)
+assert youtube_calls == []
+assert empty_audit["resolutions"][0]["provider_status"]["YTDLP_SEARCH"] == "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+
 print("OPEN_IDENTITY_RESOLVER_PASS")

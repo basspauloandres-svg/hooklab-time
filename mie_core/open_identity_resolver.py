@@ -187,8 +187,9 @@ def _yt_dlp_search_session() -> tuple[Callable[[str, str], list[dict[str, Any]]]
         "extract_flat": "in_playlist",
         "playlistend": 5,
         "cachedir": False,
-        "socket_timeout": 30,
-        "retries": 2,
+        "socket_timeout": 8,
+        "retries": 0,
+        "extractor_retries": 0,
     })
 
     def search(title: str, artist: str) -> list[dict[str, Any]]:
@@ -225,13 +226,29 @@ def resolve_case(
     title, artist = str(case.get("title") or ""), str(case.get("artist") or "")
     evidence = []
     provider_status = {}
-    for name, provider in (("MUSICBRAINZ", musicbrainz), ("WIKIDATA", wikidata), ("YTDLP_SEARCH", youtube_search)):
+    for name, provider in (("MUSICBRAINZ", musicbrainz), ("WIKIDATA", wikidata)):
         try:
             rows = provider(title, artist)
             provider_status[name] = "COMPLETE"
             evidence.extend(row for row in rows if row.get("source") == name and _youtube_id(row.get("video_id")))
         except Exception as error:
             provider_status[name] = f"FAILED_{type(error).__name__}"
+
+    # A YouTube search result is corroborative evidence only. Without an
+    # identifier anchored in MusicBrainz or Wikidata it cannot contribute to
+    # the two-source promotion rule, so the request is intentionally skipped.
+    if evidence:
+        try:
+            rows = youtube_search(title, artist)
+            provider_status["YTDLP_SEARCH"] = "COMPLETE"
+            evidence.extend(
+                row for row in rows
+                if row.get("source") == "YTDLP_SEARCH" and _youtube_id(row.get("video_id"))
+            )
+        except Exception as error:
+            provider_status["YTDLP_SEARCH"] = f"FAILED_{type(error).__name__}"
+    else:
+        provider_status["YTDLP_SEARCH"] = "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
 
     by_id: dict[str, dict[str, Any]] = {}
     for row in evidence:
