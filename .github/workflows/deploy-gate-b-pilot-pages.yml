@@ -1,8 +1,8 @@
-name: Deploy HookLab Producer Interface to Pages
+name: HookLab Producer Interface Pages
 
 on:
   push:
-    branches: ["mie/golden-forensic-v0.3"]
+    branches: ["mie/golden-forensic-v0.3", "main"]
     paths:
       - "app/prototype_v1/**"
       - ".github/workflows/deploy-gate-b-pilot-pages.yml"
@@ -14,19 +14,15 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: "pages-${{ github.ref }}"
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: hooklab-pages-preview
-      url: ${{ steps.deployment.outputs.page_url }}
+  validate-static-site:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Prepare complete static site
         run: |
           rm -rf _site
@@ -40,17 +36,41 @@ jobs:
           test -f _site/hook_composition_assistant.js
           echo "Static asset inventory:"
           find _site -maxdepth 2 -type f | sort
+      - name: Upload validated static bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: hooklab-producer-interface-static
+          path: _site
 
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: validate-static-site
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Prepare complete static site
+        run: |
+          rm -rf _site
+          mkdir -p _site
+          cp -R app/prototype_v1/. _site/
+          printf '%s\n' 'User-agent: *' 'Disallow:' > _site/robots.txt
+          test -f _site/index.html
+          test -f _site/d0_engine.js
+          test -f _site/local_beat_this.js
+          test -f _site/lyric_prosody_ui_bridge.js
+          test -f _site/hook_composition_assistant.js
       - name: Configure Pages
         uses: actions/configure-pages@v5
         with:
           enablement: true
-
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: _site
-
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
