@@ -18,7 +18,8 @@ for(const p of profiles){
   page.setDefaultTimeout(15000);
   await page.goto(URL,{waitUntil:'domcontentloaded'});
   const title=await page.title();
-  if(!/Producer Interface v0\.5/.test(title)) throw new Error(`${p.name}: bad title ${title}`);
+  if(!/Producer Interface v0\.6/.test(title)) throw new Error(`${p.name}: bad title ${title}`);
+  await page.waitForSelector('#hookAssistantCard');
   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>document.documentElement.clientWidth+2);
   if(overflow) throw new Error(`${p.name}: horizontal overflow`);
   await page.setInputFiles('#ref',{name:'mobile-test.wav',mimeType:'audio/wav',buffer:wav});
@@ -27,12 +28,20 @@ for(const p of profiles){
   if(minButton<36) throw new Error(`${p.name}: touch targets too small ${minButton}`);
   await page.click('#midiBtn');
   await page.waitForFunction(()=>document.querySelector('#buildState').textContent.includes('D0 LISTO'));
+  await page.fill('#assistantIntent','reencuentro');
+  await page.click('#generateHookCandidates');
+  await page.waitForFunction(()=>document.querySelectorAll('.useHookCandidate').length>=3);
+  const candidateCount=await page.locator('.useHookCandidate').count();
+  if(candidateCount<3) throw new Error(`${p.name}: multimodal candidates missing`);
+  await page.locator('.useHookCandidate').first().click();
+  const selectedText=await page.inputValue('#text');
+  if(!selectedText.trim()) throw new Error(`${p.name}: candidate not transferred to lyric curation`);
   await page.selectOption('#decision',{label:'Modificar'});
   await page.fill('#reason','mobile regression');
   await page.click('#save');
   const saved=await page.evaluate(()=>Object.keys(localStorage).some(k=>k.startsWith('hooklab_session_')));
   if(!saved) throw new Error(`${p.name}: session not persisted`);
-  results.push({profile:p.name,title,viewport:p.viewport,min_button_height:minButton,horizontal_overflow:false,d0:true,persisted:true});
+  results.push({profile:p.name,title,viewport:p.viewport,min_button_height:minButton,horizontal_overflow:false,d0:true,multimodal_candidates:candidateCount,candidate_selected:true,persisted:true});
   await browser.close();
 }
 console.log(JSON.stringify({status:'PASS',results},null,2));
