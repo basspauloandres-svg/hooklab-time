@@ -1,0 +1,72 @@
+name: YouTube Public Metrics Collection
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Collection operation
+        required: true
+        default: search_candidates
+        type: choice
+        options:
+          - search_candidates
+          - collect_verified_snapshots
+
+permissions:
+  contents: read
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      HOOKLAB_YOUTUBE_API_KEY: ${{ secrets.HOOKLAB_YOUTUBE_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate collector contract
+        run: python3 tests/test_youtube_public_metrics_collector.py
+
+      - name: Verify private credential is available
+        shell: bash
+        run: |
+          if [ -z "$HOOKLAB_YOUTUBE_API_KEY" ]; then
+            echo 'AUDIT_YOUTUBE_API_KEY_NOT_CONFIGURED' >&2
+            exit 2
+          fi
+
+      - name: Resolve YouTube candidates
+        if: inputs.mode == 'search_candidates'
+        run: |
+          python3 mie_core/youtube_public_metrics_collector.py search-candidates \
+            --case-manifest data/lyric_modeling/hooklab_corpus_case_metadata_manifest_v1.json \
+            --output youtube_search_candidates_v0_1.json
+
+      - name: Collect exact snapshots for verified identities
+        if: inputs.mode == 'collect_verified_snapshots'
+        run: |
+          python3 mie_core/youtube_public_metrics_collector.py collect-snapshots \
+            --identity-map data/engagement_modeling/youtube_video_identity_map_v0_1.json \
+            --output youtube_public_metric_snapshot_v0_1.json
+
+      - name: Upload candidate artifact
+        if: inputs.mode == 'search_candidates'
+        uses: actions/upload-artifact@v4
+        with:
+          name: hooklab-youtube-search-candidates-v0-1
+          path: youtube_search_candidates_v0_1.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Upload verified snapshot artifact
+        if: inputs.mode == 'collect_verified_snapshots'
+        uses: actions/upload-artifact@v4
+        with:
+          name: hooklab-youtube-public-metric-snapshot-v0-1
+          path: youtube_public_metric_snapshot_v0_1.json
+          if-no-files-found: error
+          retention-days: 30

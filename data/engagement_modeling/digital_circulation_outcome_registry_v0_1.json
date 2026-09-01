@@ -1,0 +1,114 @@
+{
+  "schema": "HOOKLAB_DIGITAL_CIRCULATION_OUTCOME_REGISTRY_v0.1",
+  "registry_id": "HL-DIGITAL-CIRCULATION-2026-09-01-v0.1",
+  "status": "AUDIT_SOURCE_NOT_MAPPED_NO_OUTCOME_ADMISSIBLE",
+  "platform_scope": "YOUTUBE_FIRST_PROVIDER_VIDIQ",
+  "identity_namespace": "HOOKLAB_C001_C100",
+  "source_audit": {
+    "canonical_matrix": "1JPNYWgm4s-q2EF9ZGtdmv4JefcHTuPnuJhpO1QfKFGA",
+    "matrix_tabs_inspected": 11,
+    "youtube_video_id_present": false,
+    "views_or_streams_present": false,
+    "traffic_time_series_present": false,
+    "audience_retention_present": false,
+    "vidiq_connection_status": "CONNECTED_ZERO_CREDITS",
+    "vidiq_total_credits": 0,
+    "vidiq_renewable_resets_at": "2026-09-22T13:26:48.585205Z",
+    "verified_youtube_video_identities": 4,
+    "youtube_identity_map": "youtube_video_identity_map_v0_1.json",
+    "alternative_public_provider": "YouTube Data API v3",
+    "alternative_collector": "mie_core/youtube_public_metrics_collector.py",
+    "alternative_provider_status": "READY_REQUIRES_PRIVATE_LOCAL_API_KEY",
+    "records_collected": 0
+  },
+  "scientific_boundary": {
+    "circulation_is_outcome_not_compositional_feature": true,
+    "public_view_count_is_traffic_peak": false,
+    "association_is_causal_incidence": false,
+    "platform_metrics_are_interchangeable": false,
+    "human_or_ai_trend_override_allowed": false,
+    "high_traffic_definition_must_be_preregistered_before_collection": true,
+    "generation_class": "D0_EXPLORATORY",
+    "scientific_d_unlocked": false
+  },
+  "required_video_identity_fields": [
+    "case_id",
+    "platform",
+    "video_id",
+    "video_url",
+    "channel_id",
+    "channel_title",
+    "official_release_status",
+    "published_at",
+    "duration_seconds",
+    "identity_review_status",
+    "identity_evidence",
+    "captured_at",
+    "provider",
+    "provider_version"
+  ],
+  "identity_rule": "A title search result cannot be joined automatically. The selected video must be the preregistered official artist/label release or receive an explicit documentary identity audit. Lyrics, audio uploads, remixes, Shorts, fan videos and duplicate regional uploads remain separate artifacts.",
+  "outcomes": [
+    {
+      "outcome_id": "CIRC_YT_VIEW_COUNT_SNAPSHOT_v0_1",
+      "construct": "cumulative public YouTube circulation at a documented observation time",
+      "operational_definition": "Public view count for one verified canonical video at captured_at.",
+      "unit": "verified video snapshot",
+      "provider": "vidIQ get-videos-by-id or YouTube search result resolved by video_id",
+      "measurement_error": "Platform validation and revisions, unavailable private traffic, duplicate releases and capture-time variation.",
+      "required_covariates": ["days_since_publication", "channel_subscriber_count_at_capture", "release_year", "genre", "artist_or_channel_cluster"],
+      "forbidden_interpretations": ["traffic peak", "audience retention", "chorus effect", "causal success", "musical quality"],
+      "lifecycle_status": "AUDIT_OUTCOME_SOURCE_NOT_MAPPED"
+    },
+    {
+      "outcome_id": "CIRC_YT_LOG_VIEW_VELOCITY_v0_1",
+      "construct": "age-adjusted circulation velocity",
+      "operational_definition": "Natural log of one plus observed views divided by complete days since publication, retained with the raw numerator, denominator and capture timestamp.",
+      "unit": "verified video snapshot",
+      "provider": "vidIQ plus verified publication timestamp",
+      "measurement_error": "Lifetime average obscures bursts, paid campaigns, recommendation shocks and changes in platform scale.",
+      "required_covariates": ["publication_cohort", "channel_scale", "genre", "language", "artist_cluster", "official_video_type"],
+      "forbidden_interpretations": ["instantaneous VPH", "organic demand", "causal effect of lyrics", "universal popularity"],
+      "lifecycle_status": "AUDIT_OUTCOME_SOURCE_NOT_MAPPED"
+    },
+    {
+      "outcome_id": "CIRC_YT_PEAK_VPH_v0_1",
+      "construct": "maximum observed YouTube view velocity within the registered observation window",
+      "operational_definition": "Maximum non-missing vidIQ VPH observation in a preregistered hourly or daily time series, with peak timestamp and window retained.",
+      "unit": "verified video time series",
+      "provider": "vidIQ video_stats",
+      "measurement_error": "Sampling granularity, missing intervals, provider coverage, external promotion, news events and recommendation-system shocks.",
+      "required_covariates": ["observation_window", "sampling_granularity", "days_since_publication", "traffic_source_if_authorized", "paid_or_external_campaign_if_known"],
+      "forbidden_interpretations": ["chorus-local attention", "organic-only demand", "causal effect of a musical feature", "platform-independent success"],
+      "lifecycle_status": "AUDIT_OUTCOME_SOURCE_NOT_MAPPED"
+    },
+    {
+      "outcome_id": "RET_YT_CHORUS_AUDIENCE_WATCH_RATIO_DELTA_v0_1",
+      "construct": "section-local audience retention contrast at chorus intervals",
+      "operational_definition": "Mean audienceWatchRatio over independently timestamped chorus intervals minus the mean over preregistered adjacent comparison intervals, using elapsedVideoTimeRatio on the same video duration.",
+      "unit": "chorus occurrence within an authorized video",
+      "provider": "YouTube Analytics through vidIQ channel_analytics audience_retention",
+      "measurement_error": "Section-boundary error, video/song edit mismatch, repeated viewing, audience composition and unavailable analytics for channels without authorization.",
+      "required_covariates": ["chorus_occurrence_index", "elapsed_video_position", "video_duration", "new_vs_returning_if_available", "organic_vs_paid_if_available"],
+      "forbidden_interpretations": ["public view peak", "song-level popularity", "causal chorus effect", "availability for unauthorized commercial channels"],
+      "lifecycle_status": "AUDIT_AUTHORIZED_RETENTION_AND_SECTION_ALIGNMENT_NOT_AVAILABLE"
+    },
+    {
+      "outcome_id": "THEME_SIMILARITY_HIGH_TRAFFIC_CONTRAST_v0_1",
+      "construct": "corpus-local thematic similarity among cases classified by a preregistered circulation rule",
+      "operational_definition": "Difference in mean pairwise similarity of admissible lyric-theme representations between the preregistered high-traffic set and matched comparison sets, evaluated by a registered permutation procedure.",
+      "unit": "matched set of canonical cases",
+      "provider": "HookLab admissible lyric-theme features plus an admissible circulation outcome",
+      "measurement_error": "Theme coding/model error, language effects, threshold instability, artist clustering and unequal genre/year composition.",
+      "required_covariates": ["language", "genre", "release_year", "artist_cluster", "platform_exposure", "channel_scale"],
+      "forbidden_interpretations": ["themes cause traffic", "popular songs share one universal topic", "literature-defined expected theme", "semantic inference from section labels"],
+      "lifecycle_status": "AUDIT_DEPENDENT_FEATURES_NOT_ADMISSIBLE"
+    }
+  ],
+  "clock_separation": {
+    "publication_clock": "Timestamped circulation after video publication",
+    "content_clock": "Elapsed seconds or elapsedVideoTimeRatio within the audiovisual artifact",
+    "rule": "Publication-time peaks cannot be assigned to a chorus. Chorus claims require content-clock audience-retention data aligned with independently measured section boundaries."
+  },
+  "next_gate": "SET_PRIVATE_HOOKLAB_YOUTUBE_API_KEY_RESOLVE_REMAINING_96_IDENTITIES_AND_FREEZE_HIGH_TRAFFIC_DEFINITION_BEFORE_METRIC_COLLECTION"
+}
