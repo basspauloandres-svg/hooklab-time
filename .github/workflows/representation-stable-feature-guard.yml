@@ -1,0 +1,18 @@
+name: Representation Stable Feature Guard
+on:
+  push:
+    branches: ["mie/golden-forensic-v0.3"]
+    paths:
+      - "config/representation_stable_features_v1.json"
+      - "mie_core/representation_stable_feature_guard.py"
+      - "tests/representation_stable_feature_guard_test.py"
+      - ".github/workflows/representation-stable-feature-guard.yml"
+  workflow_dispatch:
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.10'}
+      - run: python tests/representation_stable_feature_guard_test.py
