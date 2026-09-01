@@ -1,0 +1,151 @@
+{
+  "schema": "HOOKLAB_AUTOMATED_PUBLIC_METRIC_SNAPSHOT_v1",
+  "status": "SNAPSHOT_PARTIAL_OR_AUDIT",
+  "captured_at": "2026-09-01T20:54:49.395554Z",
+  "collector_version": "hooklab-open-metadata-stack-v1",
+  "provider": "yt-dlp public metadata extractor",
+  "provider_version": "2026.08.19",
+  "verified_identity_count": 15,
+  "complete_snapshot_count": 0,
+  "records": [
+    {
+      "case_id": "C001",
+      "video_id": "kJQP7kiw5Fk",
+      "video_url": "https://www.youtube.com/watch?v=kJQP7kiw5Fk",
+      "identity_review_status": "VERIFIED",
+      "snapshot_status": "PROVIDER_FETCH_FAILED",
+      "error_class": "DownloadError",
+      "captured_at": "2026-09-01T20:54:49.395554Z"
+    },
+    {
+      "case_id": "C002",
+      "video_id": "JGwWNGJdvx8",
+      "video_url": "https://www.youtube.com/watch?v=JGwWNGJdvx8",
+      "identity_review_status": "VERIFIED",
+      "snapshot_status": "PROVIDER_FETCH_FAILED",
+      "error_class": "DownloadError",
+      "captured_at": "2026-09-01T20:54:49.395554Z"
+    },
+    {
+      "case_id": "C003",
+      "video_id": "RgKAFK5djSk",
+      "video_url": "https://www.youtube.com/watch?v=RgKAFK5djSk",
+      "identity_review_status": "VERIFIED",
+      "snapshot_status": "PROVIDER_FETCH_FAILED",
+      "error_class": "DownloadError",
+      "captured_at": "2026-09-01T20:54:49.395554Z"
+    },
+    {
+      "case_id": "C004",
+      "video_id": "9bZkp7q19f0",
+      "video_url": "https://www.youtube.com/watch?v=9bZkp7q19f0",
+      "identity_review_status": "VERIFIED",
+      "snapshot_status": "PROVIDER_FETCH_FAILED",
+      "error_class": "DownloadError",
+      "captured_at": "2026-09-01T20:54:49.395554Z"
+    },
+    {
+      "case_id": "C005",
+      "video_id": "OPf0YbXqDm0",
+      "video_url": "https://www.youtube.com/watch?v=OPf0YbXqDm0",
+      "identity_review_status": "VERIFIED",
+      "snapshot_status": "PROVIDER_FETCH_FAILED",
+      "error_class": "DownloadError",
+      "captured_at": "2026-09-01T20:54:49.395554Z"
+    },
+    {
+      "case_id": "C015",
+      "video_id": "9ldOuVuas1c",
+      "video_url": "https://www.youtube.com/watch?v=9ldOuVuas1c",
+      "identity_review_status": "VERIFIED",
+      "snapshot_status": "PROVIDER_FETCH_FAILED",
+      "error_class": "DownloadError",
+      "captured_at": "2026-09-01T20:54:49.395554Z"
+    },
+    {
+      "case_id": "C017",
+      "video_id": "hLQl3WQQoQ0",
+      "video_url": "https://www.youtube.com/watch?v=hLQl3WQQoQ0",
+      "identity_review_status": "VERIFIED",
+      "snapshot_status": "PROVIDER_FETCH_FAILED",
+      "error_class": "DownloadError",
+      "captured_at": "2026-09-01T20:54:49.395554Z"
+    },
+    {
+      "case_id": "C021",
+      "video_id": "4NRXx6U8ABQ",
+      "video_url": "https://www.youtube.com/watch?v=4NRXx6U8ABQ",
+      "identity_review_status": "VERIFIED",
+      "snapshot_status": "PROVIDER_FETCH_FAILED",
+      "error_class": "DownloadError",
+      "captured_at": "2026-09-01T20:54:49.395554Z"
+    },
+    {
+      "case_id": "C026",
+      "video_id": "E07s5ZYygMg",
+      "video_url": "https://www.youtube.com/watch?v=E07s5ZYygMg",
+      "identity_review_status": "VERIFIED",
+      "snapshot_status": "PROVIDER_FETCH_FAILED",
+      "error_class": "DownloadError",
+      "captured_at": "2026-09-01T20:54:49.395554Z"
+    },
+    {
+      "case_id": "C034",
+      "video_id": "lWA2pjMjpBs",
+      "video_url": "https://www.youtube.com/watch?v=lWA2pjMjpBs",
+      "identity_review_status": "VERIFIED",
+      "snapshot_status": "PROVIDER_FETCH_FAILED",
+      "error_class": "DownloadError",
+      "captured_at": "2026-09-01T20:54:49.395554Z"
+    },
+    {
+      "case_id": "C036",
+      "video_id": "C-u5WLJ9Yk4",
+      "video_url": "https://www.youtube.com/watch?v=C-u5WLJ9Yk4",
+      "identity_review_status": "VERIFIED",
+      "snapshot_status": "PROVIDER_FETCH_FAILED",
+      "error_class": "DownloadError",
+      "captured_at": "2026-09-01T20:54:49.395554Z"
+    },
+    {
+      "case_id": "C038",
+      "video_id": "QGJuMBdaqIw",
+      "video_url": "https://www.youtube.com/watch?v=QGJuMBdaqIw",
+      "identity_review_status": "VERIFIED",
+      "snapshot_status": "PROVIDER_FETCH_FAILED",
+      "error_class": "DownloadError",
+      "captured_at": "2026-09-01T20:54:49.395554Z"
+    },
+    {
+      "case_id": "C040",
+      "video_id": "LjhCEhWiKXk",
+      "video_url": "https://www.youtube.com/watch?v=LjhCEhWiKXk",
+      "identity_review_status": "VERIFIED",
+      "snapshot_status": "PROVIDER_FETCH_FAILED",
+      "error_class": "DownloadError",
+      "captured_at": "2026-09-01T20:54:49.395554Z"
+    },
+    {
+      "case_id": "C041",
+      "video_id": "e-fA-gBCkj0",
+      "video_url": "https://www.youtube.com/watch?v=e-fA-gBCkj0",
+      "identity_review_status": "VERIFIED",
+      "snapshot_status": "PROVIDER_FETCH_FAILED",
+      "error_class": "DownloadError",
+      "captured_at": "2026-09-01T20:54:49.395554Z"
+    },
+    {
+      "case_id": "C088",
+      "video_id": "tbneQDc2H3I",
+      "video_url": "https://www.youtube.com/watch?v=tbneQDc2H3I",
+      "identity_review_status": "VERIFIED",
+      "snapshot_status": "PROVIDER_FETCH_FAILED",
+      "error_class": "DownloadError",
+      "captured_at": "2026-09-01T20:54:49.395554Z"
+    }
+  ],
+  "interpretation": "TIMESTAMPED_PUBLIC_SNAPSHOT_NOT_RETROSPECTIVE_TRAFFIC_PEAK_OR_CAUSAL_EFFECT",
+  "generation_class": "D0_EXPLORATORY",
+  "downloads_media": false,
+  "scientific_d_unlocked": false
+}
