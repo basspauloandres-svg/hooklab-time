@@ -53,7 +53,21 @@ def youtube(title, artist):
     return []
 
 
-updated, audit = resolve_identity_map(manifest, identity_map, musicbrainz, wikidata, youtube)
+def oembed(video_id, title, artist):
+    if video_id == "abcdefghijk":
+        return {
+            "video_id": video_id,
+            "source": "YOUTUBE_OEMBED",
+            "source_record_id": video_id,
+            "title_match": True,
+            "artist_match": True,
+        }
+    if video_id == "zyxwvutsrqp":
+        return None
+    return None
+
+
+updated, audit = resolve_identity_map(manifest, identity_map, musicbrainz, wikidata, oembed, youtube)
 by_id = {row["case_id"]: row for row in updated["records"]}
 assert by_id["C001"]["video_id"] == "preserved01"
 assert by_id["C002"]["video_id"] == "abcdefghijk"
@@ -72,9 +86,11 @@ _, empty_audit = resolve_identity_map(
     empty_map,
     lambda title, artist: [],
     lambda title, artist: [],
+    lambda video_id, title, artist: None,
     lambda title, artist: youtube_calls.append((title, artist)) or [],
 )
 assert youtube_calls == []
 assert empty_audit["resolutions"][0]["provider_status"]["YTDLP_SEARCH"] == "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+assert empty_audit["resolutions"][0]["provider_status"]["YOUTUBE_OEMBED"] == "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
 
 print("OPEN_IDENTITY_RESOLVER_PASS")

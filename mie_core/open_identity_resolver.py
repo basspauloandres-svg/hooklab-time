@@ -1,6 +1,8 @@
 """Fail-closed cross-source YouTube identity resolver for HookLab.
 
-Public identifiers are gathered from MusicBrainz, Wikidata and yt-dlp search.
+Public identifiers are gathered from MusicBrainz and Wikidata, then
+corroborated with YouTube's public oEmbed metadata and, when available, yt-dlp
+search.
 An identity is promoted only when at least two independent providers agree on
 one video ID and no competing video reaches the same evidence threshold.
 """
@@ -21,11 +23,11 @@ from pathlib import Path
 from typing import Any, Callable
 
 
-RESOLVER_VERSION = "hooklab-open-identity-resolver-v1"
+RESOLVER_VERSION = "hooklab-open-identity-resolver-v1.1"
 USER_AGENT = "HookLabResearchPrototype/1.0 (https://github.com/basspauloandres-svg/hooklab-time)"
 VIDEO_ID_RE = re.compile(r"(?:youtu\.be/|youtube\.com/(?:watch\?v=|shorts/|embed/))([A-Za-z0-9_-]{11})")
 PLAIN_VIDEO_ID_RE = re.compile(r"^[A-Za-z0-9_-]{11}$")
-SOURCE_NAMES = {"MUSICBRAINZ", "WIKIDATA", "YTDLP_SEARCH"}
+SOURCE_NAMES = {"MUSICBRAINZ", "WIKIDATA", "YOUTUBE_OEMBED", "YTDLP_SEARCH"}
 
 
 class IdentityResolverError(RuntimeError):
@@ -130,13 +132,17 @@ def musicbrainz_candidates(title: str, artist: str) -> list[dict[str, Any]]:
 
 
 def wikidata_candidates(title: str, artist: str) -> list[dict[str, Any]]:
+    # Title-only search is intentional: Wikidata's search endpoint frequently
+    # returns no item for a combined "title artist" query. Artist identity is
+    # checked independently against the entity description before P1651 is
+    # admitted as an anchor.
     search_url = "https://www.wikidata.org/w/api.php?" + urllib.parse.urlencode({
         "action": "wbsearchentities",
-        "search": f"{title} {_primary_artist(artist)}",
+        "search": title,
         "language": "en",
         "uselang": "en",
         "type": "item",
-        "limit": 7,
+        "limit": 20,
         "format": "json",
         "origin": "*",
     })
@@ -159,6 +165,12 @@ def wikidata_candidates(title: str, artist: str) -> list[dict[str, Any]]:
         label = (labels.get("en") or labels.get("es") or {}).get("value")
         if _normalize(label) != _normalize(title):
             continue
+        description = ((entity.get("descriptions") or {}).get("en") or {}).get("value") or (
+            (entity.get("descriptions") or {}).get("es") or {}
+        ).get("value")
+        primary_artist = _normalize(_primary_artist(artist))
+        if primary_artist and primary_artist not in _normalize(description):
+            continue
         claims = (entity.get("claims") or {}).get("P1651", [])
         for claim in claims:
             value = (((claim.get("mainsnak") or {}).get("datavalue") or {}).get("value"))
@@ -170,9 +182,37 @@ def wikidata_candidates(title: str, artist: str) -> list[dict[str, Any]]:
                     "source_record_id": entity_id,
                     "source_url": f"https://www.wikidata.org/wiki/{entity_id}",
                     "title": label,
-                    "description": ((entity.get("descriptions") or {}).get("en") or {}).get("value"),
+                    "description": description,
                 })
     return matched
+
+
+def youtube_oembed_candidate(video_id: str, title: str, artist: str) -> dict[str, Any] | None:
+    """Corroborate an anchored ID with official public YouTube metadata."""
+
+    if not PLAIN_VIDEO_ID_RE.fullmatch(video_id):
+        return None
+    url = "https://www.youtube.com/oembed?" + urllib.parse.urlencode({
+        "url": f"https://www.youtube.com/watch?v={video_id}",
+        "format": "json",
+    })
+    payload = _http_json(url)
+    candidate_title = str(payload.get("title") or "")
+    author = str(payload.get("author_name") or "")
+    title_match = _normalize(title) in _normalize(candidate_title)
+    artist_match = _normalize(_primary_artist(artist)) in _normalize(f"{candidate_title} {author}")
+    if not title_match or not artist_match:
+        return None
+    return {
+        "video_id": video_id,
+        "source": "YOUTUBE_OEMBED",
+        "source_record_id": video_id,
+        "source_url": url,
+        "title": candidate_title,
+        "author_name": author,
+        "title_match": True,
+        "artist_match": True,
+    }
 
 
 def _yt_dlp_search_session() -> tuple[Callable[[str, str], list[dict[str, Any]]], str]:
@@ -221,6 +261,7 @@ def resolve_case(
     case: dict[str, Any],
     musicbrainz: Callable[[str, str], list[dict[str, Any]]],
     wikidata: Callable[[str, str], list[dict[str, Any]]],
+    youtube_oembed: Callable[[str, str, str], dict[str, Any] | None],
     youtube_search: Callable[[str, str], list[dict[str, Any]]],
 ) -> dict[str, Any]:
     title, artist = str(case.get("title") or ""), str(case.get("artist") or "")
@@ -233,6 +274,29 @@ def resolve_case(
             evidence.extend(row for row in rows if row.get("source") == name and _youtube_id(row.get("video_id")))
         except Exception as error:
             provider_status[name] = f"FAILED_{type(error).__name__}"
+
+    anchored_ids = sorted({
+        _youtube_id(row.get("video_id"))
+        for row in evidence
+        if row.get("source") in {"MUSICBRAINZ", "WIKIDATA"}
+    } - {None})
+    oembed_complete = 0
+    oembed_failed = 0
+    for video_id in anchored_ids:
+        try:
+            row = youtube_oembed(video_id, title, artist)
+            if row and row.get("source") == "YOUTUBE_OEMBED" and _youtube_id(row.get("video_id")):
+                evidence.append(row)
+                oembed_complete += 1
+        except Exception:
+            oembed_failed += 1
+    provider_status["YOUTUBE_OEMBED"] = (
+        f"COMPLETE_{oembed_complete}_OF_{len(anchored_ids)}"
+        if anchored_ids and not oembed_failed
+        else f"PARTIAL_{oembed_complete}_OF_{len(anchored_ids)}"
+        if anchored_ids
+        else "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+    )
 
     # A YouTube search result is corroborative evidence only. Without an
     # identifier anchored in MusicBrainz or Wikidata it cannot contribute to
@@ -263,7 +327,10 @@ def resolve_case(
     for video_id, bucket in by_id.items():
         sources = bucket["sources"] & SOURCE_NAMES
         yt_rows = [row for row in bucket["evidence"] if row["source"] == "YTDLP_SEARCH"]
-        title_supported = any(row.get("title_match") for row in yt_rows) or {
+        oembed_rows = [row for row in bucket["evidence"] if row["source"] == "YOUTUBE_OEMBED"]
+        title_supported = any(row.get("title_match") for row in yt_rows) or any(
+            row.get("title_match") and row.get("artist_match") for row in oembed_rows
+        ) or {
             "MUSICBRAINZ", "WIKIDATA"
         }.issubset(sources)
         if len(sources) >= 2 and title_supported:
@@ -298,6 +365,7 @@ def resolve_identity_map(
     identity_map: dict[str, Any],
     musicbrainz: Callable[[str, str], list[dict[str, Any]]],
     wikidata: Callable[[str, str], list[dict[str, Any]]],
+    youtube_oembed: Callable[[str, str, str], dict[str, Any] | None],
     youtube_search: Callable[[str, str], list[dict[str, Any]]],
     provider_versions: dict[str, str] | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
@@ -308,7 +376,7 @@ def resolve_identity_map(
         if row.get("identity_review_status") == "VERIFIED" and row.get("video_id"):
             continue
         case = cases.get(row.get("case_id"), row)
-        resolution = resolve_case(case, musicbrainz, wikidata, youtube_search)
+        resolution = resolve_case(case, musicbrainz, wikidata, youtube_oembed, youtube_search)
         resolutions.append(resolution)
         selected = resolution.get("selected_video_id")
         if selected:
@@ -367,8 +435,14 @@ def main() -> int:
         _load(args.identity_map),
         musicbrainz_candidates,
         wikidata_candidates,
+        youtube_oembed_candidate,
         youtube_search,
-        {"yt-dlp": yt_dlp_version, "MusicBrainz": "WS2", "Wikidata": "Action API"},
+        {
+            "yt-dlp": yt_dlp_version,
+            "MusicBrainz": "WS2",
+            "Wikidata": "Action API",
+            "YouTube oEmbed": "public endpoint",
+        },
     )
     _atomic_json(args.identity_map, updated)
     _atomic_json(args.audit_output, audit)
