@@ -1,7 +1,13 @@
 name: Producer Interface Mobile Viewports
 on:
   push:
-    branches: ["mie/golden-forensic-v0.3"]
+    branches: ["mie/golden-forensic-v0.3", "release/producer-interface-v0.6", "main"]
+    paths:
+      - "app/prototype_v1/**"
+      - "tests/producer_interface_mobile_viewports.mjs"
+      - ".github/workflows/producer-interface-mobile-viewports.yml"
+  pull_request:
+    branches: ["main"]
     paths:
       - "app/prototype_v1/**"
       - "tests/producer_interface_mobile_viewports.mjs"
