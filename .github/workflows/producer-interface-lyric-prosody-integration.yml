@@ -1,7 +1,15 @@
 name: Producer Interface Lyric Prosody Integration
 on:
   push:
-    branches: ["mie/golden-forensic-v0.3"]
+    branches: ["mie/golden-forensic-v0.3", "release/producer-interface-v0.6", "main"]
+    paths:
+      - "app/prototype_v1/index.html"
+      - "app/prototype_v1/d0_engine.js"
+      - "app/prototype_v1/lyric_prosody_ui_bridge.js"
+      - "tests/producer_interface_lyric_prosody_integration.js"
+      - ".github/workflows/producer-interface-lyric-prosody-integration.yml"
+  pull_request:
+    branches: ["main"]
     paths:
       - "app/prototype_v1/index.html"
       - "app/prototype_v1/d0_engine.js"
