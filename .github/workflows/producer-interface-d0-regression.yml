@@ -1,7 +1,16 @@
 name: Producer Interface D0 Regression
 on:
   push:
-    branches: ["mie/golden-forensic-v0.3"]
+    branches: ["mie/golden-forensic-v0.3", "release/producer-interface-v0.6", "main"]
+    paths:
+      - "app/prototype_v1/index.html"
+      - "app/prototype_v1/d0_engine.js"
+      - "app/prototype_v1/local_beat_this.js"
+      - "tests/producer_interface_d0_regression.js"
+      - "tests/local_beat_this_contract_test.js"
+      - ".github/workflows/producer-interface-d0-regression.yml"
+  pull_request:
+    branches: ["main"]
     paths:
       - "app/prototype_v1/index.html"
       - "app/prototype_v1/d0_engine.js"
@@ -35,7 +44,7 @@ jobs:
       - run: node tests/local_beat_this_contract_test.js
       - name: Static interface contract
         run: |
-          grep -q 'Producer Interface v0.5' app/prototype_v1/index.html
+          grep -q 'Producer Interface v0.6' app/prototype_v1/index.html
           grep -q 'D0_EXPLORATORY != SCIENTIFIC_D' app/prototype_v1/index.html
           grep -q 'local_beat_this.js' app/prototype_v1/index.html
           grep -q 'Analizar tempo/beat local' app/prototype_v1/index.html
