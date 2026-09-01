@@ -1,0 +1,125 @@
+HOOKLAB/TIME-MIE — AUTONOMOUS NEW CHAT HANDOFF — 2026-09-01 v2
+
+PURPOSE
+Continue HookLab/TIME-MIE without dependence on the previous ChatGPT conversation. Repository state and canonical checkpoint artifacts are the source of continuity. Do not ask the previous chat to reconstruct decisions already captured here.
+
+REPOSITORY
+basspauloandres-svg/hooklab-time
+branch: main
+
+MANDATORY READ ORDER
+1. docs/checkpoints/MIGRATION_CHECKPOINT_2026-09-01_LYRIC_MODELING_AI_v1.md
+2. docs/checkpoints/START_NEXT_CHAT_LYRIC_MODELING_AI_2026-09-01_v1.txt
+3. docs/checkpoints/MIGRATION_MANIFEST_2026-09-01_LYRIC_MODELING_AI_v1.json
+4. docs/checkpoints/LYRIC_MODELING_STATISTICAL_EVIDENCE_PRINCIPLE_v1.md
+5. docs/checkpoints/AI_COHERENCE_REASONING_LAYER_INVARIANT_v1.md
+6. docs/checkpoints/AI_PERSONAL_ACCOUNT_LOCAL_FIRST_INVARIANT_v1.md
+7. app/prototype_v1/lyric_statistical_model_contract.js
+8. app/prototype_v1/narrative_state_engine.js
+9. app/prototype_v1/ai_coherence_reasoning_layer.js
+10. app/prototype_v1/personal_ai_adapter.js
+11. app/prototype_v1/hook_composition_assistant.js
+12. app/prototype_v1/studio.html
+13. tests/lyric_modeling_coherence_contract.test.js
+14. .github/workflows/lyric-modeling-coherence-contract.yml
+
+CURRENT CORPUS GATE
+A complete repository/history audit found no verifiable HookLab scientific lyric corpus, no Matrix X, no lyric feature matrix, and no detailed statistical result artifacts for the three frozen families. Supabase available to the current connected environment returned no accessible projects. Therefore freeze these states:
+
+CORPUS_SOURCE_STATUS = AUDIT_CORPUS_SOURCE_NOT_RESOLVED
+PRIOR_STATISTICAL_ARTIFACT_STATUS = AUDIT_PRIOR_STATISTICAL_ARTIFACTS_NOT_LOCATED
+
+This is a provenance gap, not permission to rebuild the corpus.
+
+DO NOT
+- download or scrape lyrics;
+- reconstruct the corpus;
+- use Lakh as scientific corpus;
+- use POD-LC/M9 as a substitute HookLab corpus;
+- use briefs or generated lyrics as corpus observations;
+- run lyric inferential statistics without the corpus;
+- assign PROMOTE_TO_CONDITIONED_DEDUCTION without empirical statistical support;
+- reopen early chorus, repetition/formal architecture already tested, or raw aggregated vocal range/amplitude without NEW_EVIDENCE=true and a new ANALYSIS_ID;
+- redesign studio.html as a workaround;
+- create studio_v2/studio_new/versioned parallel UI;
+- expose AI credentials in public code;
+- let AI create or override statistical evidence.
+
+SCIENTIFIC INVARIANT
+DATA SAYS -> STATISTICS SAY -> THEORY SAYS -> GENERATION TESTS -> PRODUCER DECIDES
+
+Data/statistics determine the observed tendency. Literature supports construct definition/operationalization and later interpretation; it does not prescribe empirical direction/existence.
+
+Mandatory inference gate:
+FEATURE ADMISSIBILITY -> ANALYSIS REGISTRATION -> STATISTICAL TEST
+
+Only PROMOTE_TO_CONDITIONED_DEDUCTION may enter evidence-assisted generation.
+
+POD-LC SCOPE BOUNDARY
+POD-LC may be consulted as methodological background or for observational definitions when relevant. Its six observational lines are NOT automatically HookLab statistical variables, narrative features or generative labels. If POD-LC conflicts with the HookLab checkpoint for a HookLab decision, return AUDIT_SCOPE_CONFLICT.
+
+Lakh/TMT BOUNDARY
+Lyric–Prosody–MIDI Bridge is an engineering bridge. Lakh full-song lyric lane = TEST_LANE_ONLY; NOT MASSIVE_HIT_EVIDENCE. TMT variables such as tempo_bpm, melodic_register_midi, melodic_range_semitones, melodic_events_per_token, near_tactus_share and text_line_count may be engineering/descriptive scaffold controls only unless separately admitted and registered for inference.
+
+STORY/AI INVARIANTS
+STORY_BRIEF != SECTION_FUNCTION != LYRIC_CONTENT.
+Manual Story Brief is operational. Evidence-assisted Story Brief remains FAIL-CLOSED until promoted deductions exist.
+AI is a coherence/reasoning/generative integration layer, not a statistical trend engine.
+First AI deployment is PERSONAL_RESEARCH_PROTOTYPE using the user's own authorized environment through a private/local adapter; commercial/multi-user infrastructure is deferred.
+
+CANONICAL PRODUCT FLOW
+REFERENCE AUDIO -> AUDIO/BEAT ANALYSIS -> STORY BRIEF -> NARRATIVE STATE -> SECTION FUNCTION -> SECTION INTENTION -> CONDITIONED GENERATION -> 3 MULTIMODAL CANDIDATES -> AI COHERENCE AUDIT -> LISTENING -> PRODUCER SELECTION -> PROSODY CURATION -> MP3/MIDI EXPORT -> PRODUCER EVALUATION -> APPROVED SECTION -> NARRATIVE STATE UPDATE -> NEXT SECTION -> FULL SONG ASSEMBLY
+
+CURRENT MANAGEMENT ESTIMATE
+Integrated development approximately 79%. This is a management estimate, not scientific measurement.
+
+WORK THAT CAN CONTINUE NOW WITHOUT CORPUS
+Proceed autonomously on tasks that do not require empirical lyric observations:
+
+A. Formalize the Feature Admissibility Record schema.
+Required fields at minimum: FEATURE_ID, CONSTRUCT, ANALYTICAL_LAYER, OPERATIONAL_DEFINITION, UNIT, PROVIDER, PROVIDER_VERSION, MEASUREMENT_ERROR, CALIBRATION_STATUS, RELEVANCE, RESEARCH_QUESTION_ENABLED, OUTCOME, POPULATION_SCOPE, CONFOUNDERS, FORBIDDEN_INTERPRETATIONS, PROVENANCE, ADMISSIBILITY_STATUS.
+If incomplete: AUDIT_FEATURE_NOT_DEFINED.
+
+B. Formalize the Analysis Registration Record schema.
+Required fields: ANALYSIS_ID, RESEARCH_QUESTION, POPULATION_SCOPE, OUTCOME, ADMISSIBLE_FEATURE_IDS, PRIMARY_TESTS, COVARIATES, MULTIPLICITY_FAMILY, EFFECT_SIZE_CRITERION, ROBUSTNESS_PLAN, REPLICATION_REQUIREMENT, STOP_PROMOTION_RULE, EXPLORATORY_CONFIRMATORY_POSTHOC_STATUS, CLAIM_LEVEL.
+
+C. Formalize Corpus Provenance Acceptance Contract.
+A future corpus source cannot be admitted until it has a verifiable source/provider, version/snapshot, coverage, song identifiers, lyric-source provenance, inclusion/exclusion rules, hashes or equivalent integrity identifiers, retrieval/creation date, rights/access status, deduplication policy and linkage to outcome/metadata.
+
+D. Build fail-closed validators/tests for A-C.
+
+E. Expand narrative-state schema and tests without claiming empirical validity: characters, relationships, POV, temporal state, emotional trajectory, revealed information, open/closed threads, approved-section history.
+
+F. Improve AI coherence contract/test coverage without connecting a provider yet. Store structured inputs/audits/provenance only; never hidden chain-of-thought.
+
+G. Preserve engineering bridge tests for curated prosody -> MIDI and D0_EXPLORATORY != SCIENTIFIC_D.
+
+H. Inspect CI and canonical studio integrity before any UI change. Prefer small auditable edits.
+
+WORK BLOCKED UNTIL CORPUS RESOLUTION
+- empirical lyric feature extraction;
+- Matrix X lyric construction;
+- lyric association/inference;
+- effect estimates based on corpus lyrics;
+- evidence-assisted Story Brief activation;
+- empirical lyric conditioned deductions;
+- scientific promotion of lyric features.
+
+WHEN CORPUS SOURCE BECOMES AVAILABLE
+Do not immediately analyze it. First execute CORPUS_PROVENANCE_ACCEPTANCE. Then inventory existing columns/features/results to prevent reprocessing. Then Feature Admissibility. Then Analysis Registration. Only then Statistical Test.
+
+REQUIRED STATUS REPORTING
+At the end of each development block report:
+1. files changed;
+2. commit SHA(s);
+3. tests/CI status;
+4. gates moved from BLOCKED/AUDIT to PASS;
+5. gates still blocked;
+6. revised management progress estimate;
+7. exact next gate.
+
+NO-DEPENDENCY RULE
+Do not ask for information from the previous chat if the repository/checkpoints can answer it. If a genuinely missing external dependency is required, identify the minimum missing identifier and continue all independent work first.
+
+FIRST ACTION
+Verify all mandatory artifacts exist. Then continue with A-D: Feature Admissibility schema, Analysis Registration schema, Corpus Provenance Acceptance Contract and fail-closed tests. Do not wait for corpus resolution to complete these independent tasks.
