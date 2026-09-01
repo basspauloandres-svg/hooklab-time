@@ -1,6 +1,6 @@
 {
   "schema": "HOOKLAB_YOUTUBE_VIDEO_IDENTITY_MAP_v0.1",
-  "status": "PARTIAL_IDENTITY_REVIEW_15_OF_100",
+  "status": "PARTIAL_IDENTITY_REVIEW_70_OF_100",
   "created_at": "2026-09-01T18:42:11.663988Z",
   "collector_version": "hooklab-youtube-public-metrics-collector-v0.1",
   "source_case_manifest_id": "HOOKLAB-C001-C100-METADATA-2026-09-01-v1",
@@ -78,9 +78,14 @@
       "case_id": "C007",
       "title": "Chantaje",
       "artist": "Shakira ft. Maluma",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "6Mgqbai3fKo",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=6Mgqbai3fKo",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C008",
@@ -102,9 +107,14 @@
       "case_id": "C010",
       "title": "Lean On",
       "artist": "Major Lazer & DJ Snake ft. MØ",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "YqeW9_5kURI",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=YqeW9_5kURI",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C011",
@@ -118,9 +128,14 @@
       "case_id": "C012",
       "title": "Bohemian Rhapsody",
       "artist": "Queen",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "fJ9rUzIMcZQ",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=fJ9rUzIMcZQ",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C013",
@@ -134,9 +149,14 @@
       "case_id": "C014",
       "title": "Wonderwall",
       "artist": "Oasis",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "bx1Bh8ZvH84",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=bx1Bh8ZvH84",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C015",
@@ -155,9 +175,14 @@
       "case_id": "C016",
       "title": "Rolling in the Deep",
       "artist": "Adele",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "rYEDA3JcQqw",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=rYEDA3JcQqw",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C017",
@@ -176,17 +201,27 @@
       "case_id": "C018",
       "title": "Smells Like Teen Spirit",
       "artist": "Nirvana",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "hTWKbfoikeg",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=hTWKbfoikeg",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C019",
       "title": "Livin' on a Prayer",
       "artist": "Bon Jovi",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "lDK9QqIzhwk",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=lDK9QqIzhwk",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C020",
@@ -213,9 +248,14 @@
       "case_id": "C022",
       "title": "bad guy",
       "artist": "Billie Eilish",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "DyDfgMOUjCI",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=DyDfgMOUjCI",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C023",
@@ -237,9 +277,14 @@
       "case_id": "C025",
       "title": "As It Was",
       "artist": "Harry Styles",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "H5v3kku4y6Q",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=H5v3kku4y6Q",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C026",
@@ -258,25 +303,40 @@
       "case_id": "C027",
       "title": "Shallow",
       "artist": "Lady Gaga",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "bo_efYhYU2A",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=bo_efYhYU2A",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C028",
       "title": "Perfect",
       "artist": "Ed Sheeran",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "2Vv-BfVoq4g",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=2Vv-BfVoq4g",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C029",
       "title": "Thinking Out Loud",
       "artist": "Ed Sheeran",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "lp-EO5I60KA",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=lp-EO5I60KA",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C030",
@@ -298,17 +358,27 @@
       "case_id": "C032",
       "title": "Crazy in Love",
       "artist": "Beyoncé",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "ViwtNLUqkMY",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=ViwtNLUqkMY",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C033",
       "title": "Umbrella",
       "artist": "Rihanna",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "CvBfHwUxHIk",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=CvBfHwUxHIk",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C034",
@@ -348,9 +418,14 @@
       "case_id": "C037",
       "title": "Since U Been Gone",
       "artist": "Kelly Clarkson",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "R7UrFYvl5TE",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: MUSICBRAINZ, YOUTUBE_OEMBED"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=R7UrFYvl5TE",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C038",
@@ -369,9 +444,14 @@
       "case_id": "C039",
       "title": "Roar",
       "artist": "Katy Perry",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "CevxZvSJLk8",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=CevxZvSJLk8",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C040",
@@ -403,17 +483,27 @@
       "case_id": "C042",
       "title": "Happy",
       "artist": "Pharrell Williams",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "y6Sxv-sUYtM",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=y6Sxv-sUYtM",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C043",
       "title": "Get Lucky",
       "artist": "Daft Punk",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "5NV6Rdv1a3I",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=5NV6Rdv1a3I",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C044",
@@ -427,25 +517,40 @@
       "case_id": "C045",
       "title": "Counting Stars",
       "artist": "OneRepublic",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "hT_nvWreIhg",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=hT_nvWreIhg",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C046",
       "title": "Radioactive",
       "artist": "Imagine Dragons",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "ktvTqknDobU",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=ktvTqknDobU",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C047",
       "title": "Demons",
       "artist": "Imagine Dragons",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "mWRsgZuwf_8",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=mWRsgZuwf_8",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C048",
@@ -475,65 +580,105 @@
       "case_id": "C051",
       "title": "Take on Me",
       "artist": "a-ha",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "djV11Xbc914",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=djV11Xbc914",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C052",
       "title": "Africa",
       "artist": "Toto",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "FTQbiNvZqaY",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=FTQbiNvZqaY",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C053",
       "title": "Sweet Dreams (Are Made of This)",
       "artist": "Eurythmics",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "qeMFqkcPYcg",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=qeMFqkcPYcg",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C054",
       "title": "Girls Just Want to Have Fun",
       "artist": "Cyndi Lauper",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "PIb6AZdTr-A",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=PIb6AZdTr-A",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C055",
       "title": "Like a Prayer",
       "artist": "Madonna",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "79fzeNUqQbQ",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=79fzeNUqQbQ",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C056",
       "title": "I Wanna Dance with Somebody",
       "artist": "Whitney Houston",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "eH3giaIzONA",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=eH3giaIzONA",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C057",
       "title": "Careless Whisper",
       "artist": "George Michael",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "izGwDsrQ1eQ",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=izGwDsrQ1eQ",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C058",
       "title": "Wake Me Up Before You Go-Go",
       "artist": "Wham!",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "pIgZ7gMze7A",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=pIgZ7gMze7A",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C059",
@@ -547,25 +692,40 @@
       "case_id": "C060",
       "title": "Time After Time",
       "artist": "Cyndi Lauper",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "VdQY7BusJNU",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=VdQY7BusJNU",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C061",
       "title": "Another One Bites the Dust",
       "artist": "Queen",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "rY0WxgSXdEE",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=rY0WxgSXdEE",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C062",
       "title": "Don't Stop Me Now",
       "artist": "Queen",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "HgzGwKwLmgM",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=HgzGwKwLmgM",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C063",
@@ -603,9 +763,14 @@
       "case_id": "C067",
       "title": "With or Without You",
       "artist": "U2",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "h7p4BjD7wb8",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=h7p4BjD7wb8",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C068",
@@ -619,49 +784,79 @@
       "case_id": "C069",
       "title": "Zombie",
       "artist": "The Cranberries",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "6Ejga4kJUts",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=6Ejga4kJUts",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C070",
       "title": "Creep",
       "artist": "Radiohead",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "XFkzRNyygfk",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=XFkzRNyygfk",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C071",
       "title": "Losing My Religion",
       "artist": "R.E.M.",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "xwtdhWltSIg",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=xwtdhWltSIg",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C072",
       "title": "Nothing Else Matters",
       "artist": "Metallica",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "tAGnKpE4NCI",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=tAGnKpE4NCI",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C073",
       "title": "Enter Sandman",
       "artist": "Metallica",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "CD-E-LDc384",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=CD-E-LDc384",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C074",
       "title": "Californication",
       "artist": "Red Hot Chili Peppers",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "YlUKcNNmywk",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=YlUKcNNmywk",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C075",
@@ -675,49 +870,79 @@
       "case_id": "C076",
       "title": "Numb",
       "artist": "Linkin Park",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "kXYiU_JCYtU",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=kXYiU_JCYtU",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C077",
       "title": "In the End",
       "artist": "Linkin Park",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "eVTXPUF4Oz4",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=eVTXPUF4Oz4",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C078",
       "title": "Bring Me to Life",
       "artist": "Evanescence",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "3YxaaGgTQYM",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: MUSICBRAINZ, WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=3YxaaGgTQYM",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C079",
       "title": "Boulevard of Broken Dreams",
       "artist": "Green Day",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "Soa3gO7tL-c",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=Soa3gO7tL-c",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C080",
       "title": "Mr. Brightside",
       "artist": "The Killers",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "gGdGFtwCNBE",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=gGdGFtwCNBE",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C081",
       "title": "La Camisa Negra",
       "artist": "Juanes",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "kRt2sRyup6A",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=kRt2sRyup6A",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C082",
@@ -731,41 +956,66 @@
       "case_id": "C083",
       "title": "Hips Don't Lie",
       "artist": "Shakira",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "DUT5rEU6pqM",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=DUT5rEU6pqM",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C084",
       "title": "Waka Waka (This Time for Africa)",
       "artist": "Shakira",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "pRpeEdMmmQ0",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=pRpeEdMmmQ0",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C085",
       "title": "La Tortura",
       "artist": "Shakira",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "Dsp_8Lm1eSk",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=Dsp_8Lm1eSk",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C086",
       "title": "Felices los 4",
       "artist": "Maluma",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "t_jHrUE5IOk",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=t_jHrUE5IOk",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C087",
       "title": "Hawái",
       "artist": "Maluma",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "pK060iUFWXg",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=pK060iUFWXg",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C088",
@@ -808,9 +1058,14 @@
       "case_id": "C092",
       "title": "Corazón Espinado",
       "artist": "Santana",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "t6omUxqhG78",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=t6omUxqhG78",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C093",
@@ -832,17 +1087,27 @@
       "case_id": "C095",
       "title": "Me Rehúso",
       "artist": "Danny Ocean",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "aDCcLQto5BM",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=aDCcLQto5BM",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C096",
       "title": "Robarte un Beso",
       "artist": "Carlos Vives",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "Mtau4v6foHA",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=Mtau4v6foHA",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C097",
@@ -856,17 +1121,27 @@
       "case_id": "C098",
       "title": "La Bicicleta",
       "artist": "Carlos Vives",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "-UV0QGLmYys",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=-UV0QGLmYys",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C099",
       "title": "DÁKITI",
       "artist": "Bad Bunny",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "TmKh7lAwnBI",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=TmKh7lAwnBI",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C100",
@@ -878,6 +1153,6 @@
     }
   ],
   "scientific_d_unlocked": false,
-  "updated_at": "2026-09-01T20:44:38.833735Z",
-  "identity_resolver_version": "hooklab-open-identity-resolver-v1"
+  "updated_at": "2026-09-01T21:29:54.864552Z",
+  "identity_resolver_version": "hooklab-open-identity-resolver-v1.1"
 }
