@@ -4,7 +4,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from mie_core.open_identity_resolver import resolve_identity_map  # noqa: E402
+from mie_core.open_identity_resolver import build_review_queue, resolve_identity_map  # noqa: E402
 
 
 manifest = {
@@ -114,8 +114,45 @@ _, empty_audit = resolve_identity_map(
     lambda video_id, title, artist: None,
     lambda title, artist: youtube_calls.append((title, artist)) or [],
 )
-assert youtube_calls == []
-assert empty_audit["resolutions"][0]["provider_status"]["YTDLP_SEARCH"] == "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+assert youtube_calls == [("No Anchor", "Artist")]
+assert empty_audit["resolutions"][0]["provider_status"]["YTDLP_SEARCH"] == "COMPLETE_DISCOVERY_ONLY_NO_INDEPENDENT_ID_ANCHOR"
 assert empty_audit["resolutions"][0]["provider_status"]["YOUTUBE_OEMBED"] == "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+
+discovery_map = {"records": [{"case_id": "C007", "video_id": None, "identity_review_status": "PENDING"}]}
+discovery_manifest = {"records": [{"case_id": "C007", "title": "Discovery", "artist": "Artist"}]}
+discovery_updated, discovery_audit = resolve_identity_map(
+    discovery_manifest,
+    discovery_map,
+    lambda title, artist: [],
+    lambda title, artist: [],
+    lambda video_id, title, artist: None,
+    lambda title, artist: [{
+        "video_id": "discovery01",
+        "source": "YTDLP_SEARCH",
+        "source_record_id": "discovery01",
+        "source_url": "https://www.youtube.com/watch?v=discovery01",
+        "title": "Discovery (Official Music Video)",
+        "title_match": True,
+    }],
+)
+assert discovery_updated["records"][0]["identity_review_status"] == "PENDING"
+assert discovery_audit["auto_verified_this_run"] == 0
+discovery_resolution = discovery_audit["resolutions"][0]
+assert discovery_resolution["resolution_status"] == "IDENTITY_REVIEW_PENDING"
+assert discovery_resolution["candidates"][0]["independent_sources"] == ["YTDLP_SEARCH"]
+
+review_queue = build_review_queue(discovery_audit)
+assert review_queue["schema"] == "HOOKLAB_OPEN_IDENTITY_REVIEW_QUEUE_v1"
+assert review_queue["unresolved_count"] == 1
+assert review_queue["records"][0]["case_id"] == "C007"
+assert review_queue["records"][0]["popularity_based_selection_forbidden"] is True
+assert review_queue["records"][0]["single_source_promotion_forbidden"] is True
+assert review_queue["automatic_single_source_promotion"] is False
+assert review_queue["scientific_d_unlocked"] is False
+assert "VIEW_COUNT" in review_queue["forbidden_selection_inputs"]
+
+resolved_only = dict(discovery_audit)
+resolved_only["resolutions"] = [{"case_id": "C008", "resolution_status": "AUTO_VERIFIED_CROSS_SOURCE"}]
+assert build_review_queue(resolved_only)["records"] == []
 
 print("OPEN_IDENTITY_RESOLVER_PASS")

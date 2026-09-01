@@ -23,7 +23,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 
-RESOLVER_VERSION = "hooklab-open-identity-resolver-v1.1"
+RESOLVER_VERSION = "hooklab-open-identity-resolver-v1.2"
 USER_AGENT = "HookLabResearchPrototype/1.0 (https://github.com/basspauloandres-svg/hooklab-time)"
 VIDEO_ID_RE = re.compile(r"(?:youtu\.be/|youtube\.com/(?:watch\?v=|shorts/|embed/))([A-Za-z0-9_-]{11})")
 PLAIN_VIDEO_ID_RE = re.compile(r"^[A-Za-z0-9_-]{11}$")
@@ -330,21 +330,21 @@ def resolve_case(
         else "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
     )
 
-    # A YouTube search result is corroborative evidence only. Without an
-    # identifier anchored in MusicBrainz or Wikidata it cannot contribute to
-    # the two-source promotion rule, so the request is intentionally skipped.
-    if evidence:
-        try:
-            rows = youtube_search(title, artist)
-            provider_status["YTDLP_SEARCH"] = "COMPLETE"
-            evidence.extend(
-                row for row in rows
-                if row.get("source") == "YTDLP_SEARCH" and _youtube_id(row.get("video_id"))
-            )
-        except Exception as error:
-            provider_status["YTDLP_SEARCH"] = f"FAILED_{type(error).__name__}"
-    else:
-        provider_status["YTDLP_SEARCH"] = "SKIPPED_NO_INDEPENDENT_ID_ANCHOR"
+    # Search is always permitted for documentary candidate discovery. Without
+    # a MusicBrainz/Wikidata anchor its rows remain single-source evidence and
+    # therefore cannot satisfy the promotion rule below.
+    try:
+        rows = youtube_search(title, artist)
+        provider_status["YTDLP_SEARCH"] = (
+            "COMPLETE" if anchored_ids
+            else "COMPLETE_DISCOVERY_ONLY_NO_INDEPENDENT_ID_ANCHOR"
+        )
+        evidence.extend(
+            row for row in rows
+            if row.get("source") == "YTDLP_SEARCH" and _youtube_id(row.get("video_id"))
+        )
+    except Exception as error:
+        provider_status["YTDLP_SEARCH"] = f"FAILED_{type(error).__name__}"
 
     by_id: dict[str, dict[str, Any]] = {}
     for row in evidence:
@@ -463,6 +463,53 @@ def resolve_identity_map(
     return identity_map, audit
 
 
+def build_review_queue(audit: dict[str, Any]) -> dict[str, Any]:
+    """Create the unresolved, non-inferential documentary review queue."""
+
+    unresolved = []
+    for resolution in audit.get("resolutions", []):
+        status = resolution.get("resolution_status")
+        if status not in {"AUDIT_AMBIGUOUS_CROSS_SOURCE", "IDENTITY_REVIEW_PENDING"}:
+            continue
+        unresolved.append({
+            "case_id": resolution.get("case_id"),
+            "title": resolution.get("title"),
+            "artist": resolution.get("artist"),
+            "review_class": status,
+            "decision_state": "HUMAN_DOCUMENTARY_REVIEW_REQUIRED",
+            "provider_status": resolution.get("provider_status") or {},
+            "candidates": resolution.get("candidates") or [],
+            "selection_rule": "VERIFY_EXACT_RELEASE_ARTIFACT_WITH_INDEPENDENT_DOCUMENTARY_EVIDENCE",
+            "popularity_based_selection_forbidden": True,
+            "single_source_promotion_forbidden": True,
+            "scientific_d_unlocked": False,
+        })
+    counts = {
+        status: sum(row["review_class"] == status for row in unresolved)
+        for status in ("AUDIT_AMBIGUOUS_CROSS_SOURCE", "IDENTITY_REVIEW_PENDING")
+    }
+    return {
+        "schema": "HOOKLAB_OPEN_IDENTITY_REVIEW_QUEUE_v1",
+        "created_at": _utc_now(),
+        "resolver_version": RESOLVER_VERSION,
+        "source_audit_schema": audit.get("schema"),
+        "status": "REVIEW_REQUIRED" if unresolved else "REVIEW_QUEUE_EMPTY",
+        "unresolved_count": len(unresolved),
+        "counts_by_review_class": counts,
+        "scope": "DOCUMENTARY_IDENTITY_ONLY_NOT_FEATURE_ADMISSIBILITY",
+        "forbidden_selection_inputs": [
+            "VIEW_COUNT",
+            "LIKE_COUNT",
+            "DISLIKE_COUNT",
+            "RATING",
+            "POPULARITY_RANK",
+        ],
+        "automatic_single_source_promotion": False,
+        "scientific_d_unlocked": False,
+        "records": unresolved,
+    }
+
+
 def _load(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
@@ -472,6 +519,7 @@ def main() -> int:
     parser.add_argument("--case-manifest", required=True, type=Path)
     parser.add_argument("--identity-map", required=True, type=Path)
     parser.add_argument("--audit-output", required=True, type=Path)
+    parser.add_argument("--review-output", required=True, type=Path)
     args = parser.parse_args()
     youtube_search, yt_dlp_version = _yt_dlp_search_session()
     updated, audit = resolve_identity_map(
@@ -490,10 +538,13 @@ def main() -> int:
     )
     _atomic_json(args.identity_map, updated)
     _atomic_json(args.audit_output, audit)
+    review_queue = build_review_queue(audit)
+    _atomic_json(args.review_output, review_queue)
     print(json.dumps({
         "auto_verified_this_run": audit["auto_verified_this_run"],
         "verified_after_run": audit["verified_after_run"],
         "total_cases": audit["total_cases"],
+        "review_queue_count": review_queue["unresolved_count"],
     }))
     return 0
 
