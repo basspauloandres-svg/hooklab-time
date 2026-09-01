@@ -1,0 +1,516 @@
+{
+  "schema": "HOOKLAB_CORPUS_BACKBONE_REGISTRY_v1",
+  "registry_id": "HOOKLAB-CORPUS-BACKBONE-2026-09-01-v1",
+  "created_at": "2026-09-01",
+  "status": "CANONICAL_INTERNAL_RESEARCH_SOURCE_RESOLVED",
+  "purpose": "Canonical governance and traceability registry for existing HookLab corpus assets; this registry does not reconstruct, download, copy, or statistically analyze lyrics.",
+  "governing_authority": [
+    "docs/checkpoints/MIGRATION_CHECKPOINT_2026-09-01_LYRIC_MODELING_AI_v1.md",
+    "docs/checkpoints/START_NEXT_CHAT_LYRIC_MODELING_AI_2026-09-01_v1.txt",
+    "docs/checkpoints/MIGRATION_MANIFEST_2026-09-01_LYRIC_MODELING_AI_v1.json",
+    "docs/checkpoints/LYRIC_MODELING_STATISTICAL_EVIDENCE_PRINCIPLE_v1.md"
+  ],
+  "canonical_scientific_order": [
+    "DATA_SAYS",
+    "STATISTICS_SAY",
+    "THEORY_SAYS",
+    "GENERATION_TESTS",
+    "PRODUCER_DECIDES"
+  ],
+  "canonical_identity_backbone": {
+    "namespace": "HOOKLAB_C001_C100",
+    "case_ids": "C001-C100",
+    "expected_case_count": 100,
+    "status": "IDENTITY_SPACE_AND_CANONICAL_SOURCE_RESOLVED",
+    "rule": "A case identifier denotes one reference case across source text, derived views, observation records, MIDI and provenance; linked modalities and duplicate views never increase lyric corpus N."
+  },
+  "source_resolution": {
+    "canonical_source_resolved": true,
+    "status": "CANONICAL_INTERNAL_RESEARCH_SOURCE_RESOLVED",
+    "canonical_asset_id": "HB-SRC-LYR-001",
+    "baseline_mirror_asset_id": "HB-VIEW-LYR-001",
+    "resolution_basis": {
+      "identity_sets_equal": true,
+      "case_metadata_exact_match": true,
+      "provider_ids_exact_match": true,
+      "canonical_source_revision": "72",
+      "canonical_source_revision_date": "2026-07-22T17:50:35.948Z",
+      "canonical_source_retained_revisions": 6,
+      "canonical_source_tabs": 22,
+      "baseline_mirror_revision": "1",
+      "baseline_mirror_revision_date": "2026-07-12T02:26:18.118Z",
+      "baseline_mirror_tabs": 11,
+      "only_non_text_documentary_difference": "C009 contains a later provider-title QC clarification in the synchronized source.",
+      "decision": "The synchronized workbook is the living internal research source; the earlier matrix is its baseline documentary mirror."
+    },
+    "access_boundary": {
+      "internal_project_use": "AUTHORIZED_BY_USER_WITHIN_HOOKLAB_SCOPE",
+      "public_lyric_reproduction": "BLOCKED_EDITORIAL_REVIEW",
+      "legal_license_claim_made": false,
+      "scientific_feature_admissibility_implied": false
+    },
+    "remaining_source_tasks": [
+      "Preserve the current revision identifier or a future immutable export checksum in every derived feature table",
+      "Complete language and document-version metadata before calibration sampling",
+      "Resolve editorial review before any public redistribution or quotation beyond applicable limits"
+    ],
+    "manifest_search_audit": {
+      "searched_locations": [
+        "hooklab-time repository and history",
+        "basspauloandres-svg/corpusbot repository",
+        "connected Google Drive metadata"
+      ],
+      "drive_queries": [
+        "ingest_manifest",
+        "corpus_clean",
+        "CorpusBot",
+        "LYR-DPE",
+        "manifest C001 C100"
+      ],
+      "immutable_ingest_or_clean_manifest_found": false,
+      "note": "CorpusBot metadata searches located overlapping POD-LC workbooks but no file named ingest_manifest, corpus_clean or LYR-DPE."
+    }
+  },
+  "artifact_classes": {
+    "A_SOURCE_CORPUS": "Authorized source records from which corpus observations may be derived after source resolution.",
+    "B_MATRIX_OR_DERIVED_VIEW": "Matrix, subset, observation table or linked modality derived from source identities; never an additional corpus N.",
+    "C_COMPUTED_FEATURES": "Already calculated descriptive or calibrated measurements, kept separate from source text and from inferential results.",
+    "D_PRIOR_STATISTICAL_RESULTS": "Prior outcomes and dispositions; frozen unless NEW_EVIDENCE=true and a new ANALYSIS_ID is registered.",
+    "E_ORIGINAL_LYRICS_OR_TEXT": "Original or authorized lyric text retained only at its provider; never copied into this registry.",
+    "F_PROVENANCE": "Manifests, hashes, source/provider fields, recovery reports and audit records."
+  },
+  "assets": [
+    {
+      "asset_id": "HB-SRC-LYR-001",
+      "name": "POD-LC — Fuente sincronizada 100 canciones",
+      "locator": "https://docs.google.com/spreadsheets/d/14luIFK9pyaHpWVc5OTEgI49xc8w6C0faFkHx4tGDEFo/edit",
+      "identity_namespace": "HOOKLAB_C001_C100",
+      "classes": [
+        "A_SOURCE_CORPUS",
+        "E_ORIGINAL_LYRICS_OR_TEXT",
+        "F_PROVENANCE"
+      ],
+      "role": "CANONICAL_INTERNAL_RESEARCH_SOURCE",
+      "canonical_source": true,
+      "canonical_for_inference": false,
+      "contains_original_lyrics_in_registry": false,
+      "coverage": {
+        "commercial_reference_cases": 100,
+        "additional_test_case": "T001",
+        "source_provenance_rows": 100,
+        "status_counts": {
+          "CORPUS_MIGRATED_PENDING_OBSERVATION": 90,
+          "EDITORIAL_ALERT_PENDING": 10
+        },
+        "known_metadata_limits": {
+          "genre_unverified": 80,
+          "year_unverified": 81,
+          "document_incomplete_cases": [
+            "C077"
+          ]
+        }
+      },
+      "provenance": {
+        "declared_source": "LRCLIB / respaldo local CorpusBot",
+        "provider_authorization": "INTERNAL_PROJECT_SOURCE_RESOLVED_PUBLIC_EDITORIAL_REVIEW_PENDING",
+        "observed_structure": "22 tabs including source cases, observation, interpretation, evidence matrix and documentary corpus views",
+        "current_revision": "72",
+        "current_revision_date": "2026-07-22T17:50:35.948Z",
+        "retained_revision_count": 6,
+        "non_text_case_manifest": "data/lyric_modeling/hooklab_corpus_case_metadata_manifest_v1.json"
+      },
+      "boundary": "This workbook is the canonical internal source because its revision history and QC supersede the baseline mirror. POD-LC remains methodological background rather than HookLab's governing specification; public lyric reproduction remains blocked pending editorial review, and source status does not confer Feature Admissibility.",
+      "analysis_status": "SOURCE_RESOLVED_FEATURE_GATE_PENDING"
+    },
+    {
+      "asset_id": "HB-VIEW-LYR-001",
+      "name": "Laboratorio de Ingeniería Inversa de Canciones — Matriz de Evidencias POD-LC — 100 canciones",
+      "locator": "https://docs.google.com/spreadsheets/d/1JPNYWgm4s-q2EF9ZGtdmv4JefcHTuPnuJhpO1QfKFGA/edit",
+      "identity_namespace": "HOOKLAB_C001_C100",
+      "classes": [
+        "B_MATRIX_OR_DERIVED_VIEW",
+        "E_ORIGINAL_LYRICS_OR_TEXT",
+        "F_PROVENANCE"
+      ],
+      "role": "FROZEN_BASELINE_DOCUMENTARY_MIRROR",
+      "canonical_source": false,
+      "canonical_for_inference": false,
+      "contains_original_lyrics_in_registry": false,
+      "coverage": {
+        "commercial_reference_cases": 100,
+        "additional_test_case": "T001",
+        "tabs": 11,
+        "documentary_records_with_provider_ids": 100,
+        "declared_provider": "LRCLIB",
+        "editorial_authorization_status": "PENDING_VERIFICATION",
+        "case_status_counts": {
+          "CORPUS_MIGRATED_PENDING_OBSERVATION": 90,
+          "EDITORIAL_ALERT_PENDING": 10
+        }
+      },
+      "provenance": {
+        "verified_tabs": [
+          "Casos",
+          "Observación",
+          "Interpretación",
+          "Hipótesis emergentes",
+          "Categorías emergentes",
+          "Decisiones de diseño",
+          "Relaciones",
+          "Matriz v1.1",
+          "Observaciones emergentes",
+          "Avance del corte",
+          "Corpus documental"
+        ],
+        "documentary_fields_verified_without_copying_text": [
+          "ID",
+          "Fuente",
+          "Fecha de consulta",
+          "Estado de licencia",
+          "Proveedor licenciado",
+          "ID del proveedor",
+          "Acción sobre el caso"
+        ],
+        "user_supplied_locator_verified_at": "2026-09-01",
+        "non_text_case_manifest": "data/lyric_modeling/hooklab_corpus_case_metadata_manifest_v1.json"
+      },
+      "mirrors_canonical_asset": "HB-SRC-LYR-001",
+      "boundary": "This workbook is the earlier baseline mirror of C001-C100. It is preserved for provenance, contributes no additional corpus N or replication, and cannot supersede revision 72 of the synchronized source.",
+      "analysis_status": "FROZEN_BASELINE_MIRROR_NO_REPROCESS"
+    },
+    {
+      "asset_id": "HB-VIEW-OBS-001",
+      "name": "M8 Observación densa v2.1 / B1",
+      "locator": "https://docs.google.com/spreadsheets/d/1S7uKYOYNoghpMuw1BY2IOdtJo2TywtvS4boONHWmZIc/edit",
+      "identity_namespace": "HOOKLAB_C001_C100",
+      "classes": [
+        "B_MATRIX_OR_DERIVED_VIEW",
+        "C_COMPUTED_FEATURES",
+        "F_PROVENANCE"
+      ],
+      "role": "FROZEN_OBSERVATIONAL_SUBSET",
+      "canonical_for_inference": false,
+      "contains_original_lyrics_in_registry": false,
+      "coverage": {
+        "cases": "C001-C010",
+        "case_count": 10,
+        "records": 210,
+        "eligible_records": 186,
+        "excluded_records": 3,
+        "restricted_records": 21,
+        "restricted_case": "C004"
+      },
+      "integrity_notes": [
+        "Main Casos and Corpus documental tabs showed #REF! during audit",
+        "M9 is historical work in progress and is not reopened by this registry"
+      ],
+      "boundary": "Existing observations are preserved as a derived historical layer. They are not automatically admissible lyric/narrative features and are not recalculated.",
+      "analysis_status": "NO_REPROCESS"
+    },
+    {
+      "asset_id": "HB-MOD-MIDI-001",
+      "name": "PODLC MIDI Corpus and recovery reports",
+      "locator": "https://drive.google.com/drive/folders/1viK2nT5UP0jUGxavAzadntdIbRkExKgD",
+      "provenance_locator": "https://drive.google.com/drive/folders/108l5bS8uqvCWvO-u4M_ZWhFb0k9zAS5h",
+      "identity_namespace": "HOOKLAB_C001_C100",
+      "classes": [
+        "B_MATRIX_OR_DERIVED_VIEW",
+        "C_COMPUTED_FEATURES",
+        "F_PROVENANCE"
+      ],
+      "role": "LINKED_MIDI_MODALITY",
+      "canonical_for_inference": false,
+      "contains_original_lyrics_in_registry": false,
+      "coverage": {
+        "indexed_cases": 100,
+        "recovered_midi": 68,
+        "selected_melody_candidates": 67,
+        "without_candidate": 9,
+        "candidate_not_recovered": 23,
+        "invalid_recovered_midi": 1
+      },
+      "provenance": {
+        "declared_source_dataset": "Metacreation/GigaMIDI",
+        "reports": [
+          "manifest_C001_C100.csv",
+          "PODLC_MIDI_index.csv/json/xlsx",
+          "midi_structural_audit.csv",
+          "recovered_files.csv",
+          "selected_melody_candidates.csv",
+          "melody_track_ranking.csv",
+          "canonical_metadata.csv"
+        ]
+      },
+      "generation_class": "D0_EXPLORATORY",
+      "scientific_d_unlocked": false,
+      "boundary": "MIDI is a linked modality and engineering/descriptive evidence, not a lyric corpus and not an additional reference case.",
+      "analysis_status": "SCIENTIFIC_CALIBRATION_REQUIRED"
+    },
+    {
+      "asset_id": "HB-PODLC-HISTORICAL-MATRICES-001",
+      "name": "POD-LC historical category, relationship and negative-case matrices",
+      "locators": [
+        "https://docs.google.com/spreadsheets/d/1480VLU9wAZttjP05r3UoR32jMFige2AdH9bACiSZ1Ww/edit",
+        "https://docs.google.com/spreadsheets/d/1FzGxMdpqJQqbruASjiNHbWl8kuLMffksS09bogiLT_4/edit",
+        "https://docs.google.com/spreadsheets/d/1IqGkED1_KSctQk5EgCZdiUHwTNdHGuZhZ39TksHV-sI/edit"
+      ],
+      "identity_namespace": "HOOKLAB_C001_C100",
+      "classes": [
+        "B_MATRIX_OR_DERIVED_VIEW",
+        "C_COMPUTED_FEATURES",
+        "F_PROVENANCE"
+      ],
+      "role": "HISTORICAL_PODLC_DERIVED_VIEWS",
+      "canonical_for_inference": false,
+      "contains_original_lyrics_in_registry": false,
+      "coverage": {
+        "workbooks": 3,
+        "workbook_tab_counts": [
+          30,
+          20,
+          18
+        ],
+        "observed_derived_layers": [
+          "Observación computacional",
+          "Códigos abiertos",
+          "Memos comparativos",
+          "Categorías provisionales",
+          "Auditoría metodológica",
+          "Casos negativos dirigidos",
+          "Síntesis categorial revisada",
+          "Libro maestro categorías",
+          "Propiedades y dimensiones v1",
+          "Relaciones iniciales v1"
+        ]
+      },
+      "boundary": "These are historical POD-LC analytical copies over the same identity space. Their categories and relationships are neither HookLab features nor statistical evidence by default, and none is reopened or counted as an additional corpus.",
+      "analysis_status": "HISTORICAL_DERIVED_NO_REPROCESS"
+    },
+    {
+      "asset_id": "HB-PODLC-M8-DRAFTS-001",
+      "name": "POD-LC M8 technical drafts C003-C010 v0.1",
+      "locator": "https://docs.google.com/spreadsheets/d/1884ryTHu3Bts0yTITXgeJGgRbgziI2fH45Btx-WifAA/edit",
+      "identity_namespace": "HOOKLAB_C001_C100",
+      "classes": [
+        "B_MATRIX_OR_DERIVED_VIEW",
+        "F_PROVENANCE"
+      ],
+      "role": "HISTORICAL_CASE_DRAFTS",
+      "canonical_for_inference": false,
+      "contains_original_lyrics_in_registry": false,
+      "coverage": {
+        "cases": "C003-C010",
+        "case_count": 8,
+        "tabs": 9
+      },
+      "boundary": "Draft case sheets are provenance for historical M8 work only. They do not add cases, do not supersede the frozen M8/B1 layer and are not reopened.",
+      "analysis_status": "HISTORICAL_DRAFT_NO_REPROCESS"
+    },
+    {
+      "asset_id": "HB-SAMPLE-TIME-001",
+      "name": "HookLab TIME Sample 1 / Matrix X",
+      "locator": "https://docs.google.com/document/d/1anz1O7ia46DjM-gvAOuerqGbVH-r9dunaroIi0dFOB8/edit",
+      "identity_namespace": "HOOKLAB_TIME_SAMPLE_1",
+      "classes": [
+        "B_MATRIX_OR_DERIVED_VIEW",
+        "C_COMPUTED_FEATURES",
+        "F_PROVENANCE"
+      ],
+      "role": "ACTIVE_SCIENTIFIC_SAMPLE_DISTINCT_POPULATION",
+      "canonical_for_inference": false,
+      "contains_original_lyrics_in_registry": false,
+      "coverage": {
+        "cross_platform_gate_pass_pending_analyzer": 9,
+        "strict_pass_real_references": 1,
+        "target_minimum_strict_pass": 100,
+        "target_minimum_genres": 5,
+        "target_minimum_styles": 10
+      },
+      "boundary": "Matrix X remains descriptive, without weights or imputation and without Y attached. It is a distinct active sample and cannot be pooled with C001-C100 without a registered population-linkage decision.",
+      "analysis_status": "POPULATION_IN_CONSTRUCTION"
+    },
+    {
+      "asset_id": "HB-DESIGN-BEAT-001",
+      "name": "HookLab TIME beat/tactus evidence matrix",
+      "locator": "https://docs.google.com/spreadsheets/d/1BNhHxZnIw-Q3anH9uLD0GqEB7TBAWpxZ4g--5uQYmp0/edit",
+      "identity_namespace": "HOOKLAB_TIME_BEAT_DESIGN",
+      "classes": [
+        "B_MATRIX_OR_DERIVED_VIEW",
+        "F_PROVENANCE"
+      ],
+      "role": "EXPERIMENTAL_DESIGN_NOT_EXECUTED_CORPUS",
+      "canonical_for_inference": false,
+      "contains_original_lyrics_in_registry": false,
+      "coverage": {
+        "tabs": [
+          "Evidencia",
+          "Piloto_B0_vs_B1",
+          "Registro_Pruebas",
+          "Performances_Exactas"
+        ]
+      },
+      "boundary": "Design and reference structure only; it does not contribute lyric cases or completed statistical evidence.",
+      "analysis_status": "NOT_AN_EXECUTED_CORPUS"
+    },
+    {
+      "asset_id": "HB-FROZEN-RESULTS-001",
+      "name": "CorpusBot lyric pilot and HOOK-CORPUS historical results",
+      "locator": "https://github.com/basspauloandres-svg/corpusbot",
+      "identity_namespace": "HISTORICAL_SEPARATE_ANALYSES",
+      "classes": [
+        "D_PRIOR_STATISTICAL_RESULTS",
+        "F_PROVENANCE"
+      ],
+      "role": "FROZEN_HISTORICAL_RESULTS",
+      "canonical_for_inference": false,
+      "contains_original_lyrics_in_registry": false,
+      "coverage": {
+        "lyric_pilot_references": 5,
+        "historical_midi_processed": 14,
+        "historical_usable_pair_cases": 9
+      },
+      "provenance": {
+        "known_artifacts": [
+          "LYR-DPE-002_CORPUS_CONTRACT_v1.0.md",
+          "LYR-DPE-001_PILOT5_DIAGNOSTIC.md",
+          "lyr_dpe_ingest.py"
+        ],
+        "ingest_behavior": "Accepts authorized CSV/JSONL exports and does not fetch lyrics",
+        "missing_in_repository": [
+          "ingest_manifest.json",
+          "corpus_clean.csv"
+        ]
+      },
+      "prior_disposition": "R9_4_HOLD",
+      "boundary": "No stable lyric inference was established and no prior result may be replaced or reopened without NEW_EVIDENCE=true and a new ANALYSIS_ID.",
+      "analysis_status": "FROZEN_NO_REPROCESS"
+    },
+    {
+      "asset_id": "HB-AUX-CORPORA-001",
+      "name": "Registered auxiliary music corpora",
+      "locator": "basspauloandres-svg/corpusbot: hooklab/experiments/C003/P17/P17_AUXILIARY_SOURCE_REGISTRY_v0.1.json",
+      "identity_namespace": "EXTERNAL_AUXILIARY_DATASETS",
+      "classes": [
+        "B_MATRIX_OR_DERIVED_VIEW",
+        "F_PROVENANCE"
+      ],
+      "role": "AUXILIARY_CORPUS",
+      "canonical_for_inference": false,
+      "contains_original_lyrics_in_registry": false,
+      "coverage": {
+        "registered_datasets": [
+          "MedleyDB",
+          "MTG-Jamendo",
+          "POP1K7",
+          "POP_K",
+          "Rock/Pop Phrase Continuation"
+        ],
+        "reported_dataset_sizes": {
+          "MTG_Jamendo": "55000+",
+          "POP1K7": 1747,
+          "POP_K_augmented": 305815,
+          "Rock_Pop_Phrase_Continuation": 2011
+        }
+      },
+      "boundary": "Calibration and stress-test lane only. These sources never define HookLab lyric population N or substitute the authorized source corpus.",
+      "analysis_status": "AUXILIARY_ONLY"
+    },
+    {
+      "asset_id": "HB-TEST-LAKH-001",
+      "name": "Lakh-derived engineering lane",
+      "locator": "basspauloandres-svg/corpusbot: hooklab/rhythm_corpus/SOURCE_ACCESS_STATUS_v0.1.json",
+      "identity_namespace": "LAKH_TEST_LANE",
+      "classes": [
+        "B_MATRIX_OR_DERIVED_VIEW",
+        "C_COMPUTED_FEATURES",
+        "F_PROVENANCE"
+      ],
+      "role": "TEST_LANE_ONLY",
+      "canonical_for_inference": false,
+      "contains_original_lyrics_in_registry": false,
+      "generation_class": "D0_EXPLORATORY",
+      "scientific_d_unlocked": false,
+      "boundary": "Lakh and the six TMT bridge variables are engineering/descriptive scaffold controls only. They are never the missing HookLab lyric corpus and do not constitute Feature Admissibility.",
+      "analysis_status": "TEST_LANE_ONLY"
+    },
+    {
+      "asset_id": "HB-NONCORPUS-OUTPUTS-001",
+      "name": "Generated HookLab outputs and empty creative project fields",
+      "locator": "HookLab generated candidate folders and Creative Artist OS project registry",
+      "identity_namespace": "GENERATED_OUTPUTS",
+      "classes": [
+        "F_PROVENANCE"
+      ],
+      "role": "NOT_CORPUS",
+      "canonical_for_inference": false,
+      "contains_original_lyrics_in_registry": false,
+      "coverage": {
+        "creative_os_lyric_and_hook_tables": "HEADERS_ONLY",
+        "generated_candidate_sets": "OUTPUTS_NOT_REFERENCE_CASES"
+      },
+      "boundary": "Generated lyrics, hook candidates, audio proposals and empty project tables cannot be recycled as corpus evidence.",
+      "analysis_status": "EXCLUDED_FROM_CORPUS"
+    }
+  ],
+  "deduplication_rules": [
+    {
+      "rule_id": "DEDUP-IDENTITY-001",
+      "rule": "C001-C100 is counted once at the source-case level regardless of how many sheets, matrices, MIDI files or reports reference each case."
+    },
+    {
+      "rule_id": "DEDUP-VIEW-002",
+      "rule": "HB-SRC-LYR-001 revision 72 is the canonical internal source and HB-VIEW-LYR-001 revision 1 is its frozen baseline mirror. They share C001-C100 and 100 provider IDs, contribute one source-case N and are not independent replications."
+    },
+    {
+      "rule_id": "DEDUP-MODALITY-003",
+      "rule": "Text, audio, MIDI and feature records may be joined only by verified case_id; modality availability never changes source lyric N."
+    },
+    {
+      "rule_id": "DEDUP-POPULATION-004",
+      "rule": "HOOKLAB_TIME_SAMPLE_1 and external auxiliary datasets remain separate populations unless a new analysis registration explicitly defines and justifies a linkage."
+    },
+    {
+      "rule_id": "DEDUP-GENERATED-005",
+      "rule": "Generated outputs are evaluation artifacts, never source observations."
+    }
+  ],
+  "ai_role": {
+    "allowed": [
+      "index metadata and provenance",
+      "map case identifiers across modalities",
+      "detect missingness and duplicate views",
+      "organize admissible features and promoted deductions",
+      "audit story and section coherence"
+    ],
+    "forbidden": [
+      "create an empirical trend",
+      "promote its own rule",
+      "treat auxiliary data as the HookLab source corpus",
+      "assign CURATED_PROSODY_PASS without human review",
+      "reproduce source lyrics in evidence-assisted generation"
+    ]
+  },
+  "analysis_gate": {
+    "feature_admissibility_unlocked": false,
+    "analysis_registration_unlocked": false,
+    "statistical_engine_implemented": true,
+    "statistical_engine_version": "hooklab-lyric-statistical-analysis-engine-v0.1",
+    "trend_origin_policy": "REGISTERED_DATA_AND_STATISTICS_ONLY",
+    "human_trend_override_allowed": false,
+    "statistical_tests_executed_by_this_registry": false,
+    "conditioned_deductions_created": false,
+    "evidence_assisted_story_brief_unlocked": false,
+    "generation_class": "D0_EXPLORATORY",
+    "scientific_d_unlocked": false,
+    "next_gate": "HUMAN_REVIEW_LANGUAGE_PROPOSALS_AND_RESOLVE_DOCUMENT_VERSION_STATUS_FOR_99_ELIGIBLE_CASES"
+  },
+  "no_reprocess": {
+    "lyrics_downloaded": false,
+    "corpus_reconstructed": false,
+    "features_recomputed": false,
+    "statistical_analysis_executed": false,
+    "m9_reopened": false,
+    "frozen_analysis_reopened": false,
+    "assets_deleted_or_overwritten": false
+  }
+}

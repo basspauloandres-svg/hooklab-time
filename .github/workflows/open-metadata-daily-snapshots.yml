@@ -1,6 +1,13 @@
 name: Open Metadata Daily Snapshots
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/open-metadata-daily-snapshots.yml'
+      - 'mie_core/open_metadata_stack_collector.py'
+      - 'tests/test_open_metadata_stack_collector.py'
+      - 'data/engagement_modeling/youtube_video_identity_map_v0_1.json'
   schedule:
     - cron: '17 6 * * *'
   workflow_dispatch:
