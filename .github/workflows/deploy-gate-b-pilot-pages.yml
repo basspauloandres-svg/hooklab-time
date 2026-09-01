@@ -2,7 +2,12 @@ name: HookLab Producer Interface Pages
 
 on:
   push:
-    branches: ["mie/golden-forensic-v0.3", "main"]
+    branches: ["mie/golden-forensic-v0.3", "release/producer-interface-v0.6", "main"]
+    paths:
+      - "app/prototype_v1/**"
+      - ".github/workflows/deploy-gate-b-pilot-pages.yml"
+  pull_request:
+    branches: ["main"]
     paths:
       - "app/prototype_v1/**"
       - ".github/workflows/deploy-gate-b-pilot-pages.yml"
@@ -43,7 +48,7 @@ jobs:
           path: _site
 
   deploy:
-    if: github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: validate-static-site
     environment:
       name: github-pages
