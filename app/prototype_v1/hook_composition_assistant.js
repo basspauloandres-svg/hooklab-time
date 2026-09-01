@@ -1,4 +1,4 @@
-/* HookLab multimodal hook composition assistant v0.2
+/* HookLab multimodal hook composition assistant v0.3
  * D0 exploratory compositional assistance.
  * Generates original hook-text candidates and ranks fit against abstract
  * reference/beat/melody-capacity constraints. No success prediction.
@@ -9,7 +9,7 @@
   root.HookLabCompositionAssistant=api;
 })(typeof globalThis!=='undefined'?globalThis:this,function(){
   'use strict';
-  const VERSION='hooklab-multimodal-hook-assistant-v0.2';
+  const VERSION='hooklab-multimodal-hook-assistant-v0.3';
   function id(prefix){return `${prefix}-${Date.now()}-${Math.random().toString(16).slice(2,10)}`;}
   function clean(s){return String(s||'').trim().replace(/\s+/g,' ');}
   function constraints(input){
@@ -98,3 +98,30 @@
   }
   return {VERSION,constraints,parseCandidate,syllablesApprox,lineSyllables,textFit,candidate,generateCandidates,validate};
 });
+
+/* Browser provenance instrumentation. This records creative evaluation linkage;
+ * it does not convert producer preference into scientific evidence. */
+(function(){
+  if(typeof document==='undefined'||typeof localStorage==='undefined')return;
+  function val(id){const e=document.getElementById(id);return e?e.value:null;}
+  document.addEventListener('click',ev=>{
+    const b=ev.target.closest&&ev.target.closest('.useHookCandidate');
+    if(b&&window.__hooklabCandidateSet){
+      const c=window.__hooklabCandidateSet.candidates[+b.dataset.i];
+      if(c){
+        window.__hooklabSelectedCandidate=c;
+        localStorage.setItem('hooklab_current_candidate',JSON.stringify({text_candidate_id:c.text_candidate_id,hook_id:c.hook_id,constraint_set_id:c.constraint_set.constraint_set_id,reference_sha256:c.provenance.reference_sha256,selected_at:new Date().toISOString()}));
+      }
+    }
+    const save=ev.target.closest&&ev.target.closest('#save');
+    if(save&&window.__hooklabSelectedCandidate){
+      const c=window.__hooklabSelectedCandidate;
+      const session=document.getElementById('sessionId')?.textContent||localStorage.getItem('hooklab_session_id')||null;
+      const variant=val('variant');
+      const trace={schema:'HOOKLAB_PRODUCER_EVALUATION_TRACE_v1.0',evaluation_id:id('EVAL'),session_id:session,hook_id:val('hookId')||c.hook_id,text_candidate_id:c.text_candidate_id,constraint_set_id:c.constraint_set.constraint_set_id,reference_sha256:c.provenance.reference_sha256,variant_id:variant,generation_class:'D0_EXPLORATORY',scientific_evidence:false,producer_evaluation:{decision:val('decision'),reason:val('reason'),hook_strength:+val('hook'),singability:+val('sing'),memorability:+val('mem'),creative_usefulness:+val('use')},saved_at:new Date().toISOString()};
+      const key=`hooklab_trace_${session}_${c.text_candidate_id}_${variant}`;
+      localStorage.setItem(key,JSON.stringify(trace));
+      window.__hooklabLastEvaluationTrace=trace;
+    }
+  });
+})();
