@@ -24,7 +24,15 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y ffmpeg
           python -m pip install --upgrade pip
-          pip install scipy mirdata basic-pitch
+          pip install scipy mirdata 'basic-pitch[onnx]'
+          python - <<'PY'
+          import onnxruntime
+          from basic_pitch import build_icassp_2022_model_path, FilenameSuffix
+          p=build_icassp_2022_model_path(FilenameSuffix.onnx)
+          print('onnxruntime', onnxruntime.__version__)
+          print('basic_pitch_onnx_model', p, 'exists=',p.exists(),'bytes=',p.stat().st_size if p.exists() else None)
+          if not p.exists() or p.stat().st_size == 0: raise SystemExit('Basic Pitch ONNX model missing/empty')
+          PY
       - name: Download Vocadito public release
         run: |
           python - <<'PY'
@@ -49,6 +57,7 @@ jobs:
           if not p.exists(): raise SystemExit('calibration report missing')
           r=json.loads(p.read_text())
           print('status=',r['status'])
+          print('candidate_system=',r['candidate_system'])
           print('observed A1=',r['observed_tracks_a1'],'A2=',r['observed_tracks_a2'])
           print('dual_reference_stable_features=',r['dual_reference_stable_features'])
           print('A1 gate=',r['gate_A1']['status'],r['gate_A1']['blocking_reasons'])
