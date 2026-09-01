@@ -1,6 +1,6 @@
 {
   "schema": "HOOKLAB_YOUTUBE_VIDEO_IDENTITY_MAP_v0.1",
-  "status": "PARTIAL_IDENTITY_REVIEW_70_OF_100",
+  "status": "PARTIAL_IDENTITY_REVIEW_85_OF_100",
   "created_at": "2026-09-01T18:42:11.663988Z",
   "collector_version": "hooklab-youtube-public-metrics-collector-v0.1",
   "source_case_manifest_id": "HOOKLAB-C001-C100-METADATA-2026-09-01-v1",
@@ -70,9 +70,14 @@
       "case_id": "C006",
       "title": "Mi Gente",
       "artist": "J Balvin & Willy William",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "wnJ6LuUFpMo",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=wnJ6LuUFpMo",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C007",
@@ -99,9 +104,14 @@
       "case_id": "C009",
       "title": "Con Calma",
       "artist": "Daddy Yankee ft. Snow",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "DiItGE3eAyQ",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=DiItGE3eAyQ",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C010",
@@ -120,9 +130,14 @@
       "case_id": "C011",
       "title": "Billie Jean",
       "artist": "Michael Jackson",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "Zi_XLOBDo_Y",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=Zi_XLOBDo_Y",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C012",
@@ -227,9 +242,14 @@
       "case_id": "C020",
       "title": "Every Breath You Take",
       "artist": "The Police",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "OMOGaugKpzs",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=OMOGaugKpzs",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C021",
@@ -261,17 +281,27 @@
       "case_id": "C023",
       "title": "Flowers",
       "artist": "Miley Cyrus",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "G7KNmW9a75Y",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=G7KNmW9a75Y",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C024",
       "title": "Levitating",
       "artist": "Dua Lipa",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "TUVcZfQe-Kw",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=TUVcZfQe-Kw",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C025",
@@ -342,9 +372,14 @@
       "case_id": "C030",
       "title": "Stay With Me",
       "artist": "Sam Smith",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "pB-5XG-DbAA",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=pB-5XG-DbAA",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C031",
@@ -397,9 +432,14 @@
       "case_id": "C035",
       "title": "Toxic",
       "artist": "Britney Spears",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "LOZuxwVk7TU",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=LOZuxwVk7TU",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C036",
@@ -509,9 +549,14 @@
       "case_id": "C044",
       "title": "Can't Stop the Feeling!",
       "artist": "Justin Timberlake",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "ru0K8uYEZWw",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=ru0K8uYEZWw",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C045",
@@ -556,9 +601,14 @@
       "case_id": "C048",
       "title": "Chandelier",
       "artist": "Sia",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "2vjPBrBU-TM",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=2vjPBrBU-TM",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C049",
@@ -572,9 +622,14 @@
       "case_id": "C050",
       "title": "Titanium",
       "artist": "David Guetta",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "JRfuAukYTKg",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=JRfuAukYTKg",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C051",
@@ -684,9 +739,14 @@
       "case_id": "C059",
       "title": "The Power of Love",
       "artist": "Huey Lewis and the News",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "wBl2QGAIx1s",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=wBl2QGAIx1s",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C060",
@@ -731,17 +791,27 @@
       "case_id": "C063",
       "title": "Sweet Child o' Mine",
       "artist": "Guns N' Roses",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "1w7OgIMMRc4",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=1w7OgIMMRc4",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C064",
       "title": "November Rain",
       "artist": "Guns N' Roses",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "8SbUC-UaAxE",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=8SbUC-UaAxE",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C065",
@@ -755,9 +825,14 @@
       "case_id": "C066",
       "title": "Eye of the Tiger",
       "artist": "Survivor",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "btPJPFnesV4",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: WIKIDATA, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=btPJPFnesV4",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     },
     {
       "case_id": "C067",
@@ -1153,6 +1228,6 @@
     }
   ],
   "scientific_d_unlocked": false,
-  "updated_at": "2026-09-01T21:29:54.864552Z",
+  "updated_at": "2026-09-01T22:09:27.303294Z",
   "identity_resolver_version": "hooklab-open-identity-resolver-v1.1"
 }
