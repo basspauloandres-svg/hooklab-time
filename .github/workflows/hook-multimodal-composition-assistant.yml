@@ -4,7 +4,9 @@ on:
     branches: [mie/golden-forensic-v0.3]
     paths:
       - 'app/prototype_v1/hook_composition_assistant.js'
+      - 'app/prototype_v1/lyric_prosody_ui_bridge.js'
       - 'tests/test_hook_composition_assistant.js'
+      - 'tests/test_lyric_prosody_ui_bridge.js'
       - 'docs/contracts/HOOK_MULTIMODAL_COMPOSITION_CONTRACT_v1.md'
       - '.github/workflows/hook-multimodal-composition-assistant.yml'
   workflow_dispatch:
@@ -17,3 +19,4 @@ jobs:
         with:
           node-version: '20'
       - run: node tests/test_hook_composition_assistant.js
+      - run: node tests/test_lyric_prosody_ui_bridge.js
