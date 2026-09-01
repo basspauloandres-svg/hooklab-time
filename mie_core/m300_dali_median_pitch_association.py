@@ -41,6 +41,7 @@ def load_evidence(root):
   except Exception:continue
   if d.get('schema')!='HOOKLAB_DALI_ANNOTATION_EVIDENCE_v1.0':continue
   if d.get('status')!='PASS_ANNOTATION_PARSE':continue
+  if d.get('representation_origin')!='DALI_NOTE_EVENTS':continue
   med=(d.get('melody_summary') or {}).get('pitch_median_midi')
   if not isinstance(med,(int,float)):continue
   out.append(d)
@@ -55,7 +56,7 @@ def main():
  ap.add_argument('--output',required=True)
  a=ap.parse_args()
  allow=json.loads(Path(a.allowlist).read_text())
- stable=allow.get('stable_features') or allow.get('allowed_features') or []
+ stable=(allow.get('allowed_for_population_association_testing') or allow.get('stable_features') or allow.get('allowed_features') or [])
  if FEATURE not in stable:
   raise SystemExit('median_pitch_st is not representation-calibrated/allowlisted')
  m=json.loads(Path(a.m300).read_text()); evidence=load_evidence(a.dali_evidence_dir)
@@ -65,6 +66,8 @@ def main():
  for c in m.get('candidates',[]):
   cand=[]
   for d in evidence:
+   if d.get('candidate_id') and d.get('candidate_id')==c.get('candidate_id'):
+    cand.append((1.0,d));continue
    if norm(c.get('title'))!=norm(d.get('title')):continue
    ov=artist_overlap(c.get('artist'),d.get('artist'))
    if ov>=.5:cand.append((ov,d))
