@@ -1,0 +1,22 @@
+name: Lyric Modeling Coherence Contract
+on:
+  push:
+    paths:
+      - 'app/prototype_v1/studio.html'
+      - 'app/prototype_v1/hook_composition_assistant.js'
+      - 'app/prototype_v1/lyric_statistical_model_contract.js'
+      - 'app/prototype_v1/narrative_state_engine.js'
+      - 'app/prototype_v1/ai_coherence_reasoning_layer.js'
+      - 'tests/lyric_modeling_coherence_contract.test.js'
+      - '.github/workflows/lyric-modeling-coherence-contract.yml'
+  workflow_dispatch:
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Run lyric modeling coherence contract
+        run: node tests/lyric_modeling_coherence_contract.test.js
