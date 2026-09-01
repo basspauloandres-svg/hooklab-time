@@ -5,9 +5,34 @@ on:
       - 'app/prototype_v1/studio.html'
       - 'app/prototype_v1/hook_composition_assistant.js'
       - 'app/prototype_v1/lyric_statistical_model_contract.js'
+      - 'mie_core/lyric_statistical_analysis_engine.py'
+      - 'mie_core/music_statistical_analysis_engine.py'
+      - 'mie_core/youtube_public_metrics_collector.py'
       - 'app/prototype_v1/narrative_state_engine.js'
       - 'app/prototype_v1/ai_coherence_reasoning_layer.js'
+      - 'data/lyric_modeling/lyric_narrative_feature_registry_v0_1.json'
+      - 'data/lyric_modeling/hooklab_corpus_backbone_registry_v1.json'
+      - 'data/lyric_modeling/hooklab_corpus_case_metadata_manifest_v1.json'
+      - 'data/lyric_modeling/lyric_narrative_measurement_protocol_v0_1.json'
+      - 'data/lyric_modeling/hooklab_corpus_language_proposals_v0_1.json'
+      - 'data/lyric_modeling/analysis_registry/AN-LNR-POV-DESC-001.json'
+      - 'data/music_modeling/**'
+      - 'data/engagement_modeling/**'
+      - 'docs/checkpoints/LYRIC_NARRATIVE_FEATURE_REGISTRY_AUDIT_2026-09-01_v0_1.md'
+      - 'docs/checkpoints/HOOKLAB_CORPUS_BACKBONE_AUDIT_2026-09-01_v1.md'
+      - 'docs/checkpoints/DATA_ORIGIN_NO_HUMAN_TREND_OVERRIDE_INVARIANT_v1.md'
+      - 'docs/checkpoints/LYRIC_STATISTICAL_ANALYSIS_ENGINE_AUDIT_2026-09-01_v0_1.md'
+      - 'docs/checkpoints/MELODY_BEAT_SCIENTIFIC_DATA_GATE_2026-09-01_v0_1.md'
+      - 'docs/checkpoints/DIGITAL_CIRCULATION_CHORUS_TRAFFIC_GATE_2026-09-01_v0_1.md'
       - 'tests/lyric_modeling_coherence_contract.test.js'
+      - 'tests/lyric_narrative_feature_registry.test.js'
+      - 'tests/hooklab_corpus_backbone_registry.test.js'
+      - 'tests/lyric_narrative_measurement_protocol.test.js'
+      - 'tests/test_lyric_statistical_analysis_engine.py'
+      - 'tests/music_modeling_contract.test.js'
+      - 'tests/test_music_statistical_analysis_engine.py'
+      - 'tests/digital_circulation_outcome_registry.test.js'
+      - 'tests/test_youtube_public_metrics_collector.py'
       - '.github/workflows/lyric-modeling-coherence-contract.yml'
   workflow_dispatch:
 jobs:
@@ -19,4 +44,13 @@ jobs:
         with:
           node-version: '20'
       - name: Run lyric modeling coherence contract
-        run: node tests/lyric_modeling_coherence_contract.test.js
+        run: |
+          node tests/lyric_modeling_coherence_contract.test.js
+          node tests/lyric_narrative_feature_registry.test.js
+          node tests/hooklab_corpus_backbone_registry.test.js
+          node tests/lyric_narrative_measurement_protocol.test.js
+          python3 tests/test_lyric_statistical_analysis_engine.py
+          node tests/music_modeling_contract.test.js
+          python3 tests/test_music_statistical_analysis_engine.py
+          node tests/digital_circulation_outcome_registry.test.js
+          python3 tests/test_youtube_public_metrics_collector.py

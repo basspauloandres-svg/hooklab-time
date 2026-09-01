@@ -1,0 +1,27 @@
+{
+  "schema": "HOOKLAB_BEAT_RHYTHM_MEASUREMENT_PROTOCOL_v0.1",
+  "status": "BLOCKED_PENDING_CANONICAL_REAL_AUDIO_AND_REFERENCE_ANNOTATIONS",
+  "identity_namespace": "HOOKLAB_C001_C100",
+  "input_boundary": {
+    "canonical_case_linked_real_audio": 0,
+    "canonical_case_linked_reference_beat_annotations": 0,
+    "aesthetic_reference_session_audio_is_corpus": false,
+    "synthetic_microbenchmark_is_real_audio_calibration": false
+  },
+  "frozen_pipeline": ["BEAT_THIS_NEURAL_INFERENCE", "SINGLE_PHYSICAL_CLOCK", "CONSERVATIVE_CTL", "TACTUS_RESOLUTION", "DEDUPLICATION"],
+  "evaluation_provider": "evaluation/beat_tactus_eval.py",
+  "evaluation_metrics": ["F-measure", "Cemgil", "CMLc", "CMLt", "AMLc", "AMLt", "Information gain", "HookLab_BNM_AMLt_minus_CMLt", "HookLab_spurious_T_2T_3T_switches"],
+  "calibration_design": {
+    "real_audio_sample_size": "MUST_BE_PREDECLARED_BEFORE_CALIBRATION",
+    "metric_pass_thresholds": "MUST_BE_PREDECLARED_BEFORE_CALIBRATION",
+    "reference_annotation_protocol": "MUST_BE_FROZEN_BEFORE_ANNOTATION",
+    "human_reference_role": "BEAT_TIME_GOLD_STANDARD_NOT_TREND_OPINION",
+    "failure_status": "AUDIT_FEATURE_NOT_CALIBRATED"
+  },
+  "required_record_fields": ["case_id", "audio_asset_id", "audio_sha256", "source_revision", "decoded_duration_seconds", "physical_clock_seconds", "detector_model_sha256", "runtime_version", "measurement_version", "quality_flags"],
+  "prohibited": ["fixed metronome replacing detected tactus", "per-song parameter tuning", "manual trend direction", "aesthetic-reference ingestion into scientific N", "synthetic-only scientific promotion", "scientific_d_unlocked=true"],
+  "next_gate": "MAP_CANONICAL_CASE_LINKED_REAL_AUDIO_AND_FREEZE_REFERENCE_ANNOTATION_PROTOCOL",
+  "statistical_analysis_executed": false,
+  "generation_class": "D0_EXPLORATORY",
+  "scientific_d_unlocked": false
+}

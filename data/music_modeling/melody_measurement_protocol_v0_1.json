@@ -1,0 +1,28 @@
+{
+  "schema": "HOOKLAB_MELODY_MEASUREMENT_PROTOCOL_v0.1",
+  "status": "BLOCKED_PENDING_VERIFIED_SOURCE_AND_CALIBRATION",
+  "identity_namespace": "HOOKLAB_C001_C100",
+  "input_boundary": {
+    "indexed_cases": 100,
+    "recovered_midi": 68,
+    "selected_melody_candidates": 67,
+    "source_audio_mapped": false,
+    "symbolic_midi_is_source_audio": false,
+    "lakh_or_gigamidi_is_hooklab_lyric_corpus": false
+  },
+  "frozen_pipeline": ["PROBABILISTIC_F0", "OCTAVE_PLANE_RESOLVER", "R1_1_CONTINUITY", "R1_2_DURATION_SEGMENTATION", "R1_3_PITCH_CLASSIFICATION"],
+  "physical_clock_rule": "Preserve source timestamps; beat or harmony may refine confidence but cannot rewrite melody observations.",
+  "calibration_design": {
+    "minimum_independent_aligned_pairs": 30,
+    "required_at_least_one_relevant_feature_spearman_rho": 0.8,
+    "median_error_tolerance": "PREDECLARATION_REQUIRED_BEFORE_ACCESSING_CALIBRATION_RESULTS",
+    "human_reference_role": "ALIGNMENT_GOLD_STANDARD_NOT_TREND_OPINION",
+    "failure_status": "AUDIT_FEATURE_NOT_CALIBRATED"
+  },
+  "required_record_fields": ["case_id", "source_asset_id", "source_sha256", "source_revision", "physical_clock_seconds", "provider", "provider_version", "measurement_version", "quality_flags"],
+  "prohibited": ["song-specific hard-coded notes", "manual trend direction", "silent octave correction", "scientific promotion from MIDI availability alone", "scientific_d_unlocked=true"],
+  "next_gate": "RESOLVE_VERIFIED_MELODY_SOURCE_AND_PREDECLARE_MEDIAN_ERROR_TOLERANCE",
+  "statistical_analysis_executed": false,
+  "generation_class": "D0_EXPLORATORY",
+  "scientific_d_unlocked": false
+}

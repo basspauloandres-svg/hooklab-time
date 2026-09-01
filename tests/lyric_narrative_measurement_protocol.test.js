@@ -1,0 +1,46 @@
+const assert=require('assert');
+const fs=require('fs');
+const path=require('path');
+
+const protocol=JSON.parse(fs.readFileSync(path.join(__dirname,'../data/lyric_modeling/lyric_narrative_measurement_protocol_v0_1.json'),'utf8'));
+const cases=JSON.parse(fs.readFileSync(path.join(__dirname,'../data/lyric_modeling/hooklab_corpus_case_metadata_manifest_v1.json'),'utf8'));
+const language=JSON.parse(fs.readFileSync(path.join(__dirname,'../data/lyric_modeling/hooklab_corpus_language_proposals_v0_1.json'),'utf8'));
+
+assert.equal(protocol.schema,'HOOKLAB_LYRIC_NARRATIVE_MEASUREMENT_PROTOCOL_v0.1');
+assert.equal(protocol.status,'PROTOCOL_REGISTERED_EXECUTION_BLOCKED_LANGUAGE_METADATA');
+assert.equal(protocol.source.canonical_asset_id,'HB-SRC-LYR-001');
+assert.equal(protocol.source.source_revision,'72');
+assert.equal(protocol.source.expected_cases,100);
+assert.equal(protocol.source.maximum_calibration_frame_after_document_integrity_audit,99);
+assert.equal(protocol.source.document_integrity_exclusion,'C077');
+assert.equal(protocol.source.lakh_role,'TEST_LANE_ONLY');
+assert.equal(protocol.first_feature.feature_id,'LNR_POV_EXPLICIT_PERSON_CONFIGURATION_v0_1');
+assert.equal(protocol.first_feature.expected_empirical_direction,null);
+assert.equal(protocol.first_feature.promotion_claim,null);
+assert.equal(protocol.unit_and_segmentation.raw_text_in_derived_table,false);
+assert.equal(protocol.unit_and_segmentation.section_labels_used_as_lyric_tokens,false);
+assert.equal(protocol.annotation_schema.automatic_system_may_assign_curated_pass,false);
+assert.equal(protocol.pre_calibration_metadata_gate.status,'BLOCKED');
+assert(protocol.pre_calibration_metadata_gate.currently_missing.includes('human-curated language_code'));
+assert.equal(protocol.calibration_design.execution_status,'NOT_STARTED');
+assert.equal(protocol.calibration_design.annotators,2);
+assert.equal(protocol.calibration_design.independent_first_pass,true);
+assert.equal(protocol.access_and_output_boundary.raw_lyrics_exported_to_repository,false);
+assert.equal(protocol.access_and_output_boundary.derived_table_contains_source_text,false);
+assert.equal(protocol.gate_state.analysis_registration,'BLOCKED');
+assert.equal(protocol.gate_state.statistical_test,'BLOCKED');
+assert.equal(protocol.gate_state.scientific_d_unlocked,false);
+assert.equal(protocol.gate_state.statistical_analysis_executed,false);
+assert.equal(cases.source_workbook_revision,protocol.source.source_revision);
+assert.equal(cases.coverage.mapped_cases,100);
+assert.equal(cases.records.filter(record=>record.analysis_eligibility==='BLOCKED_FEATURE_ADMISSIBILITY').length,99);
+assert.equal(language.status,'PROPOSED_LANGUAGE_HUMAN_REVIEW_REQUIRED');
+assert.equal(language.source_revision,'72');
+assert.equal(language.raw_lyrics_in_artifact,false);
+assert.equal(language.coverage.proposed_cases,100);
+assert.equal(language.coverage.human_reviewed_cases,0);
+assert.equal(language.method.automatic_system_may_assign_curated_language,false);
+assert(language.records.every(record=>record.curated_language_code===null));
+assert.equal(language.records.find(record=>record.case_id==='C077').document_audit_status,'AUDIT_DOCUMENT_INCOMPLETE');
+
+console.log('LYRIC_NARRATIVE_MEASUREMENT_PROTOCOL_PASS');

@@ -1,0 +1,738 @@
+{
+  "schema": "HOOKLAB_LYRIC_NARRATIVE_FEATURE_REGISTRY_v0.1",
+  "registry_id": "LNR-FEATURE-REGISTRY-2026-09-01-v0.1",
+  "status": "FAIL_CLOSED_INITIAL_AUDIT",
+  "created_at": "2026-09-01",
+  "canonical_order": [
+    "DATA_SAYS",
+    "STATISTICS_SAY",
+    "THEORY_SAYS",
+    "GENERATION_TESTS",
+    "PRODUCER_DECIDES"
+  ],
+  "scope_authority": {
+    "governing_sources": [
+      "docs/checkpoints/MIGRATION_CHECKPOINT_2026-09-01_LYRIC_MODELING_AI_v1.md",
+      "docs/checkpoints/START_NEXT_CHAT_LYRIC_MODELING_AI_2026-09-01_v1.txt",
+      "docs/checkpoints/MIGRATION_MANIFEST_2026-09-01_LYRIC_MODELING_AI_v1.json",
+      "repository invariants and contracts named by those files"
+    ],
+    "podlc_role": "METHODOLOGICAL_BACKGROUND_AND_OBSERVATIONAL_DEFINITION_SOURCE_ONLY",
+    "podlc_not_authorized_as": [
+      "HookLab governing specification",
+      "statistical variable source by default",
+      "narrative category source by default",
+      "generative feature source by default",
+      "functional section-label source"
+    ],
+    "scope_conflict_status": "NO_CONFLICT_DETECTED"
+  },
+  "source_audit": {
+    "hooklab_lyric_corpus_artifact_in_repository": null,
+    "hooklab_lyric_corpus_external_source": "https://docs.google.com/spreadsheets/d/14luIFK9pyaHpWVc5OTEgI49xc8w6C0faFkHx4tGDEFo/edit",
+    "source_revision": "72",
+    "source_case_manifest": "data/lyric_modeling/hooklab_corpus_case_metadata_manifest_v1.json",
+    "source_backbone_registry": "data/lyric_modeling/hooklab_corpus_backbone_registry_v1.json",
+    "status": "CANONICAL_SOURCE_RESOLVED_FEATURE_TABLE_NOT_BUILT",
+    "repository_history_checked": true,
+    "related_artifacts_found": [
+      "docs/validation/HOOKLAB_COMPOSITIONAL_VALIDATION_DATA_DICTIONARY_v0_1.csv",
+      "docs/validation/HOOKLAB_PILOT_RANDOMIZATION_v0_1.csv"
+    ],
+    "related_artifact_boundary": "The data dictionary declares evaluation/design fields and the randomization file contains assignment rows; neither contains lyric/narrative feature observations.",
+    "source_frame": "C001-C100; 100 commercial reference cases with one-to-one LRCLIB provider IDs",
+    "source_resolution_boundary": "The source is authorized for internal HookLab work by the user. Public lyric reproduction remains blocked pending editorial review. Source status does not imply feature admissibility.",
+    "consequence": "Candidate constructs may advance to registered measurement and calibration protocols. No empirical lyric feature is yet admitted and no analysis is registered.",
+    "podlc_process_reopened": false,
+    "m9_process_reopened": false
+  },
+  "inventory_A_to_F": {
+    "A_DATA_PRESENT": [
+      "Canonical internal source frame: C001-C100, revision 72, with 100 case identities and 100 provider IDs",
+      "Actual tabular data: pilot BRIEF_ID and ORDER_1/ORDER_2/ORDER_3 condition assignments; none is a lyric/narrative feature",
+      "Declared validation schema (without lyric-feature observations here): identifiers, condition/order, process timing, artifact IDs, tempo, producer/rater outcomes, quality and provenance fields",
+      "Runtime/manual Story Brief fields: characters, relationship, conflict, point_of_view, key_scene, emotional_trajectory",
+      "Runtime narrative-state fields: characters, relationships, conflict, point_of_view, temporal_state, emotional_trajectory, revealed_information, open_threads, closed_threads, section_history",
+      "Structural SECTION_FUNCTION metadata",
+      "Generated/approved lyric candidate text and prosody/melody constraint records"
+    ],
+    "A_BOUNDARY": "The source corpus and design assignments are present. Runtime fields and source text are not, by existence alone, calibrated corpus-derived statistical lyric features.",
+    "B_CANDIDATES_REQUIRING_OPERATIONALIZATION": [
+      "narrative perspective",
+      "character configuration",
+      "relationship configuration",
+      "conflict representation",
+      "temporality",
+      "emotional progression",
+      "narrative information progression"
+    ],
+    "C_PODLC_INFORMATION": {
+      "role": "Methodological background and possible observational-definition support",
+      "six_observation_lines": ["Apertura", "Desarrollo", "Repetición", "Transformaciones", "Recursos observables", "Cierre"],
+      "boundary": "The six lines are neither HookLab variables nor narrative/generative categories nor song-section labels."
+    },
+    "D_COMPUTATIONALLY_DERIVED": {
+      "present_and_validated": [],
+      "proposed_only": [
+        "explicit-person configuration",
+        "textual-referent configuration",
+        "explicit relation edge configuration",
+        "explicit temporal relation profile",
+        "explicit affect-state trajectory",
+        "new/given information progression"
+      ]
+    },
+    "E_NOT_YET_EXISTENT": [
+      "Calibrated HookLab lyric feature observation table",
+      "frozen annotation provider and version for each candidate",
+      "calibrated lyric-domain annotation outputs",
+      "measurement-error estimates",
+      "admissible narrative outcome variables",
+      "registered analysis using an admissible new lyric/narrative feature"
+    ],
+    "F_PREVIOUSLY_ANALYZED_AND_FROZEN": [
+      "EARLY_CHORUS",
+      "REPETITION_FORMAL_ARCHITECTURE_ALREADY_TESTED",
+      "RAW_AGGREGATED_VOCAL_RANGE_AMPLITUDE"
+    ]
+  },
+  "admissibility_policy": {
+    "inference_gate": [
+      "FEATURE_ADMISSIBILITY",
+      "ANALYSIS_REGISTRATION",
+      "STATISTICAL_TEST"
+    ],
+    "calibration_pass_values": [
+      "CALIBRATION_PASS",
+      "NOT_REQUIRED_JUSTIFIED"
+    ],
+    "incomplete_feature_status": "AUDIT_FEATURE_NOT_DEFINED",
+    "uncalibrated_feature_status": "AUDIT_FEATURE_NOT_CALIBRATED",
+    "unresolved_dependency_status": "AUDIT_FEATURE_DEPENDENCY_UNRESOLVED",
+    "frozen_status": "FROZEN_NO_REPROCESS",
+    "evidence_assisted_generation_requires": "PROMOTE_TO_CONDITIONED_DEDUCTION"
+  },
+  "frozen_analysis_families": [
+    {
+      "family": "EARLY_CHORUS",
+      "new_evidence": false
+    },
+    {
+      "family": "REPETITION_FORMAL_ARCHITECTURE_ALREADY_TESTED",
+      "new_evidence": false
+    },
+    {
+      "family": "RAW_AGGREGATED_VOCAL_RANGE_AMPLITUDE",
+      "new_evidence": false
+    }
+  ],
+  "features": [
+    {
+      "feature_id": "LNR_POV_EXPLICIT_PERSON_CONFIGURATION_v0_1",
+      "inventory_class": "B_CANDIDATE_REQUIRES_OPERATIONALIZATION",
+      "derived_variable_status": "D_PROPOSED_NOT_COMPUTED",
+      "domain": "narrative_perspective",
+      "construct": "Configuration and ordered changes of explicitly marked grammatical person and address in the lyric document",
+      "analytic_layer": "PROPOSED_COMPUTATIONAL_DERIVATION",
+      "operational_definition": "Annotate each ordered textual segment for overt first-, second- and third-person pronouns, possessives, morphologically marked finite verbs, vocatives and direct-speech spans. Produce a segment-level person-presence vector and a song-level count of changes between adjacent vectors. Unexpressed subjects and narrator identity remain unassigned.",
+      "unit": "Ordered textual segment nested within song; song-level aggregation",
+      "output_type": "multilabel categorical vector plus non-negative transition count",
+      "provider": "HOOKLAB_HUMAN_DOUBLE_ANNOTATION",
+      "version": "lyric-narrative-measurement-protocol-v0.1",
+      "measurement_error": {
+        "status": "ERROR_MODEL_SPECIFIED_ESTIMATE_PENDING",
+        "known_sources": [
+          "Spanish subject omission",
+          "ambiguous deixis",
+          "quoted or parenthetical speech",
+          "performer labels that do not establish narrative identity",
+          "translation and language differences"
+        ],
+        "required_reporting": [
+          "agreement by marker class",
+          "adjudication log",
+          "language-stratified errors"
+        ]
+      },
+      "calibration": {
+        "status": "PROTOCOL_REGISTERED_EXECUTION_PENDING",
+        "design": "Independent double annotation of a stratified sample spanning English and Spanish cases and all ordered positions; report nominal agreement for person-presence labels and absolute disagreement for transition counts before full extraction."
+      },
+      "textual_relevance": "Explicit grammatical-person evidence could support point-of-view continuity while preserving the boundary between observable markers and inferred narrator identity.",
+      "musical_relevance": "May later condition continuity of address across lyric sections; it has no current melodic or success interpretation.",
+      "research_question_enabled": "Candidate only: how are explicit person configurations distributed and changed across an ordered HookLab lyric corpus after its data artifact and segmentation unit are mapped?",
+      "outcome": "Segment-level explicit-person vector and song-level transition profile; no popularity or producer-preference outcome",
+      "population": "SOURCE_FRAME_ESTABLISHED: C001-C100 in canonical source revision 72; feature-level eligibility remains pending language metadata, calibration and measurement-error audit",
+      "confounders": [
+        "language",
+        "subject omission",
+        "direct speech",
+        "multi-performer markup",
+        "segment length",
+        "repetition"
+      ],
+      "forbidden_interpretations": [
+        "narrator biography",
+        "performer identity",
+        "authorial intention",
+        "stable focalization without separate annotation",
+        "relationship quality",
+        "commercial success"
+      ],
+      "dependencies": [
+        {
+          "artifact": "data/lyric_modeling/hooklab_corpus_case_metadata_manifest_v1.json",
+          "status": "READY"
+        },
+        {
+          "artifact": "Case-level language and document-version metadata",
+          "status": "NOT_AVAILABLE"
+        }
+      ],
+      "lifecycle_status": "CANDIDATE",
+      "new_evidence": false,
+      "provenance": {
+        "candidate_basis": "HookLab migration checkpoint candidate domain; not an observed HookLab corpus feature",
+        "literature": [
+          "Bamman, Lewke, and Mansoor (2020), https://aclanthology.org/2020.lrec-1.6/",
+          "Lee and Yeung (2016), direct-speech annotation, https://aclanthology.org/L16-1168/"
+        ]
+      }
+    },
+    {
+      "feature_id": "LNR_CHARACTER_TEXTUAL_REFERENT_CONFIGURATION_v0_1",
+      "inventory_class": "B_CANDIDATE_REQUIRES_OPERATIONALIZATION",
+      "derived_variable_status": "D_PROPOSED_NOT_COMPUTED",
+      "domain": "character_configuration",
+      "construct": "Configuration of textually recoverable participant referents",
+      "analytic_layer": "PROPOSED_COMPUTATIONAL_DERIVATION",
+      "operational_definition": "Identify mentions of persons or person-like participant referents and cluster only textually supported coreferent mentions. Produce distinct referent count, mention count per referent and entry/exit positions. Generic, collective and unresolved mentions retain separate labels; a referent is not called a character unless the annotation evidence supports persistence across segments.",
+      "unit": "Mention and coreference chain nested within song",
+      "output_type": "referent inventory, chain lengths and ordered presence matrix",
+      "provider": "NOT_SELECTED",
+      "version": "NOT_VERSIONED",
+      "measurement_error": {
+        "status": "ERROR_MODEL_SPECIFIED_ESTIMATE_PENDING",
+        "known_sources": [
+          "pronoun ambiguity",
+          "speaker-recipient conflation",
+          "generic second person",
+          "collective references",
+          "short and elliptical lyric syntax",
+          "alias and name variation"
+        ],
+        "required_reporting": [
+          "mention detection agreement",
+          "coreference agreement",
+          "unresolved-mention rate",
+          "error audit by language"
+        ]
+      },
+      "calibration": {
+        "status": "CALIBRATION_PENDING",
+        "design": "Independent mention and coreference annotation on a stratified subset followed by coreference agreement metrics and qualitative adjudication before song-level counts are released."
+      },
+      "textual_relevance": "Participant continuity is required before character, relationship or information-progression variables can be computed without conflating pronouns and entities.",
+      "musical_relevance": "May later support character continuity across approved sections; it does not imply a performer's vocal identity.",
+      "research_question_enabled": "How many textually recoverable participant referents appear, recur and change across each eligible lyric document?",
+      "outcome": "Referent inventory and ordered presence configuration; no psychological or success outcome",
+      "population": "SOURCE_FRAME_ESTABLISHED: C001-C100 in canonical source revision 72; referent eligibility remains pending language metadata and calibration",
+      "confounders": [
+        "language",
+        "pronoun drop",
+        "generic reference",
+        "direct speech",
+        "multi-performer labels",
+        "document version"
+      ],
+      "forbidden_interpretations": [
+        "biographical person identity",
+        "gender assignment without explicit evidence",
+        "psychological traits",
+        "relationship valence",
+        "performer-character equivalence",
+        "causal narrative role"
+      ],
+      "dependencies": [],
+      "lifecycle_status": "CANDIDATE",
+      "new_evidence": false,
+      "provenance": {
+        "candidate_basis": "HookLab migration checkpoint candidate domain; not an observed HookLab corpus feature",
+        "literature": [
+          "Bamman, Lewke, and Mansoor (2020), https://aclanthology.org/2020.lrec-1.6/",
+          "Elson, Dames, and McKeown (2010), https://aclanthology.org/P10-1015/"
+        ]
+      }
+    },
+    {
+      "feature_id": "LNR_RELATION_EXPLICIT_EDGE_CONFIGURATION_v0_1",
+      "inventory_class": "B_CANDIDATE_REQUIRES_OPERATIONALIZATION",
+      "derived_variable_status": "D_PROPOSED_NOT_COMPUTED",
+      "domain": "relationship_configuration",
+      "construct": "Directed configuration of explicitly stated relations and interactions between textually resolved participant referents",
+      "analytic_layer": "PROPOSED_COMPUTATIONAL_DERIVATION",
+      "operational_definition": "For each resolved referent pair, annotate only explicit kinship, affiliation, address or interaction predicates and their direction. Produce a typed edge list and ordered edge-presence matrix. Positive, negative, intimate or coercive valence is not assigned unless a separate validated codebook defines and anchors the label.",
+      "unit": "Explicit relation or interaction statement nested within referent pair and song",
+      "output_type": "typed directed multigraph",
+      "provider": "NOT_SELECTED",
+      "version": "NOT_VERSIONED",
+      "measurement_error": {
+        "status": "DEPENDENT_ON_REFERENT_AND_RELATION_CODEBOOK",
+        "known_sources": [
+          "coreference error",
+          "implicit relations",
+          "metaphorical predicates",
+          "direction ambiguity",
+          "relationship versus momentary interaction"
+        ],
+        "required_reporting": [
+          "edge detection agreement",
+          "edge-type confusion matrix",
+          "unresolved-edge rate"
+        ]
+      },
+      "calibration": {
+        "status": "CALIBRATION_PENDING",
+        "design": "Calibrate only after the participant-referent feature passes and a HookLab relation/interaction codebook is defined with inclusion, exclusion and boundary examples."
+      },
+      "textual_relevance": "A relationship graph requires stable referent resolution plus an explicit relation/interaction codebook; neither output is currently present as HookLab corpus data.",
+      "musical_relevance": "May later support continuity of relational state across sections; it cannot prescribe lyric content or relationship valence.",
+      "research_question_enabled": "What explicit participant relations and interactions are represented, and how do their configurations change across the ordered lyric document?",
+      "outcome": "Typed explicit-edge configuration; no inferred relationship quality or audience response",
+      "population": "SOURCE_FRAME_ESTABLISHED: C001-C100 in canonical source revision 72; relation codebook and feature eligibility remain pending",
+      "confounders": [
+        "referent resolution",
+        "language",
+        "metaphor",
+        "quoted speech",
+        "relation-type prevalence",
+        "song length"
+      ],
+      "forbidden_interpretations": [
+        "relationship quality",
+        "consent",
+        "gender or sexuality without explicit evidence",
+        "stable social tie from a single interaction",
+        "author biography",
+        "causality"
+      ],
+      "dependencies": [
+        {
+          "feature_id": "LNR_CHARACTER_TEXTUAL_REFERENT_CONFIGURATION_v0_1",
+          "status": "PENDING_CALIBRATION"
+        },
+        {
+          "artifact": "HookLab relation/interaction codebook",
+          "status": "NOT_AVAILABLE"
+        }
+      ],
+      "lifecycle_status": "CANDIDATE",
+      "new_evidence": false,
+      "provenance": {
+        "candidate_basis": "HookLab migration checkpoint candidate domain; not an observed HookLab corpus feature",
+        "literature": [
+          "Elson, Dames, and McKeown (2010), https://aclanthology.org/P10-1015/",
+          "Lee and Yeung (2012), https://aclanthology.org/Y12-1022/"
+        ]
+      }
+    },
+    {
+      "feature_id": "LNR_CONFLICT_REPRESENTATION_v0_1",
+      "inventory_class": "B_CANDIDATE_REQUIRES_OPERATIONALIZATION",
+      "derived_variable_status": "E_NOT_YET_EXISTENT",
+      "domain": "conflict_representation",
+      "construct": "Textually represented opposition, obstruction or incompatible goals among resolved participants or states",
+      "analytic_layer": "PROPOSED_CONSTRUCT_NOT_OPERATIONALIZED",
+      "operational_definition": null,
+      "unit": "Pending: event, clause or coded observation",
+      "output_type": "pending",
+      "provider": "NOT_SELECTED",
+      "version": "NOT_VERSIONED",
+      "measurement_error": {
+        "status": "NOT_DEFINED",
+        "known_sources": [
+          "conflict versus cognitive tension",
+          "internal versus interpersonal conflict",
+          "negation without opposition",
+          "metaphor",
+          "inferred motive"
+        ],
+        "required_reporting": []
+      },
+      "calibration": {
+        "status": "NOT_DESIGNED",
+        "design": "Requires a HookLab operational decision separating observable opposition from inferred conflict before calibration can be designed."
+      },
+      "textual_relevance": "Conflict is present in the Story Brief schema, but the current observational corpus has not yet yielded a complete, calibrated conflict representation codebook.",
+      "musical_relevance": "Potential future Story Brief input only after definition, calibration, registered analysis and statistical promotion.",
+      "research_question_enabled": "Pending construct closure: how is explicit opposition represented across eligible lyric documents?",
+      "outcome": "Pending construct closure",
+      "population": "Not established",
+      "confounders": [
+        "language",
+        "negation",
+        "metaphor",
+        "relationship inference",
+        "cognitive-process vocabulary",
+        "genre"
+      ],
+      "forbidden_interpretations": [
+        "psychological diagnosis",
+        "violence or coercion without textual evidence",
+        "authorial intention",
+        "audience tension",
+        "success prediction"
+      ],
+      "dependencies": [
+        {
+          "artifact": "HookLab conflict/opposition codebook",
+          "status": "NOT_AVAILABLE"
+        }
+      ],
+      "lifecycle_status": "CANDIDATE",
+      "new_evidence": false,
+      "provenance": {
+        "candidate_basis": "HookLab migration checkpoint candidate domain; construct remains unoperationalized",
+        "literature": [
+          "Alberhasky and Durkee (2024) provide a methodological precedent for lexical cognitive tension but do not validate a HookLab conflict construct, https://doi.org/10.1371/journal.pone.0303188"
+        ]
+      }
+    },
+    {
+      "feature_id": "LNR_TEMPORAL_EXPLICIT_ANCHOR_RELATION_PROFILE_v0_1",
+      "inventory_class": "B_CANDIDATE_REQUIRES_OPERATIONALIZATION",
+      "derived_variable_status": "D_PROPOSED_NOT_COMPUTED",
+      "domain": "temporality",
+      "construct": "Explicit temporal expressions, event anchors and textually licensed temporal relations",
+      "analytic_layer": "PROPOSED_COMPUTATIONAL_DERIVATION",
+      "operational_definition": "Annotate explicit temporal expressions and event predicates, then record only textually licensed BEFORE, AFTER, SIMULTANEOUS, INCLUDES or UNRESOLVED relations. Produce counts by relation type and an ordered temporal-state profile. Real-world chronology is not reconstructed when the document underspecifies it.",
+      "unit": "Temporal expression or event relation nested within ordered segment and song",
+      "output_type": "typed temporal graph plus counts",
+      "provider": "NOT_SELECTED",
+      "version": "NOT_VERSIONED",
+      "measurement_error": {
+        "status": "ERROR_MODEL_SPECIFIED_ESTIMATE_PENDING",
+        "known_sources": [
+          "tense ambiguity",
+          "aspect",
+          "deictic expressions",
+          "repeated blocks",
+          "hypothetical or modal events",
+          "language-specific morphology"
+        ],
+        "required_reporting": [
+          "span agreement",
+          "relation-type agreement",
+          "unresolved relation rate",
+          "language-stratified error audit"
+        ]
+      },
+      "calibration": {
+        "status": "CALIBRATION_PENDING",
+        "design": "Adapt a bounded TimeML subset to English and Spanish lyrics, double annotate a stratified sample and retain UNRESOLVED rather than forcing temporal order."
+      },
+      "textual_relevance": "Explicit temporal anchors and relations could support temporal continuity, subject to a lyric-domain operationalization and calibration.",
+      "musical_relevance": "May later support temporal continuity between approved sections; it does not infer musical time or beat position.",
+      "research_question_enabled": "Which explicit temporal anchors and relations occur, and how does the textual temporal state change across eligible lyric documents?",
+      "outcome": "Temporal graph and ordered relation profile; no real-world factual chronology",
+      "population": "SOURCE_FRAME_ESTABLISHED: C001-C100 in canonical source revision 72; temporal annotation eligibility remains pending language metadata and calibration",
+      "confounders": [
+        "language",
+        "tense-aspect system",
+        "modal or hypothetical clauses",
+        "repetition",
+        "segment boundary",
+        "document version"
+      ],
+      "forbidden_interpretations": [
+        "factual chronology",
+        "causality",
+        "duration without explicit evidence",
+        "author biography",
+        "musical tempo",
+        "narrative coherence quality"
+      ],
+      "dependencies": [],
+      "lifecycle_status": "CANDIDATE",
+      "new_evidence": false,
+      "provenance": {
+        "candidate_basis": "HookLab migration checkpoint candidate domain; not an observed HookLab corpus feature",
+        "literature": [
+          "Pustejovsky et al. (2003), TimeML, https://aaai.org/papers/0005-ss03-07-005-timeml-robust-specification-of-event-and-temporal-expressions-in-text/"
+        ]
+      }
+    },
+    {
+      "feature_id": "LNR_EMOTION_EXPLICIT_STATE_TRAJECTORY_v0_1",
+      "inventory_class": "B_CANDIDATE_REQUIRES_OPERATIONALIZATION",
+      "derived_variable_status": "D_PROPOSED_NOT_COMPUTED",
+      "domain": "emotional_progression",
+      "construct": "Ordered trajectory of affective states explicitly attributed in the lyric text",
+      "analytic_layer": "PROPOSED_COMPUTATIONAL_DERIVATION",
+      "operational_definition": "Annotate spans that explicitly name or predicate an affective state, its textual experiencer when resolvable, and its ordered position. Map labels to a documented valence-arousal representation only after bilingual human validation. Preserve ABSENT, AMBIGUOUS and UNRESOLVED states; exclude emotions merely evoked in listeners.",
+      "unit": "Explicit affect-state span nested within ordered segment, experiencer and song",
+      "output_type": "ordered explicit-state sequence with optional calibrated valence-arousal values",
+      "provider": "NOT_SELECTED",
+      "version": "NOT_VERSIONED",
+      "measurement_error": {
+        "status": "ERROR_MODEL_SPECIFIED_ESTIMATE_PENDING",
+        "known_sources": [
+          "expressed versus evoked emotion",
+          "experiencer ambiguity",
+          "figurative language",
+          "negation and modality",
+          "lexicon coverage",
+          "translation and cultural variation"
+        ],
+        "required_reporting": [
+          "span agreement",
+          "experiencer agreement",
+          "label agreement",
+          "valence-arousal disagreement",
+          "language-stratified errors"
+        ]
+      },
+      "calibration": {
+        "status": "CALIBRATION_PENDING",
+        "design": "Construct a bilingual annotation guide, independently annotate explicit affect spans and compare human labels before evaluating any lexicon or model. Automatic provider/version must be frozen and validated separately if introduced."
+      },
+      "textual_relevance": "The Story Brief contains an emotional-trajectory field, but a statistical feature must separately measure explicitly represented textual affect and exclude listener effects.",
+      "musical_relevance": "May later support continuity of represented affect across lyric sections; it cannot stand for music-evoked emotion.",
+      "research_question_enabled": "What explicitly represented affective states occur, to whom are they attributed, and how do they change in textual order?",
+      "outcome": "Ordered explicit affect-state profile; evoked listener emotion excluded",
+      "population": "SOURCE_FRAME_ESTABLISHED: C001-C100 in canonical source revision 72; affect annotation provider and feature eligibility remain pending",
+      "confounders": [
+        "language",
+        "figurative language",
+        "negation",
+        "experiencer resolution",
+        "repetition",
+        "segment length",
+        "genre"
+      ],
+      "forbidden_interpretations": [
+        "listener emotion",
+        "performer emotion",
+        "author emotion",
+        "clinical state",
+        "aesthetic quality",
+        "commercial success"
+      ],
+      "dependencies": [
+        {
+          "feature_id": "LNR_CHARACTER_TEXTUAL_REFERENT_CONFIGURATION_v0_1",
+          "status": "PENDING_CALIBRATION"
+        }
+      ],
+      "lifecycle_status": "CANDIDATE",
+      "new_evidence": false,
+      "provenance": {
+        "candidate_basis": "HookLab migration checkpoint candidate domain; not an observed HookLab corpus feature",
+        "literature": [
+          "Christ et al. (2024), https://doi.org/10.18653/v1/2024.findings-acl.426",
+          "Mohammad (2022), ethics of automatic emotion recognition, https://aclanthology.org/2022.cl-2.1/"
+        ]
+      }
+    },
+    {
+      "feature_id": "LNR_TEXTUAL_REPETITION_FAMILY_FROZEN",
+      "inventory_class": "F_PREVIOUSLY_ANALYZED_FROZEN",
+      "domain": "textual_repetition",
+      "construct": "Exact and varied textual recurrence",
+      "analytic_layer": "OBSERVATION_DERIVED_TEXTUAL",
+      "operational_definition": "Previously evaluated family covering recurrence and formal architecture. This registry records its boundary only and performs no extraction, recomputation or new association without NEW_EVIDENCE=true and a new ANALYSIS_ID.",
+      "unit": "Previously registered analysis family",
+      "output_type": "frozen prior result",
+      "provider": "Prior HookLab analysis",
+      "version": "frozen-at-migration-2026-09-01",
+      "measurement_error": {
+        "status": "PRESERVE_PRIOR_RECORD",
+        "known_sources": [
+          "exact versus varied recurrence",
+          "section duplication",
+          "normalization decisions"
+        ],
+        "required_reporting": [
+          "prior result identifier before any reopening"
+        ]
+      },
+      "calibration": {
+        "status": "NOT_REQUIRED_JUSTIFIED",
+        "design": "No new measurement is authorized in this registry version."
+      },
+      "textual_relevance": "Textual repetition belongs to an already evaluated HookLab analysis family; this entry preserves its boundary without treating any external observation line as a feature.",
+      "musical_relevance": "Formal recurrence may matter compositionally, but prior null or non-promoted results cannot be replaced to unlock generation.",
+      "research_question_enabled": "None in this registry version; family frozen",
+      "outcome": "Preserved prior result",
+      "population": "Prior analysis population; not reconstructed here",
+      "confounders": [
+        "song length",
+        "section architecture",
+        "language",
+        "normalization"
+      ],
+      "forbidden_interpretations": [
+        "automatic memorability",
+        "commercial success",
+        "new positive rule without evidence",
+        "reprocessing under the same analysis identifier"
+      ],
+      "dependencies": [],
+      "lifecycle_status": "FROZEN_NO_REPROCESS",
+      "new_evidence": false,
+      "provenance": {
+        "checkpoint": "MIGRATION_CHECKPOINT_2026-09-01_LYRIC_MODELING_AI_v1.md",
+        "frozen_family": "REPETITION_FORMAL_ARCHITECTURE_ALREADY_TESTED"
+      }
+    },
+    {
+      "feature_id": "LNR_SECTION_FUNCTION_METADATA_FROZEN",
+      "inventory_class": "F_PREVIOUSLY_ANALYZED_FROZEN",
+      "domain": "section_function",
+      "construct": "Structural metadata describing the intended or documented function of a song section",
+      "analytic_layer": "STRUCTURAL_METADATA",
+      "operational_definition": "Retain normalized section labels only as metadata. POD-LC observation lines are not converted into verse, chorus or bridge labels. Section labels never become lyric tokens and are not reanalyzed as a formal-architecture predictor without NEW_EVIDENCE=true and a new ANALYSIS_ID.",
+      "unit": "Section metadata record",
+      "output_type": "controlled structural label",
+      "provider": "HookLab section metadata contract",
+      "version": "v0.4/frozen-boundary-2026-09-01",
+      "measurement_error": {
+        "status": "BOUNDARY_DEFINED_NO_NEW_MEASUREMENT",
+        "known_sources": [
+          "source lyrics lacking section markup",
+          "POD-LC line versus song-section conflation",
+          "provider-specific labels",
+          "hybrid sections"
+        ],
+        "required_reporting": [
+          "source of each section label"
+        ]
+      },
+      "calibration": {
+        "status": "NOT_REQUIRED_JUSTIFIED",
+        "design": "No new formal-section measurement is authorized in this registry version."
+      },
+      "textual_relevance": "The metadata boundary prevents section names from contaminating lyric content and preserves STORY_BRIEF != SECTION_FUNCTION != LYRIC_CONTENT.",
+      "musical_relevance": "Section function can condition creative role after producer selection; it is not an empirical success rule.",
+      "research_question_enabled": "None in this registry version; formal architecture family frozen",
+      "outcome": "Metadata integrity and leakage prevention",
+      "population": "HookLab generated sections; corpus-wide formal inference not reopened",
+      "confounders": [
+        "provider labels",
+        "hybrid forms",
+        "missing markup",
+        "POD-LC observation-line labels"
+      ],
+      "forbidden_interpretations": [
+        "section label as lyric vocabulary",
+        "POD-LC line as formal song section",
+        "universal section function",
+        "success prediction",
+        "reopening frozen formal architecture"
+      ],
+      "dependencies": [],
+      "lifecycle_status": "FROZEN_NO_REPROCESS",
+      "new_evidence": false,
+      "provenance": {
+        "checkpoint": "MIGRATION_CHECKPOINT_2026-09-01_LYRIC_MODELING_AI_v1.md",
+        "regression": "tests/test_section_lyric_separation.js",
+        "frozen_family": "REPETITION_FORMAL_ARCHITECTURE_ALREADY_TESTED"
+      }
+    },
+    {
+      "feature_id": "LNR_INFORMATION_NEW_GIVEN_PROGRESSION_v0_1",
+      "inventory_class": "B_CANDIDATE_REQUIRES_OPERATIONALIZATION",
+      "derived_variable_status": "D_PROPOSED_NOT_COMPUTED",
+      "domain": "narrative_information_progression",
+      "construct": "Ordered introduction, recurrence and closure of textually identifiable referents, events, locations and states",
+      "analytic_layer": "PROPOSED_COMPUTATIONAL_DERIVATION",
+      "operational_definition": "For each ordered segment, classify validated referent, event, location and state mentions as NEW, GIVEN, BRIDGING or UNRESOLVED relative to prior text; compute type-specific novelty proportions and change between adjacent segments. Repeated chorus material remains in the denominator and is also reported in a sensitivity analysis with repeated blocks collapsed.",
+      "unit": "Validated mention nested within ordered segment and song",
+      "output_type": "type-specific information-status sequence and novelty proportions",
+      "provider": "NOT_SELECTED",
+      "version": "NOT_VERSIONED",
+      "measurement_error": {
+        "status": "DEPENDENT_ON_COREFERENCE_EVENT_AND_SEGMENTATION",
+        "known_sources": [
+          "coreference error",
+          "bridging ambiguity",
+          "event segmentation",
+          "repetition",
+          "equal-length versus documentary segmentation",
+          "implicit information"
+        ],
+        "required_reporting": [
+          "information-status agreement",
+          "boundary agreement",
+          "sensitivity to repetition handling",
+          "sensitivity to segmentation"
+        ]
+      },
+      "calibration": {
+        "status": "CALIBRATION_PENDING",
+        "design": "Adapt NEW/GIVEN/BRIDGING annotation after referent and event units are calibrated. Compare documentary segments with a predeclared sensitivity segmentation; do not select the segmentation from the observed direction."
+      },
+      "textual_relevance": "The construct directly addresses whether later sections add information or repeat established material while respecting documentary order.",
+      "musical_relevance": "May later help the AI coherence layer detect semantic redundancy and advancement of open threads; it cannot define quality or prescribe a section's content.",
+      "research_question_enabled": "How do new, given, bridging and unresolved information units change across the ordered lyric document?",
+      "outcome": "Type-specific novelty and recurrence profile; no popularity, quality or causal outcome",
+      "population": "SOURCE_FRAME_ESTABLISHED: C001-C100 in canonical source revision 72; referent/event units and feature eligibility remain pending",
+      "confounders": [
+        "coreference",
+        "event segmentation",
+        "language",
+        "song length",
+        "repetition",
+        "section segmentation",
+        "bridging prevalence"
+      ],
+      "forbidden_interpretations": [
+        "narrative quality",
+        "listener comprehension",
+        "causal plot progression",
+        "commercial success",
+        "universal preference for novelty",
+        "section function from position alone"
+      ],
+      "dependencies": [
+        {
+          "feature_id": "LNR_CHARACTER_TEXTUAL_REFERENT_CONFIGURATION_v0_1",
+          "status": "PENDING_CALIBRATION"
+        },
+        {
+          "artifact": "Event/state annotation codebook",
+          "status": "NOT_AVAILABLE"
+        },
+        {
+          "artifact": "Segmentation sensitivity plan",
+          "status": "NOT_REGISTERED"
+        }
+      ],
+      "lifecycle_status": "CANDIDATE",
+      "new_evidence": false,
+      "provenance": {
+        "candidate_basis": "HookLab migration checkpoint candidate domain; not an observed HookLab corpus feature",
+        "literature": [
+          "Markert, Hou, and Strube (2012), https://aclanthology.org/P12-1084/",
+          "Alberhasky and Durkee (2024), lyric narrative segmentation limitations, https://doi.org/10.1371/journal.pone.0303188"
+        ]
+      }
+    }
+  ],
+  "analysis_registration": {
+    "status": "BLOCKED_NO_ADMISSIBLE_FEATURE",
+    "reason": "No candidate has completed the required calibration and dependency gates; frozen families cannot be reopened without new evidence.",
+    "registered_analysis_ids": [],
+    "blocked_analysis_candidates": [
+      "AN-LNR-POV-DESC-001"
+    ],
+    "statistical_engine": "mie_core/lyric_statistical_analysis_engine.py",
+    "statistical_engine_version": "hooklab-lyric-statistical-analysis-engine-v0.1",
+    "trend_origin_policy": "REGISTERED_DATA_AND_STATISTICS_ONLY",
+    "human_trend_override_allowed": false,
+    "statistical_tests_executed": false,
+    "conditioned_deductions_created": false,
+    "evidence_assisted_story_brief_unlocked": false
+  },
+  "next_gate": "HUMAN_REVIEW_LANGUAGE_PROPOSALS_AND_RESOLVE_DOCUMENT_VERSION_STATUS_FOR_99_ELIGIBLE_CASES"
+}

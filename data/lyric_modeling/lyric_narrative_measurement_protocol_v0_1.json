@@ -1,0 +1,186 @@
+{
+  "schema": "HOOKLAB_LYRIC_NARRATIVE_MEASUREMENT_PROTOCOL_v0.1",
+  "protocol_id": "LNR-MEASURE-POV-2026-09-01-v0.1",
+  "created_at": "2026-09-01",
+  "status": "PROTOCOL_REGISTERED_EXECUTION_BLOCKED_LANGUAGE_METADATA",
+  "scientific_order": [
+    "DATA_SAYS",
+    "STATISTICS_SAY",
+    "THEORY_SAYS",
+    "GENERATION_TESTS",
+    "PRODUCER_DECIDES"
+  ],
+  "source": {
+    "canonical_asset_id": "HB-SRC-LYR-001",
+    "identity_namespace": "HOOKLAB_C001_C100",
+    "source_revision": "72",
+    "case_manifest": "data/lyric_modeling/hooklab_corpus_case_metadata_manifest_v1.json",
+    "expected_cases": 100,
+    "maximum_calibration_frame_after_document_integrity_audit": 99,
+    "document_integrity_exclusion": "C077",
+    "baseline_mirror_excluded_as_independent_sample": "HB-VIEW-LYR-001",
+    "auxiliary_corpora_excluded_from_population": true,
+    "lakh_role": "TEST_LANE_ONLY"
+  },
+  "first_feature": {
+    "feature_id": "LNR_POV_EXPLICIT_PERSON_CONFIGURATION_v0_1",
+    "selection_status": "FIRST_CALIBRATION_TARGET",
+    "selection_reason": "It can be anchored to overt grammatical markers and direct-address evidence before higher-dependency constructs such as character coreference, relationships, conflict and information progression.",
+    "expected_empirical_direction": null,
+    "promotion_claim": null
+  },
+  "construct_boundary": {
+    "construct": "Configuration and ordered changes of explicitly marked grammatical person and address in the lyric document",
+    "observable_only": [
+      "overt first-person markers",
+      "overt second-person markers",
+      "overt third-person markers",
+      "possessive markers",
+      "morphologically explicit finite-verb person",
+      "vocative or direct-address marker",
+      "explicit direct-speech span"
+    ],
+    "unresolved_by_design": [
+      "omitted subject",
+      "narrator identity",
+      "performer identity",
+      "author biography",
+      "implicit addressee",
+      "stable focalization",
+      "relationship valence"
+    ]
+  },
+  "unit_and_segmentation": {
+    "primary_unit": "NON_EMPTY_PROVIDER_DOCUMENTARY_LINE",
+    "nesting": "line within ordered case document",
+    "source_locator": "case_id + source_revision + one-based non-empty line index",
+    "raw_text_in_derived_table": false,
+    "primary_repetition_policy": "PRESERVE_ALL_DOCUMENTED_LINES",
+    "sensitivity_policy": "A repeated-block-collapsed view may be designed only after the frozen repetition/formal-architecture boundary is reviewed; it cannot reopen that analysis family.",
+    "section_labels_used_as_lyric_tokens": false
+  },
+  "annotation_schema": {
+    "provider": "HOOKLAB_HUMAN_DOUBLE_ANNOTATION",
+    "version": "v0.1",
+    "required_fields": [
+      "case_id",
+      "source_revision",
+      "line_index",
+      "language_code",
+      "first_person_explicit",
+      "second_person_explicit",
+      "third_person_explicit",
+      "possessive_person_explicit",
+      "finite_verb_person_explicit",
+      "vocative_or_direct_address",
+      "direct_speech_explicit",
+      "unresolved_deixis",
+      "annotator_id",
+      "annotation_timestamp",
+      "adjudication_status"
+    ],
+    "allowed_label_values": [
+      "PRESENT",
+      "ABSENT",
+      "UNRESOLVED"
+    ],
+    "automatic_annotation_status": "PROPOSED_ONLY_REQUIRES_HUMAN_REVIEW",
+    "automatic_system_may_assign_curated_pass": false
+  },
+  "pre_calibration_metadata_gate": {
+    "status": "BLOCKED",
+    "required_case_fields": [
+      "language_code",
+      "document_version_status",
+      "provider_id",
+      "editorial_restriction_status"
+    ],
+    "currently_missing": [
+      "human-curated language_code",
+      "document_version_status"
+    ],
+    "organizational_proposals": "data/lyric_modeling/hooklab_corpus_language_proposals_v0_1.json",
+    "rule": "Calibration sampling cannot begin until these fields receive human review for the eligible source frame and are tied to revision 72. C077 remains excluded unless an existing authorized complete internal version is identified."
+  },
+  "calibration_design": {
+    "execution_status": "NOT_STARTED",
+    "sample_size_cases": 30,
+    "sampling": "Predeclared stratified sample by language_code and documentary-alert status; case IDs and selection seed must be frozen before annotation.",
+    "annotators": 2,
+    "independent_first_pass": true,
+    "adjudication_after_independent_pass": true,
+    "reporting_strata": [
+      "overall",
+      "language_code",
+      "documentary-alert status",
+      "marker class"
+    ],
+    "agreement_metrics": [
+      "Krippendorff alpha for each core categorical label",
+      "raw agreement",
+      "positive agreement",
+      "unresolved-label rate"
+    ],
+    "calibration_pass_rule": "All core labels require Krippendorff alpha >= 0.80 overall; no language stratum with adequate prevalence may fall below 0.67; every lower-prevalence or undefined coefficient must receive a qualitative error audit and cannot be silently treated as passing.",
+    "hold_rule": "Any core label below the pass rule, systematic language-specific error, source-version mismatch or undocumented adjudication yields AUDIT_FEATURE_NOT_CALIBRATED.",
+    "reference": "Hayes and Krippendorff (2007), https://doi.org/10.1080/19312450709336664"
+  },
+  "measurement_error_plan": {
+    "known_sources": [
+      "Spanish subject omission",
+      "ambiguous deixis",
+      "quoted or parenthetical speech",
+      "generic second person",
+      "multi-performer markup",
+      "provider line segmentation",
+      "translation and multilingual switching",
+      "embedded credits or LRC labels"
+    ],
+    "mandatory_outputs": [
+      "label-level agreement table",
+      "language-stratified error table",
+      "adjudication log",
+      "unresolved-case inventory",
+      "source-revision provenance"
+    ]
+  },
+  "derived_outputs_after_calibration_pass": [
+    "line-level explicit-person multilabel vector",
+    "song-level explicit-person prevalence profile",
+    "adjacent-line explicit-person configuration transition count",
+    "unresolved-deixis proportion"
+  ],
+  "forbidden_interpretations": [
+    "narrator biography",
+    "performer identity",
+    "authorial intention",
+    "relationship quality",
+    "psychological state",
+    "commercial success",
+    "universal compositional preference",
+    "causal effect"
+  ],
+  "access_and_output_boundary": {
+    "annotation_environment": "PRIVATE_AUTHORIZED_SOURCE_ENVIRONMENT",
+    "raw_lyrics_exported_to_repository": false,
+    "derived_table_contains_source_text": false,
+    "public_lyric_reproduction": "BLOCKED_EDITORIAL_REVIEW",
+    "allowed_repository_outputs": [
+      "case and line locators",
+      "abstract categorical labels",
+      "agreement statistics after registration",
+      "error and provenance summaries without lyric reproduction"
+    ]
+  },
+  "gate_state": {
+    "feature_admissibility": "BLOCKED_PENDING_METADATA_AND_CALIBRATION",
+    "analysis_registration": "BLOCKED",
+    "statistical_test": "BLOCKED",
+    "conditioned_deduction": "NONE",
+    "evidence_assisted_story_brief": "LOCKED",
+    "generation_class": "D0_EXPLORATORY",
+    "scientific_d_unlocked": false,
+    "statistical_analysis_executed": false
+  },
+  "next_action": "HUMAN_REVIEW_LANGUAGE_PROPOSALS_AND_RESOLVE_DOCUMENT_VERSION_STATUS_FOR_99_ELIGIBLE_CASES"
+}

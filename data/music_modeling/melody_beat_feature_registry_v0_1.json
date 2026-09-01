@@ -1,0 +1,157 @@
+{
+  "schema": "HOOKLAB_MELODY_BEAT_FEATURE_REGISTRY_v0.1",
+  "registry_id": "HL-MUSIC-FEATURE-REGISTRY-2026-09-01-v0.1",
+  "status": "FAIL_CLOSED_NO_ADMISSIBLE_MUSIC_FEATURES",
+  "identity_namespace": "HOOKLAB_C001_C100",
+  "scientific_order": [
+    "SOURCE_DATA",
+    "CALIBRATED_MEASUREMENT",
+    "FEATURE_ADMISSIBILITY",
+    "ANALYSIS_REGISTRATION",
+    "STATISTICAL_TEST",
+    "THEORY_INTERPRETATION",
+    "GENERATION_TEST",
+    "PRODUCER_DECISION"
+  ],
+  "boundaries": {
+    "generation_class": "D0_EXPLORATORY",
+    "scientific_d_unlocked": false,
+    "aesthetic_reference_is_scientific_corpus": false,
+    "lakh_or_gigamidi_is_hooklab_lyric_corpus": false,
+    "human_annotation_role": "MEASUREMENT_AND_CALIBRATION_REFERENCE_ONLY_NOT_EMPIRICAL_TREND",
+    "ai_trend_override_allowed": false,
+    "producer_preference_used_as_evidence": false
+  },
+  "modality_inventory": {
+    "melody": {
+      "role": "LINKED_SYMBOLIC_MODALITY",
+      "provider": "Metacreation/GigaMIDI recovery lane",
+      "provider_version": "EXACT_DATASET_AND_EXTRACTION_VERSION_PENDING_PROVENANCE_RESOLUTION",
+      "coverage": {
+        "indexed_cases": 100,
+        "recovered_midi": 68,
+        "selected_melody_candidates": 67,
+        "invalid_recovered_midi": 1
+      },
+      "source_audio_coverage": "NOT_MAPPED_IN_CANONICAL_CORPUS_REGISTRY",
+      "scientific_status": "AUDIT_MELODY_MEASUREMENT_NOT_CALIBRATED",
+      "provenance": "hooklab_corpus_backbone_registry_v1.json#HB-MOD-MIDI-001"
+    },
+    "beat_rhythm": {
+      "role": "REAL_AUDIO_DERIVED_MODALITY_REQUIRED",
+      "provider": "Beat This neural detector plus frozen HookLab tactus resolver",
+      "provider_version": "MODEL_HASH_AND_RUNTIME_RECORDED_IN_EXISTING_BEAT_THIS_ARTIFACTS",
+      "coverage": {
+        "canonical_case_linked_real_audio": 0,
+        "canonical_case_linked_reference_beat_annotations": 0,
+        "controlled_synthetic_microbenchmark": 8
+      },
+      "scientific_status": "AUDIT_BEAT_SOURCE_AND_CALIBRATION_NOT_RESOLVED",
+      "provenance": [
+        "docs/MIE_UNIFIED_MHT_FREEZE_v0.1.md",
+        "evaluation/beat_tactus_eval.py",
+        "evaluation/ctl/RESULTS_tactus_octave_v0_1_EXECUTED.md"
+      ]
+    }
+  },
+  "features": [
+    {
+      "feature_id": "MEL_PITCH_RANGE_SEMITONES_v0_1",
+      "modality": "MELODY",
+      "inventory_class": "D_COMPUTATIONALLY_DERIVED",
+      "construct": "observed melodic pitch span",
+      "operational_definition": "Maximum minus minimum calibrated pitched-event center in semitones for one song, after the frozen melody event pipeline and exclusion of unvoiced frames.",
+      "unit": "song",
+      "provider_version": "MIE M pipeline: frozen 11.609977 ms grid, plane resolver, R1.1-R1.3; exact executable identity pending",
+      "measurement_error": "Pitch-event recovery and octave-plane error require independent aligned-reference calibration.",
+      "calibration": {
+        "status": "CALIBRATION_NOT_RUN",
+        "minimum_independent_aligned_pairs": 30,
+        "required_relevant_feature_rho": 0.8,
+        "median_error_tolerance": "MUST_BE_PREDECLARED_BEFORE_CALIBRATION"
+      },
+      "musical_relevance": "Candidate descriptor of melodic span; no preferred span is asserted.",
+      "textual_relevance": "None until a separately registered cross-modal analysis is admissible.",
+      "research_question": "What pitch spans are observed in calibrated HookLab melody measurements?",
+      "outcome": "song-level pitch range in semitones",
+      "population": "Only canonical cases with verified melody source, calibrated event recovery and complete provenance",
+      "confounders": ["source representation", "track selection", "octave errors", "unvoiced handling", "song duration"],
+      "forbidden_interpretations": ["success", "causality", "optimal range", "lyric effect", "producer preference as evidence"],
+      "provenance": ["docs/MIE_UNIFIED_MHT_FREEZE_v0.1.md", "docs/checkpoints/MIGRATION_CHECKPOINT_2026-09-01_LYRIC_MODELING_AI_v1.md"],
+      "lifecycle_status": "AUDIT_FEATURE_NOT_CALIBRATED"
+    },
+    {
+      "feature_id": "MEL_NOTE_ONSET_DENSITY_HZ_v0_1",
+      "modality": "MELODY",
+      "inventory_class": "D_COMPUTATIONALLY_DERIVED",
+      "construct": "melodic event density",
+      "operational_definition": "Count of calibrated melody-note onsets divided by eligible physical-clock duration in seconds.",
+      "unit": "song",
+      "provider_version": "MIE M pipeline; exact executable identity pending",
+      "measurement_error": "Depends on onset segmentation, duration eligibility and source-track selection.",
+      "calibration": {"status": "CALIBRATION_NOT_RUN"},
+      "musical_relevance": "Candidate rhythmic density of the melody, not the accompaniment beat.",
+      "textual_relevance": "May later be compared with syllable/onset density only through a preregistered cross-modal analysis.",
+      "research_question": "What melody-onset densities are observed after calibrated event segmentation?",
+      "outcome": "melodic note onsets per second",
+      "population": "Canonical cases with verified source and calibrated event segmentation",
+      "confounders": ["tempo", "duration", "ornamentation", "polyphonic contamination", "track selection"],
+      "forbidden_interpretations": ["beat density", "complexity", "quality", "success", "causality"],
+      "provenance": ["docs/MIE_UNIFIED_MHT_FREEZE_v0.1.md"],
+      "lifecycle_status": "AUDIT_FEATURE_NOT_CALIBRATED"
+    },
+    {
+      "feature_id": "BEAT_TACTUS_ALIGNMENT_FMEASURE_v0_1",
+      "modality": "BEAT_RHYTHM",
+      "inventory_class": "D_COMPUTATIONALLY_DERIVED",
+      "construct": "beat/tactus detector agreement with independent reference annotations",
+      "operational_definition": "mir_eval beat F-measure between the frozen Beat This/HookLab estimate and independent beat-time annotations on the same physical clock.",
+      "unit": "song",
+      "provider_version": "evaluation/beat_tactus_eval.py with Beat This primary detector and frozen tactus resolver",
+      "measurement_error": "Annotation timing uncertainty, metrical-level ambiguity, boundary trimming and detector error.",
+      "calibration": {
+        "status": "REAL_AUDIO_REFERENCE_SET_NOT_MAPPED",
+        "pass_thresholds": "MUST_BE_PREDECLARED_BEFORE_CALIBRATION"
+      },
+      "musical_relevance": "Measurement-quality feature; it validates the beat sensor and is not itself a compositional success rule.",
+      "textual_relevance": "None directly.",
+      "research_question": "Does the frozen beat/tactus pipeline measure beat locations reliably on canonical real audio?",
+      "outcome": "per-song reference-alignment F-measure",
+      "population": "Canonical case-linked real audio with independent beat annotations",
+      "confounders": ["metrical level", "tempo changes", "silence", "annotation protocol", "audio decoding"],
+      "forbidden_interpretations": ["song quality", "success", "rhythmic complexity", "lyric effect", "synthetic-benchmark generalization"],
+      "provenance": ["evaluation/beat_tactus_eval.py", "docs/MIE_UNIFIED_MHT_FREEZE_v0.1.md"],
+      "lifecycle_status": "AUDIT_SOURCE_AND_CALIBRATION_NOT_RESOLVED"
+    },
+    {
+      "feature_id": "BEAT_TEMPO_BPM_MEDIAN_v0_1",
+      "modality": "BEAT_RHYTHM",
+      "inventory_class": "D_COMPUTATIONALLY_DERIVED",
+      "construct": "median tactus tempo",
+      "operational_definition": "Median of 60 divided by adjacent accepted tactus intervals, computed on the source-audio physical clock after calibrated tactus selection.",
+      "unit": "song",
+      "provider_version": "Beat This plus HookLab tactus resolver; exact model/runtime hash required per record",
+      "measurement_error": "T/2T/3T metrical-level errors and tempo drift must be quantified against reference annotations.",
+      "calibration": {"status": "REAL_AUDIO_REFERENCE_SET_NOT_MAPPED"},
+      "musical_relevance": "Candidate tempo descriptor; no preferred BPM or direction is asserted.",
+      "textual_relevance": "None until a separately registered cross-modal analysis is admissible.",
+      "research_question": "What calibrated tactus tempi are observed in the canonical HookLab cases?",
+      "outcome": "median tactus BPM per song",
+      "population": "Canonical cases with verified real audio and calibrated tactus measurement",
+      "confounders": ["metrical level", "tempo drift", "duration", "silence", "audio source"],
+      "forbidden_interpretations": ["optimal tempo", "success", "causality", "genre rule", "aesthetic-reference ingestion"],
+      "provenance": ["docs/MIE_UNIFIED_MHT_FREEZE_v0.1.md", "evaluation/beat_tactus_eval.py"],
+      "lifecycle_status": "AUDIT_SOURCE_AND_CALIBRATION_NOT_RESOLVED"
+    }
+  ],
+  "cross_modal_gate": {
+    "status": "BLOCKED",
+    "required_join": "VERIFIED_CASE_ID_PLUS_SOURCE_REVISION_PLUS_SHARED_PHYSICAL_CLOCK",
+    "rule": "No lyric-melody, lyric-beat or melody-beat association may execute until every participating feature independently passes calibration, Feature Admissibility and analysis registration."
+  },
+  "digital_circulation_gate": {
+    "status": "BLOCKED",
+    "outcome_registry_id": "HL-DIGITAL-CIRCULATION-2026-09-01-v0.1",
+    "rule": "Circulation is an outcome layer. No chorus, melody, beat or lyric feature may be associated with it until video identity, observation time, exposure covariates and every participating feature pass their independent gates."
+  }
+}

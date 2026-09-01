@@ -1,0 +1,42 @@
+{
+  "schema": "HOOKLAB_LYRIC_ANALYSIS_REGISTRATION_v1",
+  "analysis_id": "AN-LNR-POV-DESC-001",
+  "registration_status": "BLOCKED_FEATURE_NOT_ADMISSIBLE",
+  "analysis_type": "DESCRIPTIVE_CATEGORICAL_FINITE_CORPUS",
+  "research_question": "How are explicit grammatical-person configurations distributed in the eligible C001-C100 canonical corpus frame?",
+  "population_scope": "Canonical internal HookLab source revision 72; maximum 99 cases after C077 document-integrity exclusion; final eligible N frozen after feature calibration.",
+  "outcome": "Song-level dominant explicit-person configuration derived from calibrated line annotations",
+  "admissible_feature_ids": [
+    "LNR_POV_EXPLICIT_PERSON_CONFIGURATION_v0_1"
+  ],
+  "primary_tests": [
+    "FINITE_CORPUS_CATEGORY_COUNTS_AND_PROPORTIONS",
+    "WILSON_95_INTERVAL_AS_UNCERTAINTY_DESCRIPTOR",
+    "LEAVE_ONE_OUT_LEADER_STABILITY"
+  ],
+  "covariates": [],
+  "multiplicity_family": "LNR_POV_FIRST_REGISTERED_DESCRIPTIVE_FAMILY",
+  "effect_size_criterion": {
+    "minimum_n": 80,
+    "minimum_leading_proportion": 0.5,
+    "minimum_margin_over_second": 0.1,
+    "minimum_leading_wilson_lower_bound": 0.4
+  },
+  "robustness_plan": "LEAVE_ONE_OUT_LEADER_STABILITY",
+  "replication_requirement": "REQUIRED",
+  "replication_status": "NOT_STARTED",
+  "stop_promotion_rule": "Any calibration failure, N below 80, unstable leader, unmet effect/uncertainty criterion, unreplicated result or provenance violation blocks promotion.",
+  "expected_direction": null,
+  "trend_origin_policy": "REGISTERED_DATA_AND_STATISTICS_ONLY",
+  "human_trend_override_allowed": false,
+  "ai_trend_override_allowed": false,
+  "literature_sets_empirical_direction": false,
+  "producer_preference_used_as_evidence": false,
+  "claim_scope_if_supported": "Corpus-local descriptive tendency; no quality, success, causal or universal claim",
+  "source_revision": "72",
+  "feature_registry_id": "LNR-FEATURE-REGISTRY-2026-09-01-v0.1",
+  "measurement_protocol_id": "LNR-MEASURE-POV-2026-09-01-v0.1",
+  "statistical_computation_executed": false,
+  "conditioned_deduction_created": false,
+  "blocked_reason": "The feature has not completed human-curated language metadata, double-annotation calibration or Feature Admissibility."
+}
