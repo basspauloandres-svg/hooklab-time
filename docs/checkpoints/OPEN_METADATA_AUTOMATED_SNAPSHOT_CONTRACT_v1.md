@@ -15,12 +15,13 @@ the HookLab lyric corpus and does not provide retrospective traffic history.
 
 1. Only records with `identity_review_status=VERIFIED` may enter a snapshot.
 2. Candidate discovery may never assign or promote a verified identity.
-3. The extractor must run with media download disabled.
+3. The collector must not request or download media.
 4. Lyrics, captions, descriptions, audio and video must not be persisted.
 5. Every snapshot must record collector and provider versions, capture time,
    case ID, video ID, public counts and fetch status.
 6. Provider failure remains local to the affected record and is preserved as
-   an audit state.
+   an audit state. The workflow may not call a zero-record or partial snapshot
+   complete and may not commit it as a valid scientific input.
 7. `generation_class=D0_EXPLORATORY` and
    `scientific_d_unlocked=false` are invariant.
 8. A public cumulative view count is a timestamped snapshot. It is not itself
@@ -37,9 +38,24 @@ also retained as recovery evidence.
 
 ## Provider
 
-The v1 implementation uses pinned `yt-dlp==2026.8.19` as an open-source public
-metadata extractor. Provider changes require an explicit version update and
-contract regression.
+Candidate discovery retains pinned `yt-dlp` as an open-source search lane.
+Scheduled metric snapshots use the open Return YouTube Dislike public votes
+endpoint without credentials or paid quota. The provider documents that views,
+likes and related public fields originate from Google APIs and scraped public
+data and may be cached for approximately 2–3 days.
+
+Only `view_count` and `like_count` are retained. `dislikes`, `rawDislikes`,
+`rawLikes` and `rating` are prohibited because dislike values may be estimated
+or reconstructed. The snapshot records the provider, endpoint contract version,
+cache policy and data-lineage statement. A provider change requires an explicit
+collector version update and contract regression.
+
+## Completion rule
+
+A workflow run is valid only when at least one verified identity is collected
+and every verified identity included in the identity map has
+`snapshot_status=SNAPSHOT_COMPLETE`. Any provider outage, identity mismatch,
+deleted record or invalid view count fails closed before the commit step.
 
 ## Provenance chain
 

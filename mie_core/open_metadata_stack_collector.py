@@ -1,9 +1,11 @@
 """Open, quota-free public metadata lane for HookLab.
 
-The collector uses yt-dlp only as a public metadata extractor. It never
-downloads audio, video, captions, descriptions, or lyrics. Candidate search
-cannot promote an identity; scheduled snapshots include VERIFIED identities
-only and remain descriptive/D0.
+Candidate discovery uses yt-dlp only as a public metadata extractor. Scheduled
+metric snapshots use the open Return YouTube Dislike public API and retain only
+its cached public ``viewCount`` and ``likes`` fields. Dislikes, raw votes,
+ratings, audio, video, captions, descriptions, and lyrics are never persisted.
+Candidate search cannot promote an identity; scheduled snapshots include
+VERIFIED identities only and remain descriptive/D0.
 """
 
 from __future__ import annotations
@@ -13,13 +15,22 @@ import datetime as dt
 import json
 import re
 import tempfile
+import time
+import urllib.error
+import urllib.parse
+import urllib.request
 from pathlib import Path
 from typing import Any, Callable
 
 
-COLLECTOR_VERSION = "hooklab-open-metadata-stack-v1"
+COLLECTOR_VERSION = "hooklab-open-metadata-stack-v1.1"
 GENERATION_CLASS = "D0_EXPLORATORY"
 VIDEO_ID_RE = re.compile(r"^[A-Za-z0-9_-]{11}$")
+RYD_API_BASE = "https://returnyoutubedislikeapi.com"
+RYD_PROVIDER = "Return YouTube Dislike public votes API"
+RYD_PROVIDER_VERSION = "public-votes-endpoint-v1"
+RYD_CACHE_POLICY = "PROVIDER_DOCUMENTED_APPROXIMATELY_2_TO_3_DAYS"
+RYD_DATA_LINEAGE = "GOOGLE_API_AND_SCRAPED_PUBLIC_DATA_CACHED_BY_PROVIDER"
 
 
 class OpenMetadataError(RuntimeError):
@@ -63,6 +74,44 @@ def _yt_dlp_session() -> tuple[Callable[[str], dict[str, Any]], str]:
     return extract, yt_dlp.version.__version__
 
 
+def _ryd_session(
+    timeout_seconds: int = 30,
+    retries: int = 2,
+) -> tuple[Callable[[str], dict[str, Any]], str]:
+    """Return a quota-free metric fetcher with bounded retries.
+
+    The endpoint response contains reconstructed dislike fields. They are never
+    returned by the whitelist adapter and therefore cannot enter HookLab data.
+    """
+
+    def extract(video_id: str) -> dict[str, Any]:
+        if not VIDEO_ID_RE.fullmatch(video_id):
+            raise OpenMetadataError("INVALID_VIDEO_ID")
+        query = urllib.parse.urlencode({"videoId": video_id})
+        request = urllib.request.Request(
+            f"{RYD_API_BASE}/votes?{query}",
+            headers={
+                "Accept": "application/json",
+                "User-Agent": f"HookLab/{COLLECTOR_VERSION}",
+            },
+        )
+        last_error: Exception | None = None
+        for attempt in range(retries + 1):
+            try:
+                with urllib.request.urlopen(request, timeout=timeout_seconds) as response:
+                    payload = json.loads(response.read().decode("utf-8"))
+                if not isinstance(payload, dict):
+                    raise OpenMetadataError("PROVIDER_RESPONSE_NOT_OBJECT")
+                return payload
+            except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as error:
+                last_error = error
+                if attempt < retries:
+                    time.sleep(2**attempt)
+        raise OpenMetadataError("RYD_PROVIDER_FETCH_FAILED") from last_error
+
+    return extract, RYD_PROVIDER_VERSION
+
+
 def _int_or_none(value: Any) -> int | None:
     try:
         return int(value)
@@ -91,6 +140,24 @@ def _whitelisted_video_metadata(info: dict[str, Any]) -> dict[str, Any]:
         "comment_count": _int_or_none(info.get("comment_count")),
         "availability": info.get("availability"),
         "live_status": info.get("live_status"),
+    }
+
+
+def _whitelisted_ryd_metrics(info: dict[str, Any]) -> dict[str, Any]:
+    """Retain only non-estimated public fields needed by HookLab.
+
+    ``dislikes``, ``rawDislikes``, ``rawLikes`` and ``rating`` are deliberately
+    absent because the provider may estimate/reconstruct them.
+    """
+
+    video_id = str(info.get("id") or "")
+    return {
+        "video_id": video_id if VIDEO_ID_RE.fullmatch(video_id) else None,
+        "video_url": f"https://www.youtube.com/watch?v={video_id}" if VIDEO_ID_RE.fullmatch(video_id) else None,
+        "view_count": _int_or_none(info.get("viewCount")),
+        "like_count": _int_or_none(info.get("likes")),
+        "provider_record_created_at": info.get("dateCreated"),
+        "provider_deleted": info.get("deleted"),
     }
 
 
@@ -146,6 +213,11 @@ def collect_verified_snapshot(
     extractor: Callable[[str], dict[str, Any]],
     provider_version: str,
     captured_at: str | None = None,
+    *,
+    provider: str = "yt-dlp public metadata extractor",
+    metadata_adapter: Callable[[dict[str, Any]], dict[str, Any]] = _whitelisted_video_metadata,
+    provider_cache_policy: str | None = None,
+    provider_data_lineage: str | None = None,
 ) -> dict[str, Any]:
     captured_at = captured_at or _utc_now()
     records = []
@@ -161,10 +233,21 @@ def collect_verified_snapshot(
             })
             continue
         try:
-            info = extractor(f"https://www.youtube.com/watch?v={video_id}")
-            metadata = _whitelisted_video_metadata(info)
+            provider_input = video_id if provider == RYD_PROVIDER else f"https://www.youtube.com/watch?v={video_id}"
+            info = extractor(provider_input)
+            metadata = metadata_adapter(info)
             returned_id = metadata.get("video_id")
-            status = "SNAPSHOT_COMPLETE" if returned_id == video_id else "AUDIT_IDENTITY_MISMATCH"
+            valid_public_metrics = (
+                metadata.get("view_count") is not None
+                and metadata.get("view_count") >= 0
+                and metadata.get("provider_deleted") is not True
+            )
+            if returned_id != video_id:
+                status = "AUDIT_IDENTITY_MISMATCH"
+            elif not valid_public_metrics:
+                status = "AUDIT_PUBLIC_METRICS_NOT_VALID"
+            else:
+                status = "SNAPSHOT_COMPLETE"
             records.append({
                 "case_id": row.get("case_id"),
                 "identity_review_status": "VERIFIED",
@@ -189,8 +272,12 @@ def collect_verified_snapshot(
         "status": "SNAPSHOT_COMPLETE" if records and complete == len(records) else "SNAPSHOT_PARTIAL_OR_AUDIT",
         "captured_at": captured_at,
         "collector_version": COLLECTOR_VERSION,
-        "provider": "yt-dlp public metadata extractor",
+        "provider": provider,
         "provider_version": provider_version,
+        "provider_cache_policy": provider_cache_policy,
+        "provider_data_lineage": provider_data_lineage,
+        "retained_metric_fields": ["view_count", "like_count"],
+        "explicitly_forbidden_provider_fields": ["dislikes", "rawDislikes", "rawLikes", "rating"],
         "verified_identity_count": len(records),
         "complete_snapshot_count": complete,
         "records": records,
@@ -223,14 +310,24 @@ def main() -> int:
     args = parser.parse_args()
 
     try:
-        extractor, provider_version = _yt_dlp_session()
         if args.command == "discover-candidates":
+            extractor, provider_version = _yt_dlp_session()
             result = discover_candidates(_load(args.case_manifest), extractor, provider_version, args.max_results)
             _atomic_json(args.output, result)
             print(args.output)
         else:
+            extractor, provider_version = _ryd_session()
             captured_at = _utc_now()
-            result = collect_verified_snapshot(_load(args.identity_map), extractor, provider_version, captured_at)
+            result = collect_verified_snapshot(
+                _load(args.identity_map),
+                extractor,
+                provider_version,
+                captured_at,
+                provider=RYD_PROVIDER,
+                metadata_adapter=_whitelisted_ryd_metrics,
+                provider_cache_policy=RYD_CACHE_POLICY,
+                provider_data_lineage=RYD_DATA_LINEAGE,
+            )
             output = args.snapshot_dir / snapshot_filename(captured_at)
             _atomic_json(output, result)
             _atomic_json(args.snapshot_dir / "latest.json", result)

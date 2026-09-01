@@ -32,9 +32,6 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install pinned open metadata extractor
-        run: python3 -m pip install --disable-pip-version-check 'yt-dlp==2026.8.19'
-
       - name: Validate fail-closed collector contract
         run: python3 tests/test_open_metadata_stack_collector.py
 
@@ -53,7 +50,14 @@ jobs:
           assert payload['downloads_media'] is False
           assert payload['generation_class'] == 'D0_EXPLORATORY'
           assert payload['scientific_d_unlocked'] is False
+          assert payload['provider'] == 'Return YouTube Dislike public votes API'
+          assert payload['retained_metric_fields'] == ['view_count', 'like_count']
+          assert payload['complete_snapshot_count'] > 0
+          assert payload['complete_snapshot_count'] == payload['verified_identity_count']
           assert all(row.get('identity_review_status') == 'VERIFIED' for row in payload['records'])
+          forbidden = set(payload['explicitly_forbidden_provider_fields'])
+          assert forbidden == {'dislikes', 'rawDislikes', 'rawLikes', 'rating'}
+          assert all(not forbidden.intersection(row) for row in payload['records'])
           print('AUTOMATED_SNAPSHOT_BOUNDARY_PASS')
           PY
 
