@@ -1,0 +1,16 @@
+/* HookLab Narrative State Engine v0.1
+ * Converts Story Brief + approved sections into auditable song-state.
+ */
+(function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;root.HookLabNarrativeState=api;})(typeof globalThis!=='undefined'?globalThis:this,function(){
+'use strict';
+const VERSION='hooklab-narrative-state-v0.1';
+function arr(x){return Array.isArray(x)?x:[];}
+function txt(x){return String(x||'').trim();}
+function uniq(xs){return[...new Set(xs.filter(Boolean))];}
+function splitEntities(s){return uniq(txt(s).split(/[,;\n]+/).map(x=>x.trim()).filter(Boolean));}
+function fromBrief(brief){return{schema:'HOOKLAB_NARRATIVE_STATE_v0.1',state_id:'NST-'+Date.now(),version:VERSION,characters:splitEntities(brief?.characters),relationships:txt(brief?.relationship)?[txt(brief.relationship)]:[],conflict:txt(brief?.conflict)||null,point_of_view:txt(brief?.point_of_view)||null,temporal_state:null,emotional_trajectory:txt(brief?.emotional_trajectory)||null,key_scene:txt(brief?.key_scene)||null,revealed_information:[],open_threads:txt(brief?.conflict)?[{thread_id:'THREAD-CONFLICT',text:txt(brief.conflict),status:'OPEN'}]:[],closed_threads:[],section_history:[],story_brief_id:brief?.brief_id||null};}
+function summarizeSection(section){return{section_id:section?.section_id||null,section_function:section?.part||section?.section_function||null,text:section?.candidate?.plain_text||section?.text||'',approved_at:section?.approved_at||null};}
+function update(state,section,producerUpdate){const next=JSON.parse(JSON.stringify(state||{}));next.state_id='NST-'+Date.now();const s=summarizeSection(section);next.section_history=arr(next.section_history);next.section_history.push(s);const p=producerUpdate||{};next.revealed_information=uniq([...arr(next.revealed_information),...arr(p.revealed_information)]);next.characters=uniq([...arr(next.characters),...arr(p.characters_added)]);next.relationships=uniq([...arr(next.relationships),...arr(p.relationships_added)]);if(p.point_of_view)next.point_of_view=p.point_of_view;if(p.temporal_state)next.temporal_state=p.temporal_state;if(p.emotional_state)next.emotional_trajectory=p.emotional_state;const close=new Set(arr(p.close_thread_ids));next.open_threads=arr(next.open_threads).filter(t=>!close.has(t.thread_id));next.closed_threads=uniq([...arr(next.closed_threads).map(x=>JSON.stringify(x)),...arr(state?.open_threads).filter(t=>close.has(t.thread_id)).map(t=>JSON.stringify({...t,status:'CLOSED'}))]).map(x=>typeof x==='string'?JSON.parse(x):x);for(const t of arr(p.open_threads_added))next.open_threads.push({thread_id:t.thread_id||('THREAD-'+Date.now()+'-'+Math.random().toString(16).slice(2,6)),text:t.text||'',status:'OPEN'});return next;}
+function continuity(state,targetSection){const reasons=[];if(!state)reasons.push('NARRATIVE_STATE_MISSING');if(!targetSection)reasons.push('TARGET_SECTION_MISSING');return{status:reasons.length?'AUDIT':'PASS',reasons,summary:{characters:arr(state?.characters).length,open_threads:arr(state?.open_threads).length,closed_threads:arr(state?.closed_threads).length,approved_sections:arr(state?.section_history).length,point_of_view:state?.point_of_view||null,emotional_trajectory:state?.emotional_trajectory||null}};}
+return{VERSION,fromBrief,update,continuity};
+});
