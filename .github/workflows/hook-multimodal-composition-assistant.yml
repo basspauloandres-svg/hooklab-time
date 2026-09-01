@@ -1,0 +1,19 @@
+name: Hook Multimodal Composition Assistant
+on:
+  push:
+    branches: [mie/golden-forensic-v0.3]
+    paths:
+      - 'app/prototype_v1/hook_composition_assistant.js'
+      - 'tests/test_hook_composition_assistant.js'
+      - 'docs/contracts/HOOK_MULTIMODAL_COMPOSITION_CONTRACT_v1.md'
+      - '.github/workflows/hook-multimodal-composition-assistant.yml'
+  workflow_dispatch:
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node tests/test_hook_composition_assistant.js
