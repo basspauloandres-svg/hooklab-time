@@ -1,6 +1,7 @@
 import { chromium, webkit } from 'playwright';
 import fs from 'fs';
 
+// FINAL_MULTIMODAL_PROVENANCE_REGRESSION_v1
 const URL=process.env.HOOKLAB_TEST_URL||'http://127.0.0.1:8000/app/prototype_v1/index.html';
 const wav=Buffer.alloc(44+22050*2); // minimal 1 s mono PCM16 WAV
 wav.write('RIFF',0); wav.writeUInt32LE(wav.length-8,4); wav.write('WAVEfmt ',8); wav.writeUInt32LE(16,16); wav.writeUInt16LE(1,20); wav.writeUInt16LE(1,22); wav.writeUInt32LE(22050,24); wav.writeUInt32LE(44100,28); wav.writeUInt16LE(2,32); wav.writeUInt16LE(16,34); wav.write('data',36); wav.writeUInt32LE(wav.length-44,40);
@@ -46,4 +47,4 @@ for(const p of profiles){
   results.push({profile:p.name,title,viewport:p.viewport,min_button_height:minButton,horizontal_overflow:false,d0:true,multimodal_candidates:candidateCount,candidate_selected:true,persisted:true,evaluation_trace:true});
   await browser.close();
 }
-console.log(JSON.stringify({status:'PASS',results},null,2));
+console.log(JSON.stringify({status:'PASS',regression:'FINAL_MULTIMODAL_PROVENANCE_REGRESSION_v1',results},null,2));
