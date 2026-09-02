@@ -5,9 +5,10 @@ const path=require('path');
 const protocol=JSON.parse(fs.readFileSync(path.join(__dirname,'../data/lyric_modeling/lyric_narrative_measurement_protocol_v0_1.json'),'utf8'));
 const cases=JSON.parse(fs.readFileSync(path.join(__dirname,'../data/lyric_modeling/hooklab_corpus_case_metadata_manifest_v1.json'),'utf8'));
 const language=JSON.parse(fs.readFileSync(path.join(__dirname,'../data/lyric_modeling/hooklab_corpus_language_proposals_v0_1.json'),'utf8'));
+const sample=JSON.parse(fs.readFileSync(path.join(__dirname,'../data/calibration_modeling/initial_calibration_sample_v0_1.json'),'utf8'));
 
 assert.equal(protocol.schema,'HOOKLAB_LYRIC_NARRATIVE_MEASUREMENT_PROTOCOL_v0.1');
-assert.equal(protocol.status,'PROTOCOL_REGISTERED_EXECUTION_BLOCKED_LANGUAGE_METADATA');
+assert.equal(protocol.status,'CALIBRATION_SAMPLE_FROZEN_EXECUTION_BLOCKED_HUMAN_METADATA');
 assert.equal(protocol.source.canonical_asset_id,'HB-SRC-LYR-001');
 assert.equal(protocol.source.source_revision,'72');
 assert.equal(protocol.source.expected_cases,100);
@@ -22,7 +23,8 @@ assert.equal(protocol.unit_and_segmentation.section_labels_used_as_lyric_tokens,
 assert.equal(protocol.annotation_schema.automatic_system_may_assign_curated_pass,false);
 assert.equal(protocol.pre_calibration_metadata_gate.status,'BLOCKED');
 assert(protocol.pre_calibration_metadata_gate.currently_missing.includes('human-curated language_code'));
-assert.equal(protocol.calibration_design.execution_status,'NOT_STARTED');
+assert.equal(protocol.calibration_design.execution_status,'SAMPLE_FROZEN_ANNOTATION_NOT_STARTED');
+assert.equal(protocol.calibration_design.frozen_sample,'data/calibration_modeling/initial_calibration_sample_v0_1.json');
 assert.equal(protocol.calibration_design.annotators,2);
 assert.equal(protocol.calibration_design.independent_first_pass,true);
 assert.equal(protocol.access_and_output_boundary.raw_lyrics_exported_to_repository,false);
@@ -42,5 +44,10 @@ assert.equal(language.coverage.human_reviewed_cases,0);
 assert.equal(language.method.automatic_system_may_assign_curated_language,false);
 assert(language.records.every(record=>record.curated_language_code===null));
 assert.equal(language.records.find(record=>record.case_id==='C077').document_audit_status,'AUDIT_DOCUMENT_INCOMPLETE');
+assert.equal(sample.sample_size_cases,30);
+assert.equal(new Set(sample.sorted_case_ids).size,30);
+assert.equal(sample.sorted_case_ids.includes('C077'),false);
+assert.equal(sample.raw_lyrics_in_artifact,false);
+assert.equal(sample.scientific_d_unlocked,false);
 
 console.log('LYRIC_NARRATIVE_MEASUREMENT_PROTOCOL_PASS');
