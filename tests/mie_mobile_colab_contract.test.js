@@ -1,0 +1,14 @@
+const assert=require('assert');
+const fs=require('fs');
+const path=require('path');
+const notebook=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../notebooks/MIE_Recognition_v0_3_Mobile_Colab.ipynb'),'utf8'));
+const source=notebook.cells.flatMap(cell=>cell.source||[]).join('\n');
+assert.equal(notebook.nbformat,4);
+assert(source.includes("REF = 'codex/mie-recovery-v0.3'"));
+assert(source.includes("files.upload()"));
+assert(source.includes("resolve_event_octaves"));
+assert(source.includes("apply_reasoning"));
+assert(source.includes("MIE_RECOGNITION_MHT_v0_3.wav"));
+assert(source.includes("files.download(package)"));
+assert(source.includes("scientific_d_unlocked=false"));
+console.log('MIE_MOBILE_COLAB_CONTRACT_PASS');

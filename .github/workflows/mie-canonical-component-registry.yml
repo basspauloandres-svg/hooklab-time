@@ -1,0 +1,61 @@
+name: MIE Canonical Component Registry
+
+on:
+  push:
+    paths:
+      - 'data/music_modeling/mie_canonical_component_registry_v1.json'
+      - 'assets/mie-stab004-p30-reconstruction-v0.1.2.js'
+      - 'app-mie-other-motor-ia-motor-v0.1.html'
+      - 'app-mie-harmonic-lock-v0.5.html'
+      - 'app-recovery-lm-neural-beatthis-v1.9.3.html'
+      - 'mie_core/run_mie_core.py'
+      - 'tests/mie_canonical_component_registry.test.js'
+      - 'mie_core/mie_ai_candidate_reasoner.py'
+      - 'mie_core/mie_recognition_contract.py'
+      - 'tests/test_mie_recognition_contract.py'
+      - 'app/prototype_v1/mie_recognition_bridge.js'
+      - 'tests/mie_recognition_bridge.test.js'
+      - 'mie_core/mie_octave_plane_resolver.py'
+      - 'mie_core/mie_recovery_resynthesis.py'
+      - 'mie_core/mie_analyzer_service.py'
+      - 'app-mie-recognition-v0.3.html'
+      - 'notebooks/MIE_Recognition_v0_3_Mobile_Colab.ipynb'
+      - 'tests/mie_mobile_colab_contract.test.js'
+      - '.github/workflows/mie-canonical-component-registry.yml'
+  pull_request:
+    paths:
+      - 'data/music_modeling/mie_canonical_component_registry_v1.json'
+      - 'assets/mie-stab004-p30-reconstruction-v0.1.2.js'
+      - 'app-mie-other-motor-ia-motor-v0.1.html'
+      - 'app-mie-harmonic-lock-v0.5.html'
+      - 'app-recovery-lm-neural-beatthis-v1.9.3.html'
+      - 'mie_core/run_mie_core.py'
+      - 'tests/mie_canonical_component_registry.test.js'
+      - 'mie_core/mie_ai_candidate_reasoner.py'
+      - 'mie_core/mie_recognition_contract.py'
+      - 'tests/test_mie_recognition_contract.py'
+      - 'app/prototype_v1/mie_recognition_bridge.js'
+      - 'tests/mie_recognition_bridge.test.js'
+      - 'mie_core/mie_octave_plane_resolver.py'
+      - 'mie_core/mie_recovery_resynthesis.py'
+      - 'mie_core/mie_analyzer_service.py'
+      - 'app-mie-recognition-v0.3.html'
+      - 'notebooks/MIE_Recognition_v0_3_Mobile_Colab.ipynb'
+      - 'tests/mie_mobile_colab_contract.test.js'
+      - '.github/workflows/mie-canonical-component-registry.yml'
+
+jobs:
+  canonical-registry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node tests/mie_canonical_component_registry.test.js
+      - run: node tests/mie_recognition_bridge.test.js
+      - run: node tests/mie_mobile_colab_contract.test.js
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python tests/test_mie_recognition_contract.py

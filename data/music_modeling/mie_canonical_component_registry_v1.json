@@ -1,0 +1,142 @@
+{
+  "schema": "HOOKLAB_MIE_CANONICAL_COMPONENT_REGISTRY_v1",
+  "date": "2026-09-02",
+  "status": "RECOVERY_GATE_ACTIVE",
+  "purpose": "Prevent a new interface or integration from replacing accepted M, H or T behavior with an older or simplified prototype.",
+  "product_semantics": {
+    "primary_goal": "MUSICAL_RECOGNITION_FROM_TRACEABLE_TRANSCRIPTION",
+    "transcription_role": "MEASUREMENT_PREREQUISITE",
+    "recognition_role": "RELATIONAL_ANALYSIS_OVER_TIME_ALIGNED_M_H_T_EVIDENCE",
+    "generation_class": "D0_EXPLORATORY",
+    "scientific_d_unlocked": false
+  },
+  "accuracy_evidence": {
+    "producer_auditory_estimate": {
+      "value": 0.98,
+      "scope": "historical Luis Miguel listening exercise",
+      "status": "CONTEXTUAL_SELF_REPORT_NOT_GENERAL_ACCURACY"
+    },
+    "documented_melody_recovery": {
+      "matched_regions": 13,
+      "total_regions": 14,
+      "tolerance_semitones": 0.5,
+      "scope": "historical replay",
+      "status": "ENGINEERING_REGRESSION_EVIDENCE_NOT_GENERALIZATION"
+    },
+    "general_accuracy_claim_allowed": false
+  },
+  "components": {
+    "M": {
+      "name": "melody",
+      "status": "RECOVERED_BASELINE_PENDING_GENERAL_CALIBRATION",
+      "required_chain": [
+        "PROBABILISTIC_F0",
+        "OCTAVE_PLANE_RESOLVER",
+        "R1_1_CONTINUITY",
+        "R1_2_DURATION_SEGMENTATION",
+        "R1_3_PITCH_CLASSIFICATION"
+      ],
+      "reference_runtime": {
+        "path": "assets/mie-stab004-p30-reconstruction-v0.1.2.js",
+        "sha256": "f6a92cae07e3eed4583369ff190b0d355fb68909d00c8c270e0d4d897b15a11e",
+        "scope": "historical Safari-safe recovery reference; not a general song recognizer"
+      },
+      "server_runtime": {
+        "path": "mie_core/run_mie_core.py",
+        "provider": "Basic Pitch on HTDemucs vocals plus monophonic fusion gate"
+      },
+      "forbidden_replacements": [
+        "SIMPLE_FRAME_MAX",
+        "FULL_MIX_GOERTZEL_WITHOUT_PLANE_RESOLVER",
+        "SONG_SPECIFIC_NOTE_TEMPLATE",
+        "SILENT_OCTAVE_CORRECTION"
+      ]
+    },
+    "H": {
+      "name": "harmony",
+      "status": "ACCEPTED_EXPERIMENTAL_LINEAGE_PENDING_GENERAL_CALIBRATION",
+      "required_chain": [
+        "HARMONIC_SOURCE_EVIDENCE",
+        "PITCH_CLASS_CANDIDATES",
+        "MOTOR_AI_MOTOR_RANKING",
+        "RESIDUAL_REQUERY",
+        "LOCK_AMBIGUOUS_ABSTAIN"
+      ],
+      "reference_artifacts": [
+        {
+          "path": "app-mie-other-motor-ia-motor-v0.1.html",
+          "sha256": "d1dbddeb649c6f44ab2b87e10b84c9c9638bea399a789f30f365f3893dcd61ad"
+        },
+        {
+          "path": "app-mie-harmonic-lock-v0.5.html",
+          "sha256": "75f6a44e56636b8f83f675cff113aa143e999d565931d6a815b1372398ee4401"
+        }
+      ],
+      "server_runtime": {
+        "path": "mie_core/run_mie_core.py",
+        "provider": "HTDemucs other+bass, harmonic CQT, beat-synchronous chord candidates and LOCK/AMBIGUOUS"
+      },
+      "ai_boundary": {
+        "current_implementation": "DETERMINISTIC_CONTEXTUAL_REASONER",
+        "private_provider_connected": false,
+        "may_rank_observed_candidates": true,
+        "may_create_absent_pitch_evidence": false,
+        "may_override_ambiguity": false
+      },
+      "audible_output_required": true
+    },
+    "T": {
+      "name": "beat_tactus",
+      "status": "FROZEN_ENGINEERING_BASELINE",
+      "required_chain": [
+        "BEAT_THIS_NEURAL_INFERENCE",
+        "CONTINUITY_CTL",
+        "TACTUS_SELECTION",
+        "DEDUPLICATION",
+        "SINGLE_PHYSICAL_CLOCK"
+      ],
+      "reference_runtime": {
+        "path": "app-recovery-lm-neural-beatthis-v1.9.3.html",
+        "sha256": "5d275fd36f8ba91fd4e1eb6616fdf53c3af8dd6206f572ebbf1e59e1f6522568"
+      },
+      "forbidden_replacements": ["FIXED_BPM_GRID", "SIMPLE_ONSET_PERIODICITY_ONLY"]
+    }
+  },
+  "integration": {
+    "required_input_count": 1,
+    "shared_physical_clock": true,
+    "required_machine_outputs": ["melody_events", "harmony_states", "beat_events", "provenance"],
+    "required_audible_layers": ["melody", "harmony_lock", "beat_tactus"],
+    "reference_engine": {
+      "path": "mie_core/run_mie_core.py",
+      "sha256": "08ea065368e749f012474f3b95f1d23ac5c0a64becd91ee18252d0fec3e84aa3"
+    },
+    "canonical_contract": "docs/AESTHETIC_REFERENCE_ANALYZER_API_v0_1.md",
+    "frozen_architecture": "docs/MIE_UNIFIED_MHT_FREEZE_v0.1.md"
+  },
+  "release_states": ["EXPERIMENT", "CANDIDATE", "BASELINE", "FROZEN", "REJECTED"],
+  "known_integrations": [
+    {
+      "path": "app-mie-p30-harmony-beat-v0.1.html",
+      "status": "FROZEN_HISTORICAL_GOLDEN_CASE",
+      "scope": "Luis Miguel reference only"
+    },
+    {
+      "path": "app-mie-audio-midi-explorer-v0.2.html",
+      "status": "REJECTED_ENGINE_REGRESSION",
+      "reason": "UI repair substituted M with a simplified full-mix detector and omitted H from audible resynthesis."
+    },
+    {
+      "path": "app-mie-recognition-v0.3.html",
+      "status": "CANDIDATE",
+      "reason": "Private-service integration restores explicit M/H/T contracts, event-level octave recovery, constrained candidate reasoning and audible M+H+T; historical and unseen-song regressions remain required."
+    }
+  ],
+  "promotion_gate": {
+    "historical_regression_required": true,
+    "unseen_song_regression_required": true,
+    "all_required_audible_layers_required": true,
+    "machine_readable_provenance_required": true,
+    "ci_pass_required": true
+  }
+}

@@ -1,0 +1,15 @@
+const assert=require('assert');
+const fs=require('fs');
+const path=require('path');
+const bridge=require('../app/prototype_v1/mie_recognition_bridge.js');
+const good={schema:bridge.SCHEMA,status:'PASS',session_id:'HL-1',reference_sha256:'abc',scientific_d_unlocked:false,scientific_ingestion:false,source_audio_persistence:'NONE',transcription:{melody_events:[{}],harmony_states:[{}],beat_events:[{}]},audition_wav_base64:'UklGRg=='};
+assert.equal(bridge.validate(good,{sessionId:'HL-1',sha256:'abc'}).status,'PASS');
+assert.equal(bridge.validate({...good,transcription:{...good.transcription,harmony_states:[]}}).status,'FAIL');
+assert.equal(bridge.validate({...good,scientific_d_unlocked:true}).status,'FAIL');
+const page=fs.readFileSync(path.resolve(__dirname,'../app-mie-recognition-v0.3.html'),'utf8');
+assert(page.includes('Reconstrucción audible M + H + T'));
+assert(page.includes('mie_recognition_bridge.js'));
+assert(page.includes('id="token"'));
+assert(!page.includes('<iframe'));
+assert(!page.toLowerCase().includes('goertzel'));
+console.log('MIE_RECOGNITION_BRIDGE_PASS');

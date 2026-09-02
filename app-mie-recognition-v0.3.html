@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
+  <title>MIE Reconocimiento v0.3</title>
+  <style>
+    :root{font-family:-apple-system,BlinkMacSystemFont,system-ui;background:#f2f2f0;color:#171717}body{margin:0}main{max-width:900px;margin:auto;padding:14px}.card{background:#fff;border:1px solid #ddd;border-radius:14px;padding:15px;margin:10px 0}h1{font-size:23px;margin:0 0 7px}h2{font-size:18px}input,button,audio,progress{width:100%;box-sizing:border-box;font-size:16px}input{padding:12px;margin:5px 0 10px}button{padding:12px;border:0;border-radius:10px;background:#222;color:#fff;margin:5px 0}button:disabled{opacity:.4}.muted{font-size:13px;color:#666}.ok{color:#087a38}.warn{color:#8a4200}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.metric{background:#f5f5f3;border-radius:10px;padding:10px}.metric b{display:block;font-size:20px}.scroll{overflow:auto;max-height:350px}table{width:100%;border-collapse:collapse;font-size:12px}th,td{padding:7px;border-bottom:1px solid #eee;text-align:left;white-space:nowrap}@media(max-width:650px){.grid{grid-template-columns:1fr}}
+  </style>
+</head><body><main>
+  <section class="card">
+    <h1>MIE · Reconocimiento M + H + T v0.3</h1>
+    <p>Transcripción trazable como base del reconocimiento musical. Esta consola rechaza cualquier resultado incompleto.</p>
+    <label>Servicio local/privado MIE<input id="endpoint" type="url" placeholder="https://tu-servicio-privado"></label>
+    <label>Token privado del analizador<input id="token" type="password" autocomplete="off" placeholder="Se mantiene en esta sesión"></label>
+    <label>1. Cargar audio<input id="file" type="file" accept="audio/*,.wav,.mp3,.m4a,.aac,.flac,.ogg"></label>
+    <h2>Audio de entrada</h2><audio id="source" controls></audio>
+    <button id="run" disabled>2. Analizar y reconocer M + H + T</button>
+    <progress id="progress" max="100" value="0"></progress><p id="status" class="muted">Configura el servicio y selecciona un audio.</p>
+  </section>
+  <section class="card">
+    <h2>Reconstrucción audible M + H + T</h2><audio id="output" controls></audio>
+    <div class="grid"><div class="metric">Melodía<b id="m">—</b></div><div class="metric">Armonía<b id="h">—</b></div><div class="metric">Pulso<b id="t">—</b></div></div>
+    <p id="ai" class="muted">IA: pendiente.</p><button id="json" disabled>Descargar reconocimiento JSON</button>
+    <p class="muted"><code>D0_EXPLORATORY</code> · <code>scientific_d_unlocked=false</code></p>
+  </section>
+  <section class="card"><h2>Relaciones nota–pulso–armonía</h2><div class="scroll"><table><thead><tr><th>Nota</th><th>Pulso</th><th>Desviación</th><th>Unidad H</th><th>Estado H</th></tr></thead><tbody id="relations"><tr><td colspan="5">Sin resultado.</td></tr></tbody></table></div></section>
+</main>
+<script src="app/prototype_v1/mie_recognition_bridge.js"></script>
+<script>
+(function(){
+  const $=id=>document.getElementById(id),bridge=window.HookLabMieRecognitionBridge;
+  let file=null,sourceUrl=null,outputUrl=null,result=null;
+  const state=(text,kind='muted')=>{$('status').textContent=text;$('status').className=kind;};
+  async function sha(bytes){const hash=await crypto.subtle.digest('SHA-256',bytes);return Array.from(new Uint8Array(hash),b=>b.toString(16).padStart(2,'0')).join('');}
+  function save(blob,name){const link=document.createElement('a');link.href=URL.createObjectURL(blob);link.download=name;link.click();setTimeout(()=>URL.revokeObjectURL(link.href),1000);}
+  $('file').onchange=()=>{
+    file=$('file').files&&$('file').files[0]||null;result=null;$('json').disabled=true;
+    if(sourceUrl)URL.revokeObjectURL(sourceUrl);
+    if(!file){$('run').disabled=true;return;}
+    sourceUrl=URL.createObjectURL(file);$('source').src=sourceUrl;$('source').load();$('run').disabled=false;
+    state('Audio preparado. Verifica la dirección del servicio.','ok');
+  };
+  $('run').onclick=async()=>{
+    const controller=new AbortController(),button=$('run');
+    try{
+      button.disabled=true;$('progress').value=10;state('Calculando identidad SHA-256…');
+      const digest=await sha(await file.arrayBuffer()),session='HL-'+Date.now();
+      $('progress').value=25;state('Separando fuentes y ejecutando los sensores M/H/T…');
+      result=await bridge.analyze(file,{endpoint:$('endpoint').value.trim(),token:$('token').value,sessionId:session,sha256:digest,signal:controller.signal});
+      $('progress').value=90;if(outputUrl)URL.revokeObjectURL(outputUrl);
+      outputUrl=URL.createObjectURL(bridge.base64Blob(result.audition_wav_base64,result.audition_mime));$('output').src=outputUrl;$('output').load();
+      const tx=result.transcription,relations=result.recognition.note_beat_harmony_relations;
+      $('m').textContent=tx.melody_events.length;$('h').textContent=tx.harmony_states.length;$('t').textContent=tx.beat_events.length;
+      $('ai').textContent='IA: '+result.ai_provenance.provider+' · autoridad: '+result.ai_provenance.authority;
+      $('relations').innerHTML=relations.map(r=>'<tr><td>'+r.note_index+'</td><td>'+(r.nearest_beat_index??'—')+'</td><td>'+(r.beat_deviation_ms??'—')+' ms</td><td>'+(r.harmony_unit_id??'—')+'</td><td>'+(r.harmony_state??'—')+'</td></tr>').join('');
+      $('json').disabled=false;$('progress').value=100;state('Reconocimiento listo. Escucha M + H + T y revisa las relaciones.','ok');
+    }catch(error){state('Análisis detenido: '+error.message,'warn');console.error(error);}
+    finally{button.disabled=!file;}
+  };
+  $('json').onclick=()=>result&&save(new Blob([JSON.stringify(result,null,2)+'\n'],{type:'application/json'}),(file.name||'audio').replace(/\.[^.]+$/,'')+'_MIE_RECONOCIMIENTO_v0_3.json');
+})();
+</script></body></html>
