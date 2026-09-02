@@ -2,7 +2,7 @@
   "schema": "HOOKLAB_LYRIC_NARRATIVE_MEASUREMENT_PROTOCOL_v0.1",
   "protocol_id": "LNR-MEASURE-POV-2026-09-01-v0.1",
   "created_at": "2026-09-01",
-  "status": "PROTOCOL_REGISTERED_EXECUTION_BLOCKED_LANGUAGE_METADATA",
+  "status": "CALIBRATION_SAMPLE_FROZEN_EXECUTION_BLOCKED_HUMAN_METADATA",
   "scientific_order": [
     "DATA_SAYS",
     "STATISTICS_SAY",
@@ -103,7 +103,8 @@
     "rule": "Calibration sampling cannot begin until these fields receive human review for the eligible source frame and are tied to revision 72. C077 remains excluded unless an existing authorized complete internal version is identified."
   },
   "calibration_design": {
-    "execution_status": "NOT_STARTED",
+    "execution_status": "SAMPLE_FROZEN_ANNOTATION_NOT_STARTED",
+    "frozen_sample": "data/calibration_modeling/initial_calibration_sample_v0_1.json",
     "sample_size_cases": 30,
     "sampling": "Predeclared stratified sample by language_code and documentary-alert status; case IDs and selection seed must be frozen before annotation.",
     "annotators": 2,
@@ -182,5 +183,5 @@
     "scientific_d_unlocked": false,
     "statistical_analysis_executed": false
   },
-  "next_action": "HUMAN_REVIEW_LANGUAGE_PROPOSALS_AND_RESOLVE_DOCUMENT_VERSION_STATUS_FOR_99_ELIGIBLE_CASES"
+  "next_action": "CONFIRM_LANGUAGE_AND_DOCUMENT_VERSION_FOR_30_FROZEN_CASES_THEN_RUN_INDEPENDENT_DOUBLE_ANNOTATION"
 }

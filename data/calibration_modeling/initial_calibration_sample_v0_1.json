@@ -1,0 +1,36 @@
+{
+  "schema": "HOOKLAB_INITIAL_MEASUREMENT_CALIBRATION_SAMPLE_v0.1",
+  "sample_id": "HL-CAL-SAMPLE-2026-09-02-v0.1",
+  "status": "SAMPLE_FROZEN_PROVISIONAL_STRATA_HUMAN_METADATA_CONFIRMATION_REQUIRED",
+  "source_revision": "72",
+  "identity_namespace": "HOOKLAB_C001_C100",
+  "eligible_frame_count": 99,
+  "excluded_cases": [
+    {
+      "case_id": "C077",
+      "reason": "AUDIT_DOCUMENT_INCOMPLETE"
+    }
+  ],
+  "selection_seed": "HOOKLAB_CALIBRATION_2026_09_02_v0_1",
+  "selection_algorithm": "Within each provisional language stratum, sort case_id by SHA256(selection_seed + '|' + case_id); take 20 en and 7 es; include all three eligible rare/multilingual cases.",
+  "sampling_role": "MEASUREMENT_CALIBRATION_ONLY_NOT_EMPIRICAL_TREND_ANALYSIS",
+  "strata_are_provisional": true,
+  "strata_source": "data/lyric_modeling/hooklab_corpus_language_proposals_v0_1.json",
+  "sample_size_cases": 30,
+  "strata": {
+    "en": ["C057", "C033", "C012", "C042", "C065", "C079", "C037", "C027", "C049", "C021", "C015", "C014", "C017", "C066", "C026", "C011", "C013", "C055", "C067", "C044"],
+    "es": ["C001", "C085", "C091", "C086", "C093", "C007", "C081"],
+    "rare_or_multilingual_census": ["C004", "C088", "C092"]
+  },
+  "sorted_case_ids": ["C001", "C004", "C007", "C011", "C012", "C013", "C014", "C015", "C017", "C021", "C026", "C027", "C033", "C037", "C042", "C044", "C049", "C055", "C057", "C065", "C066", "C067", "C079", "C081", "C085", "C086", "C088", "C091", "C092", "C093"],
+  "required_before_annotation": [
+    "human confirmation of language_code",
+    "human confirmation of document_version_status",
+    "two independent annotator identifiers",
+    "private line-locator generation tied to source revision 72"
+  ],
+  "raw_lyrics_in_artifact": false,
+  "analysis_registration": "BLOCKED",
+  "statistical_association_executed": false,
+  "scientific_d_unlocked": false
+}

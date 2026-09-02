@@ -1,0 +1,108 @@
+{
+  "schema": "HOOKLAB_MEASUREMENT_CALIBRATION_REGISTRY_v0.1",
+  "registry_id": "HL-MEASUREMENT-CALIBRATION-2026-09-02-v0.1",
+  "status": "CALIBRATION_DESIGN_REGISTERED_EXECUTION_PENDING_REFERENCE_DATA",
+  "engine": "mie_core/measurement_calibration_engine.py",
+  "engine_version": "hooklab-measurement-calibration-engine-v0.1",
+  "canonical_order": [
+    "SOURCE_INTEGRITY",
+    "REFERENCE_MEASUREMENT",
+    "CALIBRATION",
+    "FEATURE_ADMISSIBILITY",
+    "ANALYSIS_REGISTRATION",
+    "STATISTICAL_TEST",
+    "THEORY_INTERPRETATION",
+    "GENERATION_TEST",
+    "PRODUCER_DECISION"
+  ],
+  "global_boundaries": {
+    "calibration_is_empirical_trend_test": false,
+    "human_reference_role": "MEASUREMENT_REFERENCE_ONLY",
+    "literature_role": "METRIC_AND_TOLERANCE_JUSTIFICATION_ONLY",
+    "automatic_system_may_assign_human_curated_pass": false,
+    "association_test_executed": false,
+    "conditioned_deduction_created": false,
+    "generation_class": "D0_EXPLORATORY",
+    "scientific_d_unlocked": false
+  },
+  "lanes": [
+    {
+      "lane_id": "CAL-LYR-POV-001",
+      "feature_ids": ["LNR_POV_EXPLICIT_PERSON_CONFIGURATION_v0_1"],
+      "reference_design": "Two independent human annotations followed by documented adjudication",
+      "sample": "data/calibration_modeling/initial_calibration_sample_v0_1.json",
+      "minimum_cases": 30,
+      "primary_unit": "non-empty provider documentary line",
+      "metrics": ["Krippendorff alpha nominal", "raw agreement", "positive agreement", "unresolved rate"],
+      "pass_rule": {
+        "all_core_labels_overall_alpha_minimum": 0.8,
+        "adequate_prevalence_language_stratum_alpha_minimum": 0.67,
+        "undefined_alpha": "AUDIT_PREVALENCE_OR_CONSTANT_LABEL",
+        "source_or_language_mismatch": "AUDIT_FEATURE_NOT_CALIBRATED"
+      },
+      "current_status": "PENDING_HUMAN_METADATA_CONFIRMATION_AND_DOUBLE_ANNOTATION"
+    },
+    {
+      "lane_id": "CAL-MEL-001",
+      "feature_ids": ["MEL_PITCH_RANGE_SEMITONES_v0_1", "MEL_NOTE_ONSET_DENSITY_HZ_v0_1"],
+      "reference_design": "Independent aligned melody reference versus frozen MIE measurement on the same physical clock",
+      "minimum_independent_aligned_pairs": 30,
+      "metrics": ["Spearman rho", "median absolute error", "median absolute percentage error", "mean bias", "Bland-Altman 95% limits"],
+      "pass_rule": {
+        "required_relevant_feature_rho_minimum": 0.8,
+        "pitch_range_median_absolute_error_semitones_maximum": 1.0,
+        "pitch_range_p90_absolute_error_semitones_maximum": 3.0,
+        "onset_density_median_absolute_percentage_error_maximum": 0.1,
+        "octave_error_audit_required": true
+      },
+      "current_status": "PENDING_VERIFIED_REFERENCE_MELODY_AND_EXECUTABLE_PROVENANCE"
+    },
+    {
+      "lane_id": "CAL-BEAT-001",
+      "feature_ids": ["BEAT_TACTUS_ALIGNMENT_FMEASURE_v0_1"],
+      "reference_design": "Independent beat-time annotations on canonical case-linked real audio",
+      "minimum_independent_real_audio_cases": 30,
+      "metrics": ["per-song beat precision", "per-song beat recall", "per-song beat F-measure"],
+      "pass_rule": {
+        "matching_tolerance_seconds": 0.07,
+        "median_song_f_measure_minimum": 0.8,
+        "song_p10_f_measure_minimum": 0.6,
+        "metrical_level_error_audit_required": true,
+        "search_lock_state_audit_required": true
+      },
+      "current_status": "BLOCKED_NO_CANONICAL_CASE_LINKED_REAL_AUDIO_REFERENCE_SET"
+    },
+    {
+      "lane_id": "CAL-TEMPO-001",
+      "feature_ids": ["BEAT_TEMPO_BPM_MEDIAN_v0_1"],
+      "reference_design": "Reference tactus BPM versus Beat This plus frozen HookLab tactus resolver",
+      "minimum_independent_real_audio_cases": 30,
+      "metrics": ["Spearman rho", "median absolute percentage error", "octave/tactus error rate", "mean bias", "Bland-Altman 95% limits"],
+      "pass_rule": {
+        "spearman_rho_minimum": 0.8,
+        "median_absolute_percentage_error_maximum": 0.04,
+        "octave_or_tactus_error_rate_maximum": 0.1,
+        "multiple_scores_from_same_sensor_count_as_one_source_family": true
+      },
+      "current_status": "BLOCKED_NO_CANONICAL_CASE_LINKED_REAL_AUDIO_REFERENCE_SET"
+    }
+  ],
+  "deferred_lyric_features": [
+    "LNR_CHARACTER_TEXTUAL_REFERENT_CONFIGURATION_v0_1",
+    "LNR_RELATION_EXPLICIT_EDGE_CONFIGURATION_v0_1",
+    "LNR_CONFLICT_REPRESENTATION_v0_1",
+    "LNR_TEMPORAL_EXPLICIT_ANCHOR_RELATION_PROFILE_v0_1",
+    "LNR_EMOTION_EXPLICIT_STATE_TRAJECTORY_v0_1",
+    "LNR_INFORMATION_NEW_GIVEN_PROGRESSION_v0_1"
+  ],
+  "deferred_reason": "Each construct requires a feature-specific annotation codebook and error model; success of the explicit-person lane cannot be transferred automatically.",
+  "frozen_families_preserved": ["TEXTUAL_REPETITION", "SECTION_FUNCTION_OR_FORMAL_ARCHITECTURE"],
+  "literature": [
+    {"purpose": "categorical coding reliability", "citation": "Hayes and Krippendorff (2007)", "doi": "10.1080/19312450709336664"},
+    {"purpose": "transparent MIR metrics", "citation": "Raffel et al. (2014), mir_eval", "url": "https://zenodo.org/records/1416528"},
+    {"purpose": "beat F-measure tolerance", "citation": "MIREX Audio Beat Tracking", "url": "https://music-ir.org/mirex/wiki/2021:Audio_Beat_Tracking"},
+    {"purpose": "tempo evaluation limitations", "citation": "Schreiber, Urbano, and Müller (2020)", "doi": "10.5334/tismir.43"},
+    {"purpose": "continuous-measure agreement", "citation": "Bland and Altman (1986)", "url": "https://pubmed.ncbi.nlm.nih.gov/2868172/"}
+  ],
+  "next_gate": "COLLECT_REFERENCE_MEASUREMENTS_WITHOUT_READING_OR_EXPORTING_LYRICS_IN_PUBLIC_ARTIFACTS"
+}

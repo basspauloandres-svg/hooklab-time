@@ -68,7 +68,8 @@
         "status": "CALIBRATION_NOT_RUN",
         "minimum_independent_aligned_pairs": 30,
         "required_relevant_feature_rho": 0.8,
-        "median_error_tolerance": "MUST_BE_PREDECLARED_BEFORE_CALIBRATION"
+        "median_error_tolerance_semitones_maximum": 1.0,
+        "p90_absolute_error_semitones_maximum": 3.0
       },
       "musical_relevance": "Candidate descriptor of melodic span; no preferred span is asserted.",
       "textual_relevance": "None until a separately registered cross-modal analysis is admissible.",
@@ -89,7 +90,12 @@
       "unit": "song",
       "provider_version": "MIE M pipeline; exact executable identity pending",
       "measurement_error": "Depends on onset segmentation, duration eligibility and source-track selection.",
-      "calibration": {"status": "CALIBRATION_NOT_RUN"},
+      "calibration": {
+        "status": "CALIBRATION_NOT_RUN",
+        "minimum_independent_aligned_pairs": 30,
+        "required_spearman_rho": 0.8,
+        "median_absolute_percentage_error_maximum": 0.1
+      },
       "musical_relevance": "Candidate rhythmic density of the melody, not the accompaniment beat.",
       "textual_relevance": "May later be compared with syllable/onset density only through a preregistered cross-modal analysis.",
       "research_question": "What melody-onset densities are observed after calibrated event segmentation?",
@@ -111,7 +117,10 @@
       "measurement_error": "Annotation timing uncertainty, metrical-level ambiguity, boundary trimming and detector error.",
       "calibration": {
         "status": "REAL_AUDIO_REFERENCE_SET_NOT_MAPPED",
-        "pass_thresholds": "MUST_BE_PREDECLARED_BEFORE_CALIBRATION"
+        "minimum_independent_real_audio_cases": 30,
+        "matching_tolerance_seconds": 0.07,
+        "median_song_f_measure_minimum": 0.8,
+        "song_p10_f_measure_minimum": 0.6
       },
       "musical_relevance": "Measurement-quality feature; it validates the beat sensor and is not itself a compositional success rule.",
       "textual_relevance": "None directly.",
@@ -132,7 +141,13 @@
       "unit": "song",
       "provider_version": "Beat This plus HookLab tactus resolver; exact model/runtime hash required per record",
       "measurement_error": "T/2T/3T metrical-level errors and tempo drift must be quantified against reference annotations.",
-      "calibration": {"status": "REAL_AUDIO_REFERENCE_SET_NOT_MAPPED"},
+      "calibration": {
+        "status": "REAL_AUDIO_REFERENCE_SET_NOT_MAPPED",
+        "minimum_independent_real_audio_cases": 30,
+        "required_spearman_rho": 0.8,
+        "median_absolute_percentage_error_maximum": 0.04,
+        "octave_or_tactus_error_rate_maximum": 0.1
+      },
       "musical_relevance": "Candidate tempo descriptor; no preferred BPM or direction is asserted.",
       "textual_relevance": "None until a separately registered cross-modal analysis is admissible.",
       "research_question": "What calibrated tactus tempi are observed in the canonical HookLab cases?",

@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "HOOKLAB_MEASUREMENT_CALIBRATION_INPUT_v1",
+  "title": "HookLab measurement calibration input",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": ["mode", "units"],
+      "properties": {
+        "mode": {"const": "CATEGORICAL_DOUBLE_ANNOTATION"},
+        "units": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["unit_id", "ratings"],
+            "properties": {
+              "unit_id": {"type": "string"},
+              "ratings": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": {"enum": ["PRESENT", "ABSENT", "UNRESOLVED"]}
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "required": ["mode", "pairs"],
+      "properties": {
+        "mode": {"const": "NUMERIC_REFERENCE_COMPARISON"},
+        "pairs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["case_id", "reference", "estimate"],
+            "properties": {
+              "case_id": {"type": "string"},
+              "reference": {"type": "number"},
+              "estimate": {"type": "number"}
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "required": ["mode", "songs"],
+      "properties": {
+        "mode": {"const": "BEAT_REFERENCE_COMPARISON"},
+        "songs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["case_id", "reference_beats", "estimated_beats"],
+            "properties": {
+              "case_id": {"type": "string"},
+              "reference_beats": {"type": "array", "items": {"type": "number"}},
+              "estimated_beats": {"type": "array", "items": {"type": "number"}}
+            }
+          }
+        }
+      }
+    }
+  ]
+}

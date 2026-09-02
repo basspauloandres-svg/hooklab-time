@@ -1,0 +1,52 @@
+name: Measurement Calibration Contract
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/measurement-calibration-contract.yml'
+      - 'mie_core/measurement_calibration_engine.py'
+      - 'tests/test_measurement_calibration_engine.py'
+      - 'data/calibration_modeling/**'
+      - 'data/lyric_modeling/lyric_narrative_measurement_protocol_v0_1.json'
+      - 'data/music_modeling/melody_beat_feature_registry_v0_1.json'
+      - 'docs/checkpoints/MEASUREMENT_CALIBRATION_GATE_2026-09-02_v0_1.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate calibration engine
+        run: python3 tests/test_measurement_calibration_engine.py
+      - name: Validate registered gates
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          registry = json.loads(Path('data/calibration_modeling/measurement_calibration_registry_v0_1.json').read_text())
+          sample = json.loads(Path('data/calibration_modeling/initial_calibration_sample_v0_1.json').read_text())
+          lyric = json.loads(Path('data/lyric_modeling/lyric_narrative_measurement_protocol_v0_1.json').read_text())
+          music = json.loads(Path('data/music_modeling/melody_beat_feature_registry_v0_1.json').read_text())
+
+          assert sample['sample_size_cases'] == 30
+          assert len(sample['sorted_case_ids']) == len(set(sample['sorted_case_ids'])) == 30
+          assert 'C077' not in sample['sorted_case_ids']
+          assert sample['raw_lyrics_in_artifact'] is False
+          assert sample['scientific_d_unlocked'] is False
+          assert lyric['calibration_design']['frozen_sample'].endswith('initial_calibration_sample_v0_1.json')
+          assert music['boundaries']['scientific_d_unlocked'] is False
+          assert registry['global_boundaries']['association_test_executed'] is False
+          assert registry['global_boundaries']['conditioned_deduction_created'] is False
+          assert registry['global_boundaries']['scientific_d_unlocked'] is False
+          assert all(lane['current_status'].startswith(('PENDING_', 'BLOCKED_')) for lane in registry['lanes'])
+          print('MEASUREMENT_CALIBRATION_CONTRACT_PASS')
+          PY
