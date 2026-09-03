@@ -20,6 +20,10 @@ assert.deepEqual(registry.components.M.required_chain,[
   'PROBABILISTIC_F0','OCTAVE_PLANE_RESOLVER','R1_1_CONTINUITY','R1_2_DURATION_SEGMENTATION','R1_3_PITCH_CLASSIFICATION'
 ]);
 assert(registry.components.M.forbidden_replacements.includes('FULL_MIX_GOERTZEL_WITHOUT_PLANE_RESOLVER'));
+assert.equal(registry.components.M.experimental_derived_layer.feature_id,'M_TF_PLANE_REGISTRATION_RESIDUAL_v0_1');
+assert.equal(registry.components.M.experimental_derived_layer.status,'AUDIT_FEATURE_NOT_CALIBRATED');
+assert.equal(registry.components.M.experimental_derived_layer.raw_observations_mutated,false);
+assertPinned(registry.components.M.experimental_derived_layer);
 assert.deepEqual(registry.components.H.required_chain.slice(-2),['RESIDUAL_REQUERY','LOCK_AMBIGUOUS_ABSTAIN']);
 assert.equal(registry.components.H.ai_boundary.may_create_absent_pitch_evidence,false);
 assert.equal(registry.components.H.audible_output_required,true);

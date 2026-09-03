@@ -1,6 +1,6 @@
 {
   "schema": "HOOKLAB_MIE_CANONICAL_COMPONENT_REGISTRY_v1",
-  "date": "2026-09-02",
+  "date": "2026-09-03",
   "status": "RECOVERY_GATE_ACTIVE",
   "purpose": "Prevent a new interface or integration from replacing accepted M, H or T behavior with an older or simplified prototype.",
   "product_semantics": {
@@ -43,7 +43,17 @@
       },
       "server_runtime": {
         "path": "mie_core/run_mie_core.py",
-        "provider": "Basic Pitch on HTDemucs vocals plus monophonic fusion gate"
+        "provider": "Basic Pitch on HTDemucs vocals plus monophonic fusion gate and neural-plane continuity candidate"
+      },
+      "experimental_derived_layer": {
+        "feature_id": "M_TF_PLANE_REGISTRATION_RESIDUAL_v0_1",
+        "path": "mie_core/mie_tf_plane_registration.py",
+        "sha256": "5e408c88656ee2d6bdd510381518656ea465510548d7350593491f500a0b4264",
+        "status": "AUDIT_FEATURE_NOT_CALIBRATED",
+        "representation": "TIME_PITCH_SALIENCE_WITH_AXONOMETRIC_VIEW_DIAGNOSTIC_ONLY",
+        "raw_observations_mutated": false,
+        "producer_ab_required": true,
+        "multicase_regression_required": true
       },
       "forbidden_replacements": [
         "SIMPLE_FRAME_MAX",
@@ -109,7 +119,7 @@
     "required_audible_layers": ["melody", "harmony_lock", "beat_tactus"],
     "reference_engine": {
       "path": "mie_core/run_mie_core.py",
-      "sha256": "4474204542570a5e942d40854a923a481e2b675f996c0e675ec3f62f290e9461"
+      "sha256": "742fd40d734096072ce9f71feba7e857409e28e4617fc1f6534155637cadfacd"
     },
     "canonical_contract": "docs/AESTHETIC_REFERENCE_ANALYZER_API_v0_1.md",
     "frozen_architecture": "docs/MIE_UNIFIED_MHT_FREEZE_v0.1.md"

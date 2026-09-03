@@ -154,6 +154,10 @@ def normalize(raw, *, session_id, reference_sha256, sensor_version, ai_provenanc
         "derived_layers": {
             "metric_grid": raw.get("metric_grid", []),
             "harmony_metric_aligned": raw.get("harmony_metric_aligned", []),
+            "notes_v0_3_1": raw.get("notes_v0_3_1", []),
+            "notes_continuity_derived": raw.get("notes_continuity_derived", []),
+            "melody_continuity": raw.get("melody_continuity"),
+            "tf_plane_registration": raw.get("tf_plane_registration"),
         },
         "ai_provenance": ai_provenance
         or {"provider": "UNCONNECTED", "authority": "NONE", "provider_connected": False},

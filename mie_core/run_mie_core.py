@@ -12,12 +12,20 @@ try:
         resolve_metric_grid,
         resolve_tactus,
     )
+    from mie_core.mie_tf_plane_registration import (
+        consolidate_sustained_fragments,
+        plane_residual_metrics,
+    )
 except ModuleNotFoundError:  # Direct script execution from the repository.
     from mie_temporal_refinement import (
         align_harmony_to_metric,
         recover_melody_gaps,
         resolve_metric_grid,
         resolve_tactus,
+    )
+    from mie_tf_plane_registration import (
+        consolidate_sustained_fragments,
+        plane_residual_metrics,
     )
 
 BEAT_MEL_URL='https://raw.githubusercontent.com/danigb/beat-this-rs/main/models/mel_spectrogram.onnx'
@@ -32,7 +40,7 @@ def find_stem(stems,name):
 
 def basic_pitch_melody(vocal_path, outdir):
     from basic_pitch.inference import predict
-    _, midi_data, note_events = predict(str(vocal_path))
+    model_output, midi_data, note_events = predict(str(vocal_path))
     midi_path=outdir/'melody_basic_pitch.mid'
     midi_data.write(str(midi_path))
     raw=[]
@@ -54,7 +62,20 @@ def basic_pitch_melody(vocal_path, outdir):
             accepted.remove(strongest); accepted.append(n)
     accepted.sort(key=lambda n:n['start_s'])
     recovered,recovery_audit=recover_melody_gaps(raw,accepted)
-    return recovered, midi_path, raw, accepted, recovery_audit
+    continuity_notes, continuity_audit = consolidate_sustained_fragments(recovered, model_output)
+    plane_metrics_v0_3_1 = plane_residual_metrics(model_output, recovered)
+    plane_metrics_v0_3_2 = plane_residual_metrics(model_output, continuity_notes)
+    return (
+        continuity_notes,
+        recovered,
+        midi_path,
+        raw,
+        accepted,
+        recovery_audit,
+        continuity_audit,
+        plane_metrics_v0_3_1,
+        plane_metrics_v0_3_2,
+    )
 
 
 def download(url,path):
@@ -198,7 +219,17 @@ def main():
     ap=argparse.ArgumentParser(); ap.add_argument('--audio',required=True); ap.add_argument('--stems',required=True); ap.add_argument('--output',required=True); args=ap.parse_args()
     out=Path(args.output); out.mkdir(parents=True,exist_ok=True)
     vocal=find_stem(args.stems,'vocals'); other=find_stem(args.stems,'other'); bass=find_stem(args.stems,'bass')
-    notes,midi,raw_notes,raw_accepted,melody_recovery=basic_pitch_melody(vocal,out)
+    (
+        notes,
+        notes_v0_3_1,
+        midi,
+        raw_notes,
+        raw_accepted,
+        melody_recovery,
+        melody_continuity,
+        plane_metrics_v0_3_1,
+        plane_metrics_v0_3_2,
+    )=basic_pitch_melody(vocal,out)
     tempo,beats,raw_beats,downbeats,metric_grid,tactus_resolution=beat_this(args.audio,out/'cache')
     raw_beat_times=[item['t'] for item in raw_beats]
     raw_chords=harmony_sensor(other,bass,raw_beat_times)
@@ -207,19 +238,30 @@ def main():
     chords=aligned_chords if aligned_chords else raw_chords
     baseline_wav=out/'MIE_CORE_MHT_v0_2.wav'
     synth(raw_accepted,raw_chords,raw_beats,duration,baseline_wav)
-    wav=out/'MIE_CORE_MHT_v0_3_1.wav'; synth(notes,chords,beats,duration,wav)
+    wav_v0_3_1=out/'MIE_CORE_MHT_v0_3_1.wav'; synth(notes_v0_3_1,chords,beats,duration,wav_v0_3_1)
+    wav=out/'MIE_CORE_MHT_v0_3_2.wav'; synth(notes,chords,beats,duration,wav)
     report={
-        'version':'MIE Core v0.3.1',
-        'architecture':'HTDemucs -> trained sensors -> traceable M/H/T refinements -> M+H+T',
+        'version':'MIE Core v0.3.2 candidate',
+        'architecture':'HTDemucs -> trained sensors -> traceable M/H/T refinements -> TF-plane A/B -> M+H+T',
         'source_separation':'HTDemucs 4 stems',
-        'M':'Basic Pitch on vocals + MIE monophonic gate + conservative candidate gap recovery',
+        'M':'Basic Pitch on vocals + MIE monophonic gate + conservative gap recovery + neural-plane sustain continuity candidate',
         'H':'beat-synchronous harmonic+bass evidence + LOCK/AMBIGUOUS + metric-aligned derived layer',
         'T':'Beat This small ONNX + HookLab clock-lineage resolver',
         'tempo_bpm':tempo,
         'notes':notes,
+        'notes_v0_3_1':notes_v0_3_1,
+        'notes_continuity_derived':notes,
         'notes_raw_accepted':raw_accepted,
         'raw_note_candidates':len(raw_notes),
         'melody_recovery':melody_recovery,
+        'melody_continuity':melody_continuity,
+        'tf_plane_registration':{
+            'feature_id':'M_TF_PLANE_REGISTRATION_RESIDUAL_v0_1',
+            'status':'AUDIT_FEATURE_NOT_CALIBRATED',
+            'comparison_A_v0_3_1':plane_metrics_v0_3_1,
+            'comparison_B_v0_3_2':plane_metrics_v0_3_2,
+            'producer_decision':'PENDING_AB_LISTENING',
+        },
         'harmony':chords,
         'harmony_raw':raw_chords,
         'harmony_metric_aligned':aligned_chords,
@@ -236,5 +278,5 @@ def main():
         'promotion_gate':'auditory recognizability + blind generic-song regression',
     }
     (out/'MIE_CORE_MHT_v0_2.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
-    print(json.dumps({'wav':str(wav),'baseline_wav':str(baseline_wav),'notes':len(notes),'recovered_notes':melody_recovery['recovered_candidate_count'],'raw_beats':len(raw_beats),'tactus':len(beats),'harmony_units':len(chords),'tempo':tempo,'metric_state':tactus_resolution['metric_resolution']['state']}))
+    print(json.dumps({'wav':str(wav),'comparison_wav':str(wav_v0_3_1),'baseline_wav':str(baseline_wav),'notes':len(notes),'merged_sustain_boundaries':melody_continuity['merged_boundary_count'],'recovered_notes':melody_recovery['recovered_candidate_count'],'raw_beats':len(raw_beats),'tactus':len(beats),'harmony_units':len(chords),'tempo':tempo,'metric_state':tactus_resolution['metric_resolution']['state']}))
 if __name__=='__main__': main()
