@@ -5,6 +5,21 @@ import numpy as np
 import librosa, soundfile as sf
 import onnxruntime as ort
 
+try:
+    from mie_core.mie_temporal_refinement import (
+        align_harmony_to_metric,
+        recover_melody_gaps,
+        resolve_metric_grid,
+        resolve_tactus,
+    )
+except ModuleNotFoundError:  # Direct script execution from the repository.
+    from mie_temporal_refinement import (
+        align_harmony_to_metric,
+        recover_melody_gaps,
+        resolve_metric_grid,
+        resolve_tactus,
+    )
+
 BEAT_MEL_URL='https://raw.githubusercontent.com/danigb/beat-this-rs/main/models/mel_spectrogram.onnx'
 BEAT_MODEL_URL='https://raw.githubusercontent.com/danigb/beat-this-rs/main/models/beat_this_small.onnx'
 
@@ -24,10 +39,10 @@ def basic_pitch_melody(vocal_path, outdir):
     for ev in note_events:
         raw.append({'start_s':float(ev[0]),'end_s':float(ev[1]),'midi':int(ev[2]),'confidence':float(ev[3])})
     # MIE monophonic fusion gate: confidence + duration + local continuity.
-    raw=[n for n in raw if n['confidence']>=0.28 and n['end_s']-n['start_s']>=0.045]
-    raw.sort(key=lambda n:(n['start_s'],-n['confidence']))
+    eligible=[n for n in raw if n['confidence']>=0.28 and n['end_s']-n['start_s']>=0.045]
+    eligible.sort(key=lambda n:(n['start_s'],-n['confidence']))
     accepted=[]
-    for n in raw:
+    for n in eligible:
         overlaps=[q for q in accepted if min(q['end_s'],n['end_s'])-max(q['start_s'],n['start_s'])>0.025]
         if not overlaps:
             accepted.append(n); continue
@@ -38,7 +53,8 @@ def basic_pitch_melody(vocal_path, outdir):
         if n['confidence']>strongest['confidence']+0.08 or (continuity+2<old_cont and n['confidence']>=strongest['confidence']-0.04):
             accepted.remove(strongest); accepted.append(n)
     accepted.sort(key=lambda n:n['start_s'])
-    return accepted, midi_path, raw
+    recovered,recovery_audit=recover_melody_gaps(raw,accepted)
+    return recovered, midi_path, raw, accepted, recovery_audit
 
 
 def download(url,path):
@@ -60,29 +76,38 @@ def beat_this(audio, cache):
     elif mo.ndim==2: spec=mo
     else: raise RuntimeError('Unexpected mel output shape '+str(mo.shape))
     frames,bands=spec.shape
-    probs=[]; chunk=1500; ov=12; step=chunk-2*ov
+    probs=[]; downbeat_probs=[]; chunk=1500; ov=12; step=chunk-2*ov
     for st in range(0,frames,step):
         ar=spec[st:min(frames,st+chunk)].astype(np.float32)[None,:,:]
-        z=bs.run(None,{bs.get_inputs()[0].name:ar})[0]
-        z=np.asarray(z).reshape(-1)
+        outputs=bs.run(None,{bs.get_inputs()[0].name:ar})
+        z=np.asarray(outputs[0]).reshape(-1)
+        dz=np.asarray(outputs[1]).reshape(-1) if len(outputs)>1 else None
         n=ar.shape[1]; L=ov if st else 0; R=ov if st+n<frames else 0
         for j in range(L,n-R):
             probs.append((st+j,1.0/(1.0+math.exp(-float(z[j])))))
-    peaks=[]
-    for i in range(1,len(probs)-1):
-        fr,v=probs[i]
-        if v>=.5 and v>=probs[i-1][1] and v>probs[i+1][1]: peaks.append((fr*.02,v))
-    peaks=sorted(peaks,key=lambda q:q[1],reverse=True)
-    keep=[]
-    for t,v in peaks:
-        if all(abs(t-k[0])>=.16 for k in keep): keep.append((t,v))
-    keep.sort()
-    beats=[t for t,_ in keep]
-    if len(beats)>=3:
-        d=np.diff(beats); med=float(np.median(d[d>0])) if np.any(d>0) else 0
-        tempo=60/med if med>0 else 0
-    else: tempo=0
-    return tempo,beats,[{'t':t,'score':v} for t,v in keep]
+            if dz is not None:
+                downbeat_probs.append((st+j,1.0/(1.0+math.exp(-float(dz[j])))))
+
+    def peak_pick(values, threshold, separation):
+        peaks=[]
+        for i in range(1,len(values)-1):
+            fr,v=values[i]
+            if v>=threshold and v>=values[i-1][1] and v>values[i+1][1]:
+                peaks.append((fr*.02,v))
+        peaks=sorted(peaks,key=lambda q:q[1],reverse=True)
+        keep=[]
+        for t,v in peaks:
+            if all(abs(t-k[0])>=separation for k in keep):
+                keep.append((t,v))
+        keep.sort()
+        return [{'t':float(t),'score':float(v)} for t,v in keep]
+
+    raw_beats=peak_pick(probs,.5,.16)
+    raw_downbeats=peak_pick(downbeat_probs,.5,.30) if downbeat_probs else []
+    tactus,tactus_audit=resolve_tactus(raw_beats,len(y)/sr)
+    metric_grid,metric_audit=resolve_metric_grid(tactus,raw_downbeats)
+    tactus_audit['metric_resolution']=metric_audit
+    return tactus_audit['tempo_bpm'],tactus,raw_beats,raw_downbeats,metric_grid,tactus_audit
 
 
 def load_mix(paths,sr=22050):
@@ -157,9 +182,12 @@ def synth(notes,chords,beats,duration,outwav,sr=44100):
             f=librosa.midi_to_hz(root+iv); z[a:b]+=(.031 if j else .038)*env*(np.sin(2*np.pi*f*t)+.12*np.sin(4*np.pi*f*t))
         bf=librosa.midi_to_hz(root-12); z[a:b]+=.028*env*np.sin(2*np.pi*bf*t)
     # Beat This clicks
-    for ix,bt in enumerate(beats):
+    for item in beats:
+        bt=item['t'] if isinstance(item,dict) else item
+        strength=item.get('metric_strength') if isinstance(item,dict) else None
         a=int(bt*sr); b=min(len(z),a+int(.055*sr)); t=np.arange(b-a)/sr
-        freq=1100 if ix%4==0 else 820; amp=.16 if ix%4==0 else .11
+        freq=1100 if strength=='DOWNBEAT' else (950 if strength=='STRONG' else 820)
+        amp=.16 if strength=='DOWNBEAT' else (.13 if strength=='STRONG' else .11)
         z[a:b]+=amp*np.exp(-t/.014)*np.sin(2*np.pi*freq*t)
     mx=np.max(np.abs(z));
     if mx>0: z=.92*z/mx
@@ -170,12 +198,43 @@ def main():
     ap=argparse.ArgumentParser(); ap.add_argument('--audio',required=True); ap.add_argument('--stems',required=True); ap.add_argument('--output',required=True); args=ap.parse_args()
     out=Path(args.output); out.mkdir(parents=True,exist_ok=True)
     vocal=find_stem(args.stems,'vocals'); other=find_stem(args.stems,'other'); bass=find_stem(args.stems,'bass')
-    notes,midi,raw_notes=basic_pitch_melody(vocal,out)
-    tempo,beats,beat_scores=beat_this(args.audio,out/'cache')
-    chords=harmony_sensor(other,bass,beats)
+    notes,midi,raw_notes,raw_accepted,melody_recovery=basic_pitch_melody(vocal,out)
+    tempo,beats,raw_beats,downbeats,metric_grid,tactus_resolution=beat_this(args.audio,out/'cache')
+    raw_beat_times=[item['t'] for item in raw_beats]
+    raw_chords=harmony_sensor(other,bass,raw_beat_times)
     y,sr=librosa.load(args.audio,sr=None,mono=True); duration=len(y)/sr
-    wav=out/'MIE_CORE_MHT_v0_2.wav'; synth(notes,chords,beats,duration,wav)
-    report={'version':'MIE Core v0.2','architecture':'HTDemucs -> trained sensors -> MIE fusion -> M+H+T','source_separation':'HTDemucs 4 stems','M':'Basic Pitch on vocals + MIE monophonic gate','H':'beat-synchronous harmonic+bass evidence + LOCK/AMBIGUOUS','T':'Beat This small ONNX','tempo_bpm':tempo,'notes':notes,'raw_note_candidates':len(raw_notes),'harmony':chords,'beats':beat_scores,'duration_s':duration,'baseline_promoted':False,'promotion_gate':'auditory recognizability + blind generic-song regression'}
+    aligned_chords,harmony_alignment=align_harmony_to_metric(raw_chords,metric_grid,duration)
+    chords=aligned_chords if aligned_chords else raw_chords
+    baseline_wav=out/'MIE_CORE_MHT_v0_2.wav'
+    synth(raw_accepted,raw_chords,raw_beats,duration,baseline_wav)
+    wav=out/'MIE_CORE_MHT_v0_3_1.wav'; synth(notes,chords,beats,duration,wav)
+    report={
+        'version':'MIE Core v0.3.1',
+        'architecture':'HTDemucs -> trained sensors -> traceable M/H/T refinements -> M+H+T',
+        'source_separation':'HTDemucs 4 stems',
+        'M':'Basic Pitch on vocals + MIE monophonic gate + conservative candidate gap recovery',
+        'H':'beat-synchronous harmonic+bass evidence + LOCK/AMBIGUOUS + metric-aligned derived layer',
+        'T':'Beat This small ONNX + HookLab clock-lineage resolver',
+        'tempo_bpm':tempo,
+        'notes':notes,
+        'notes_raw_accepted':raw_accepted,
+        'raw_note_candidates':len(raw_notes),
+        'melody_recovery':melody_recovery,
+        'harmony':chords,
+        'harmony_raw':raw_chords,
+        'harmony_metric_aligned':aligned_chords,
+        'harmony_alignment':harmony_alignment,
+        'beats':beats,
+        'beat_observations_raw':raw_beats,
+        'downbeat_candidates_raw':downbeats,
+        'metric_grid':metric_grid,
+        'tactus_resolution':tactus_resolution,
+        'duration_s':duration,
+        'generation_class':'D0_EXPLORATORY',
+        'scientific_d_unlocked':False,
+        'baseline_promoted':False,
+        'promotion_gate':'auditory recognizability + blind generic-song regression',
+    }
     (out/'MIE_CORE_MHT_v0_2.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
-    print(json.dumps({'wav':str(wav),'notes':len(notes),'beats':len(beats),'harmony_units':len(chords),'tempo':tempo}))
+    print(json.dumps({'wav':str(wav),'baseline_wav':str(baseline_wav),'notes':len(notes),'recovered_notes':melody_recovery['recovered_candidate_count'],'raw_beats':len(raw_beats),'tactus':len(beats),'harmony_units':len(chords),'tempo':tempo,'metric_state':tactus_resolution['metric_resolution']['state']}))
 if __name__=='__main__': main()

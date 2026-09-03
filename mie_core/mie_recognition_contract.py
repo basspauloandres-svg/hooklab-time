@@ -18,7 +18,16 @@ def _beats(raw):
         time = item.get("t") if isinstance(item, dict) else item
         score = item.get("score") if isinstance(item, dict) else None
         if _finite(time) and time >= 0:
-            output.append({"beat_index": index, "time_s": float(time), "confidence": score})
+            output.append(
+                {
+                    "beat_index": index,
+                    "time_s": float(time),
+                    "confidence": score,
+                    "clock_state": item.get("clock_state") if isinstance(item, dict) else None,
+                    "run": item.get("run") if isinstance(item, dict) else None,
+                    "metric_strength": item.get("metric_strength") if isinstance(item, dict) else None,
+                }
+            )
     return output
 
 
@@ -37,6 +46,8 @@ def _notes(raw):
                     "midi": int(round(midi)),
                     "confidence": item.get("confidence"),
                     "octave_resolution": item.get("octave_resolution", "UNREPORTED"),
+                    "recovery_state": item.get("recovery_state", "RAW_ACCEPTED"),
+                    "recovery_basis": item.get("recovery_basis"),
                 }
             )
     return output
@@ -64,6 +75,10 @@ def _harmony(raw):
                     "confidence": item.get("evidence", item.get("confidence")),
                     "margin": item.get("margin"),
                     "candidates": item.get("candidates", []),
+                    "alignment_state": item.get("alignment_state"),
+                    "source_unit_indices": item.get("source_unit_indices", []),
+                    "support_share": item.get("support_share"),
+                    "quantization_offset_s": item.get("quantization_offset_s"),
                 }
             )
     return output
@@ -125,9 +140,22 @@ def normalize(raw, *, session_id, reference_sha256, sensor_version, ai_provenanc
             "note_beat_harmony_relations": note_relations,
             "locked_harmony_units": sum(unit["state"] == "LOCK" for unit in harmony),
             "ambiguous_or_abstained_harmony_units": sum(unit["state"] != "LOCK" for unit in harmony),
+            "melody_recovery": raw.get("melody_recovery"),
+            "tactus_resolution": raw.get("tactus_resolution"),
+            "harmony_alignment": raw.get("harmony_alignment"),
+        },
+        "observation_layers": {
+            "notes_raw_accepted": raw.get("notes_raw_accepted", []),
+            "raw_note_candidate_count": raw.get("raw_note_candidates"),
+            "beat_observations_raw": raw.get("beat_observations_raw", []),
+            "downbeat_candidates_raw": raw.get("downbeat_candidates_raw", []),
+            "harmony_raw": raw.get("harmony_raw", []),
+        },
+        "derived_layers": {
+            "metric_grid": raw.get("metric_grid", []),
+            "harmony_metric_aligned": raw.get("harmony_metric_aligned", []),
         },
         "ai_provenance": ai_provenance
         or {"provider": "UNCONNECTED", "authority": "NONE", "provider_connected": False},
         "required_audible_layers": ["melody", "harmony_lock", "beat_tactus"],
     }
-

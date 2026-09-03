@@ -9,10 +9,12 @@ on:
       - 'app-mie-harmonic-lock-v0.5.html'
       - 'app-recovery-lm-neural-beatthis-v1.9.3.html'
       - 'mie_core/run_mie_core.py'
+      - 'mie_core/mie_temporal_refinement.py'
       - 'tests/mie_canonical_component_registry.test.js'
       - 'mie_core/mie_ai_candidate_reasoner.py'
       - 'mie_core/mie_recognition_contract.py'
       - 'tests/test_mie_recognition_contract.py'
+      - 'tests/test_mie_temporal_refinement.py'
       - 'app/prototype_v1/mie_recognition_bridge.js'
       - 'tests/mie_recognition_bridge.test.js'
       - 'mie_core/mie_octave_plane_resolver.py'
@@ -31,10 +33,12 @@ on:
       - 'app-mie-harmonic-lock-v0.5.html'
       - 'app-recovery-lm-neural-beatthis-v1.9.3.html'
       - 'mie_core/run_mie_core.py'
+      - 'mie_core/mie_temporal_refinement.py'
       - 'tests/mie_canonical_component_registry.test.js'
       - 'mie_core/mie_ai_candidate_reasoner.py'
       - 'mie_core/mie_recognition_contract.py'
       - 'tests/test_mie_recognition_contract.py'
+      - 'tests/test_mie_temporal_refinement.py'
       - 'app/prototype_v1/mie_recognition_bridge.js'
       - 'tests/mie_recognition_bridge.test.js'
       - 'mie_core/mie_octave_plane_resolver.py'
@@ -61,6 +65,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: python tests/test_mie_recognition_contract.py
+      - run: python tests/test_mie_temporal_refinement.py
 
   colab-py310-environment:
     runs-on: ubuntu-latest

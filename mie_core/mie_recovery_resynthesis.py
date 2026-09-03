@@ -28,8 +28,18 @@ def render(report, output_path, *, sample_rate=44100):
             wave += 0.18 * np.sin(4 * np.pi * frequency * time)
         signal[left:right] += amplitude * envelope * wave
 
-    for note in report.get("notes", []):
-        add_tone(note["start_s"], note["end_s"], note["midi"], 0.13, True)
+    notes = report.get("notes", [])
+    for index, note in enumerate(notes):
+        # Audition-only micro-legato prevents the envelope from making a
+        # detected phrase sound artificially discontinuous. Raw timestamps
+        # remain unchanged in the report.
+        audible_end = note["end_s"]
+        if index + 1 < len(notes):
+            next_start = notes[index + 1]["start_s"]
+            gap = next_start - audible_end
+            if 0 < gap <= 0.075 and abs(int(note["midi"]) - int(notes[index + 1]["midi"])) <= 7:
+                audible_end = min(next_start, audible_end + 0.045)
+        add_tone(note["start_s"], audible_end, note["midi"], 0.13, True)
 
     for unit in report.get("harmony", []):
         if unit.get("state") not in {"LOCK", "LOCKED"}:
@@ -48,15 +58,16 @@ def render(report, output_path, *, sample_rate=44100):
             add_tone(unit["start_s"], unit["end_s"], midi, 0.033 if index else 0.041, True)
 
     beat_items = report.get("beats", [])
-    for index, item in enumerate(beat_items):
+    for item in beat_items:
         beat = item.get("t") if isinstance(item, dict) else item
+        strength = item.get("metric_strength") if isinstance(item, dict) else None
         left = int(float(beat) * sample_rate)
         right = min(len(signal), left + int(0.05 * sample_rate))
         if left < 0 or right <= left:
             continue
         time = np.arange(right - left) / sample_rate
-        frequency = 1100 if index % 4 == 0 else 820
-        amplitude = 0.15 if index % 4 == 0 else 0.10
+        frequency = 1100 if strength == "DOWNBEAT" else (950 if strength == "STRONG" else 820)
+        amplitude = 0.15 if strength == "DOWNBEAT" else (0.125 if strength == "STRONG" else 0.10)
         signal[left:right] += amplitude * np.exp(-time / 0.014) * np.sin(2 * np.pi * frequency * time)
 
     peak = float(np.max(np.abs(signal)))
@@ -65,7 +76,8 @@ def render(report, output_path, *, sample_rate=44100):
     sf.write(output_path, signal, sample_rate)
     return {
         "audible_layers": ["melody", "harmony_lock", "beat_tactus"],
+        "melody_render_policy": "RAW_TIMESTAMPS_PLUS_MAX_45MS_AUDITION_MICRO_LEGATO",
+        "beat_accent_policy": "METRIC_EVIDENCE_ONLY_NO_INDEX_MODULO_ASSUMPTION",
         "sample_rate": sample_rate,
         "duration_s": duration,
     }
-

@@ -15,7 +15,10 @@ assert(!source.includes("'pip','install','-q','-r','mie_core/requirements.txt'")
 assert(source.includes("files.upload()"));
 assert(source.includes("resolve_event_octaves"));
 assert(source.includes("apply_reasoning"));
-assert(source.includes("MIE_RECOGNITION_MHT_v0_3.wav"));
+assert(source.includes("MIE_RECOGNITION_MHT_v0_3_1.wav"));
+assert(source.includes("A · AUDIO DE ENTRADA"));
+assert(source.includes("B · RECONSTRUCCIÓN MIE v0.3.1"));
+assert(source.includes("recovered_candidate_count"));
 assert(source.includes("files.download(package)"));
 assert(source.includes("scientific_d_unlocked=false"));
 console.log('MIE_MOBILE_COLAB_CONTRACT_PASS');
