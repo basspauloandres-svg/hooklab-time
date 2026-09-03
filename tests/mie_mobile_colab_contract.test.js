@@ -8,6 +8,8 @@ assert(source.includes("REF = 'codex/mie-recovery-v0.3'"));
 assert(source.includes("MIE usará Python 3.10 aislado"));
 assert(source.includes("requirements-colab-py310.txt"));
 assert(source.includes("torch==2.2.2+cpu"));
+assert(source.includes("from basic_pitch.inference import predict"));
+assert(source.includes("checkout','--detach','FETCH_HEAD"));
 assert(source.includes("Aplicar recuperación y contrato"));
 assert(!source.includes("'pip','install','-q','-r','mie_core/requirements.txt'"));
 assert(source.includes("files.upload()"));

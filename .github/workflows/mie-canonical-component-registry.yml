@@ -84,4 +84,4 @@ jobs:
       - name: Verify MIE mobile imports
         run: |
           .mie-py310/bin/python -c \
-            "import torch, torchaudio, demucs, basic_pitch, librosa, onnxruntime, soundfile; print('MIE_COLAB_PY310_IMPORTS_PASS')"
+            "import torch, torchaudio, demucs, librosa, onnxruntime, soundfile; from basic_pitch.inference import predict; print('MIE_COLAB_PY310_EFFECTIVE_IMPORTS_PASS')"
