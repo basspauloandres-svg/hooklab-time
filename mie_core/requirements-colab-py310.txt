@@ -1,0 +1,9 @@
+# Mobile Colab runtime for the frozen MIE v0.3 candidate.
+# PyTorch and torchaudio are installed separately from the CPU wheel index.
+demucs==4.0.1
+basic-pitch==0.4.0
+librosa==0.11.0
+soundfile==0.13.1
+numpy==1.26.4
+scipy==1.15.3
+onnxruntime==1.23.2
