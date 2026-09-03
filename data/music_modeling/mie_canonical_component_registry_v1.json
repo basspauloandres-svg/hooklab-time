@@ -109,7 +109,7 @@
     "required_audible_layers": ["melody", "harmony_lock", "beat_tactus"],
     "reference_engine": {
       "path": "mie_core/run_mie_core.py",
-      "sha256": "08ea065368e749f012474f3b95f1d23ac5c0a64becd91ee18252d0fec3e84aa3"
+      "sha256": "4474204542570a5e942d40854a923a481e2b675f996c0e675ec3f62f290e9461"
     },
     "canonical_contract": "docs/AESTHETIC_REFERENCE_ANALYZER_API_v0_1.md",
     "frozen_architecture": "docs/MIE_UNIFIED_MHT_FREEZE_v0.1.md"
