@@ -5,6 +5,9 @@ const notebook=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../notebooks/M
 const source=notebook.cells.flatMap(cell=>cell.source||[]).join('\n');
 assert.equal(notebook.nbformat,4);
 assert(source.includes("REF = 'codex/mie-recovery-v0.3'"));
+assert(source.includes("PyTorch de Colab reutilizado"));
+assert(source.includes("--no-deps"));
+assert(!source.includes("'pip','install','-q','-r','mie_core/requirements.txt'"));
 assert(source.includes("files.upload()"));
 assert(source.includes("resolve_event_octaves"));
 assert(source.includes("apply_reasoning"));
