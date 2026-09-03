@@ -264,13 +264,23 @@ def resolve_metric_grid(tactus, downbeat_candidates):
             "candidate_meter_beats": meter,
             "consistency": consistency,
         }
-    downbeat_set = set(matched_indices)
+    phase_counts = Counter(index % meter for index in matched_indices)
+    phase, phase_count = phase_counts.most_common(1)[0]
+    phase_consistency = phase_count / len(matched_indices)
+    if phase_consistency < 0.70:
+        return [], {
+            "state": "DOWNBEAT_UNRESOLVED",
+            "reason": "downbeat_phase_inconsistent",
+            "candidate_meter_beats": meter,
+            "interval_consistency": consistency,
+            "phase_consistency": phase_consistency,
+        }
     grid = []
     for index, beat in enumerate(tactus):
         strength = None
-        if index in downbeat_set:
+        if index % meter == phase:
             strength = "DOWNBEAT"
-        elif meter % 2 == 0 and any((index - origin) % meter == meter // 2 for origin in downbeat_set):
+        elif meter % 2 == 0 and (index - phase) % meter == meter // 2:
             strength = "STRONG"
         if strength:
             grid.append({"t": beat["t"], "tactus_index": index, "metric_strength": strength})
@@ -280,6 +290,77 @@ def resolve_metric_grid(tactus, downbeat_candidates):
         "meter_beats": meter,
         "downbeat_matches": len(matched_indices),
         "consistency": consistency,
+        "phase": phase,
+        "phase_consistency": phase_consistency,
+        "grid_policy": "REGULAR_CONSENSUS_PHASE_v2",
+    }
+
+
+def align_harmony_to_shared_clock_v2(harmony, notes, tactus, *, tactus_period_s, maximum_shift_beats=0.35):
+    """Place harmonic changes on the frozen tactus and close rendering gaps.
+
+    The harmonic identity remains unchanged. Each accepted change is snapped
+    to the nearest observed/deduced tactus within a normalized tolerance. The
+    preceding LOCK state then persists to that boundary, preventing an
+    accompaniment reattack or an ambiguous window from becoming silence.
+    Melody onsets are measured against the same clock for audit only; they do
+    not manufacture or move harmonic changes.
+    """
+    source_all = sorted((dict(unit) for unit in harmony or []), key=lambda unit: (unit["start_s"], unit["end_s"]))
+    source = [unit for unit in source_all if unit.get("state") == "LOCK"]
+    if not isinstance(tactus_period_s, (int, float)) or tactus_period_s <= 0 or not tactus:
+        return source_all, {
+            "policy": "TACTUS_SHARED_M_H_ALIGNMENT_v2",
+            "state": "ABSTAIN_TACTUS_UNRESOLVED",
+            "input_state_count": len(source_all),
+            "output_state_count": len(source_all),
+            "raw_observations_mutated": False,
+        }
+    period = float(tactus_period_s)
+    maximum_shift_s = period * float(maximum_shift_beats)
+    clock = [float(item["t"] if isinstance(item, dict) else item) for item in tactus]
+    melody_onsets = [float(note["start_s"]) for note in notes or []]
+    output = []
+    shifts = []
+    for index, unit in enumerate(source):
+        clean = dict(unit)
+        start = float(clean["start_s"])
+        nearest = min(clock, key=lambda time: abs(time - start))
+        may_snap = not output or nearest > float(output[-1]["start_s"]) + 1e-8
+        if index > 0 and may_snap and abs(nearest - start) <= maximum_shift_s:
+            clean["start_s"] = nearest
+            shifts.append(nearest - start)
+        clean["shared_clock_state"] = "FROZEN_TACTUS_BOUNDARY"
+        if output:
+            boundary = float(clean["start_s"])
+            previous = output[-1]
+            previous["end_s"] = boundary
+            previous["persistence_state"] = "HELD_UNTIL_NEXT_ACCEPTED_HARMONY_CHANGE"
+        if float(clean["end_s"]) > float(clean["start_s"]):
+            output.append(clean)
+    if output:
+        output[-1]["end_s"] = max(float(output[-1]["end_s"]), float(source[-1]["end_s"]))
+    deviations = []
+    for unit in output[1:]:
+        if melody_onsets:
+            deviations.append(min(abs(float(unit["start_s"]) - onset) for onset in melody_onsets) / period)
+    return output, {
+        "policy": "TACTUS_SHARED_M_H_ALIGNMENT_v2",
+        "state": "DERIVED_CANDIDATE",
+        "time_unit": "FRACTION_OF_TACTUS",
+        "tactus_period_s": period,
+        "maximum_shift_beats": float(maximum_shift_beats),
+        "input_state_count": len(source_all),
+        "output_state_count": len(output),
+        "ambiguous_observation_count": sum(unit.get("state") != "LOCK" for unit in source_all),
+        "boundary_shift_count": sum(abs(value) > 1e-9 for value in shifts),
+        "median_abs_boundary_shift_beats": median([abs(value) / period for value in shifts]) if shifts else 0.0,
+        "median_harmony_to_nearest_melody_onset_beats": median(deviations) if deviations else None,
+        "gapless_between_accepted_states": all(abs(float(left["end_s"]) - float(right["start_s"])) < 1e-8 for left, right in zip(output, output[1:])),
+        "melody_moved": False,
+        "harmonic_identity_changed": False,
+        "raw_observations_mutated": False,
+        "identity_features_used": False,
     }
 
 

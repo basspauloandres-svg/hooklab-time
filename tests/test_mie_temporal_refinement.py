@@ -5,6 +5,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 
 from mie_core.mie_recognition_contract import normalize
 from mie_core.mie_temporal_refinement import (
+    align_harmony_to_shared_clock_v2,
     align_harmony_to_metric,
     consolidate_harmony_persistence,
     recover_melody_gaps,
@@ -125,10 +126,46 @@ def test_harmony_is_persistent_state_and_ambiguous_units_remain_explicit():
     assert audit["identity_features_used"] is False
 
 
+def test_metric_grid_uses_regular_consensus_phase_despite_outlier():
+    tactus = [{"t": index * 0.5, "score": 0.9, "clock_state": "OBSERVED", "run": 1} for index in range(28)]
+    downbeats = [{"t": value, "score": 0.95} for value in (0.0, 2.0, 4.0, 6.0, 8.0, 10.0, 10.5)]
+    grid, audit = resolve_metric_grid(tactus, downbeats)
+    assert audit["state"] == "METRIC_LOCK"
+    assert audit["phase"] == 0
+    assert audit["phase_consistency"] >= 0.70
+    assert audit["grid_policy"] == "REGULAR_CONSENSUS_PHASE_v2"
+    downbeat_indices = [item["tactus_index"] for item in grid if item["metric_strength"] == "DOWNBEAT"]
+    assert downbeat_indices == [0, 4, 8, 12, 16, 20, 24]
+
+
+def test_shared_clock_alignment_closes_gaps_without_changing_identity_or_melody():
+    tactus = [{"t": index * 0.5, "score": 0.9} for index in range(8)]
+    melody = [{"start_s": 0.52, "end_s": 0.8, "midi": 60, "confidence": 0.8}]
+    harmony = [
+        {"start_s": 0.0, "end_s": 0.8, "root_pc": 0, "quality": "maj", "intervals": [0, 4, 7], "state": "LOCK"},
+        {"start_s": 0.8, "end_s": 1.08, "root_pc": 2, "quality": "min", "intervals": [0, 3, 7], "state": "AMBIGUOUS"},
+        {"start_s": 1.08, "end_s": 1.8, "root_pc": 5, "quality": "maj", "intervals": [0, 4, 7], "state": "LOCK"},
+        {"start_s": 2.42, "end_s": 3.0, "root_pc": 7, "quality": "7", "intervals": [0, 4, 7, 10], "state": "LOCK"},
+    ]
+    melody_before = [dict(item) for item in melody]
+    derived, audit = align_harmony_to_shared_clock_v2(harmony, melody, tactus, tactus_period_s=0.5)
+    assert [(item["root_pc"], item["quality"]) for item in derived] == [(0, "maj"), (5, "maj"), (7, "7")]
+    assert derived[0]["end_s"] == derived[1]["start_s"] == 1.0
+    assert derived[1]["end_s"] == derived[2]["start_s"] == 2.5
+    assert audit["gapless_between_accepted_states"] is True
+    assert audit["harmonic_identity_changed"] is False
+    assert audit["melody_moved"] is False
+    assert audit["identity_features_used"] is False
+    assert audit["ambiguous_observation_count"] == 1
+    assert melody == melody_before
+
+
 if __name__ == "__main__":
     test_conservative_gap_recovery_preserves_origin()
     test_tactus_suppresses_subdivisions_and_keeps_raw_separate()
     test_metric_lock_and_harmony_alignment_are_fail_closed()
     test_contract_exports_raw_and_derived_provenance_without_unlocking_d()
     test_harmony_is_persistent_state_and_ambiguous_units_remain_explicit()
+    test_metric_grid_uses_regular_consensus_phase_despite_outlier()
+    test_shared_clock_alignment_closes_gaps_without_changing_identity_or_melody()
     print("MIE_TEMPORAL_REFINEMENT_PASS")

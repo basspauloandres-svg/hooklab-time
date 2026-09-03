@@ -20,6 +20,7 @@ BASIC_PITCH_CONTOUR_BINS_PER_SEMITONE = 3
 BASIC_PITCH_CONTOUR_FIRST_SEMITONE_CENTER_BIN = 1
 FEATURE_ID = "M_TF_PLANE_REGISTRATION_RESIDUAL_v0_1"
 CONTINUITY_V2_POLICY = "TACTUS_NORMALIZED_NEURAL_SUSTAIN_CONTINUITY_v2"
+CONTINUITY_V3_POLICY = "TACTUS_NORMALIZED_PLANE_GAP_RECOVERY_v3"
 
 
 def _as_plane(model_output, key):
@@ -280,6 +281,148 @@ def consolidate_sustained_fragments_v2(
             for state in ("SUSTAIN_CONTINUATION", "NEW_ARTICULATION", "PITCH_TRANSITION", "ABSTAIN_INSUFFICIENT_EVIDENCE")
         },
         "boundary_decisions": boundary_decisions,
+        "raw_observations_mutated": False,
+        "automatic_curated_status": False,
+        "identity_features_used": False,
+    }
+
+
+def recover_plane_supported_gaps_v3(
+    notes,
+    raw_candidates,
+    model_output,
+    *,
+    tactus_period_s,
+    maximum_extension_beats=0.50,
+    minimum_candidate_beats=0.08,
+    candidate_confidence_threshold=0.20,
+    contour_mean_threshold=0.25,
+    contour_coverage_threshold=0.70,
+):
+    """Recover audible continuity from the vocal neural plane.
+
+    Two evidence-preserving operations are permitted: extending an accepted
+    note into adjacent frames that retain its pitch ridge, and admitting an
+    already observed Basic Pitch candidate inside an uncovered interval when
+    its own contour support is sustained. Time limits are fractions of the
+    frozen tactus. Song identity and hand-authored timestamps are unavailable
+    to this function.
+    """
+    source = sorted((dict(note) for note in notes or []), key=lambda note: (note["start_s"], note["end_s"], note["midi"]))
+    contour = _as_plane(model_output, "contour")
+    if not isinstance(tactus_period_s, (int, float)) or not np.isfinite(tactus_period_s) or tactus_period_s <= 0:
+        return source, {
+            "policy": CONTINUITY_V3_POLICY,
+            "state": "ABSTAIN_TACTUS_UNRESOLVED",
+            "input_event_count": len(source),
+            "output_event_count": len(source),
+            "raw_observations_mutated": False,
+            "automatic_curated_status": False,
+        }
+    if contour is None:
+        return source, {
+            "policy": CONTINUITY_V3_POLICY,
+            "state": "ABSTAIN_NO_CONTOUR",
+            "input_event_count": len(source),
+            "output_event_count": len(source),
+            "raw_observations_mutated": False,
+            "automatic_curated_status": False,
+        }
+
+    period = float(tactus_period_s)
+    maximum_extension_s = period * float(maximum_extension_beats)
+    minimum_candidate_s = period * float(minimum_candidate_beats)
+    extended = [dict(note) for note in source]
+    extension_decisions = []
+    for index, note in enumerate(extended):
+        limit = float(note["end_s"]) + maximum_extension_s
+        if index + 1 < len(extended):
+            limit = min(limit, float(extended[index + 1]["start_s"]))
+        start_frame = _frame(note["end_s"], contour.shape[0])
+        limit_frame = _frame(limit, contour.shape[0])
+        center = _midi_to_contour_bin(note["midi"])
+        left = max(0, center - 2)
+        right = min(contour.shape[1], center + 3)
+        supported_until = start_frame
+        low_run = 0
+        for frame in range(start_frame, limit_frame):
+            support = float(np.max(contour[frame, left:right])) if right > left else 0.0
+            if support >= contour_mean_threshold:
+                supported_until = frame + 1
+                low_run = 0
+            else:
+                low_run += 1
+                if low_run >= 2:
+                    break
+        proposed_end = supported_until / BASIC_PITCH_FRAME_HZ
+        if proposed_end > float(note["end_s"]) + 1.0 / BASIC_PITCH_FRAME_HZ:
+            old_end = float(note["end_s"])
+            note["end_s"] = min(limit, proposed_end)
+            note["continuity_state"] = "PLANE_SUPPORTED_TAIL_EXTENSION"
+            extension_decisions.append({
+                "event_index": index,
+                "extension_beats": (float(note["end_s"]) - old_end) / period,
+                "source": "VOCAL_CONTOUR_PLANE",
+            })
+
+    occupied = [(float(note["start_s"]), float(note["end_s"])) for note in extended]
+    selected_keys = {
+        (round(float(note["start_s"]), 5), round(float(note["end_s"]), 5), int(round(note["midi"])))
+        for note in source
+    }
+    candidates = []
+    for source_index, candidate in enumerate(raw_candidates or []):
+        key = (round(float(candidate["start_s"]), 5), round(float(candidate["end_s"]), 5), int(round(candidate["midi"])))
+        duration = float(candidate["end_s"]) - float(candidate["start_s"])
+        if key in selected_keys or duration < minimum_candidate_s:
+            continue
+        confidence = float(candidate.get("confidence", 0.0))
+        if confidence < candidate_confidence_threshold:
+            continue
+        overlap = sum(max(0.0, min(candidate["end_s"], end) - max(candidate["start_s"], start)) for start, end in occupied)
+        if overlap > 0.20 * duration:
+            continue
+        mean, coverage = _pitch_support(contour, candidate["start_s"], candidate["end_s"], candidate["midi"])
+        if mean < contour_mean_threshold or coverage < contour_coverage_threshold:
+            continue
+        score = confidence + 0.5 * mean + 0.25 * coverage
+        candidates.append((score, source_index, dict(candidate), mean, coverage))
+
+    recovered = []
+    for score, source_index, candidate, mean, coverage in sorted(candidates, reverse=True):
+        duration = float(candidate["end_s"]) - float(candidate["start_s"])
+        overlap = sum(
+            max(0.0, min(candidate["end_s"], note["end_s"]) - max(candidate["start_s"], note["start_s"]))
+            for note in extended + recovered
+        )
+        if overlap > 0.20 * duration:
+            continue
+        candidate["recovery_state"] = "PLANE_SUPPORTED_RAW_CANDIDATE"
+        candidate["recovery_basis"] = {
+            "provider": "BASIC_PITCH_RAW_CANDIDATE_PLUS_VOCAL_CONTOUR",
+            "raw_candidate_index": source_index,
+            "contour_mean": mean,
+            "contour_coverage": coverage,
+            "selection_score": score,
+        }
+        candidate.setdefault("source_event_indices", [])
+        candidate["continuity_state"] = "PLANE_SUPPORTED_GAP_RECOVERY"
+        recovered.append(candidate)
+
+    output = sorted(extended + recovered, key=lambda note: (note["start_s"], note["end_s"], note["midi"]))
+    return output, {
+        "policy": CONTINUITY_V3_POLICY,
+        "state": "DERIVED_CANDIDATE",
+        "provider": "Basic Pitch 0.4.0 raw candidates + vocal contour / frozen HookLab tactus",
+        "time_unit": "FRACTION_OF_TACTUS",
+        "tactus_period_s": period,
+        "maximum_extension_beats": float(maximum_extension_beats),
+        "minimum_candidate_beats": float(minimum_candidate_beats),
+        "input_event_count": len(source),
+        "output_event_count": len(output),
+        "tail_extension_count": len(extension_decisions),
+        "recovered_candidate_count": len(recovered),
+        "extension_decisions": extension_decisions,
         "raw_observations_mutated": False,
         "automatic_curated_status": False,
         "identity_features_used": False,

@@ -26,11 +26,15 @@ assert.equal(registry.components.M.experimental_derived_layer.raw_observations_m
 assertPinned(registry.components.M.experimental_derived_layer);
 assert.equal(registry.components.M.generalized_candidate_layer.time_unit,'FRACTION_OF_TACTUS');
 assert.equal(registry.components.M.generalized_candidate_layer.identity_features_used,false);
+assert.equal(registry.components.M.gap_recovery_candidate_layer.policy,'TACTUS_NORMALIZED_PLANE_GAP_RECOVERY_v3');
+assert.equal(registry.components.M.gap_recovery_candidate_layer.automatic_curated_status,false);
 assert.deepEqual(registry.components.H.required_chain.slice(-2),['RESIDUAL_REQUERY','LOCK_AMBIGUOUS_ABSTAIN']);
 assert.equal(registry.components.H.ai_boundary.may_create_absent_pitch_evidence,false);
 assert.equal(registry.components.H.audible_output_required,true);
 assert.equal(registry.components.H.persistent_state_candidate.ambiguous_units_preserved,true);
 assert.equal(registry.components.H.persistent_state_candidate.identity_features_used,false);
+assert.equal(registry.components.H.shared_clock_candidate.melody_moved,false);
+assert.equal(registry.components.H.shared_clock_candidate.harmonic_identity_changed,false);
 assert.equal(registry.components.T.status,'FROZEN_ENGINEERING_BASELINE');
 assert.deepEqual(registry.integration.required_audible_layers,['melody','harmony_lock','beat_tactus']);
 assert.equal(registry.known_integrations.find(x=>x.path.endsWith('v0.2.html')).status,'REJECTED_ENGINE_REGRESSION');
@@ -44,5 +48,7 @@ assert.equal(registry.integration.cross_track_generalization_gate.evaluation_uni
 assert.equal(registry.integration.cross_track_generalization_gate.minimum_independent_aligned_tracks_for_generalization_pass,30);
 assertPinned(registry.integration.cross_track_generalization_gate.invariant);
 assertPinned(registry.integration.cross_track_generalization_gate.runtime);
+assertPinned(registry.integration.continuity_alignment_candidate.audit);
+assert.equal(registry.integration.continuity_alignment_candidate.lyric_prosody_midi_bridge_modified,false);
 assert.equal(registry.promotion_gate.single_track_gain_disposition,'HOLD_TRACK_SPECIFIC_GAIN');
 console.log('MIE_CANONICAL_COMPONENT_REGISTRY_PASS');

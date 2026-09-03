@@ -43,12 +43,12 @@
       },
       "server_runtime": {
         "path": "mie_core/run_mie_core.py",
-        "provider": "Basic Pitch on HTDemucs vocals plus monophonic fusion gate and neural-plane continuity candidate"
+        "provider": "Basic Pitch on HTDemucs vocals plus monophonic fusion, neural-plane continuity and plane-supported gap recovery candidates"
       },
       "experimental_derived_layer": {
         "feature_id": "M_TF_PLANE_REGISTRATION_RESIDUAL_v0_1",
         "path": "mie_core/mie_tf_plane_registration.py",
-        "sha256": "7bc8ed4a5d2c2d5bc5bc59e1d962970f08f033affd85e77d93ddd1b16343b1d3",
+        "sha256": "bc5e08fae6ebbed8421e112cdb5bc69d217317c930fdb3fd7720372bd8b0cf12",
         "status": "AUDIT_FEATURE_NOT_CALIBRATED",
         "representation": "TIME_PITCH_SALIENCE_WITH_AXONOMETRIC_VIEW_DIAGNOSTIC_ONLY",
         "raw_observations_mutated": false,
@@ -61,6 +61,14 @@
         "time_unit": "FRACTION_OF_TACTUS",
         "identity_features_used": false,
         "per_track_abstention_required": true,
+        "raw_observations_mutated": false
+      },
+      "gap_recovery_candidate_layer": {
+        "policy": "TACTUS_NORMALIZED_PLANE_GAP_RECOVERY_v3",
+        "status": "HOLD_FOR_MULTICASE_HELD_OUT_EVALUATION",
+        "evidence": ["BASIC_PITCH_RAW_CANDIDATE", "VOCAL_CONTOUR_PLANE", "FROZEN_TACTUS"],
+        "song_identity_inputs_forbidden": true,
+        "automatic_curated_status": false,
         "raw_observations_mutated": false
       },
       "forbidden_replacements": [
@@ -109,6 +117,14 @@
         "ambiguous_units_preserved": true,
         "instrumental_reattack_is_not_harmonic_change": true,
         "identity_features_used": false
+      },
+      "shared_clock_candidate": {
+        "policy": "TACTUS_SHARED_M_H_ALIGNMENT_v2",
+        "status": "HOLD_FOR_MULTICASE_HELD_OUT_EVALUATION",
+        "regular_consensus_downbeat_phase_required": true,
+        "melody_moved": false,
+        "harmonic_identity_changed": false,
+        "frozen_tactus_required": true
       }
     },
     "T": {
@@ -135,7 +151,7 @@
     "required_audible_layers": ["melody", "harmony_lock", "beat_tactus"],
     "reference_engine": {
       "path": "mie_core/run_mie_core.py",
-      "sha256": "2c23108d6410ab6a4ae97b653c615b74e4c799d5ef1f4411200365ea8ea9c248"
+      "sha256": "aceaeae5a6aa33ea6324043821ce7aba876916b3e3a5e6842a4390b60c57ebed"
     },
     "cross_track_generalization_gate": {
       "invariant": {
@@ -151,6 +167,16 @@
       "minimum_independent_aligned_tracks_for_generalization_pass": 30,
       "song_identity_inputs_forbidden": true,
       "frozen_tactus_preservation_required": true
+    },
+    "continuity_alignment_candidate": {
+      "audit": {
+        "path": "docs/checkpoints/MIE_V0_3_4_CONTINUITY_ALIGNMENT_AUDIT_2026-09-03.md",
+        "sha256": "5b928828caf9999cd759f4a0f6893ca5aac975d5b52769acae7f04ab1e2feb87"
+      },
+      "baseline": "MIE_CORE_v0.3.3",
+      "candidate": "MIE_CORE_v0.3.4",
+      "frozen_tactus_preservation_required": true,
+      "lyric_prosody_midi_bridge_modified": false
     },
     "canonical_contract": "docs/AESTHETIC_REFERENCE_ANALYZER_API_v0_1.md",
     "frozen_architecture": "docs/MIE_UNIFIED_MHT_FREEZE_v0.1.md"

@@ -11,6 +11,7 @@ from mie_core.mie_tf_plane_registration import (
     consolidate_sustained_fragments,
     consolidate_sustained_fragments_v2,
     plane_residual_metrics,
+    recover_plane_supported_gaps_v3,
 )
 
 
@@ -147,6 +148,41 @@ def test_v2_repeated_onset_and_missing_tactus_fail_closed():
     assert failed["state"] == "ABSTAIN_TACTUS_UNRESOLVED"
 
 
+def test_v3_extends_supported_tail_and_recovers_observed_gap_candidate():
+    model_output = planes(duration_s=2.0)
+    paint_pitch(model_output, 0.10, 0.62, 60)
+    paint_pitch(model_output, 0.72, 0.98, 62)
+    notes = [{"start_s": 0.10, "end_s": 0.40, "midi": 60, "confidence": 0.8}]
+    raw = notes + [{"start_s": 0.72, "end_s": 0.98, "midi": 62, "confidence": 0.24}]
+    baseline_metrics = plane_residual_metrics(model_output, notes)["residual_vector"]
+    derived, audit = recover_plane_supported_gaps_v3(notes, raw, model_output, tactus_period_s=0.50)
+    candidate_metrics = plane_residual_metrics(model_output, derived)["residual_vector"]
+    assert notes[0]["end_s"] == 0.40
+    assert len(derived) == 2
+    assert derived[0]["end_s"] > 0.55
+    assert derived[0]["continuity_state"] == "PLANE_SUPPORTED_TAIL_EXTENSION"
+    assert derived[1]["recovery_state"] == "PLANE_SUPPORTED_RAW_CANDIDATE"
+    assert audit["tail_extension_count"] == 1
+    assert audit["recovered_candidate_count"] == 1
+    assert audit["time_unit"] == "FRACTION_OF_TACTUS"
+    assert audit["raw_observations_mutated"] is False
+    assert audit["automatic_curated_status"] is False
+    assert candidate_metrics["false_silence_ratio"] < baseline_metrics["false_silence_ratio"]
+    assert candidate_metrics["voiced_overlap_iou"] > baseline_metrics["voiced_overlap_iou"]
+
+
+def test_v3_rejects_candidate_without_contour_and_abstains_without_tactus():
+    model_output = planes(duration_s=1.0)
+    notes = [{"start_s": 0.10, "end_s": 0.30, "midi": 60, "confidence": 0.8}]
+    raw = notes + [{"start_s": 0.45, "end_s": 0.65, "midi": 72, "confidence": 0.9}]
+    derived, audit = recover_plane_supported_gaps_v3(notes, raw, model_output, tactus_period_s=0.50)
+    assert len(derived) == 1
+    assert audit["recovered_candidate_count"] == 0
+    unchanged, failed = recover_plane_supported_gaps_v3(notes, raw, model_output, tactus_period_s=None)
+    assert unchanged == notes
+    assert failed["state"] == "ABSTAIN_TACTUS_UNRESOLVED"
+
+
 def test_increment_has_no_song_template_and_keeps_same_tactus_for_a_b():
     root = pathlib.Path(__file__).resolve().parents[1]
     module_source = (root / "mie_core" / "mie_tf_plane_registration.py").read_text(encoding="utf-8")
@@ -166,5 +202,7 @@ if __name__ == "__main__":
     test_residual_is_vector_without_composite_or_scientific_unlock()
     test_v2_uses_tactus_fraction_across_different_tempos()
     test_v2_repeated_onset_and_missing_tactus_fail_closed()
+    test_v3_extends_supported_tail_and_recovers_observed_gap_candidate()
+    test_v3_rejects_candidate_without_contour_and_abstains_without_tactus()
     test_increment_has_no_song_template_and_keeps_same_tactus_for_a_b()
     print("MIE_TF_PLANE_REGISTRATION_PASS")

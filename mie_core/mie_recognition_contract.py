@@ -48,6 +48,8 @@ def _notes(raw):
                     "octave_resolution": item.get("octave_resolution", "UNREPORTED"),
                     "recovery_state": item.get("recovery_state", "RAW_ACCEPTED"),
                     "recovery_basis": item.get("recovery_basis"),
+                    "continuity_state": item.get("continuity_state"),
+                    "source_event_indices": item.get("source_event_indices", []),
                 }
             )
     return output
@@ -79,6 +81,8 @@ def _harmony(raw):
                     "source_unit_indices": item.get("source_unit_indices", []),
                     "support_share": item.get("support_share"),
                     "quantization_offset_s": item.get("quantization_offset_s"),
+                    "persistence_state": item.get("persistence_state"),
+                    "shared_clock_state": item.get("shared_clock_state"),
                 }
             )
     return output
@@ -156,13 +160,17 @@ def normalize(raw, *, session_id, reference_sha256, sensor_version, ai_provenanc
             "harmony_metric_aligned": raw.get("harmony_metric_aligned", []),
             "notes_v0_3_1": raw.get("notes_v0_3_1", []),
             "notes_v0_3_2": raw.get("notes_v0_3_2", []),
+            "notes_v0_3_3": raw.get("notes_v0_3_3", []),
             "notes_continuity_derived": raw.get("notes_continuity_derived", []),
             "notes_generalized_derived": raw.get("notes_generalized_derived", []),
             "melody_continuity": raw.get("melody_continuity"),
             "melody_generalization": raw.get("melody_generalization"),
+            "melody_gap_recovery": raw.get("melody_gap_recovery"),
             "tf_plane_registration": raw.get("tf_plane_registration"),
             "harmony_v0_3_2": raw.get("harmony_v0_3_2", []),
+            "harmony_v0_3_3": raw.get("harmony_v0_3_3", []),
             "harmony_persistence": raw.get("harmony_persistence"),
+            "harmony_shared_clock": raw.get("harmony_shared_clock"),
             "cross_track_generalization": raw.get("cross_track_generalization"),
         },
         "ai_provenance": ai_provenance

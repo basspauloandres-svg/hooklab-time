@@ -7,6 +7,7 @@ import onnxruntime as ort
 
 try:
     from mie_core.mie_temporal_refinement import (
+        align_harmony_to_shared_clock_v2,
         align_harmony_to_metric,
         consolidate_harmony_persistence,
         recover_melody_gaps,
@@ -17,9 +18,11 @@ try:
         consolidate_sustained_fragments,
         consolidate_sustained_fragments_v2,
         plane_residual_metrics,
+        recover_plane_supported_gaps_v3,
     )
 except ModuleNotFoundError:  # Direct script execution from the repository.
     from mie_temporal_refinement import (
+        align_harmony_to_shared_clock_v2,
         align_harmony_to_metric,
         consolidate_harmony_persistence,
         recover_melody_gaps,
@@ -30,6 +33,7 @@ except ModuleNotFoundError:  # Direct script execution from the repository.
         consolidate_sustained_fragments,
         consolidate_sustained_fragments_v2,
         plane_residual_metrics,
+        recover_plane_supported_gaps_v3,
     )
 
 BEAT_MEL_URL='https://raw.githubusercontent.com/danigb/beat-this-rs/main/models/mel_spectrogram.onnx'
@@ -72,10 +76,18 @@ def basic_pitch_melody(vocal_path, outdir, tactus_period_s):
         model_output,
         tactus_period_s=tactus_period_s,
     )
+    continuity_aligned_notes, continuity_alignment_audit = recover_plane_supported_gaps_v3(
+        generalized_notes,
+        raw,
+        model_output,
+        tactus_period_s=tactus_period_s,
+    )
     plane_metrics_v0_3_1 = plane_residual_metrics(model_output, recovered)
     plane_metrics_v0_3_2 = plane_residual_metrics(model_output, continuity_notes)
     plane_metrics_v0_3_3 = plane_residual_metrics(model_output, generalized_notes)
+    plane_metrics_v0_3_4 = plane_residual_metrics(model_output, continuity_aligned_notes)
     return (
+        continuity_aligned_notes,
         generalized_notes,
         continuity_notes,
         recovered,
@@ -85,9 +97,11 @@ def basic_pitch_melody(vocal_path, outdir, tactus_period_s):
         recovery_audit,
         continuity_audit,
         generalized_audit,
+        continuity_alignment_audit,
         plane_metrics_v0_3_1,
         plane_metrics_v0_3_2,
         plane_metrics_v0_3_3,
+        plane_metrics_v0_3_4,
     )
 
 
@@ -250,6 +264,7 @@ def main():
     tactus_period_s = float(np.median(periods)) if periods else None
     (
         notes,
+        notes_v0_3_3,
         notes_v0_3_2,
         notes_v0_3_1,
         midi,
@@ -258,36 +273,46 @@ def main():
         melody_recovery,
         melody_continuity,
         melody_generalization,
+        melody_gap_recovery,
         plane_metrics_v0_3_1,
         plane_metrics_v0_3_2,
         plane_metrics_v0_3_3,
+        plane_metrics_v0_3_4,
     )=basic_pitch_melody(vocal,out,tactus_period_s)
     raw_beat_times=[item['t'] for item in raw_beats]
     raw_chords=harmony_sensor(other,bass,raw_beat_times)
     y,sr=librosa.load(args.audio,sr=None,mono=True); duration=len(y)/sr
     aligned_chords,harmony_alignment=align_harmony_to_metric(raw_chords,metric_grid,duration)
     chords_v0_3_2=aligned_chords if aligned_chords else raw_chords
-    chords,harmony_persistence=consolidate_harmony_persistence(
+    chords_v0_3_3,harmony_persistence=consolidate_harmony_persistence(
         chords_v0_3_2,
+        tactus_period_s=tactus_period_s,
+    )
+    chords,harmony_shared_clock=align_harmony_to_shared_clock_v2(
+        chords_v0_3_3,
+        notes,
+        beats,
         tactus_period_s=tactus_period_s,
     )
     baseline_wav=out/'MIE_CORE_MHT_v0_2.wav'
     synth(raw_accepted,raw_chords,raw_beats,duration,baseline_wav)
     wav_v0_3_1=out/'MIE_CORE_MHT_v0_3_1.wav'; synth(notes_v0_3_1,chords_v0_3_2,beats,duration,wav_v0_3_1)
     wav_v0_3_2=out/'MIE_CORE_MHT_v0_3_2.wav'; synth(notes_v0_3_2,chords_v0_3_2,beats,duration,wav_v0_3_2)
-    wav=out/'MIE_CORE_MHT_v0_3_3.wav'; synth(notes,chords,beats,duration,wav)
+    wav_v0_3_3=out/'MIE_CORE_MHT_v0_3_3.wav'; synth(notes_v0_3_3,chords_v0_3_3,beats,duration,wav_v0_3_3)
+    wav=out/'MIE_CORE_MHT_v0_3_4.wav'; synth(notes,chords,beats,duration,wav)
     tactus_fingerprint_a=tactus_fingerprint(beats)
     tactus_fingerprint_b=tactus_fingerprint(beats)
     report={
-        'version':'MIE Core v0.3.3 cross-track candidate',
+        'version':'MIE Core v0.3.4 continuity/alignment candidate',
         'architecture':'HTDemucs -> trained sensors -> traceable M/H/T refinements -> cross-track fail-closed A/B -> M+H+T',
         'source_separation':'HTDemucs 4 stems',
-        'M':'Basic Pitch on vocals + MIE monophonic gate + conservative recovery + tactus-normalized neural sustain candidate',
-        'H':'beat-synchronous harmonic+bass evidence + LOCK/AMBIGUOUS + persistent-state derived candidate',
+        'M':'Basic Pitch on vocals + monophonic gate + tactus-normalized neural sustain + plane-supported gap recovery candidate',
+        'H':'beat-synchronous harmonic+bass evidence + LOCK/AMBIGUOUS + persistent state + shared-tactus alignment candidate',
         'T':'Beat This small ONNX + HookLab clock-lineage resolver',
         'tempo_bpm':tempo,
         'notes':notes,
         'notes_v0_3_2':notes_v0_3_2,
+        'notes_v0_3_3':notes_v0_3_3,
         'notes_v0_3_1':notes_v0_3_1,
         'notes_continuity_derived':notes_v0_3_2,
         'notes_generalized_derived':notes,
@@ -296,20 +321,24 @@ def main():
         'melody_recovery':melody_recovery,
         'melody_continuity':melody_continuity,
         'melody_generalization':melody_generalization,
+        'melody_gap_recovery':melody_gap_recovery,
         'tf_plane_registration':{
             'feature_id':'M_TF_PLANE_REGISTRATION_RESIDUAL_v0_1',
             'status':'AUDIT_FEATURE_NOT_CALIBRATED',
             'comparison_A_v0_3_1':plane_metrics_v0_3_1,
             'comparison_B_v0_3_2':plane_metrics_v0_3_2,
             'comparison_C_v0_3_3':plane_metrics_v0_3_3,
+            'comparison_D_v0_3_4':plane_metrics_v0_3_4,
             'producer_decision':'PENDING_CROSS_TRACK_AB_LISTENING',
         },
         'harmony':chords,
         'harmony_v0_3_2':chords_v0_3_2,
+        'harmony_v0_3_3':chords_v0_3_3,
         'harmony_raw':raw_chords,
         'harmony_metric_aligned':aligned_chords,
         'harmony_alignment':harmony_alignment,
         'harmony_persistence':harmony_persistence,
+        'harmony_shared_clock':harmony_shared_clock,
         'beats':beats,
         'beat_observations_raw':raw_beats,
         'downbeat_candidates_raw':downbeats,
@@ -332,5 +361,5 @@ def main():
         'promotion_gate':'cross-track held-out macro evaluation + non-inferiority + producer listening',
     }
     (out/'MIE_CORE_MHT_v0_2.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
-    print(json.dumps({'wav':str(wav),'comparison_wav_v0_3_2':str(wav_v0_3_2),'comparison_wav_v0_3_1':str(wav_v0_3_1),'baseline_wav':str(baseline_wav),'notes':len(notes),'merged_sustain_boundaries_v0_3_2':melody_continuity['merged_boundary_count'],'merged_sustain_boundaries_v0_3_3':melody_generalization['merged_boundary_count'],'recovered_notes':melody_recovery['recovered_candidate_count'],'raw_beats':len(raw_beats),'tactus':len(beats),'harmony_units_v0_3_2':len(chords_v0_3_2),'harmony_units_v0_3_3':len(chords),'tempo':tempo,'metric_state':tactus_resolution['metric_resolution']['state']}))
+    print(json.dumps({'wav':str(wav),'comparison_wav_v0_3_3':str(wav_v0_3_3),'comparison_wav_v0_3_2':str(wav_v0_3_2),'comparison_wav_v0_3_1':str(wav_v0_3_1),'baseline_wav':str(baseline_wav),'notes_v0_3_4':len(notes),'notes_v0_3_3':len(notes_v0_3_3),'plane_recovered_notes_v0_3_4':melody_gap_recovery['recovered_candidate_count'],'tail_extensions_v0_3_4':melody_gap_recovery['tail_extension_count'],'raw_beats':len(raw_beats),'tactus':len(beats),'harmony_units_v0_3_3':len(chords_v0_3_3),'harmony_units_v0_3_4':len(chords),'tempo':tempo,'metric_state':tactus_resolution['metric_resolution']['state']}))
 if __name__=='__main__': main()
