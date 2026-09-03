@@ -11,12 +11,15 @@ on:
       - 'mie_core/run_mie_core.py'
       - 'mie_core/mie_temporal_refinement.py'
       - 'mie_core/mie_tf_plane_registration.py'
+      - 'mie_core/mie_generalization_gate.py'
       - 'tests/mie_canonical_component_registry.test.js'
       - 'mie_core/mie_ai_candidate_reasoner.py'
       - 'mie_core/mie_recognition_contract.py'
       - 'tests/test_mie_recognition_contract.py'
       - 'tests/test_mie_temporal_refinement.py'
       - 'tests/test_mie_tf_plane_registration.py'
+      - 'tests/test_mie_generalization_gate.py'
+      - 'docs/checkpoints/MIE_CROSS_TRACK_GENERALIZATION_INVARIANT_v1.md'
       - 'app/prototype_v1/mie_recognition_bridge.js'
       - 'tests/mie_recognition_bridge.test.js'
       - 'mie_core/mie_octave_plane_resolver.py'
@@ -37,12 +40,15 @@ on:
       - 'mie_core/run_mie_core.py'
       - 'mie_core/mie_temporal_refinement.py'
       - 'mie_core/mie_tf_plane_registration.py'
+      - 'mie_core/mie_generalization_gate.py'
       - 'tests/mie_canonical_component_registry.test.js'
       - 'mie_core/mie_ai_candidate_reasoner.py'
       - 'mie_core/mie_recognition_contract.py'
       - 'tests/test_mie_recognition_contract.py'
       - 'tests/test_mie_temporal_refinement.py'
       - 'tests/test_mie_tf_plane_registration.py'
+      - 'tests/test_mie_generalization_gate.py'
+      - 'docs/checkpoints/MIE_CROSS_TRACK_GENERALIZATION_INVARIANT_v1.md'
       - 'app/prototype_v1/mie_recognition_bridge.js'
       - 'tests/mie_recognition_bridge.test.js'
       - 'mie_core/mie_octave_plane_resolver.py'
@@ -72,6 +78,7 @@ jobs:
       - run: python tests/test_mie_recognition_contract.py
       - run: python tests/test_mie_temporal_refinement.py
       - run: python tests/test_mie_tf_plane_registration.py
+      - run: python tests/test_mie_generalization_gate.py
 
   colab-py310-environment:
     runs-on: ubuntu-latest

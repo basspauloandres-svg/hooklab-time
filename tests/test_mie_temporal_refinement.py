@@ -6,6 +6,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 from mie_core.mie_recognition_contract import normalize
 from mie_core.mie_temporal_refinement import (
     align_harmony_to_metric,
+    consolidate_harmony_persistence,
     recover_melody_gaps,
     resolve_metric_grid,
     resolve_tactus,
@@ -107,9 +108,27 @@ def test_contract_exports_raw_and_derived_provenance_without_unlocking_d():
     assert result["derived_layers"]["metric_grid"][0]["metric_strength"] == "DOWNBEAT"
 
 
+def test_harmony_is_persistent_state_and_ambiguous_units_remain_explicit():
+    harmony = [
+        {"start_s": 0.0, "end_s": 0.5, "root_pc": 0, "quality": "maj", "intervals": [0, 4, 7], "evidence": 0.8, "margin": 0.08, "state": "LOCK"},
+        {"start_s": 0.5, "end_s": 1.0, "root_pc": 0, "quality": "maj", "intervals": [0, 4, 7], "evidence": 0.9, "margin": 0.07, "state": "LOCK"},
+        {"start_s": 1.0, "end_s": 1.5, "root_pc": 5, "quality": "maj", "intervals": [0, 4, 7], "evidence": 0.7, "margin": 0.01, "state": "AMBIGUOUS"},
+        {"start_s": 1.5, "end_s": 2.0, "root_pc": 5, "quality": "maj", "intervals": [0, 4, 7], "evidence": 0.85, "margin": 0.08, "state": "LOCK"},
+    ]
+    derived, audit = consolidate_harmony_persistence(harmony, tactus_period_s=0.5)
+    assert len(derived) == 3
+    assert derived[0]["end_s"] == 1.0
+    assert derived[0]["source_unit_indices"] == [0, 1]
+    assert derived[1]["state"] == "AMBIGUOUS"
+    assert audit["coalesced_boundary_count"] == 1
+    assert audit["raw_observations_mutated"] is False
+    assert audit["identity_features_used"] is False
+
+
 if __name__ == "__main__":
     test_conservative_gap_recovery_preserves_origin()
     test_tactus_suppresses_subdivisions_and_keeps_raw_separate()
     test_metric_lock_and_harmony_alignment_are_fail_closed()
     test_contract_exports_raw_and_derived_provenance_without_unlocking_d()
+    test_harmony_is_persistent_state_and_ambiguous_units_remain_explicit()
     print("MIE_TEMPORAL_REFINEMENT_PASS")

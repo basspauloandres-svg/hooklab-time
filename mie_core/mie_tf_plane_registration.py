@@ -19,6 +19,7 @@ BASIC_PITCH_BASE_MIDI = 21.0
 BASIC_PITCH_CONTOUR_BINS_PER_SEMITONE = 3
 BASIC_PITCH_CONTOUR_FIRST_SEMITONE_CENTER_BIN = 1
 FEATURE_ID = "M_TF_PLANE_REGISTRATION_RESIDUAL_v0_1"
+CONTINUITY_V2_POLICY = "TACTUS_NORMALIZED_NEURAL_SUSTAIN_CONTINUITY_v2"
 
 
 def _as_plane(model_output, key):
@@ -166,6 +167,122 @@ def consolidate_sustained_fragments(
         "merged_boundaries": merged_boundaries,
         "raw_observations_mutated": False,
         "automatic_curated_status": False,
+    }
+
+
+def consolidate_sustained_fragments_v2(
+    notes,
+    model_output,
+    *,
+    tactus_period_s,
+    maximum_gap_beats=0.50,
+    bridge_mean_threshold=0.25,
+    bridge_coverage_threshold=0.70,
+    repeated_onset_threshold=0.50,
+):
+    """Classify same-pitch boundaries using normalized time and plane evidence.
+
+    The function consumes the v0.3.2 derived layer and produces a new derived
+    candidate.  If a physical tactus or contour plane is unavailable it returns
+    an unchanged copy, allowing the caller to select the prior baseline.
+    """
+    source = sorted((dict(note) for note in notes or []), key=lambda note: (note["start_s"], note["end_s"], note["midi"]))
+    contour = _as_plane(model_output, "contour")
+    onset = _as_plane(model_output, "onset")
+    if not isinstance(tactus_period_s, (int, float)) or not np.isfinite(tactus_period_s) or tactus_period_s <= 0:
+        return [dict(note) for note in source], {
+            "policy": CONTINUITY_V2_POLICY,
+            "state": "ABSTAIN_TACTUS_UNRESOLVED",
+            "input_event_count": len(source),
+            "output_event_count": len(source),
+            "merged_boundary_count": 0,
+            "raw_observations_mutated": False,
+            "automatic_curated_status": False,
+        }
+    if contour is None:
+        return [dict(note) for note in source], {
+            "policy": CONTINUITY_V2_POLICY,
+            "state": "ABSTAIN_NO_CONTOUR",
+            "input_event_count": len(source),
+            "output_event_count": len(source),
+            "merged_boundary_count": 0,
+            "raw_observations_mutated": False,
+            "automatic_curated_status": False,
+        }
+
+    maximum_gap_s = float(tactus_period_s) * float(maximum_gap_beats)
+    output = []
+    boundary_decisions = []
+    for note in source:
+        clean = dict(note)
+        clean.setdefault("source_event_indices", [])
+        clean.setdefault("continuity_state", "PLANE_EVIDENCE_RETAINED")
+        if not output:
+            output.append(clean)
+            continue
+        previous = output[-1]
+        gap = float(clean["start_s"]) - float(previous["end_s"])
+        same_pitch = int(round(clean["midi"])) == int(round(previous["midi"]))
+        decision = {
+            "left_source_event_indices": list(previous.get("source_event_indices", [])),
+            "right_source_event_indices": list(clean.get("source_event_indices", [])),
+            "gap_beats": gap / float(tactus_period_s),
+            "same_pitch": same_pitch,
+        }
+        if not same_pitch:
+            decision["classification"] = "PITCH_TRANSITION"
+            boundary_decisions.append(decision)
+            output.append(clean)
+            continue
+        if gap < 0 or gap > maximum_gap_s:
+            decision["classification"] = "ABSTAIN_INSUFFICIENT_EVIDENCE"
+            boundary_decisions.append(decision)
+            output.append(clean)
+            continue
+
+        bridge_mean, bridge_coverage = _pitch_support(contour, previous["end_s"], clean["start_s"], clean["midi"])
+        onset_support = _onset_support(onset, clean["start_s"], clean["midi"])
+        decision.update(
+            bridge_mean=bridge_mean,
+            bridge_coverage=bridge_coverage,
+            onset_support=onset_support,
+        )
+        if onset_support is not None and onset_support >= repeated_onset_threshold:
+            decision["classification"] = "NEW_ARTICULATION"
+            boundary_decisions.append(decision)
+            output.append(clean)
+            continue
+        if bridge_mean < bridge_mean_threshold or bridge_coverage < bridge_coverage_threshold:
+            decision["classification"] = "ABSTAIN_INSUFFICIENT_EVIDENCE"
+            boundary_decisions.append(decision)
+            output.append(clean)
+            continue
+
+        decision["classification"] = "SUSTAIN_CONTINUATION"
+        boundary_decisions.append(decision)
+        previous["end_s"] = clean["end_s"]
+        previous["confidence"] = min(float(previous.get("confidence", 0.0)), float(clean.get("confidence", 0.0)), bridge_mean)
+        previous["source_event_indices"] = list(previous.get("source_event_indices", [])) + list(clean.get("source_event_indices", []))
+        previous["continuity_state"] = "TACTUS_NORMALIZED_SUSTAIN_CONSOLIDATED"
+
+    return output, {
+        "policy": CONTINUITY_V2_POLICY,
+        "state": "DERIVED_CANDIDATE",
+        "provider": "Basic Pitch 0.4.0 contour+onset tensors / frozen HookLab tactus",
+        "time_unit": "FRACTION_OF_TACTUS",
+        "tactus_period_s": float(tactus_period_s),
+        "maximum_gap_beats": float(maximum_gap_beats),
+        "input_event_count": len(source),
+        "output_event_count": len(output),
+        "merged_boundary_count": sum(item["classification"] == "SUSTAIN_CONTINUATION" for item in boundary_decisions),
+        "boundary_class_counts": {
+            state: sum(item["classification"] == state for item in boundary_decisions)
+            for state in ("SUSTAIN_CONTINUATION", "NEW_ARTICULATION", "PITCH_TRANSITION", "ABSTAIN_INSUFFICIENT_EVIDENCE")
+        },
+        "boundary_decisions": boundary_decisions,
+        "raw_observations_mutated": False,
+        "automatic_curated_status": False,
+        "identity_features_used": False,
     }
 
 

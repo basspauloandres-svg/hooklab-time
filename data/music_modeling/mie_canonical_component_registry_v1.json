@@ -48,12 +48,20 @@
       "experimental_derived_layer": {
         "feature_id": "M_TF_PLANE_REGISTRATION_RESIDUAL_v0_1",
         "path": "mie_core/mie_tf_plane_registration.py",
-        "sha256": "5e408c88656ee2d6bdd510381518656ea465510548d7350593491f500a0b4264",
+        "sha256": "7bc8ed4a5d2c2d5bc5bc59e1d962970f08f033affd85e77d93ddd1b16343b1d3",
         "status": "AUDIT_FEATURE_NOT_CALIBRATED",
         "representation": "TIME_PITCH_SALIENCE_WITH_AXONOMETRIC_VIEW_DIAGNOSTIC_ONLY",
         "raw_observations_mutated": false,
         "producer_ab_required": true,
         "multicase_regression_required": true
+      },
+      "generalized_candidate_layer": {
+        "policy": "TACTUS_NORMALIZED_NEURAL_SUSTAIN_CONTINUITY_v2",
+        "status": "HOLD_FOR_MULTICASE_HELD_OUT_EVALUATION",
+        "time_unit": "FRACTION_OF_TACTUS",
+        "identity_features_used": false,
+        "per_track_abstention_required": true,
+        "raw_observations_mutated": false
       },
       "forbidden_replacements": [
         "SIMPLE_FRAME_MAX",
@@ -93,7 +101,15 @@
         "may_create_absent_pitch_evidence": false,
         "may_override_ambiguity": false
       },
-      "audible_output_required": true
+      "audible_output_required": true,
+      "persistent_state_candidate": {
+        "policy": "TACTUS_NORMALIZED_HARMONY_PERSISTENCE_v1",
+        "status": "HOLD_FOR_MULTICASE_HELD_OUT_EVALUATION",
+        "identical_lock_windows_are_state_continuations": true,
+        "ambiguous_units_preserved": true,
+        "instrumental_reattack_is_not_harmonic_change": true,
+        "identity_features_used": false
+      }
     },
     "T": {
       "name": "beat_tactus",
@@ -119,7 +135,22 @@
     "required_audible_layers": ["melody", "harmony_lock", "beat_tactus"],
     "reference_engine": {
       "path": "mie_core/run_mie_core.py",
-      "sha256": "742fd40d734096072ce9f71feba7e857409e28e4617fc1f6534155637cadfacd"
+      "sha256": "2c23108d6410ab6a4ae97b653c615b74e4c799d5ef1f4411200365ea8ea9c248"
+    },
+    "cross_track_generalization_gate": {
+      "invariant": {
+        "path": "docs/checkpoints/MIE_CROSS_TRACK_GENERALIZATION_INVARIANT_v1.md",
+        "sha256": "27681a5cd7f6163d41e687ddcc5c328572e7b3b8236d3a01187cc329b0770181"
+      },
+      "runtime": {
+        "path": "mie_core/mie_generalization_gate.py",
+        "sha256": "c4af6c34ba95ab4cac80ba6b81d4545db8ebc311b984a339b86ce59083767b1b"
+      },
+      "evaluation_unit": "INDEPENDENT_HELD_OUT_TRACK",
+      "aggregation": "MACRO_BY_TRACK",
+      "minimum_independent_aligned_tracks_for_generalization_pass": 30,
+      "song_identity_inputs_forbidden": true,
+      "frozen_tactus_preservation_required": true
     },
     "canonical_contract": "docs/AESTHETIC_REFERENCE_ANALYZER_API_v0_1.md",
     "frozen_architecture": "docs/MIE_UNIFIED_MHT_FREEZE_v0.1.md"
@@ -147,6 +178,9 @@
     "unseen_song_regression_required": true,
     "all_required_audible_layers_required": true,
     "machine_readable_provenance_required": true,
-    "ci_pass_required": true
+    "ci_pass_required": true,
+    "cross_track_generalization_required": true,
+    "single_track_gain_disposition": "HOLD_TRACK_SPECIFIC_GAIN",
+    "per_track_abstention_fallback": "PRIOR_BASELINE"
   }
 }

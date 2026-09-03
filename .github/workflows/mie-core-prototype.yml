@@ -40,11 +40,13 @@ jobs:
         run: python -m demucs -n htdemucs -o mie_run/stems mie_run/input/source.wav
       - name: Test time-frequency plane registration
         run: python tests/test_mie_tf_plane_registration.py
-      - name: Run MIE Core v0.3.2 candidate
+      - name: Test cross-track generalization gate
+        run: python tests/test_mie_generalization_gate.py
+      - name: Run MIE Core v0.3.3 candidate
         run: python mie_core/run_mie_core.py --audio mie_run/input/source.wav --stems mie_run/stems --output mie_run/output
       - name: Upload MIE prototype
         uses: actions/upload-artifact@v4
         with:
-          name: mie-core-prototype-v0-3-2-candidate
+          name: mie-core-prototype-v0-3-3-cross-track-candidate
           path: mie_run/output/
           if-no-files-found: error

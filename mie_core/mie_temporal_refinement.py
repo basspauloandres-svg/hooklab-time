@@ -334,3 +334,85 @@ def align_harmony_to_metric(raw_harmony, metric_grid, duration_s):
         "aligned_unit_count": len(aligned),
         "ambiguous_preserved_count": sum(unit.get("state") != "LOCK" for unit in raw_harmony),
     }
+
+
+def consolidate_harmony_persistence(harmony, *, tactus_period_s, maximum_gap_beats=0.25):
+    """Coalesce identical adjacent LOCK windows into harmonic states.
+
+    Repeated instrumental attacks are not encoded as chord changes. Ambiguous
+    windows remain explicit and are never bridged or silently promoted.
+    """
+    source = sorted((dict(unit, _source_index=index) for index, unit in enumerate(harmony or [])), key=lambda unit: (unit["start_s"], unit["end_s"]))
+    if not isinstance(tactus_period_s, (int, float)) or tactus_period_s <= 0:
+        return [dict({key: value for key, value in unit.items() if key != "_source_index"}) for unit in source], {
+            "policy": "TACTUS_NORMALIZED_HARMONY_PERSISTENCE_v1",
+            "state": "ABSTAIN_TACTUS_UNRESOLVED",
+            "input_state_count": len(source),
+            "output_state_count": len(source),
+            "coalesced_boundary_count": 0,
+            "raw_observations_mutated": False,
+        }
+
+    maximum_gap_s = float(tactus_period_s) * float(maximum_gap_beats)
+    output = []
+    decisions = []
+    for unit in source:
+        clean = {key: value for key, value in unit.items() if key != "_source_index"}
+        clean.setdefault("source_unit_indices", [unit["_source_index"]])
+        clean.setdefault("persistence_state", "HARMONY_STATE_RETAINED")
+        if not output:
+            output.append(clean)
+            continue
+        previous = output[-1]
+        gap = float(clean["start_s"]) - float(previous["end_s"])
+        same_identity = (
+            int(clean["root_pc"]), clean["quality"], tuple(clean.get("intervals", []))
+        ) == (
+            int(previous["root_pc"]), previous["quality"], tuple(previous.get("intervals", []))
+        )
+        both_locked = clean.get("state") == "LOCK" and previous.get("state") == "LOCK"
+        if same_identity and both_locked and -1e-6 <= gap <= maximum_gap_s:
+            previous["end_s"] = max(float(previous["end_s"]), float(clean["end_s"]))
+            previous["evidence"] = min(float(previous.get("evidence", 0.0)), float(clean.get("evidence", 0.0)))
+            previous["margin"] = min(float(previous.get("margin", 0.0)), float(clean.get("margin", 0.0)))
+            previous["source_unit_indices"] = list(previous.get("source_unit_indices", [])) + list(clean.get("source_unit_indices", []))
+            previous["persistence_state"] = "IDENTICAL_LOCK_STATES_COALESCED"
+            decisions.append("HARMONY_STATE_CONTINUATION")
+        else:
+            decisions.append("AMBIGUOUS_PRESERVED" if not both_locked else "HARMONY_CHANGE")
+            output.append(clean)
+
+    input_repetitions_all = sum(
+        (int(a["root_pc"]), a["quality"], tuple(a.get("intervals", [])))
+        == (int(b["root_pc"]), b["quality"], tuple(b.get("intervals", [])))
+        for a, b in zip(source, source[1:])
+    )
+    input_locked_repetitions = sum(
+        (int(a["root_pc"]), a["quality"], tuple(a.get("intervals", [])))
+        == (int(b["root_pc"]), b["quality"], tuple(b.get("intervals", [])))
+        and a.get("state") == b.get("state") == "LOCK"
+        for a, b in zip(source, source[1:])
+    )
+    output_repetitions = sum(
+        (int(a["root_pc"]), a["quality"], tuple(a.get("intervals", [])))
+        == (int(b["root_pc"]), b["quality"], tuple(b.get("intervals", [])))
+        and a.get("state") == b.get("state") == "LOCK"
+        for a, b in zip(output, output[1:])
+    )
+    return output, {
+        "policy": "TACTUS_NORMALIZED_HARMONY_PERSISTENCE_v1",
+        "state": "DERIVED_CANDIDATE",
+        "time_unit": "FRACTION_OF_TACTUS",
+        "tactus_period_s": float(tactus_period_s),
+        "maximum_gap_beats": float(maximum_gap_beats),
+        "input_state_count": len(source),
+        "output_state_count": len(output),
+        "coalesced_boundary_count": decisions.count("HARMONY_STATE_CONTINUATION"),
+        "ambiguous_preserved_count": sum(unit.get("state") != "LOCK" for unit in source),
+        "ambiguous_boundary_count": decisions.count("AMBIGUOUS_PRESERVED"),
+        "identical_adjacent_state_rate_all_before": input_repetitions_all / max(1, len(source) - 1),
+        "repeated_harmony_state_rate_before": input_locked_repetitions / max(1, len(source) - 1),
+        "repeated_harmony_state_rate_after": output_repetitions / max(1, len(output) - 1),
+        "raw_observations_mutated": False,
+        "identity_features_used": False,
+    }

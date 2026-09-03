@@ -9,6 +9,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 from mie_core.mie_tf_plane_registration import (
     BASIC_PITCH_FRAME_HZ,
     consolidate_sustained_fragments,
+    consolidate_sustained_fragments_v2,
     plane_residual_metrics,
 )
 
@@ -115,14 +116,46 @@ def test_residual_is_vector_without_composite_or_scientific_unlock():
     assert metrics["residual_vector"]["octave_confusion_rate"] == 0.0
 
 
+def test_v2_uses_tactus_fraction_across_different_tempos():
+    for tactus_period, gap in ((0.40, 0.16), (0.80, 0.32)):
+        model_output = planes(duration_s=2.0)
+        paint_pitch(model_output, 0.10, 1.20, 60)
+        notes = [
+            {"start_s": 0.10, "end_s": 0.40, "midi": 60, "confidence": 0.8, "source_event_indices": [0]},
+            {"start_s": 0.40 + gap, "end_s": 1.20, "midi": 60, "confidence": 0.82, "source_event_indices": [1]},
+        ]
+        derived, audit = consolidate_sustained_fragments_v2(notes, model_output, tactus_period_s=tactus_period)
+        assert len(derived) == 1
+        assert audit["time_unit"] == "FRACTION_OF_TACTUS"
+        assert audit["merged_boundary_count"] == 1
+        assert audit["identity_features_used"] is False
+
+
+def test_v2_repeated_onset_and_missing_tactus_fail_closed():
+    model_output = planes()
+    paint_pitch(model_output, 0.10, 0.82, 60)
+    paint_onset(model_output, 0.46, 60)
+    notes = [
+        {"start_s": 0.10, "end_s": 0.40, "midi": 60, "confidence": 0.8},
+        {"start_s": 0.46, "end_s": 0.82, "midi": 60, "confidence": 0.82},
+    ]
+    articulated, audit = consolidate_sustained_fragments_v2(notes, model_output, tactus_period_s=0.5)
+    assert len(articulated) == 2
+    assert audit["boundary_class_counts"]["NEW_ARTICULATION"] == 1
+    unchanged, failed = consolidate_sustained_fragments_v2(notes, model_output, tactus_period_s=None)
+    assert unchanged == notes
+    assert failed["state"] == "ABSTAIN_TACTUS_UNRESOLVED"
+
+
 def test_increment_has_no_song_template_and_keeps_same_tactus_for_a_b():
     root = pathlib.Path(__file__).resolve().parents[1]
     module_source = (root / "mie_core" / "mie_tf_plane_registration.py").read_text(encoding="utf-8")
     engine_source = (root / "mie_core" / "run_mie_core.py").read_text(encoding="utf-8")
     forbidden = ("Luis Miguel", "Regálame", "Guaco", "107.142857", "scientific_d_unlocked':True")
     assert not any(value in module_source for value in forbidden)
-    assert "synth(notes_v0_3_1,chords,beats,duration,wav_v0_3_1)" in engine_source
+    assert "synth(notes_v0_3_2,chords_v0_3_2,beats,duration,wav_v0_3_2)" in engine_source
     assert "synth(notes,chords,beats,duration,wav)" in engine_source
+    assert "beat_tactus_unchanged_between_A_B':tactus_fingerprint_a == tactus_fingerprint_b" in engine_source
 
 
 if __name__ == "__main__":
@@ -131,5 +164,7 @@ if __name__ == "__main__":
     test_silence_and_pitch_change_are_not_filled()
     test_missing_plane_abstains_fail_closed()
     test_residual_is_vector_without_composite_or_scientific_unlock()
+    test_v2_uses_tactus_fraction_across_different_tempos()
+    test_v2_repeated_onset_and_missing_tactus_fail_closed()
     test_increment_has_no_song_template_and_keeps_same_tactus_for_a_b()
     print("MIE_TF_PLANE_REGISTRATION_PASS")
