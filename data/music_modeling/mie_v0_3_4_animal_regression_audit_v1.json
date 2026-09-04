@@ -1,0 +1,103 @@
+{
+  "schema": "HOOKLAB_MIE_HELD_OUT_REGRESSION_AUDIT_v1",
+  "audit_id": "MIE-REG-ANIMAL-2026-09-04-v1",
+  "date": "2026-09-04",
+  "candidate": "MIE_CORE_v0.3.4",
+  "comparison_reference": "MIE_CORE_v0.3.3",
+  "comparison_reference_is_validated_baseline": false,
+  "source": {
+    "session_filename": "Animal.mp3",
+    "sha256": "75e1dcbaef2fe3d81818df650acf72d98c306f0262bd9e78bbbc911a42a436a0",
+    "duration_s": 245.08081632653062,
+    "repository_persistence": "NONE",
+    "role": "AUTHORIZED_AESTHETIC_REFERENCE_FOR_ENGINEERING_EVALUATION"
+  },
+  "package": {
+    "session_filename": "MIE_RECOGNITION_v0_3_4.zip",
+    "sha256": "39afd3c980c3d22e4267a33aee33e5f09895d514fbbcccbbe8ab7ef04789d67a",
+    "source_hash_matches_recognition_json": true
+  },
+  "disposition": {
+    "melody_recognition": "FAIL_UNRECOGNIZABLE",
+    "producer_evaluation": "FAIL_REGRESSION",
+    "baseline_promotion": "REJECTED",
+    "artifact_retention": "PROVENANCE_ONLY",
+    "generation_class": "D0_EXPLORATORY",
+    "scientific_d_unlocked": false
+  },
+  "tactus": {
+    "raw_observation_count": 480,
+    "resolved_event_count": 477,
+    "tempo_bpm": 120.0,
+    "metric_state": "METRIC_LOCK",
+    "producer_disposition": "SUBSTANTIALLY_CORRECT",
+    "frozen_between_comparisons": true
+  },
+  "melody": {
+    "raw_candidate_count": 290,
+    "initially_accepted_count": 228,
+    "final_event_count": 215,
+    "new_candidate_recovery_count_v0_3_4": 0,
+    "represented_time_s": 66.68,
+    "temporal_coverage_ratio": 0.272,
+    "gaps_at_least_250ms": 93,
+    "gaps_at_least_500ms": 72,
+    "maximum_gap_s": 10.19,
+    "diagnostic_false_silence_ratio": 0.5608082348455966,
+    "diagnostic_voiced_overlap_iou": 0.34052616021282883,
+    "diagnostic_pitch_ridge_error_cents_median": 66.66666666666667,
+    "diagnostic_onset_error_ms_median": 75.65064599482696,
+    "diagnostic_offset_error_ms_median": 91.06009597638831,
+    "diagnostic_octave_confusion_rate": 0.03125,
+    "event_octave_changes": {
+      "total": 14,
+      "plus_12": 7,
+      "minus_12": 5,
+      "plus_24": 1,
+      "minus_24": 1,
+      "human_reference_validated": false
+    },
+    "accuracy_percentage_claim_allowed": false
+  },
+  "harmony": {
+    "raw_observation_count": 481,
+    "ambiguous_before_metric_aggregation": 341,
+    "metric_aligned_lock_count": 114,
+    "persistent_state_count": 100,
+    "final_state_count": 100,
+    "final_coverage_s": 238.94,
+    "final_coverage_ratio": 0.975,
+    "shared_clock_boundary_shift_count": 0,
+    "median_boundary_to_nearest_melody_onset_tactus": 1.228635827664391,
+    "newly_held_active_source_ratio": 0.515,
+    "diagnostic_chroma_agreement_supported_regions": 0.646,
+    "diagnostic_chroma_agreement_held_ambiguous_regions": 0.504,
+    "diagnostic_scores_calibrated": false,
+    "failure": "LOCK_STATE_EXTENDED_ACROSS_AMBIGUOUS_OR_MISSING_EVIDENCE"
+  },
+  "audible_output": {
+    "window_ms": 20,
+    "activity_threshold_dbfs": -45,
+    "v0_3_3_silent_window_ratio": 0.347,
+    "v0_3_4_silent_window_ratio": 0.021,
+    "v0_3_3_to_v0_3_4_waveform_correlation": 0.76,
+    "interpretation": "AUDIBLE_GAPS_WERE_PRINCIPALLY_MASKED_BY_HARMONY_HOLDING_NOT_MELODY_RECOVERY"
+  },
+  "ai": {
+    "provider": "DETERMINISTIC_CONTEXTUAL_REASONER_v1",
+    "provider_connected": false,
+    "authority": "ADVISORY_CANDIDATE_RANKING_ONLY",
+    "may_create_missing_acoustic_evidence": false,
+    "may_force_lock": false
+  },
+  "next_experiment": {
+    "id": "MIE-v0.3.5-M-RECOGNIZABILITY-GATE",
+    "changed_module": "M_ONLY",
+    "first_gate": "DIAGNOSE_SOURCE_SEPARATION_VERSUS_NOTE_SENSOR_RECALL",
+    "harmony_change_deferred": true,
+    "tactus_frozen": true,
+    "song_identity_inputs_forbidden": true,
+    "multicase_held_out_evaluation_required": true
+  },
+  "provenance_document": "docs/checkpoints/MIE_V0_3_4_ANIMAL_HELD_OUT_REGRESSION_2026-09-04.md"
+}

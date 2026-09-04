@@ -1,0 +1,101 @@
+{
+  "schema": "HOOKLAB_MIGRATION_MANIFEST_v1",
+  "date": "2026-09-04",
+  "repository": "basspauloandres-svg/hooklab-time",
+  "working_branch": "codex/mie-continuity-alignment-v0.3.4",
+  "checkpoint": "docs/checkpoints/MIGRATION_CHECKPOINT_2026-09-04_MIE_MELODY_RECOVERY_v1.md",
+  "startup_prompt": "docs/checkpoints/START_NEXT_CHAT_MIE_MELODY_RECOVERY_2026-09-04_v1.txt",
+  "local_tip_before_checkpoint": "d59feabd9a9287a51d9bf0bf67fe7d26bb60ed7e",
+  "published_remote_tip_before_checkpoint": "6f44f21971d5bf581fc3531215d74c9c856b80c0",
+  "management_progress_estimate_pct": 79,
+  "management_progress_estimate_status": "LAST_FORMALLY_RECORDED_NOT_RECALCULATED_AFTER_FAILED_CANDIDATE",
+  "canonical_ui": "app/prototype_v1/studio.html",
+  "required_artifacts": [
+    "docs/checkpoints/MIE_V0_3_4_ANIMAL_HELD_OUT_REGRESSION_2026-09-04.md",
+    "data/music_modeling/mie_v0_3_4_animal_regression_audit_v1.json",
+    "docs/checkpoints/MIE_RECOVERY_AND_RECOGNITION_GATE_2026-09-02_v1.md",
+    "docs/checkpoints/MIE_CROSS_TRACK_GENERALIZATION_INVARIANT_v1.md",
+    "docs/checkpoints/MIE_TF_PLANE_REGISTRATION_2026-09-03_v0_1.md",
+    "docs/checkpoints/MIE_V0_3_4_CONTINUITY_ALIGNMENT_AUDIT_2026-09-03.md",
+    "data/music_modeling/mie_canonical_component_registry_v1.json",
+    "mie_core/run_mie_core.py",
+    "mie_core/mie_tf_plane_registration.py",
+    "mie_core/mie_temporal_refinement.py",
+    "mie_core/mie_octave_plane_resolver.py",
+    "mie_core/mie_recovery_pipeline.py",
+    "mie_core/mie_ai_candidate_reasoner.py",
+    "mie_core/mie_recognition_contract.py",
+    "mie_core/mie_recovery_resynthesis.py",
+    "tests/test_mie_tf_plane_registration.py",
+    "tests/test_mie_temporal_refinement.py",
+    "tests/test_mie_generalization_gate.py",
+    "tests/mie_canonical_component_registry.test.js",
+    "tests/mie_mobile_colab_contract.test.js",
+    "notebooks/MIE_Recognition_v0_3_Mobile_Colab.ipynb",
+    ".github/workflows/mie-core-prototype.yml",
+    "docs/checkpoints/HOOKLAB_CORPUS_BACKBONE_AUDIT_2026-09-01_v1.md",
+    "data/lyric_modeling/hooklab_corpus_backbone_registry_v1.json",
+    "docs/checkpoints/LYRIC_PROSODY_MIDI_BRIDGE_ADMISSIBILITY_v1.md",
+    "CHECKPOINTS/LYRIC_PROSODY_MIDI_BRIDGE_PASS_2026-09-01_v1.md",
+    "docs/checkpoints/MIGRATION_CHECKPOINT_2026-09-01_LYRIC_MODELING_AI_v1.md"
+  ],
+  "mie_disposition": {
+    "melody_recognition": "FAIL_UNRECOGNIZABLE",
+    "producer_evaluation": "FAIL_REGRESSION",
+    "v0_3_4_baseline_promotion": "REJECTED",
+    "v0_3_4_artifact_retention": "PROVENANCE_ONLY",
+    "v0_3_3_role": "COMPARISON_REFERENCE_NOT_VALIDATED_BASELINE",
+    "tactus": "FROZEN_ENGINEERING_BASELINE_PRESERVED",
+    "ai_provider_connected": false
+  },
+  "next_gate": "BUILD_AND_AUDIT_MIE_V0_3_5_M_ONLY_MELODY_RECOGNIZABILITY_GATE",
+  "next_sub_gate": "DIAGNOSE_SOURCE_SEPARATION_VERSUS_NOTE_SENSOR_RECALL",
+  "next_experiment_changed_module": "M_ONLY",
+  "h_only_repair_deferred": true,
+  "one_module_per_experiment": true,
+  "song_identity_inputs_forbidden": true,
+  "cross_track_evaluation_unit": "INDEPENDENT_HELD_OUT_TRACK",
+  "cross_track_aggregation": "MACRO_BY_TRACK",
+  "scientific_replication_requirement": 30,
+  "corpus": {
+    "status": "CANONICAL_INTERNAL_RESEARCH_SOURCE_RESOLVED",
+    "identity_backbone": "C001-C100",
+    "canonical_source_revision": "72",
+    "original_lyrics_in_repository": false,
+    "lakh_role": "TEST_LANE_ONLY",
+    "next_gate": "HUMAN_REVIEW_LANGUAGE_PROPOSALS_AND_RESOLVE_DOCUMENT_VERSION_STATUS_FOR_99_ELIGIBLE_CASES"
+  },
+  "bridge": {
+    "contract": "LYRIC_PROSODY_MIDI_BRIDGE_ADMISSIBILITY_v1",
+    "authority": "CANONICAL_ENGINEERING_BRIDGE",
+    "status": "ENGINEERING_COMPLETE",
+    "frozen": true,
+    "reopen_if": [
+      "NEW_EVIDENCE=true",
+      "BRIDGE_CONTRACT_VERSION>v1"
+    ]
+  },
+  "canonical_order": [
+    "DATA_SAYS",
+    "STATISTICS_SAY",
+    "THEORY_SAYS",
+    "GENERATION_TESTS",
+    "PRODUCER_DECIDES"
+  ],
+  "generation_class": "D0_EXPLORATORY",
+  "scientific_d_unlocked": false,
+  "evidence_assisted_story_brief_unlocked": false,
+  "fail_closed": true,
+  "external_session_artifacts": [
+    {
+      "filename": "Animal.mp3",
+      "sha256": "75e1dcbaef2fe3d81818df650acf72d98c306f0262bd9e78bbbc911a42a436a0",
+      "committed": false
+    },
+    {
+      "filename": "MIE_RECOGNITION_v0_3_4.zip",
+      "sha256": "39afd3c980c3d22e4267a33aee33e5f09895d514fbbcccbbe8ab7ef04789d67a",
+      "committed": false
+    }
+  ]
+}

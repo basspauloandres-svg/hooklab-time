@@ -1,0 +1,120 @@
+HOOKLAB/TIME-MIE — START NEXT CHAT — MIE MELODY RECOVERY — 2026-09-04 v1
+
+You are continuing an existing research/software project. Do not reconstruct
+the project from general knowledge, rerun closed work or treat CI success as
+musical accuracy.
+
+REPOSITORY
+basspauloandres-svg/hooklab-time
+
+WORKING BRANCH
+codex/mie-continuity-alignment-v0.3.4
+
+PUBLISHED v0.3.4 COMMIT
+6f44f21971d5bf581fc3531215d74c9c856b80c0
+
+MANDATORY FIRST READ — COMPLETE AND IN THIS ORDER
+1. docs/checkpoints/MIGRATION_CHECKPOINT_2026-09-04_MIE_MELODY_RECOVERY_v1.md
+2. docs/checkpoints/START_NEXT_CHAT_MIE_MELODY_RECOVERY_2026-09-04_v1.txt
+3. docs/checkpoints/MIGRATION_MANIFEST_2026-09-04_MIE_MELODY_RECOVERY_v1.json
+4. docs/checkpoints/MIE_V0_3_4_ANIMAL_HELD_OUT_REGRESSION_2026-09-04.md
+5. data/music_modeling/mie_v0_3_4_animal_regression_audit_v1.json
+6. docs/checkpoints/MIE_RECOVERY_AND_RECOGNITION_GATE_2026-09-02_v1.md
+7. docs/checkpoints/MIE_CROSS_TRACK_GENERALIZATION_INVARIANT_v1.md
+8. docs/checkpoints/MIE_TF_PLANE_REGISTRATION_2026-09-03_v0_1.md
+9. docs/checkpoints/MIE_V0_3_4_CONTINUITY_ALIGNMENT_AUDIT_2026-09-03.md
+10. data/music_modeling/mie_canonical_component_registry_v1.json
+11. mie_core/run_mie_core.py
+12. mie_core/mie_tf_plane_registration.py
+13. mie_core/mie_temporal_refinement.py
+14. mie_core/mie_octave_plane_resolver.py
+15. mie_core/mie_recovery_pipeline.py
+16. mie_core/mie_ai_candidate_reasoner.py
+17. mie_core/mie_recognition_contract.py
+18. mie_core/mie_recovery_resynthesis.py
+19. tests/test_mie_tf_plane_registration.py
+20. tests/test_mie_temporal_refinement.py
+21. tests/test_mie_generalization_gate.py
+22. tests/mie_canonical_component_registry.test.js
+23. tests/mie_mobile_colab_contract.test.js
+24. notebooks/MIE_Recognition_v0_3_Mobile_Colab.ipynb
+25. .github/workflows/mie-core-prototype.yml
+26. docs/checkpoints/HOOKLAB_CORPUS_BACKBONE_AUDIT_2026-09-01_v1.md
+27. data/lyric_modeling/hooklab_corpus_backbone_registry_v1.json
+28. docs/checkpoints/LYRIC_PROSODY_MIDI_BRIDGE_ADMISSIBILITY_v1.md
+29. CHECKPOINTS/LYRIC_PROSODY_MIDI_BRIDGE_PASS_2026-09-01_v1.md
+30. docs/checkpoints/MIGRATION_CHECKPOINT_2026-09-01_LYRIC_MODELING_AI_v1.md
+
+If any path is missing, return AUDIT_MIGRATION_MISSING_ARTIFACT and investigate
+repository history. Do not silently recreate it.
+
+CURRENT CANONICAL RESULT
+MELODY_RECOGNITION = FAIL_UNRECOGNIZABLE
+PRODUCER_EVALUATION = FAIL_REGRESSION
+MIE_V0_3_4_BASELINE_PROMOTION = REJECTED
+MIE_V0_3_4_ARTIFACT_RETENTION = PROVENANCE_ONLY
+MIE_V0_3_3_ROLE = COMPARISON_REFERENCE_NOT_VALIDATED_BASELINE
+T_STATUS = FROZEN_ENGINEERING_BASELINE_PRESERVED
+
+The source and recognition-package hashes match. The regression is not a file
+mix-up. The melody covered 27.2% of source time, retained 72 gaps of at least
+500 ms, recovered zero additional candidates and was judged unrecognizable by
+the producer. Do not represent 27.2% as accuracy.
+
+Harmony reduced audible silence by holding accepted chords across ambiguous or
+unsupported regions. The final harmony covered 97.5% of the song, but no shared
+clock boundaries moved and the median H-to-M onset distance remained 1.23
+tactus units. Register this as a separate H-only defect.
+
+The private AI provider is not connected. The deterministic reasoner ranks
+observed candidates only and cannot create acoustic evidence, force LOCK or
+repair melody recognition.
+
+FIRST TASK
+BUILD_AND_AUDIT_MIE_V0_3_5_M_ONLY_MELODY_RECOGNIZABILITY_GATE
+
+FIRST SUB-GATE
+DIAGNOSE_SOURCE_SEPARATION_VERSUS_NOTE_SENSOR_RECALL
+
+ONE-MODULE RULE
+The first v0.3.5 experiment changes M only. Keep H fixed to the predeclared
+comparison reference and keep T byte-identical. Defer ambiguity-safe harmony
+repair to a later H-only experiment.
+
+GENERALIZATION RULE
+Never use title, artist, filename, known notes, manual timestamps or a
+song-specific template as model inputs. Evaluate independent held-out tracks,
+macro-aggregate by track and preserve producer listening as a separate outcome.
+Insufficient evidence must produce ABSTAIN_INSUFFICIENT_MELODY_EVIDENCE.
+
+SCIENTIFIC BOUNDARY
+generation_class=D0_EXPLORATORY
+scientific_d_unlocked=false
+DATA SAYS -> STATISTICS SAY -> THEORY SAYS -> GENERATION TESTS -> PRODUCER DECIDES
+FEATURE ADMISSIBILITY -> ANALYSIS REGISTRATION -> STATISTICAL TEST
+
+CORPUS STATUS
+CANONICAL_INTERNAL_RESEARCH_SOURCE_RESOLVED
+Canonical HookLab identity backbone: C001-C100, synchronized source revision 72.
+Do not rebuild or redownload the corpus. Original lyrics remain at the
+authorized provider. POD-LC is background only; Matrix X is a derived/distinct
+layer; Lakh is TEST_LANE_ONLY.
+
+LYRIC GATE
+HUMAN_REVIEW_LANGUAGE_PROPOSALS_AND_RESOLVE_DOCUMENT_VERSION_STATUS_FOR_99_ELIGIBLE_CASES
+No lyric inferential statistics have been executed. Evidence-assisted Story
+Brief remains locked.
+
+BRIDGE STATUS
+LYRIC_PROSODY_MIDI_BRIDGE_ADMISSIBILITY_v1 = CANONICAL_ENGINEERING_BRIDGE
+BRIDGE_STATUS = ENGINEERING_COMPLETE
+Freeze v1 unless NEW_EVIDENCE=true or BRIDGE_CONTRACT_VERSION > v1.
+
+CANONICAL UI
+app/prototype_v1/studio.html
+Do not fork, duplicate or replace the canonical UI.
+
+NO-REPROCESS
+Preserve all prior outputs, rejected candidates, null results, hashes and
+producer dispositions. Any replay or changed analysis requires a new identifier
+and an explicit changed-module declaration.
