@@ -40,6 +40,8 @@ jobs:
         run: python -m demucs -n htdemucs -o mie_run/stems mie_run/input/source.wav
       - name: Test time-frequency plane registration
         run: python tests/test_mie_tf_plane_registration.py
+      - name: Test M-only melody recognizability diagnostic gate
+        run: python tests/test_mie_melody_recognizability_gate.py
       - name: Test continuity and shared-clock alignment
         run: python tests/test_mie_temporal_refinement.py
       - name: Test cross-track generalization gate

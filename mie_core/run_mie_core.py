@@ -20,6 +20,10 @@ try:
         plane_residual_metrics,
         recover_plane_supported_gaps_v3,
     )
+    from mie_core.mie_melody_recognizability_gate import (
+        build_m_only_experiment_audit,
+        diagnose_source_separation_vs_note_sensor_recall,
+    )
 except ModuleNotFoundError:  # Direct script execution from the repository.
     from mie_temporal_refinement import (
         align_harmony_to_shared_clock_v2,
@@ -34,6 +38,10 @@ except ModuleNotFoundError:  # Direct script execution from the repository.
         consolidate_sustained_fragments_v2,
         plane_residual_metrics,
         recover_plane_supported_gaps_v3,
+    )
+    from mie_melody_recognizability_gate import (
+        build_m_only_experiment_audit,
+        diagnose_source_separation_vs_note_sensor_recall,
     )
 
 BEAT_MEL_URL='https://raw.githubusercontent.com/danigb/beat-this-rs/main/models/mel_spectrogram.onnx'
@@ -102,6 +110,7 @@ def basic_pitch_melody(vocal_path, outdir, tactus_period_s):
         plane_metrics_v0_3_2,
         plane_metrics_v0_3_3,
         plane_metrics_v0_3_4,
+        model_output,
     )
 
 
@@ -256,7 +265,7 @@ def tactus_fingerprint(beats):
 
 
 def main():
-    ap=argparse.ArgumentParser(); ap.add_argument('--audio',required=True); ap.add_argument('--stems',required=True); ap.add_argument('--output',required=True); args=ap.parse_args()
+    ap=argparse.ArgumentParser(); ap.add_argument('--audio',required=True); ap.add_argument('--stems',required=True); ap.add_argument('--output',required=True); ap.add_argument('--work-group-hash'); args=ap.parse_args()
     out=Path(args.output); out.mkdir(parents=True,exist_ok=True)
     vocal=find_stem(args.stems,'vocals'); other=find_stem(args.stems,'other'); bass=find_stem(args.stems,'bass')
     tempo,beats,raw_beats,downbeats,metric_grid,tactus_resolution=beat_this(args.audio,out/'cache')
@@ -278,6 +287,7 @@ def main():
         plane_metrics_v0_3_2,
         plane_metrics_v0_3_3,
         plane_metrics_v0_3_4,
+        melody_model_output,
     )=basic_pitch_melody(vocal,out,tactus_period_s)
     raw_beat_times=[item['t'] for item in raw_beats]
     raw_chords=harmony_sensor(other,bass,raw_beat_times)
@@ -293,6 +303,29 @@ def main():
         notes,
         beats,
         tactus_period_s=tactus_period_s,
+    )
+    vocal_audio,vocal_sr=librosa.load(vocal,sr=22050,mono=True)
+    melody_sensor_diagnostic=diagnose_source_separation_vs_note_sensor_recall(
+        vocal_audio,
+        vocal_sr,
+        melody_model_output,
+        raw_notes,
+    )
+    source_sha256=hashlib.sha256(Path(args.audio).read_bytes()).hexdigest()
+    melody_recognizability_gate=build_m_only_experiment_audit(
+        melody_sensor_diagnostic,
+        parent_reference='MIE_CORE_v0.3.4_REJECTED_PROVENANCE_ONLY',
+        harmony_reference=chords_v0_3_3,
+        harmony_candidate=chords_v0_3_3,
+        tactus_reference=beats,
+        tactus_candidate=beats,
+        source_sha256=source_sha256,
+        work_group_hash=args.work_group_hash,
+        sensor_versions={
+            'source_separator':'HTDemucs_4_STEMS',
+            'note_sensor':'BASIC_PITCH_0.4.0',
+            'diagnostic':'MIE_M_ONLY_SEPARATION_SENSOR_DIAGNOSTIC_v1',
+        },
     )
     baseline_wav=out/'MIE_CORE_MHT_v0_2.wav'
     synth(raw_accepted,raw_chords,raw_beats,duration,baseline_wav)
@@ -322,6 +355,7 @@ def main():
         'melody_continuity':melody_continuity,
         'melody_generalization':melody_generalization,
         'melody_gap_recovery':melody_gap_recovery,
+        'melody_recognizability_gate_v0_3_5':melody_recognizability_gate,
         'tf_plane_registration':{
             'feature_id':'M_TF_PLANE_REGISTRATION_RESIDUAL_v0_1',
             'status':'AUDIT_FEATURE_NOT_CALIBRATED',

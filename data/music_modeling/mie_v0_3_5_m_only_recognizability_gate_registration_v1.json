@@ -1,0 +1,78 @@
+{
+  "schema": "HOOKLAB_MIE_EXPERIMENT_REGISTRATION_v1",
+  "analysis_id": "MIE-v0.3.5-M-RECOGNIZABILITY-GATE-2026-09-04-v1",
+  "date": "2026-09-04",
+  "parent_reference": "MIE_CORE_v0.3.4_REJECTED_PROVENANCE_ONLY",
+  "comparison_reference": "MIE_CORE_v0.3.3_COMPARISON_REFERENCE_NOT_VALIDATED_BASELINE",
+  "changed_module": "M_ONLY",
+  "first_sub_gate": "DIAGNOSE_SOURCE_SEPARATION_VERSUS_NOTE_SENSOR_RECALL",
+  "generation_class": "D0_EXPLORATORY",
+  "scientific_d_unlocked": false,
+  "hypothesis": "Observable melody loss can be localized conditionally: activity present in the separated vocal stem with absent Basic Pitch response supports a note-sensor recall bottleneck; a source-separation recall claim requires an independent time-aligned vocal-presence observation.",
+  "inputs": {
+    "model_inputs_allowed": [
+      "separated vocal waveform",
+      "Basic Pitch contour tensor",
+      "Basic Pitch onset tensor",
+      "Basic Pitch raw note candidates"
+    ],
+    "optional_diagnostic_input": "independent registered acoustic vocal-activity observation",
+    "forbidden": [
+      "title",
+      "artist",
+      "filename as model feature",
+      "known notes",
+      "manual timestamps",
+      "song-specific template"
+    ]
+  },
+  "predeclared_thresholds": {
+    "basic_pitch_contour": 0.25,
+    "separated_stem_absolute_activity_floor_dbfs": -60.0,
+    "separated_stem_relative_activity_floor_db": -35.0,
+    "minimum_evidence_s": 0.5,
+    "conditional_nonresponse_bottleneck_ratio": 0.35
+  },
+  "frozen_modules": {
+    "H": "PREDECLARED_v0.3.3_COMPARISON_REFERENCE_BYTE_EQUIVALENT",
+    "T": "FROZEN_ENGINEERING_BASELINE_BYTE_EQUIVALENT"
+  },
+  "diagnostic_outcomes": [
+    "NOTE_SENSOR_RECALL_BOTTLENECK",
+    "SOURCE_SEPARATION_RECALL_BOTTLENECK",
+    "MIXED_SEPARATION_AND_NOTE_SENSOR_RECALL_BOTTLENECK",
+    "NO_DOMINANT_RECALL_BOTTLENECK_OBSERVED",
+    "ABSTAIN_INSUFFICIENT_MELODY_EVIDENCE"
+  ],
+  "evidence_boundary": {
+    "single_htdemucs_vocal_stem_can_diagnose_note_sensor_nonresponse": true,
+    "single_htdemucs_vocal_stem_can_prove_source_separation_recall_loss": false,
+    "mixture_energy_is_vocal_ground_truth": false,
+    "diagnostic_is_accuracy": false,
+    "notes_may_be_manufactured": false
+  },
+  "evaluation": {
+    "unit": "INDEPENDENT_HELD_OUT_TRACK",
+    "grouping": "ALL_VERSIONS_OF_ONE_WORK_IN_ONE_GROUP",
+    "aggregation": "MACRO_BY_TRACK",
+    "frame_pooling_for_promotion": false,
+    "producer_recognizability_separate": true,
+    "minimum_independent_aligned_tracks_for_generalization_pass": 30
+  },
+  "stop_rules": [
+    "ABSTAIN when separated vocal audio or Basic Pitch contour is unavailable",
+    "ABSTAIN on source-separation attribution without independent vocal-presence evidence",
+    "NO_PROMOTION_TACTUS_REGRESSION when T differs",
+    "AUDIT_ONE_MODULE_RULE_VIOLATION_H_CHANGED when H differs",
+    "AUDIT_DATA_LEAKAGE when held-out work groups are duplicated",
+    "retain prior comparison when melody evidence is insufficient"
+  ],
+  "implementation": {
+    "runtime": "mie_core/mie_melody_recognizability_gate.py",
+    "tests": "tests/test_mie_melody_recognizability_gate.py",
+    "runner_integration": "mie_core/run_mie_core.py",
+    "status": "ENGINEERING_DIAGNOSTIC_IMPLEMENTED"
+  },
+  "execution_status": "AWAITING_REGISTERED_MULTICASE_AUDIO_AND_PRODUCER_LISTENING",
+  "baseline_promoted": false
+}

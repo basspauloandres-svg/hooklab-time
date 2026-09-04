@@ -71,6 +71,23 @@
         "automatic_curated_status": false,
         "raw_observations_mutated": false
       },
+      "v0_3_5_recognizability_gate": {
+        "experiment_id": "MIE-v0.3.5-M-RECOGNIZABILITY-GATE",
+        "first_sub_gate": "DIAGNOSE_SOURCE_SEPARATION_VERSUS_NOTE_SENSOR_RECALL",
+        "path": "mie_core/mie_melody_recognizability_gate.py",
+        "sha256": "d938d6df22a8f02fc2f455e965792445a19b7e1abe7259833a2e86a18a94b901",
+        "status": "ENGINEERING_DIAGNOSTIC_IMPLEMENTED_AWAITING_REGISTERED_MULTICASE_AUDIO",
+        "changed_module": "M_ONLY",
+        "harmony_comparison_reference_fixed": true,
+        "tactus_byte_equivalence_required": true,
+        "source_separation_claim_requires_independent_vocal_activity": true,
+        "single_stem_note_sensor_diagnosis_allowed": true,
+        "insufficient_evidence_disposition": "ABSTAIN_INSUFFICIENT_MELODY_EVIDENCE",
+        "producer_recognizability_separate": true,
+        "identity_features_used": false,
+        "raw_observations_mutated": false,
+        "baseline_promoted": false
+      },
       "forbidden_replacements": [
         "SIMPLE_FRAME_MAX",
         "FULL_MIX_GOERTZEL_WITHOUT_PLANE_RESOLVER",
@@ -151,7 +168,7 @@
     "required_audible_layers": ["melody", "harmony_lock", "beat_tactus"],
     "reference_engine": {
       "path": "mie_core/run_mie_core.py",
-      "sha256": "aceaeae5a6aa33ea6324043821ce7aba876916b3e3a5e6842a4390b60c57ebed"
+      "sha256": "0993f62af3a4519d4041317c9c12786c52a78fbbca8668a913de68a10e98cf3f"
     },
     "cross_track_generalization_gate": {
       "invariant": {

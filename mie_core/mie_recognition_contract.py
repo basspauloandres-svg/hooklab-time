@@ -166,6 +166,7 @@ def normalize(raw, *, session_id, reference_sha256, sensor_version, ai_provenanc
             "melody_continuity": raw.get("melody_continuity"),
             "melody_generalization": raw.get("melody_generalization"),
             "melody_gap_recovery": raw.get("melody_gap_recovery"),
+            "melody_recognizability_gate_v0_3_5": raw.get("melody_recognizability_gate_v0_3_5"),
             "tf_plane_registration": raw.get("tf_plane_registration"),
             "harmony_v0_3_2": raw.get("harmony_v0_3_2", []),
             "harmony_v0_3_3": raw.get("harmony_v0_3_3", []),

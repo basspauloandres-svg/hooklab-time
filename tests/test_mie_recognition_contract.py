@@ -33,6 +33,10 @@ raw = {
         }
     ],
     "beats": [{"t": 0.0, "score": 0.9}, {"t": 0.5, "score": 0.8}],
+    "melody_recognizability_gate_v0_3_5": {
+        "experiment_id": "MIE-v0.3.5-M-RECOGNIZABILITY-GATE",
+        "status": "ABSTAIN_INSUFFICIENT_MELODY_EVIDENCE",
+    },
 }
 
 request = build_request(raw["harmony"], analysis_id="A-1")
@@ -59,6 +63,7 @@ assert result["scientific_d_unlocked"] is False
 assert result["source_audio_persistence"] == "NONE"
 assert result["recognition"]["locked_harmony_units"] == 1
 assert result["recognition"]["note_beat_harmony_relations"][0]["harmony_unit_id"] == "H-0000"
+assert result["derived_layers"]["melody_recognizability_gate_v0_3_5"]["status"] == "ABSTAIN_INSUFFICIENT_MELODY_EVIDENCE"
 
 for missing in ("notes", "harmony", "beats"):
     incomplete = copy.deepcopy(raw)

@@ -28,6 +28,11 @@ assert.equal(registry.components.M.generalized_candidate_layer.time_unit,'FRACTI
 assert.equal(registry.components.M.generalized_candidate_layer.identity_features_used,false);
 assert.equal(registry.components.M.gap_recovery_candidate_layer.policy,'TACTUS_NORMALIZED_PLANE_GAP_RECOVERY_v3');
 assert.equal(registry.components.M.gap_recovery_candidate_layer.automatic_curated_status,false);
+assert.equal(registry.components.M.v0_3_5_recognizability_gate.changed_module,'M_ONLY');
+assert.equal(registry.components.M.v0_3_5_recognizability_gate.source_separation_claim_requires_independent_vocal_activity,true);
+assert.equal(registry.components.M.v0_3_5_recognizability_gate.insufficient_evidence_disposition,'ABSTAIN_INSUFFICIENT_MELODY_EVIDENCE');
+assert.equal(registry.components.M.v0_3_5_recognizability_gate.baseline_promoted,false);
+assertPinned(registry.components.M.v0_3_5_recognizability_gate);
 assert.deepEqual(registry.components.H.required_chain.slice(-2),['RESIDUAL_REQUERY','LOCK_AMBIGUOUS_ABSTAIN']);
 assert.equal(registry.components.H.ai_boundary.may_create_absent_pitch_evidence,false);
 assert.equal(registry.components.H.audible_output_required,true);
