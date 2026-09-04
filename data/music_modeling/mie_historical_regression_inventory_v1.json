@@ -1,0 +1,124 @@
+{
+  "schema": "HOOKLAB_MIE_HISTORICAL_REGRESSION_INVENTORY_v1",
+  "inventory_id": "MIE-HISTORICAL-REGRESSION-INVENTORY-2026-09-04-v1",
+  "date": "2026-09-04",
+  "policy": {
+    "no_reprocess": true,
+    "changed_module": "M_ONLY",
+    "H": "FROZEN_PREDECLARED_COMPARISON_REFERENCE_NO_DEVELOPMENT",
+    "T": "FROZEN_ENGINEERING_BASELINE_PRESERVED",
+    "new_audio_request_allowed": false,
+    "new_audio_unlock_condition": "MIE_v0.3.5_HISTORICAL_GATE_PASSED",
+    "generation_class": "D0_EXPLORATORY",
+    "scientific_d_unlocked": false
+  },
+  "repository_binary_audit": {
+    "real_session_audio_or_zip_tracked_in_git": false,
+    "synthetic_wav_controls_tracked": ["MB01", "MB02", "MB03", "MB04", "MB05", "MB06", "MB07", "MB08"],
+    "synthetic_controls_are_historical_musical_cases": false
+  },
+  "cases": [
+    {
+      "case_id": "MIE-HIST-DEVUELVEME-P30",
+      "role": "GOLDEN_COMPARISON_REFERENCE_NOT_AUTOMATIC_E2E_BASELINE",
+      "provenance": ["docs/CHECKPOINT_MIE_INTEGRATED_REFERENCE_2026-08-26.md", "origin/mie/golden-forensic-v0.3:golden_pipeline/FORENSIC_STATUS_v0_3.md"],
+      "reprocessed": false,
+      "historical_gate_eligible": true,
+      "v0_3_5_historical_gate": "PENDING_EXISTING_ARTIFACT_EVALUATION",
+      "source": {"full_master_sha256": "23fbd8c816f59f21802c2fd4b91f48a315c2006a023992430ca10d8654264fb2", "registered_crop_sha256": "854fc7c62c05745cb1da5d7073d8c2b848152b3d6a7762ca103a54706e36a342"},
+      "auditory_evaluation": "PASS_RECOGNIZABLE_HISTORICAL_GOLDEN",
+      "producer_statement": "Excelente, se identifica muy bien",
+      "M": "P30-SCORE-002_UNQUANTIZED_72_EVENTS",
+      "H": "OTHER_STEM_MOTOR_IA_MOTOR_CONDITION_B_33_UNITS_FROZEN",
+      "T": "BEAT_THIS_v1.9.3_32_RENDERED_EVENTS_FROZEN",
+      "integrated_wav": {"sha256": "de8381ef9322e73bf295db40a9dffeb0528469502313ea949c4c9018fe9cd940", "duration_s": 27.4},
+      "boundary": "PROVES_RECOGNIZABLE_REGISTERED_REFERENCE_EXISTS; DOES_NOT_PROVE_CURRENT_AUTOMATIC_PIPELINE"
+    },
+    {
+      "case_id": "MIE-HIST-ANIMAL-v0.3.4",
+      "role": "HELD_OUT_REGRESSION",
+      "provenance": ["data/music_modeling/mie_v0_3_4_animal_regression_audit_v1.json"],
+      "reprocessed": false,
+      "historical_gate_eligible": true,
+      "v0_3_5_historical_gate": "PENDING_EXISTING_ARTIFACT_EVALUATION",
+      "source": {"sha256": "75e1dcbaef2fe3d81818df650acf72d98c306f0262bd9e78bbbc911a42a436a0", "duration_s": 245.08081632653062, "bytes_available_in_git": false},
+      "recognition_zip": {"sha256": "39afd3c980c3d22e4267a33aee33e5f09895d514fbbcccbbe8ab7ef04789d67a", "bytes_available_in_git": false, "source_hash_match": true},
+      "auditory_evaluation": "FAIL_UNRECOGNIZABLE",
+      "M": {"events": 215, "represented_time_s": 66.68, "temporal_coverage_ratio_not_accuracy": 0.272, "gaps_at_least_500ms": 72, "recovered_candidates": 0},
+      "H": {"coverage_ratio": 0.975, "defect": "HOLD_ACROSS_AMBIGUOUS_OR_UNSUPPORTED_REGIONS", "development_deferred": true},
+      "T": {"producer_disposition": "SUBSTANTIALLY_CORRECT", "frozen": true},
+      "diagnostic_identifiability": "RAW_SEPARATED_VOCAL_AND_INDEPENDENT_VOCAL_ACTIVITY_NOT_PERSISTED_IN_REGISTERED_PACKAGE_METADATA"
+    },
+    {
+      "case_id": "MIE-HIST-INDEPENDENT-281797",
+      "role": "SECOND_INDEPENDENT_LISTENING_CASE_IDENTITY_WITHHELD",
+      "provenance": ["docs/checkpoints/MIE_V0_3_4_CONTINUITY_ALIGNMENT_AUDIT_2026-09-03.md"],
+      "reprocessed": false,
+      "historical_gate_eligible": true,
+      "v0_3_5_historical_gate": "PENDING_EXISTING_ARTIFACT_EVALUATION",
+      "source": {"duration_s": 281.797, "sha256": null, "bytes_available_in_git": false},
+      "auditory_evaluation": "PULSE_ACCURATE_MELODIC_TRAJECTORY_RECOGNIZABLE_WITH_RECURRENT_GAPS",
+      "M": {"silent_runs_at_least_100ms": 223},
+      "H": {"timing": "IMPRECISE", "development_deferred": true},
+      "T": {"auditory_state": "ACCURATE", "frozen": true},
+      "diagnostic_identifiability": "SUPPORTS_PARTIAL_NOTE_SENSOR_RECALL_DEFECT; DOES_NOT_ISOLATE_SEPARATOR_CAUSALLY"
+    },
+    {
+      "case_id": "MIE-HIST-FOUR-VARIANT-SEPARATION-COMPARISON",
+      "role": "HISTORICAL_PRODUCER_DIAGNOSTIC_UNLINKED_TO_TRACEABLE_CASE_HASH",
+      "provenance": ["authorized prior-project conversation 2026-08-10"],
+      "reprocessed": false,
+      "historical_gate_eligible": false,
+      "v0_3_5_historical_gate": "NOT_APPLICABLE_UNLINKED_PROVENANCE",
+      "auditory_evaluation": "FOUR_VARIANTS_AUDIBLY_IDENTICAL",
+      "producer_conclusion": "SOURCE_SEPARATOR_NOT_THE_PROBLEM_FOR_THAT_SESSION",
+      "boundary": "CASE-SPECIFIC EVIDENCE ONLY; HASH, ZIP AND M/H/T LINKAGE NOT RECOVERED"
+    },
+    {
+      "case_id": "MIE-HIST-STRUCTURAL-GENERIC-A-B",
+      "role": "ENGINEERING_GENERALIZATION_CONTROLS_NOT_PRODUCER_RECOGNIZABILITY_CASES",
+      "provenance": ["origin/mie/golden-forensic-v0.3:golden_pipeline/FORENSIC_STATUS_v0_4.md", "GitHub Actions run 33223957593"],
+      "reprocessed": false,
+      "historical_gate_eligible": false,
+      "v0_3_5_historical_gate": "NOT_APPLICABLE_NO_PRODUCER_LISTENING",
+      "outputs": {"generic_a_raw_final": [49, 39], "generic_b_raw_final": [39, 37]},
+      "boundary": "STRUCTURAL_PASS_NOT_PERCEPTUAL_PROMOTION"
+    },
+    {
+      "case_id": "TIME-HIST-ANIMAL-DIME-OK-SALSA",
+      "role": "T_ONLY_CONTROLS",
+      "provenance": ["origin/mie/golden-forensic-v0.3:CURRENT_STATE.json", "docs/TIME_BASELINE_v1.9.53.md"],
+      "reprocessed": false,
+      "historical_gate_eligible": false,
+      "v0_3_5_historical_gate": "NOT_APPLICABLE_T_ONLY",
+      "T": "PRESERVED_AS_HISTORICAL_ENGINEERING_EVIDENCE",
+      "boundary": "MAY_NOT_BE_RECAST_AS_MELODY_RECOGNIZABILITY"
+    },
+    {
+      "case_id": "MIE-HIST-RT-001-002-005",
+      "role": "EXTERNAL_DOCUMENTED_TIME_REGRESSIONS",
+      "provenance": ["HOOKLAB_MIE_CHECKPOINT_2026-08-27.docx summary", "Documento de empalme HookLab TIME-MIE summary"],
+      "reprocessed": false,
+      "historical_gate_eligible": false,
+      "v0_3_5_historical_gate": "NOT_APPLICABLE_T_DIAGNOSTICS_NO_M_OUTPUT",
+      "boundary": "SOURCE_DOCUMENT_BYTES_AND_OUTPUT_HASHES_NOT_PRESENT_IN_REPOSITORY"
+    }
+  ],
+  "workflow_artifacts": [
+    {"artifact_id": 9704775583, "run_id": 33219782675, "name": "mie-structural-probe-v0-1", "zip_sha256": "e4640fd55ed8500936e7030756447d2eb2da3e79c51060589072c8af5eba1648", "expired": false, "contains": ["MIE_CORE_MHT_v0_2.json", "MIE_CORE_MHT_v0_2.wav", "melody_basic_pitch.mid", "MIE_STRUCTURAL_PROBE_v0_1.json"]},
+    {"artifact_id": 9706225384, "run_id": 33223957593, "name": "mie-structural-regression-v0-4", "zip_sha256": "af8e409f3b152edaf35fa1af7984e40f3504a13f0fa5752ac93fd751ac84c511", "expired": false, "contains": ["MIE_CORE_MHT_v0_2.json", "MIE_CORE_MHT_v0_2.wav", "melody_basic_pitch.mid", "MIE_STRUCTURAL_PROBE_v0_4.json"]},
+    {"artifact_id": 9706227186, "run_id": 33223957593, "name": "mie-structural-generic-a-v0-4", "zip_sha256": "1f0a71af72697a357f326d885589f5c0a111a329420d9fa9350b2c90e64fcb03", "expired": false},
+    {"artifact_id": 9706223055, "run_id": 33223957593, "name": "mie-structural-generic-b-v0-4", "zip_sha256": "bc17ba8dee8f645bb8b426a839e37306c448fd22413cd47560bab8b5ef4cde96", "expired": false},
+    {"artifact_id": 9910624179, "run_id": 33799581232, "name": "mie-core-prototype-v0-3-4-continuity-alignment-candidate", "zip_sha256": "ffa7de86babeebf62411b629a1121919d95f776dae383a5e4cf478d6c6f5cff5", "expired": false, "source_role": "PUBLIC_PREVIEW_DEFAULT_NOT_ANIMAL", "contains": ["MIE_CORE_MHT_v0_2.json", "MIE_CORE_MHT_v0_2.wav", "MIE_CORE_MHT_v0_3_1.wav", "MIE_CORE_MHT_v0_3_2.wav", "MIE_CORE_MHT_v0_3_3.wav", "MIE_CORE_MHT_v0_3_4.wav", "melody_basic_pitch.mid"]},
+    {"artifact_id": 9944207067, "run_id": 33891658717, "name": "mie-core-prototype-v0-3-4-continuity-alignment-candidate", "zip_sha256": "16feb6300d18278765d1f7e65acb6c5dddb996749f6df41f7bc6d312974f9142", "expired": false, "source_role": "PUBLIC_PREVIEW_DEFAULT_NOT_ANIMAL"}
+  ],
+  "diagnosis": {
+    "sub_gate": "DIAGNOSE_SOURCE_SEPARATION_VERSUS_NOTE_SENSOR_RECALL",
+    "status": "NOTE_SENSOR_RECALL_BOTTLENECK_SUPPORTED_HISTORICALLY_BUT_CURRENT_CAUSAL_SPLIT_ABSTAINS",
+    "source_separation": "NOT_SUPPORTED_AS_PRIMARY_CAUSE_IN_ONE_UNLINKED_FOUR-VARIANT_LISTENING_SESSION; NOT IDENTIFIABLE_FOR_ANIMAL_FROM_PERSISTED METADATA",
+    "note_sensor_recall": "SUPPORTED_BY RECOGNIZABLE-BUT-GAPPED INDEPENDENT CASE AND ANIMAL ZERO-RECOVERY/LOW-COVERAGE FAILURE; NOT YET QUANTIFIED ON A TRACEABLE SAME-SOURCE SEPARATOR A/B",
+    "formal_outcome": "ABSTAIN_INSUFFICIENT_MELODY_EVIDENCE",
+    "next_allowed_action": "EVALUATE_v0.3.5_M_ONLY_AGAINST_RECOVERED_EXISTING_HISTORICAL_BYTES_AND_REFERENCES",
+    "new_work_request": "BLOCKED_UNTIL_HISTORICAL_GATE_PASSED"
+  }
+}

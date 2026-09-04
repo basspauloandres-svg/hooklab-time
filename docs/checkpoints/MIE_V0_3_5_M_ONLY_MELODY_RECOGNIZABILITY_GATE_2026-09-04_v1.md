@@ -1,6 +1,6 @@
 # MIE v0.3.5 — M-only melody recognizability gate — 2026-09-04 v1
 
-Status: `ENGINEERING_DIAGNOSTIC_IMPLEMENTED / AWAITING_REGISTERED_MULTICASE_AUDIO_AND_PRODUCER_LISTENING`
+Status: `ENGINEERING_DIAGNOSTIC_IMPLEMENTED / HISTORICAL_GATE_NOT_PASSED`
 
 ## Scope
 
@@ -57,18 +57,45 @@ The scientific replication target remains 30 independent aligned tracks.
 Meeting that count does not unlock Scientific D automatically;
 `generation_class=D0_EXPLORATORY` and `scientific_d_unlocked=false` remain fixed.
 
+## Historical-first amendment and NO_REPROCESS
+
+The historical regression inventory is now a prerequisite. Existing sources,
+hashes, Actions ZIP artifacts, M/H/T outputs and producer dispositions must be
+recovered and evaluated before requesting another work. Recovery and hashing of
+an immutable artifact are not reprocessing; invoking separation, note sensing
+or reconstruction on an old source is a new execution and requires a new
+identifier plus `changed_module=M_ONLY`.
+
+The historical evidence supports note-sensor recall as a current priority, but
+does not identify the causal split for Animal. The four-variant listening report
+is evidence against the separator as primary cause in that session only; it has
+no recovered case hash. The independent 281.797 s case had a recognizable but
+gapped melody, while Animal had zero newly recovered candidates and failed
+recognizability. Together these observations do not provide the registered,
+same-source independent vocal-activity comparison required to quantify source
+separation recall. The formal sub-gate outcome therefore remains
+`ABSTAIN_INSUFFICIENT_MELODY_EVIDENCE`.
+
+Until every eligible historical case records a v0.3.5 M-only recognizability
+disposition, `new_audio_request_allowed=false`. H development remains blocked
+and T remains `FROZEN_ENGINEERING_BASELINE_PRESERVED`.
+
 ## Implementation
 
 - `mie_core/mie_melody_recognizability_gate.py`
 - `tests/test_mie_melody_recognizability_gate.py`
 - `data/music_modeling/mie_v0_3_5_m_only_recognizability_gate_registration_v1.json`
+- `data/music_modeling/mie_historical_regression_inventory_v1.json`
 - `mie_core/run_mie_core.py`
 
 ## Current disposition
 
 - sub-gate contract: `IMPLEMENTED`;
 - synthetic contract tests: `PASS_LOCAL`;
-- registered independent audio executions: `0`;
+- recovered non-expired Actions ZIP artifacts: `6`;
+- eligible historical melody cases: `3`;
+- historical v0.3.5 gate: `NOT_PASSED`;
+- new-audio request: `BLOCKED`;
 - producer recognizability evaluations for v0.3.5: `0`;
 - melody correction selected: `NONE`;
 - baseline promotion: `REJECTED_PENDING_EVIDENCE`;

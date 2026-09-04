@@ -1,4 +1,5 @@
 import copy
+import json
 import pathlib
 import sys
 
@@ -9,6 +10,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 from mie_core.mie_melody_recognizability_gate import (
     ABSTAIN,
     BASIC_PITCH_FRAME_HZ,
+    audit_historical_regression_inventory,
     build_m_only_experiment_audit,
     diagnose_source_separation_vs_note_sensor_recall,
     macro_audit_held_out_tracks,
@@ -141,6 +143,46 @@ def test_runtime_has_no_identity_or_manual_timestamp_inputs():
     assert not any(value in source for value in forbidden)
 
 
+def test_historical_gate_blocks_new_audio_and_h_until_existing_cases_pass():
+    inventory = {
+        "cases": [
+            {
+                "case_id": "HIST-001",
+                "provenance": ["immutable-checkpoint"],
+                "reprocessed": False,
+                "historical_gate_eligible": True,
+                "v0_3_5_historical_gate": "PENDING_EXISTING_ARTIFACT_EVALUATION",
+            },
+            {
+                "case_id": "CONTROL-001",
+                "provenance": ["synthetic-control"],
+                "reprocessed": False,
+                "historical_gate_eligible": False,
+                "v0_3_5_historical_gate": "NOT_APPLICABLE",
+            },
+        ]
+    }
+    result = audit_historical_regression_inventory(inventory)
+    assert result["status"] == "HISTORICAL_GATE_NOT_PASSED"
+    assert result["new_audio_request_allowed"] is False
+    assert result["harmony_development_allowed"] is False
+    assert result["tactus_state"] == "FROZEN_ENGINEERING_BASELINE_PRESERVED"
+    inventory["cases"][0]["v0_3_5_historical_gate"] = "PASS_RECOGNIZABLE"
+    passed = audit_historical_regression_inventory(inventory)
+    assert passed["status"] == "HISTORICAL_GATE_PASSED"
+    assert passed["new_audio_request_allowed"] is True
+
+
+def test_canonical_historical_inventory_is_fail_closed():
+    path = pathlib.Path(__file__).resolve().parents[1] / "data" / "music_modeling" / "mie_historical_regression_inventory_v1.json"
+    inventory = json.loads(path.read_text())
+    result = audit_historical_regression_inventory(inventory)
+    assert result["inventory_case_count"] == 7
+    assert result["eligible_case_count"] == 3
+    assert result["status"] == "HISTORICAL_GATE_NOT_PASSED"
+    assert result["new_audio_request_allowed"] is False
+
+
 if __name__ == "__main__":
     test_active_vocal_stem_without_sensor_response_diagnoses_sensor_recall()
     test_source_separation_loss_requires_independent_vocal_activity()
@@ -149,4 +191,6 @@ if __name__ == "__main__":
     test_macro_gate_aggregates_by_track_and_never_promotes_diagnostic()
     test_macro_gate_rejects_duplicate_work_groups_and_h_changes()
     test_runtime_has_no_identity_or_manual_timestamp_inputs()
+    test_historical_gate_blocks_new_audio_and_h_until_existing_cases_pass()
+    test_canonical_historical_inventory_is_fail_closed()
     print("MIE_M_ONLY_MELODY_RECOGNIZABILITY_GATE_PASS")

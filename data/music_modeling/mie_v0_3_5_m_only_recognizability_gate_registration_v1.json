@@ -73,6 +73,14 @@
     "runner_integration": "mie_core/run_mie_core.py",
     "status": "ENGINEERING_DIAGNOSTIC_IMPLEMENTED"
   },
-  "execution_status": "AWAITING_REGISTERED_MULTICASE_AUDIO_AND_PRODUCER_LISTENING",
+  "historical_inventory": "data/music_modeling/mie_historical_regression_inventory_v1.json",
+  "historical_gate": {
+    "status": "HISTORICAL_GATE_NOT_PASSED",
+    "no_reprocess": true,
+    "new_audio_request_allowed": false,
+    "harmony_development_allowed": false,
+    "tactus_state": "FROZEN_ENGINEERING_BASELINE_PRESERVED"
+  },
+  "execution_status": "HISTORICAL_ARTIFACT_RECOVERY_AND_M_ONLY_EVALUATION_REQUIRED",
   "baseline_promoted": false
 }

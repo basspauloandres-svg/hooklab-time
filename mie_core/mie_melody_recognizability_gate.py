@@ -26,6 +26,7 @@ EXPERIMENT_ID = "MIE-v0.3.5-M-RECOGNIZABILITY-GATE"
 SUB_GATE_ID = "DIAGNOSE_SOURCE_SEPARATION_VERSUS_NOTE_SENSOR_RECALL"
 POLICY_ID = "MIE_M_ONLY_SEPARATION_SENSOR_DIAGNOSTIC_v1"
 ABSTAIN = "ABSTAIN_INSUFFICIENT_MELODY_EVIDENCE"
+HISTORICAL_GATE_BLOCKED = "HISTORICAL_GATE_NOT_PASSED"
 BASIC_PITCH_FRAME_HZ = 86.0
 
 
@@ -312,4 +313,52 @@ def macro_audit_held_out_tracks(track_audits, *, scientific_minimum_tracks=30):
             item.get("producer_evaluation", {}).get("recognizability", "UNREPORTED") for item in tracks
         ],
         baseline_promoted=False,
+    )
+
+
+def audit_historical_regression_inventory(inventory):
+    """Fail closed before any new-work request or H/T development.
+
+    This consumes provenance only.  It never invokes an audio model and is
+    therefore compatible with NO_REPROCESS.
+    """
+    cases = list((inventory or {}).get("cases", []))
+    base = {
+        "schema": "HOOKLAB_MIE_HISTORICAL_GATE_AUDIT_v1",
+        "experiment_id": EXPERIMENT_ID,
+        "no_reprocess": True,
+        "changed_module": "M_ONLY",
+        "harmony_development_allowed": False,
+        "tactus_state": "FROZEN_ENGINEERING_BASELINE_PRESERVED",
+        "new_audio_request_allowed": False,
+        "generation_class": "D0_EXPLORATORY",
+        "scientific_d_unlocked": False,
+        "baseline_promoted": False,
+    }
+    if not cases:
+        return dict(base, status="AUDIT_HISTORICAL_INVENTORY_EMPTY")
+    if any(not item.get("case_id") or not item.get("provenance") for item in cases):
+        return dict(base, status="AUDIT_PROVENANCE_INCOMPLETE")
+    if len({item["case_id"] for item in cases}) != len(cases):
+        return dict(base, status="AUDIT_DUPLICATE_HISTORICAL_CASE")
+    if any(item.get("reprocessed") is not False for item in cases):
+        return dict(base, status="AUDIT_NO_REPROCESS_VIOLATION")
+
+    eligible = [item for item in cases if item.get("historical_gate_eligible") is True]
+    passed = [item for item in eligible if item.get("v0_3_5_historical_gate") == "PASS_RECOGNIZABLE"]
+    failed = [item for item in eligible if item.get("v0_3_5_historical_gate") == "FAIL_UNRECOGNIZABLE"]
+    pending = [item for item in eligible if item.get("v0_3_5_historical_gate") not in {
+        "PASS_RECOGNIZABLE", "FAIL_UNRECOGNIZABLE"
+    }]
+    status = "HISTORICAL_GATE_PASSED" if eligible and len(passed) == len(eligible) else HISTORICAL_GATE_BLOCKED
+    return dict(
+        base,
+        status=status,
+        inventory_case_count=len(cases),
+        eligible_case_count=len(eligible),
+        passed_case_count=len(passed),
+        failed_case_count=len(failed),
+        pending_case_count=len(pending),
+        new_audio_request_allowed=status == "HISTORICAL_GATE_PASSED",
+        blocking_case_ids=[item["case_id"] for item in failed + pending],
     )
