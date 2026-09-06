@@ -1,6 +1,6 @@
 {
   "schema": "HOOKLAB_OPEN_IDENTITY_RESOLUTION_AUDIT_v1",
-  "created_at": "2026-09-01T22:59:27.269150Z",
+  "created_at": "2026-09-06T08:47:11.366012Z",
   "resolver_version": "hooklab-open-identity-resolver-v1.3",
   "provider_versions": {
     "yt-dlp": "2026.08.19",
@@ -19,7 +19,7 @@
       "title": "Bailando",
       "artist": "Enrique Iglesias ft. Descemer Bueno & Gente de Zona",
       "provider_status": {
-        "MUSICBRAINZ": "COMPLETE",
+        "MUSICBRAINZ": "FAILED_IdentityResolverError",
         "WIKIDATA": "COMPLETE",
         "YOUTUBE_OEMBED": "COMPLETE_2_OF_2",
         "YTDLP_SEARCH": "COMPLETE"
@@ -67,22 +67,22 @@
           ]
         },
         {
-          "video_id": "ZtHv3C9vBMM",
-          "video_url": "https://www.youtube.com/watch?v=ZtHv3C9vBMM",
+          "video_id": "TpG9x_5iUEA",
+          "video_url": "https://www.youtube.com/watch?v=TpG9x_5iUEA",
           "independent_sources": [
             "YTDLP_SEARCH"
           ],
           "source_count": 1,
-          "artifact_role_assessment": "DOCUMENTED_ARTIFACT_ROLE_UNRESOLVED",
+          "artifact_role_assessment": "NON_PRIMARY_VARIANT",
           "evidence": [
             {
-              "video_id": "ZtHv3C9vBMM",
+              "video_id": "TpG9x_5iUEA",
               "source": "YTDLP_SEARCH",
-              "source_record_id": "ZtHv3C9vBMM",
-              "source_url": "https://www.youtube.com/watch?v=ZtHv3C9vBMM",
-              "rank": 4,
-              "title": "Enrique Iglesias - Bailando (feat. Gente De Zona)",
-              "channel": "Angel Arturo",
+              "source_record_id": "TpG9x_5iUEA",
+              "source_url": "https://www.youtube.com/watch?v=TpG9x_5iUEA",
+              "rank": 5,
+              "title": "Enrique Iglesias - Bailando (Spanish Version) ft. Descemer Bueno, Gente De Zona (Lyrics)",
+              "channel": "PAS Network",
               "title_match": true
             }
           ]
@@ -163,7 +163,7 @@
               "source": "YTDLP_SEARCH",
               "source_record_id": "scbXcBXqTSU",
               "source_url": "https://www.youtube.com/watch?v=scbXcBXqTSU",
-              "rank": 5,
+              "rank": 4,
               "title": "Enrique Iglesias - Bailando ft. Descemer Bueno, Gente De Zona (Letra)",
               "channel": "jostland.",
               "title_match": true
@@ -180,7 +180,7 @@
       "title": "Hotel California",
       "artist": "Eagles",
       "provider_status": {
-        "MUSICBRAINZ": "COMPLETE",
+        "MUSICBRAINZ": "FAILED_IdentityResolverError",
         "WIKIDATA": "COMPLETE",
         "YOUTUBE_OEMBED": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR",
         "YTDLP_SEARCH": "COMPLETE_DISCOVERY_ONLY_NO_INDEPENDENT_ID_ANCHOR"
@@ -263,7 +263,7 @@
               "source": "YTDLP_SEARCH",
               "source_record_id": "hrOtR1hyRog",
               "source_url": "https://www.youtube.com/watch?v=hrOtR1hyRog",
-              "rank": 4,
+              "rank": 5,
               "title": "Hotel California - The Eagles (1976)",
               "channel": "GetThe MusicOut",
               "title_match": true
@@ -284,7 +284,7 @@
               "source": "YTDLP_SEARCH",
               "source_record_id": "x2yd-XZtkvk",
               "source_url": "https://www.youtube.com/watch?v=x2yd-XZtkvk",
-              "rank": 5,
+              "rank": 4,
               "title": "Eagles - Hotel California | Lyric Video | Lirik Indonesia | Indo Subtitle | Lirik Terjemahan",
               "channel": "Pop Paling Panas",
               "title_match": true
@@ -371,8 +371,8 @@
           ]
         },
         {
-          "video_id": "t8I7Xyla9yg",
-          "video_url": "https://www.youtube.com/watch?v=t8I7Xyla9yg",
+          "video_id": "etWP5ph4yrM",
+          "video_url": "https://www.youtube.com/watch?v=etWP5ph4yrM",
           "independent_sources": [
             "YTDLP_SEARCH"
           ],
@@ -380,13 +380,13 @@
           "artifact_role_assessment": "DOCUMENTED_ARTIFACT_ROLE_UNRESOLVED",
           "evidence": [
             {
-              "video_id": "t8I7Xyla9yg",
+              "video_id": "etWP5ph4yrM",
               "source": "YTDLP_SEARCH",
-              "source_record_id": "t8I7Xyla9yg",
-              "source_url": "https://www.youtube.com/watch?v=t8I7Xyla9yg",
-              "rank": 4,
-              "title": "Beyoncé - Halo (iTunes Version)",
-              "channel": "Beyoncé",
+              "source_record_id": "etWP5ph4yrM",
+              "source_url": "https://www.youtube.com/watch?v=etWP5ph4yrM",
+              "rank": 5,
+              "title": "halo - by beyonce (extended version)",
+              "channel": "Cristian Daniel Gonzalez Várgas 6-B",
               "title_match": true
             }
           ]
@@ -405,7 +405,7 @@
               "source": "YTDLP_SEARCH",
               "source_record_id": "yW8qsL1nDPM",
               "source_url": "https://www.youtube.com/watch?v=yW8qsL1nDPM",
-              "rank": 5,
+              "rank": 4,
               "title": "Beyoncé - Halo (Live)",
               "channel": "Beyoncé",
               "title_match": true
@@ -422,7 +422,7 @@
       "title": "Cheap Thrills",
       "artist": "Sia",
       "provider_status": {
-        "MUSICBRAINZ": "COMPLETE",
+        "MUSICBRAINZ": "FAILED_IdentityResolverError",
         "WIKIDATA": "COMPLETE",
         "YOUTUBE_OEMBED": "COMPLETE_2_OF_2",
         "YTDLP_SEARCH": "COMPLETE"
@@ -442,7 +442,7 @@
               "source": "YTDLP_SEARCH",
               "source_record_id": "2vjPBrBU-TM",
               "source_url": "https://www.youtube.com/watch?v=2vjPBrBU-TM",
-              "rank": 3,
+              "rank": 5,
               "title": "Sia - Chandelier (Official Video)",
               "channel": "Sia",
               "title_match": false
@@ -491,29 +491,29 @@
           ]
         },
         {
-          "video_id": "IFJt5hzqxi4",
-          "video_url": "https://www.youtube.com/watch?v=IFJt5hzqxi4",
+          "video_id": "QGixSZ8ZHT4",
+          "video_url": "https://www.youtube.com/watch?v=QGixSZ8ZHT4",
           "independent_sources": [
             "YTDLP_SEARCH"
           ],
           "source_count": 1,
-          "artifact_role_assessment": "NON_PRIMARY_VARIANT",
+          "artifact_role_assessment": "DOCUMENTED_ARTIFACT_ROLE_UNRESOLVED",
           "evidence": [
             {
-              "video_id": "IFJt5hzqxi4",
+              "video_id": "QGixSZ8ZHT4",
               "source": "YTDLP_SEARCH",
-              "source_record_id": "IFJt5hzqxi4",
-              "source_url": "https://www.youtube.com/watch?v=IFJt5hzqxi4",
+              "source_record_id": "QGixSZ8ZHT4",
+              "source_url": "https://www.youtube.com/watch?v=QGixSZ8ZHT4",
               "rank": 4,
-              "title": "Sia - Cheap Thrills (Live on American Idol)",
-              "channel": "GM",
+              "title": "Sia - Cheap Thrills",
+              "channel": "LatinHype",
               "title_match": true
             }
           ]
         },
         {
-          "video_id": "J1b22l1kFKY",
-          "video_url": "https://www.youtube.com/watch?v=J1b22l1kFKY",
+          "video_id": "mY9fNwGE7YA",
+          "video_url": "https://www.youtube.com/watch?v=mY9fNwGE7YA",
           "independent_sources": [
             "YTDLP_SEARCH"
           ],
@@ -521,13 +521,13 @@
           "artifact_role_assessment": "NON_PRIMARY_VARIANT",
           "evidence": [
             {
-              "video_id": "J1b22l1kFKY",
+              "video_id": "mY9fNwGE7YA",
               "source": "YTDLP_SEARCH",
-              "source_record_id": "J1b22l1kFKY",
-              "source_url": "https://www.youtube.com/watch?v=J1b22l1kFKY",
-              "rank": 5,
-              "title": "Sia - Cheap Thrills (Official Audio)",
-              "channel": "Sia",
+              "source_record_id": "mY9fNwGE7YA",
+              "source_url": "https://www.youtube.com/watch?v=mY9fNwGE7YA",
+              "rank": 3,
+              "title": "Sia - Cheap Thrills (Lyrics) ft. Sean Paul",
+              "channel": "7clouds",
               "title_match": true
             }
           ]
@@ -631,7 +631,7 @@
               "source": "YTDLP_SEARCH",
               "source_record_id": "1k8craCGpgs",
               "source_url": "https://www.youtube.com/watch?v=1k8craCGpgs",
-              "rank": 4,
+              "rank": 3,
               "title": "Journey - Don't Stop Believin' (Official Audio)",
               "channel": "journey",
               "title_match": true
@@ -652,7 +652,7 @@
               "source": "YTDLP_SEARCH",
               "source_record_id": "A0H3bJHWGl4",
               "source_url": "https://www.youtube.com/watch?v=A0H3bJHWGl4",
-              "rank": 3,
+              "rank": 4,
               "title": "Journey- Don't Stop Believing Music Video",
               "channel": "vwarburton",
               "title_match": true
@@ -759,8 +759,8 @@
       },
       "candidates": [
         {
-          "video_id": "MzwR2TJFDA4",
-          "video_url": "https://www.youtube.com/watch?v=MzwR2TJFDA4",
+          "video_id": "5vye_tNZYL8",
+          "video_url": "https://www.youtube.com/watch?v=5vye_tNZYL8",
           "independent_sources": [
             "YTDLP_SEARCH"
           ],
@@ -768,13 +768,13 @@
           "artifact_role_assessment": "DOCUMENTED_ARTIFACT_ROLE_UNRESOLVED",
           "evidence": [
             {
-              "video_id": "MzwR2TJFDA4",
+              "video_id": "5vye_tNZYL8",
               "source": "YTDLP_SEARCH",
-              "source_record_id": "MzwR2TJFDA4",
-              "source_url": "https://www.youtube.com/watch?v=MzwR2TJFDA4",
-              "rank": 4,
-              "title": "U2- I still haven't found what i'm looking for (Music Video)",
-              "channel": "Azzzelito",
+              "source_record_id": "5vye_tNZYL8",
+              "source_url": "https://www.youtube.com/watch?v=5vye_tNZYL8",
+              "rank": 5,
+              "title": "U2- I Still Haven't Found What I'm Looking For (Joshua Tree 1987)",
+              "channel": "Bibliothèque Musicale",
               "title_match": true
             }
           ]
@@ -833,7 +833,7 @@
               "source": "YTDLP_SEARCH",
               "source_record_id": "gY75dw64sqI",
               "source_url": "https://www.youtube.com/watch?v=gY75dw64sqI",
-              "rank": 2,
+              "rank": 3,
               "title": "U2   --  I   Still    Haven 't   Found   What  I'm  Looking For  [[  Official Live  Video  ]]  HD",
               "channel": "Mystic Plug Records II",
               "title_match": true
@@ -854,7 +854,7 @@
               "source": "YTDLP_SEARCH",
               "source_record_id": "neG5xgZbHOg",
               "source_url": "https://www.youtube.com/watch?v=neG5xgZbHOg",
-              "rank": 3,
+              "rank": 2,
               "title": "I Still Haven't Found What I'm Looking For",
               "channel": "U2",
               "title_match": true
@@ -875,7 +875,7 @@
               "source": "YTDLP_SEARCH",
               "source_record_id": "plEzQoD95c4",
               "source_url": "https://www.youtube.com/watch?v=plEzQoD95c4",
-              "rank": 5,
+              "rank": 4,
               "title": "U2 - I Still Haven't Found What I'm Looking For (Lyrics)",
               "channel": "7clouds Rock",
               "title_match": true
@@ -892,7 +892,7 @@
       "title": "Under the Bridge",
       "artist": "Red Hot Chili Peppers",
       "provider_status": {
-        "MUSICBRAINZ": "COMPLETE",
+        "MUSICBRAINZ": "FAILED_IdentityResolverError",
         "WIKIDATA": "COMPLETE",
         "YOUTUBE_OEMBED": "SKIPPED_NO_INDEPENDENT_ID_ANCHOR",
         "YTDLP_SEARCH": "COMPLETE_DISCOVERY_ONLY_NO_INDEPENDENT_ID_ANCHOR"
@@ -933,7 +933,7 @@
               "source": "YTDLP_SEARCH",
               "source_record_id": "DKOc2S1AkjE",
               "source_url": "https://www.youtube.com/watch?v=DKOc2S1AkjE",
-              "rank": 4,
+              "rank": 5,
               "title": "Red hot chili peppers - Under the bridge Live acoustic",
               "channel": "Braulio Soncco",
               "title_match": true
@@ -983,22 +983,22 @@
           ]
         },
         {
-          "video_id": "QOBpzVksZmI",
-          "video_url": "https://www.youtube.com/watch?v=QOBpzVksZmI",
+          "video_id": "Rtj7K1hTl90",
+          "video_url": "https://www.youtube.com/watch?v=Rtj7K1hTl90",
           "independent_sources": [
             "YTDLP_SEARCH"
           ],
           "source_count": 1,
-          "artifact_role_assessment": "NON_PRIMARY_VARIANT",
+          "artifact_role_assessment": "PRIMARY_OFFICIAL_MUSIC_VIDEO",
           "evidence": [
             {
-              "video_id": "QOBpzVksZmI",
+              "video_id": "Rtj7K1hTl90",
               "source": "YTDLP_SEARCH",
-              "source_record_id": "QOBpzVksZmI",
-              "source_url": "https://www.youtube.com/watch?v=QOBpzVksZmI",
-              "rank": 5,
-              "title": "Red Hot Chili Peppers “Under the Bridge” Live on the Stern Show",
-              "channel": "The Howard Stern Show",
+              "source_record_id": "Rtj7K1hTl90",
+              "source_url": "https://www.youtube.com/watch?v=Rtj7K1hTl90",
+              "rank": 4,
+              "title": "Red Hot Chili Peppers - Under The Bridge (Official Music Video)",
+              "channel": "Song des Tages",
               "title_match": true
             }
           ]
@@ -1020,6 +1020,27 @@
       },
       "candidates": [
         {
+          "video_id": "IC0dGymtQa0",
+          "video_url": "https://www.youtube.com/watch?v=IC0dGymtQa0",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "artifact_role_assessment": "NON_PRIMARY_VARIANT",
+          "evidence": [
+            {
+              "video_id": "IC0dGymtQa0",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "IC0dGymtQa0",
+              "source_url": "https://www.youtube.com/watch?v=IC0dGymtQa0",
+              "rank": 4,
+              "title": "Juanes - A Dios Le Pido (Remastered 2022) [Visualizer]",
+              "channel": "Juanes",
+              "title_match": true
+            }
+          ]
+        },
+        {
           "video_id": "N3dnDBm29w8",
           "video_url": "https://www.youtube.com/watch?v=N3dnDBm29w8",
           "independent_sources": [
@@ -1033,30 +1054,9 @@
               "source": "YTDLP_SEARCH",
               "source_record_id": "N3dnDBm29w8",
               "source_url": "https://www.youtube.com/watch?v=N3dnDBm29w8",
-              "rank": 4,
+              "rank": 5,
               "title": "Juanes - A Dios Le Pido // Lyrics + Español // Video Official",
               "channel": "BrunoTraductor Official 2",
-              "title_match": true
-            }
-          ]
-        },
-        {
-          "video_id": "WUXckl9SLRY",
-          "video_url": "https://www.youtube.com/watch?v=WUXckl9SLRY",
-          "independent_sources": [
-            "YTDLP_SEARCH"
-          ],
-          "source_count": 1,
-          "artifact_role_assessment": "NON_PRIMARY_VARIANT",
-          "evidence": [
-            {
-              "video_id": "WUXckl9SLRY",
-              "source": "YTDLP_SEARCH",
-              "source_record_id": "WUXckl9SLRY",
-              "source_url": "https://www.youtube.com/watch?v=WUXckl9SLRY",
-              "rank": 5,
-              "title": "Juanes - A Dios Le Pido Remix",
-              "channel": "RemixOn",
               "title_match": true
             }
           ]
@@ -1175,7 +1175,7 @@
               "source": "YTDLP_SEARCH",
               "source_record_id": "chEdw_2G4fM",
               "source_url": "https://www.youtube.com/watch?v=chEdw_2G4fM",
-              "rank": 3,
+              "rank": 5,
               "title": "Karol G - Provenza (Video Oficial)",
               "channel": "Reggaeton Medellin",
               "title_match": true
@@ -1204,8 +1204,8 @@
           ]
         },
         {
-          "video_id": "oSbX1yZ8gAI",
-          "video_url": "https://www.youtube.com/watch?v=oSbX1yZ8gAI",
+          "video_id": "nLSY81D-m3A",
+          "video_url": "https://www.youtube.com/watch?v=nLSY81D-m3A",
           "independent_sources": [
             "YTDLP_SEARCH"
           ],
@@ -1213,13 +1213,13 @@
           "artifact_role_assessment": "NON_PRIMARY_VARIANT",
           "evidence": [
             {
-              "video_id": "oSbX1yZ8gAI",
+              "video_id": "nLSY81D-m3A",
               "source": "YTDLP_SEARCH",
-              "source_record_id": "oSbX1yZ8gAI",
-              "source_url": "https://www.youtube.com/watch?v=oSbX1yZ8gAI",
-              "rank": 5,
-              "title": "KAROL G - Provenza (Lyric Video)",
-              "channel": "KAROL G",
+              "source_record_id": "nLSY81D-m3A",
+              "source_url": "https://www.youtube.com/watch?v=nLSY81D-m3A",
+              "rank": 3,
+              "title": "KAROL G - PROVENZA (Letra/Lyrics)",
+              "channel": "7clouds",
               "title_match": true
             }
           ]
@@ -1262,8 +1262,8 @@
       },
       "candidates": [
         {
-          "video_id": "YPPVGFeCVnE",
-          "video_url": "https://www.youtube.com/watch?v=YPPVGFeCVnE",
+          "video_id": "W2P-bHPUGTU",
+          "video_url": "https://www.youtube.com/watch?v=W2P-bHPUGTU",
           "independent_sources": [
             "YTDLP_SEARCH"
           ],
@@ -1271,13 +1271,13 @@
           "artifact_role_assessment": "DOCUMENTED_ARTIFACT_ROLE_UNRESOLVED",
           "evidence": [
             {
-              "video_id": "YPPVGFeCVnE",
+              "video_id": "W2P-bHPUGTU",
               "source": "YTDLP_SEARCH",
-              "source_record_id": "YPPVGFeCVnE",
-              "source_url": "https://www.youtube.com/watch?v=YPPVGFeCVnE",
+              "source_record_id": "W2P-bHPUGTU",
+              "source_url": "https://www.youtube.com/watch?v=W2P-bHPUGTU",
               "rank": 4,
-              "title": "Marc Anthony - Vivir Mi Vida (Letra + Videoclip Oficial)",
-              "channel": "Esmacfolt Letras y Más",
+              "title": "Marc Anthony - Vivir Mi Vida VIDEO ( subtitle English)",
+              "channel": "Kevin",
               "title_match": true
             }
           ]
@@ -1317,7 +1317,7 @@
               "source": "YTDLP_SEARCH",
               "source_record_id": "b8YWqsQe1Uc",
               "source_url": "https://www.youtube.com/watch?v=b8YWqsQe1Uc",
-              "rank": 3,
+              "rank": 2,
               "title": "Marc Anthony - Vivir Mi Vida - Festival de la Canción de Viña del Mar 2025 - Full HD 1080p.",
               "channel": "FESTIVALDEVINACHILE",
               "title_match": true
@@ -1338,7 +1338,7 @@
               "source": "YTDLP_SEARCH",
               "source_record_id": "fM8GGdIgCwY",
               "source_url": "https://www.youtube.com/watch?v=fM8GGdIgCwY",
-              "rank": 5,
+              "rank": 3,
               "title": "Marc Anthony - Vivir Mi Vida (En Vivo)",
               "channel": "Marc Anthony",
               "title_match": true
@@ -1359,7 +1359,7 @@
               "source": "YTDLP_SEARCH",
               "source_record_id": "yrWVRTHB0MU",
               "source_url": "https://www.youtube.com/watch?v=yrWVRTHB0MU",
-              "rank": 2,
+              "rank": 5,
               "title": "Marc Anthony | Vivir Mi Vida | Full Performance | Christmas In Rockefeller Center 2025",
               "channel": "RemasterKingdom4K",
               "title_match": true
@@ -1383,6 +1383,27 @@
       },
       "candidates": [
         {
+          "video_id": "0nBFWzpWXuM",
+          "video_url": "https://www.youtube.com/watch?v=0nBFWzpWXuM",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "artifact_role_assessment": "DOCUMENTED_ARTIFACT_ROLE_UNRESOLVED",
+          "evidence": [
+            {
+              "video_id": "0nBFWzpWXuM",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "0nBFWzpWXuM",
+              "source_url": "https://www.youtube.com/watch?v=0nBFWzpWXuM",
+              "rank": 5,
+              "title": "La Vida Es Un Carnaval - Celia Cruz",
+              "channel": "09SourApple",
+              "title_match": true
+            }
+          ]
+        },
+        {
           "video_id": "BVYLOe4Xkg0",
           "video_url": "https://www.youtube.com/watch?v=BVYLOe4Xkg0",
           "independent_sources": [
@@ -1396,7 +1417,7 @@
               "source": "YTDLP_SEARCH",
               "source_record_id": "BVYLOe4Xkg0",
               "source_url": "https://www.youtube.com/watch?v=BVYLOe4Xkg0",
-              "rank": 5,
+              "rank": 4,
               "title": "[104] LA VIDA ES UN CARNAVAL - CELIA CRUZ - DJ LOCO CABANA-PERU FT. DJ BRYAN COLOMA",
               "channel": "DJ LOCO CABANA PERU",
               "title_match": true
@@ -1441,27 +1462,6 @@
               "rank": 3,
               "title": "Celia Cruz - La vida es un carnaval",
               "channel": "Super Sabado Sensacional",
-              "title_match": true
-            }
-          ]
-        },
-        {
-          "video_id": "s8S51yJe-Bk",
-          "video_url": "https://www.youtube.com/watch?v=s8S51yJe-Bk",
-          "independent_sources": [
-            "YTDLP_SEARCH"
-          ],
-          "source_count": 1,
-          "artifact_role_assessment": "NON_PRIMARY_VARIANT",
-          "evidence": [
-            {
-              "video_id": "s8S51yJe-Bk",
-              "source": "YTDLP_SEARCH",
-              "source_record_id": "s8S51yJe-Bk",
-              "source_url": "https://www.youtube.com/watch?v=s8S51yJe-Bk",
-              "rank": 4,
-              "title": "La vida es un carnaval - Celia Cruz (con letra/lyrics en español)",
-              "channel": "Hispanalia desde América",
               "title_match": true
             }
           ]
@@ -1546,6 +1546,27 @@
           ]
         },
         {
+          "video_id": "FnxWAhvhSEw",
+          "video_url": "https://www.youtube.com/watch?v=FnxWAhvhSEw",
+          "independent_sources": [
+            "YTDLP_SEARCH"
+          ],
+          "source_count": 1,
+          "artifact_role_assessment": "NON_PRIMARY_VARIANT",
+          "evidence": [
+            {
+              "video_id": "FnxWAhvhSEw",
+              "source": "YTDLP_SEARCH",
+              "source_record_id": "FnxWAhvhSEw",
+              "source_url": "https://www.youtube.com/watch?v=FnxWAhvhSEw",
+              "rank": 4,
+              "title": "Maná - Rayando El Sol (Letra / Lyrics)",
+              "channel": "La Mexicana",
+              "title_match": true
+            }
+          ]
+        },
+        {
           "video_id": "bE3ABNHDnAc",
           "video_url": "https://www.youtube.com/watch?v=bE3ABNHDnAc",
           "independent_sources": [
@@ -1567,43 +1588,22 @@
           ]
         },
         {
-          "video_id": "fz68XjPrlGw",
-          "video_url": "https://www.youtube.com/watch?v=fz68XjPrlGw",
+          "video_id": "g6jTHRSaPPQ",
+          "video_url": "https://www.youtube.com/watch?v=g6jTHRSaPPQ",
           "independent_sources": [
             "YTDLP_SEARCH"
           ],
           "source_count": 1,
-          "artifact_role_assessment": "NON_PRIMARY_VARIANT",
+          "artifact_role_assessment": "DOCUMENTED_ARTIFACT_ROLE_UNRESOLVED",
           "evidence": [
             {
-              "video_id": "fz68XjPrlGw",
+              "video_id": "g6jTHRSaPPQ",
               "source": "YTDLP_SEARCH",
-              "source_record_id": "fz68XjPrlGw",
-              "source_url": "https://www.youtube.com/watch?v=fz68XjPrlGw",
+              "source_record_id": "g6jTHRSaPPQ",
+              "source_url": "https://www.youtube.com/watch?v=g6jTHRSaPPQ",
               "rank": 5,
-              "title": "Maná – Rayando El Sol (Live) (REMASTERIZADO) (1080p)",
-              "channel": "Videos Musicales",
-              "title_match": true
-            }
-          ]
-        },
-        {
-          "video_id": "mFc6VAVMgKo",
-          "video_url": "https://www.youtube.com/watch?v=mFc6VAVMgKo",
-          "independent_sources": [
-            "YTDLP_SEARCH"
-          ],
-          "source_count": 1,
-          "artifact_role_assessment": "PRIMARY_OFFICIAL_MUSIC_VIDEO",
-          "evidence": [
-            {
-              "video_id": "mFc6VAVMgKo",
-              "source": "YTDLP_SEARCH",
-              "source_record_id": "mFc6VAVMgKo",
-              "source_url": "https://www.youtube.com/watch?v=mFc6VAVMgKo",
-              "rank": 4,
-              "title": "Maná - Rayando El Sol (Official Music Video)",
-              "channel": "Warner Música",
+              "title": "Maná — Rayando el Sol [Letra]",
+              "channel": "armxndo",
               "title_match": true
             }
           ]
@@ -1680,7 +1680,7 @@
               "source": "YTDLP_SEARCH",
               "source_record_id": "VGj84oTd1dU",
               "source_url": "https://www.youtube.com/watch?v=VGj84oTd1dU",
-              "rank": 3,
+              "rank": 4,
               "title": "\"Eres\" by cafe tacvba (amarteduele music video)",
               "channel": "MAG3 PRODUCTIONS",
               "title_match": true
@@ -1722,7 +1722,7 @@
               "source": "YTDLP_SEARCH",
               "source_record_id": "qwPL8QpKvqE",
               "source_url": "https://www.youtube.com/watch?v=qwPL8QpKvqE",
-              "rank": 4,
+              "rank": 3,
               "title": "Café Tacvba - Eres (Official Music Video)",
               "channel": "actingla",
               "title_match": true
@@ -1780,7 +1780,7 @@
               "source": "YTDLP_SEARCH",
               "source_record_id": "edksXTCIlQI",
               "source_url": "https://www.youtube.com/watch?v=edksXTCIlQI",
-              "rank": 3,
+              "rank": 4,
               "title": "CARLOS BAUTE Y MARTA SÁNCHEZ \"COLGANDO EN TUS MANOS\"",
               "channel": "YouMoreTv - Espectáculo",
               "title_match": true
@@ -1822,7 +1822,7 @@
               "source": "YTDLP_SEARCH",
               "source_record_id": "rHO5GIzKSyg",
               "source_url": "https://www.youtube.com/watch?v=rHO5GIzKSyg",
-              "rank": 4,
+              "rank": 3,
               "title": "Carlos Baute - Colgando en tus manos (con Marta Sanchez) (Video Oficial)",
               "channel": "Warner Music México",
               "title_match": true
@@ -1880,7 +1880,7 @@
               "source": "YTDLP_SEARCH",
               "source_record_id": "10EX-_h4pYc",
               "source_url": "https://www.youtube.com/watch?v=10EX-_h4pYc",
-              "rank": 2,
+              "rank": 3,
               "title": "Bad Bunny (ft. Bomba Estéreo) - Ojitos Lindos (360° Visualizer) | Un Verano Sin Ti",
               "channel": "Bad Bunny",
               "title_match": true
@@ -1888,22 +1888,22 @@
           ]
         },
         {
-          "video_id": "Uk-1uC_kTGQ",
-          "video_url": "https://www.youtube.com/watch?v=Uk-1uC_kTGQ",
+          "video_id": "1w3PrFZnqgg",
+          "video_url": "https://www.youtube.com/watch?v=1w3PrFZnqgg",
           "independent_sources": [
             "YTDLP_SEARCH"
           ],
           "source_count": 1,
-          "artifact_role_assessment": "PRIMARY_OFFICIAL_MUSIC_VIDEO",
+          "artifact_role_assessment": "DOCUMENTED_ARTIFACT_ROLE_UNRESOLVED",
           "evidence": [
             {
-              "video_id": "Uk-1uC_kTGQ",
+              "video_id": "1w3PrFZnqgg",
               "source": "YTDLP_SEARCH",
-              "source_record_id": "Uk-1uC_kTGQ",
-              "source_url": "https://www.youtube.com/watch?v=Uk-1uC_kTGQ",
+              "source_record_id": "1w3PrFZnqgg",
+              "source_url": "https://www.youtube.com/watch?v=1w3PrFZnqgg",
               "rank": 4,
-              "title": "Bad Bunny - Ojitos Lindos (Official Video) ft. Bomba Estereo",
-              "channel": "Andres Vela",
+              "title": "Bad Bunny ft. Bomba Estéreo ╸Ojitos Lindos | KAROL G, Cris MJ, Rauw Alejandro - Un Verano Sin Ti",
+              "channel": "Vuong Long Group",
               "title_match": true
             }
           ]
@@ -1922,7 +1922,7 @@
               "source": "YTDLP_SEARCH",
               "source_record_id": "mJfkCSTNLhY",
               "source_url": "https://www.youtube.com/watch?v=mJfkCSTNLhY",
-              "rank": 3,
+              "rank": 2,
               "title": "Bad Bunny - Ojitos Lindos (La Letra / Lyrics) ft. Bomba Estéreo",
               "channel": "BagOnly",
               "title_match": true
