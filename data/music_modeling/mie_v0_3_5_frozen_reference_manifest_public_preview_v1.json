@@ -1,0 +1,28 @@
+{
+  "schema": "HOOKLAB_MIE_FROZEN_REFERENCE_MANIFEST_v1",
+  "manifest_id": "MIE-v0.3.5-PUBLIC-PREVIEW-FROZEN-REFERENCE-RECOVERY-v1",
+  "status": "PARTIAL_REFERENCE_SOURCE_HASH_NOT_PERSISTED_IN_PARENT_ARTIFACT",
+  "created_from_existing_artifacts_only": true,
+  "no_reprocess": true,
+  "changed_module": "M_ONLY",
+  "source_sha256": null,
+  "source_hash_boundary": "PARENT_ARTIFACT_9910624179_DID_NOT_PERSIST_SOURCE_SHA256; DO_NOT_BACKFILL_FROM A LATER RUN AS IF PREDECLARED",
+  "harmony_reference_sha256": "b145cfecdea25c6ed6379d4883dada64de02b834f8a338b8d43afc54d13da22a",
+  "tactus_reference_sha256": "9f48f26e6f9c9d3b6efc59548a944066306ed7cfe9f86f40ebdb64c40e84f290",
+  "stored_tactus_fingerprint": "a0d50e9c9bd411b9f038a0330bcc924935888ea857eb4c9cbeb189809d8cf73d",
+  "reference_artifact": {
+    "artifact_id": 9910624179,
+    "run_id": 33799581232,
+    "zip_sha256": "ffa7de86babeebf62411b629a1121919d95f776dae383a5e4cf478d6c6f5cff5",
+    "report_path": "MIE_CORE_MHT_v0_2.json"
+  },
+  "reference_commit": "6f44f21971d5bf581fc3531215d74c9c856b80c0",
+  "reference_layers": {
+    "H": "harmony_v0_3_3",
+    "T": "beats"
+  },
+  "use_for_promotion": false,
+  "blocking_reason": "SOURCE_HASH_NOT_PREDECLARED_OR_PERSISTED_IN_PARENT_PACKAGE",
+  "generation_class": "D0_EXPLORATORY",
+  "scientific_d_unlocked": false
+}
