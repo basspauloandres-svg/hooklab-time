@@ -1,0 +1,142 @@
+{
+  "schema": "HOOKLAB_MIE_NO_REPROCESS_HISTORICAL_ARTIFACT_AUDIT_v1",
+  "audit_id": "MIE-v0.3.5-NO-REPROCESS-HISTORICAL-ARTIFACT-AUDIT-2026-09-13-v1",
+  "date": "2026-09-13",
+  "repository": "basspauloandres-svg/hooklab-time",
+  "branch_audited": "codex/mie-continuity-alignment-v0.3.4",
+  "branch_tip_before_audit": "6683bec5af663bc44be560d34a8950d2af7f1e79",
+  "policy": {
+    "no_reprocess": true,
+    "changed_module": "M_ONLY",
+    "new_audio_execution_allowed": false,
+    "new_audio_request_allowed": false,
+    "harmony_development_allowed": false,
+    "tactus_state": "FROZEN_ENGINEERING_BASELINE_PRESERVED",
+    "generation_class": "D0_EXPLORATORY",
+    "scientific_d_unlocked": false
+  },
+  "artifact_findings": {
+    "published_v0_3_4_public_preview": {
+      "artifact_id": 9910624179,
+      "workflow_run_id": 33799581232,
+      "commit": "6f44f21971d5bf581fc3531215d74c9c856b80c0",
+      "artifact_zip_sha256": "ffa7de86babeebf62411b629a1121919d95f776dae383a5e4cf478d6c6f5cff5",
+      "duration_s": 29.92907029478458,
+      "raw_note_candidate_count": 94,
+      "accepted_note_count": 85,
+      "final_melody_event_count": 66,
+      "raw_beat_count": 35,
+      "resolved_tactus_count": 29,
+      "tempo_bpm": 69.76744186046517,
+      "harmony_v0_3_3_state_count": 12,
+      "canonical_harmony_v0_3_3_sha256": "b145cfecdea25c6ed6379d4883dada64de02b834f8a338b8d43afc54d13da22a",
+      "canonical_tactus_layer_sha256": "9f48f26e6f9c9d3b6efc59548a944066306ed7cfe9f86f40ebdb64c40e84f290",
+      "stored_tactus_fingerprint": "a0d50e9c9bd411b9f038a0330bcc924935888ea857eb4c9cbeb189809d8cf73d",
+      "v0_3_5_diagnostic_present": false,
+      "persisted_separated_vocal_stem": false,
+      "persisted_basic_pitch_contour_tensor": false,
+      "persisted_raw_note_candidate_events": false,
+      "raw_note_candidate_count_only": true
+    },
+    "post_gate_existing_public_preview_run": {
+      "artifact_id": 9944207067,
+      "workflow_run_id": 33891658717,
+      "commit": "4f47f8c54ae2353782b138a05b7ceeccdf9e180d",
+      "artifact_zip_sha256": "16feb6300d18278765d1f7e65acb6c5dddb996749f6df41f7bc6d312974f9142",
+      "duration_s": 29.92907029478458,
+      "source_sha256_recorded_by_gate": "7cf54a304a15b4bf7b38eb1e411d6acc5aabc2f603783ddee91af04b4987949c",
+      "work_group_hash": null,
+      "raw_note_candidate_count": 90,
+      "accepted_note_count": 82,
+      "final_melody_event_count": 62,
+      "raw_beat_count": 35,
+      "resolved_tactus_count": 29,
+      "tempo_bpm": 69.76744186046517,
+      "harmony_v0_3_3_state_count": 12,
+      "canonical_harmony_v0_3_3_sha256": "7612297d792b5305a01bdafb2a42f6cb7c14a51ad275feb6919e858c34f4b6e4",
+      "canonical_tactus_layer_sha256": "7f8e3ebd3a9e37a7b1a40d33c44a8ab2612582e0d78f215b5f63abc217427c75",
+      "stored_tactus_fingerprint": "5ba310051d16690311c9ed59842c24190eba5958149243bda675ed5482f09877",
+      "gate_status": "AUDIT_PROVENANCE_INCOMPLETE",
+      "diagnostic_status": "ABSTAIN_INSUFFICIENT_MELODY_EVIDENCE",
+      "diagnostic_reason": "MINIMUM_INDEPENDENT_EVIDENCE_NOT_MET",
+      "separated_vocal_active_time_s": 28.36046511627907,
+      "note_sensor_conditional_nonresponse_ratio": 0.11931119311193111,
+      "note_sensor_evidence_sufficient": true,
+      "source_separation_independent_reference_present": false,
+      "source_separation_claim_allowed": false,
+      "harmony_byte_equivalent_within_same_run": true,
+      "tactus_byte_equivalent_within_same_run": true,
+      "producer_recognizability": "PENDING_PRODUCER_LISTENING",
+      "persisted_separated_vocal_stem": false,
+      "persisted_basic_pitch_contour_tensor": false,
+      "persisted_raw_note_candidate_events": false,
+      "raw_note_candidate_count_only": true
+    },
+    "structural_regression_v0_4": {
+      "artifact_id": 9706225384,
+      "workflow_run_id": 33223957593,
+      "artifact_zip_sha256": "af8e409f3b152edaf35fa1af7984e40f3504a13f0fa5752ac93fd751ac84c511",
+      "contains_core_json_and_wav": true,
+      "contains_structural_probe_json": true,
+      "contains_sensor_midi": true,
+      "contains_separated_vocal_stem": false,
+      "contains_basic_pitch_contour_tensor": false,
+      "role": "ENGINEERING_STRUCTURAL_CONTROL_NOT_RECOGNIZABILITY_CASE"
+    },
+    "animal_v0_3_4": {
+      "source_sha256": "75e1dcbaef2fe3d81818df650acf72d98c306f0262bd9e78bbbc911a42a436a0",
+      "recognition_zip_sha256": "39afd3c980c3d22e4267a33aee33e5f09895d514fbbcccbbe8ab7ef04789d67a",
+      "bytes_available_in_git": false,
+      "source_hash_match_previously_verified": true,
+      "persisted_metadata_supports_replay_free_disposition": "FAIL_UNRECOGNIZABLE",
+      "persisted_metadata_sufficient_for_separator_vs_sensor_causal_split": false
+    }
+  },
+  "cross_run_freeze_audit": {
+    "comparison": "PUBLISHED_v0.3.4_PUBLIC_PREVIEW_vs_POST_GATE_EXISTING_PUBLIC_PREVIEW_RUN",
+    "same_reported_duration": true,
+    "same_raw_beat_count": true,
+    "same_resolved_tactus_count": true,
+    "same_tempo_bpm": true,
+    "tactus_timestamps_materially_stable": true,
+    "tactus_scores_byte_stable": false,
+    "harmony_identities_materially_stable": true,
+    "harmony_evidence_scores_byte_stable": false,
+    "melody_candidate_count_stable": false,
+    "melody_candidate_count_change": -4,
+    "final_melody_event_count_change": -4,
+    "harmony_reference_hash_equal_across_runs": false,
+    "tactus_reference_hash_equal_across_runs": false,
+    "finding": "CURRENT_WITHIN_RUN_REFERENCE_VS_CANDIDATE_HASH_CHECK_DOES_NOT_PROVE_CROSS_RUN_FROZEN_REFERENCE_BINDING",
+    "promotion_disposition": "AUDIT_FROZEN_REFERENCE_BINDING_NOT_DEMONSTRATED"
+  },
+  "sub_gate": {
+    "id": "DIAGNOSE_SOURCE_SEPARATION_VERSUS_NOTE_SENSOR_RECALL",
+    "historical_evidence_summary": {
+      "note_sensor_recall_bottleneck": "SUPPORTED_AS_A_HISTORICAL_FAILURE_HYPOTHESIS_BUT_NOT_CAUSALLY_QUANTIFIED_ON_AN_ELIGIBLE_TRACEABLE_CASE",
+      "source_separation_primary_cause": "NOT_ESTABLISHED",
+      "current_formal_outcome": "ABSTAIN_INSUFFICIENT_MELODY_EVIDENCE"
+    },
+    "reason": "Eligible historical packages do not persist both the separated vocal waveform and Basic Pitch contour/onset tensors required for replay-free recomputation; source-separation attribution additionally lacks an independent registered vocal-presence reference.",
+    "new_audio_execution": "BLOCKED",
+    "historical_gate": "NOT_PASSED"
+  },
+  "audit_defect": {
+    "id": "MIE-v0.3.5-FROZEN-REFERENCE-BINDING-DEFECT-v1",
+    "severity": "PROMOTION_BLOCKING",
+    "description": "The current build_m_only_experiment_audit can receive reference and candidate layers produced inside the same execution. Equality then proves only within-call non-mutation, not byte identity to a predeclared historical frozen H/T artifact.",
+    "required_correction_before_next_audio_execution": [
+      "Bind H and T to predeclared hashes from an immutable prior package or manifest before candidate execution.",
+      "Compare candidate H/T hashes to those predeclared hashes, not to aliases or copies created within the same run.",
+      "Fail closed when a historical frozen hash is unavailable.",
+      "Preserve floating-score nondeterminism as an explicit reproducibility issue rather than relaxing the byte-identical rule silently."
+    ]
+  },
+  "decision": {
+    "status": "HISTORICAL_GATE_NOT_PASSED",
+    "baseline_promoted": false,
+    "new_audio_request_allowed": false,
+    "new_audio_execution_allowed": false,
+    "next_allowed_action": "HARDEN_FROZEN_REFERENCE_BINDING_AND_CONTINUE_RECOVERY_OF_EXISTING_HISTORICAL_ARTIFACTS_ONLY"
+  }
+}
