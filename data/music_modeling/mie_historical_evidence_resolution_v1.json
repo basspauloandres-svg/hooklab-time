@@ -1,0 +1,45 @@
+{
+  "schema": "HOOKLAB_MIE_HISTORICAL_EVIDENCE_RESOLUTION_v1",
+  "resolution_id": "MIE-HISTORICAL-EVIDENCE-RESOLUTION-2026-09-13-v1",
+  "no_reprocess": true,
+  "changed_module": "M_ONLY",
+  "purpose": "Resolve already-recorded producer/listening outcomes separately from causal separator-vs-sensor attribution and separately from baseline promotion.",
+  "cases": [
+    {
+      "case_id": "MIE-HIST-DEVUELVEME-P30",
+      "historical_recognizability_disposition": "PASS_RECOGNIZABLE",
+      "basis": "Existing producer evaluation: Excelente, se identifica muy bien",
+      "causal_separator_vs_sensor_disposition": "NOT_APPLICABLE_GOLDEN_REFERENCE",
+      "reprocessed": false
+    },
+    {
+      "case_id": "MIE-HIST-ANIMAL-v0.3.4",
+      "historical_recognizability_disposition": "FAIL_UNRECOGNIZABLE",
+      "basis": "Registered producer evaluation FAIL_UNRECOGNIZABLE with 27.2% temporal coverage and 72 gaps >=500 ms; coverage is not accuracy.",
+      "causal_separator_vs_sensor_disposition": "ABSTAIN_INSUFFICIENT_PERSISTED_MELODY_EVIDENCE",
+      "reprocessed": false
+    },
+    {
+      "case_id": "MIE-HIST-INDEPENDENT-281797",
+      "historical_recognizability_disposition": "PASS_RECOGNIZABLE_WITH_FRAGMENTATION",
+      "basis": "Existing listening record identifies a recognizable melodic trajectory with recurrent gaps; 223 silent runs >=100 ms remain a defect.",
+      "causal_separator_vs_sensor_disposition": "ABSTAIN_CAUSAL_SPLIT_NOT_IDENTIFIABLE_FROM_PERSISTED_EVIDENCE",
+      "reprocessed": false
+    }
+  ],
+  "interpretation_rules": {
+    "historical_recognizability_is_not_current_v0_3_5_candidate_validation": true,
+    "historical_failure_does_not_need_to_become_a_pass_to_complete_inventory_review": true,
+    "causal_diagnosis_is_separate_from_recognizability": true,
+    "producer_listening_is_separate_from_automatic_diagnostics": true
+  },
+  "inventory_review_complete": true,
+  "frozen_reference_binding_enforced_for_future_candidate_execution": false,
+  "new_audio_request_allowed": false,
+  "new_audio_execution_allowed": false,
+  "blocking_reason": "FROZEN_REFERENCE_SOURCE_IDENTITY_IS_NOT YET PREDECLARED FOR AN ELIGIBLE FUTURE SAME-SOURCE M-ONLY COMPARISON",
+  "formal_sub_gate_outcome": "ABSTAIN_INSUFFICIENT_MELODY_EVIDENCE",
+  "generation_class": "D0_EXPLORATORY",
+  "scientific_d_unlocked": false,
+  "baseline_promoted": false
+}
