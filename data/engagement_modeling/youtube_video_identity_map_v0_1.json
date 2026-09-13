@@ -1,6 +1,6 @@
 {
   "schema": "HOOKLAB_YOUTUBE_VIDEO_IDENTITY_MAP_v0.1",
-  "status": "PARTIAL_IDENTITY_REVIEW_85_OF_100",
+  "status": "PARTIAL_IDENTITY_REVIEW_86_OF_100",
   "created_at": "2026-09-01T18:42:11.663988Z",
   "collector_version": "hooklab-youtube-public-metrics-collector-v0.1",
   "source_case_manifest_id": "HOOKLAB-C001-C100-METADATA-2026-09-01-v1",
@@ -1222,12 +1222,17 @@
       "case_id": "C100",
       "title": "Ojitos Lindos",
       "artist": "Bad Bunny",
-      "video_id": null,
-      "identity_review_status": "PENDING",
-      "identity_evidence": []
+      "video_id": "wAjHQXrIj9o",
+      "identity_review_status": "VERIFIED",
+      "identity_evidence": [
+        "Independent provider agreement: MUSICBRAINZ, YOUTUBE_OEMBED, YTDLP_SEARCH"
+      ],
+      "video_url": "https://www.youtube.com/watch?v=wAjHQXrIj9o",
+      "artifact_role": "DOCUMENTED_PUBLIC_MUSIC_VIDEO",
+      "identity_verification_method": "AUTOMATED_CROSS_SOURCE_V1"
     }
   ],
   "scientific_d_unlocked": false,
-  "updated_at": "2026-09-06T08:47:11.365994Z",
+  "updated_at": "2026-09-13T09:40:10.990117Z",
   "identity_resolver_version": "hooklab-open-identity-resolver-v1.3"
 }
