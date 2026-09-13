@@ -1,5 +1,7 @@
 name: MIE Core Prototype
 
+# Audio-bearing MIE execution is intentionally manual-only.
+# NO_REPROCESS audits and code-only changes must never acquire or process audio implicitly.
 on:
   workflow_dispatch:
     inputs:
@@ -7,10 +9,6 @@ on:
         description: 'Direct URL to input audio'
         required: false
         type: string
-  push:
-    paths:
-      - 'mie_core/**'
-      - '.github/workflows/mie-core-prototype.yml'
 
 jobs:
   mie-core:
