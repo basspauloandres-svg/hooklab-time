@@ -1,0 +1,70 @@
+{
+  "schema": "HOOKLAB_MIE_HISTORICAL_PRIVATE_PACKAGE_BYTE_AUDIT_v1",
+  "audit_id": "MIE-v0.3.5-ANIMAL-PRIVATE-PACKAGE-BYTE-AUDIT-2026-09-13-v1",
+  "date": "2026-09-13",
+  "policy": {
+    "no_reprocess": true,
+    "audio_models_executed": false,
+    "changed_module": "NONE_AUDIT_ONLY",
+    "H": "FROZEN",
+    "T": "FROZEN_ENGINEERING_BASELINE_PRESERVED",
+    "generation_class": "D0_EXPLORATORY",
+    "scientific_d_unlocked": false
+  },
+  "source": {
+    "registered_name": "Animal.mp3",
+    "supplied_name": "Animal(1).mp3",
+    "size_bytes": 8176436,
+    "sha256": "75e1dcbaef2fe3d81818df650acf72d98c306f0262bd9e78bbbc911a42a436a0",
+    "registered_hash_match": true
+  },
+  "recognition_package": {
+    "registered_name": "MIE_RECOGNITION_v0_3_4.zip",
+    "supplied_name": "MIE_RECOGNITION_v0_3_4(1).zip",
+    "size_bytes": 97878869,
+    "sha256": "39afd3c980c3d22e4267a33aee33e5f09895d514fbbcccbbe8ab7ef04789d67a",
+    "registered_hash_match": true,
+    "internal_reference_sha256": "75e1dcbaef2fe3d81818df650acf72d98c306f0262bd9e78bbbc911a42a436a0",
+    "internal_reference_matches_supplied_source": true,
+    "entry_count": 12,
+    "separated_vocal_stem_persisted": false,
+    "basic_pitch_contour_tensor_persisted": false,
+    "basic_pitch_onset_tensor_persisted": false,
+    "raw_candidate_events_persisted": false,
+    "raw_candidate_count_persisted": 290
+  },
+  "persisted_evidence": {
+    "duration_s": 245.08081632653062,
+    "melody_events_v0_3_4": 215,
+    "melody_events_v0_3_3": 215,
+    "melody_events_v0_3_2": 216,
+    "melody_events_v0_3_1": 230,
+    "raw_accepted_melody_events": 228,
+    "plane_recovered_candidates": 0,
+    "tail_extensions": 49,
+    "harmony_states": 100,
+    "raw_beat_observations": 480,
+    "resolved_tactus_events": 477,
+    "tempo_bpm": 120.0,
+    "producer_recognizability": "FAIL_UNRECOGNIZABLE",
+    "recognition_schema_status": "PASS_NORMALIZATION_CONTRACT_ONLY_NOT_RECOGNIZABILITY"
+  },
+  "tf_plane_diagnostics": {
+    "pitch_ridge_error_cents_median": 66.66666666666667,
+    "voiced_overlap_iou": 0.34052616021282883,
+    "false_silence_ratio": 0.5608082348455966,
+    "onset_error_ms_median": 75.65064599482696,
+    "offset_error_ms_median": 91.06009597638831,
+    "octave_confusion_rate": 0.03125,
+    "interpretation": "DERIVED_DIAGNOSTICS_NOT_MELODY_ACCURACY"
+  },
+  "disposition": {
+    "source_package_identity": "VERIFIED",
+    "package_mixup_hypothesis": "REJECTED",
+    "causal_split_separator_vs_note_sensor": "ABSTAIN_INSUFFICIENT_MELODY_EVIDENCE",
+    "note_sensor_recall_bottleneck": "HISTORICALLY_SUPPORTED_HYPOTHESIS",
+    "source_separation_primary_cause": "NOT_ESTABLISHED",
+    "new_audio_execution_allowed": false,
+    "baseline_promoted": false
+  }
+}
