@@ -5,6 +5,7 @@ on:
     paths:
       - 'mie_core/**'
       - 'tests/test_mie_melody_recognizability_gate.py'
+      - 'tests/test_mie_frozen_reference_contract.py'
       - 'data/music_modeling/mie_v0_3_5_*'
       - '.github/workflows/mie-core-no-audio-contract-tests.yml'
   workflow_dispatch:
@@ -22,3 +23,5 @@ jobs:
         run: pip install numpy
       - name: Run M-only recognizability contract tests
         run: python tests/test_mie_melody_recognizability_gate.py
+      - name: Run immutable frozen-reference contract tests
+        run: python tests/test_mie_frozen_reference_contract.py
