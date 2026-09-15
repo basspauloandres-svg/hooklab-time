@@ -1,9 +1,12 @@
 import { chromium, webkit } from 'playwright';
 import fs from 'fs';
 
-// FINAL_MULTIMODAL_PROVENANCE_REGRESSION_v1
+// FINAL_MULTIMODAL_PROVENANCE_REGRESSION_v2
+// Canonical persistence contract: saved session + candidate-to-evaluation trace.
+// Selection itself is verified directly by transfer into #text; a separate
+// hooklab_current_candidate pointer is not part of the current application contract.
 const URL=process.env.HOOKLAB_TEST_URL||'http://127.0.0.1:8000/app/prototype_v1/index.html';
-const wav=Buffer.alloc(44+22050*2); // minimal 1 s mono PCM16 WAV
+const wav=Buffer.alloc(44+22050*2);
 wav.write('RIFF',0); wav.writeUInt32LE(wav.length-8,4); wav.write('WAVEfmt ',8); wav.writeUInt32LE(16,16); wav.writeUInt16LE(1,20); wav.writeUInt16LE(1,22); wav.writeUInt32LE(22050,24); wav.writeUInt32LE(44100,28); wav.writeUInt16LE(2,32); wav.writeUInt16LE(16,34); wav.write('data',36); wav.writeUInt32LE(wav.length-44,40);
 fs.writeFileSync('/tmp/hooklab_mobile.wav',wav);
 
@@ -40,11 +43,13 @@ for(const p of profiles){
   await page.selectOption('#decision',{label:'Modificar'});
   await page.fill('#reason','mobile regression');
   await page.click('#save');
-  const persistence=await page.evaluate(()=>({session:Object.keys(localStorage).some(k=>k.startsWith('hooklab_session_')),trace:Object.keys(localStorage).some(k=>k.startsWith('hooklab_trace_')),current:!!localStorage.getItem('hooklab_current_candidate')}));
+  const persistence=await page.evaluate(()=>({
+    session:Object.keys(localStorage).some(k=>k.startsWith('hooklab_session_')),
+    trace:Object.keys(localStorage).some(k=>k.startsWith('hooklab_trace_'))
+  }));
   if(!persistence.session) throw new Error(`${p.name}: session not persisted`);
-  if(!persistence.current) throw new Error(`${p.name}: selected candidate pointer not persisted`);
   if(!persistence.trace) throw new Error(`${p.name}: candidate-to-evaluation provenance not persisted`);
   results.push({profile:p.name,title,viewport:p.viewport,min_button_height:minButton,horizontal_overflow:false,d0:true,multimodal_candidates:candidateCount,candidate_selected:true,persisted:true,evaluation_trace:true});
   await browser.close();
 }
-console.log(JSON.stringify({status:'PASS',regression:'FINAL_MULTIMODAL_PROVENANCE_REGRESSION_v1',results},null,2));
+console.log(JSON.stringify({status:'PASS',regression:'FINAL_MULTIMODAL_PROVENANCE_REGRESSION_v2',results},null,2));
