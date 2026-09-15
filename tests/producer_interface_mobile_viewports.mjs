@@ -1,9 +1,10 @@
 import { chromium, webkit } from 'playwright';
 import fs from 'fs';
 
-// FINAL_MULTIMODAL_PROVENANCE_REGRESSION_v3
+// FINAL_MULTIMODAL_PROVENANCE_REGRESSION_v4
 // Canonical contract: candidate selection is transferred to #text and the saved
 // session must preserve that exact text together with the producer evaluation.
+// snapshot() persists creative input under saved.creative.
 // hooklab_trace_* is reserved for the lyric-prosody bridge and is not required
 // for an assistant candidate that has not entered that bridge.
 const URL=process.env.HOOKLAB_TEST_URL||'http://127.0.0.1:8000/app/prototype_v1/index.html';
@@ -49,7 +50,7 @@ for(const p of profiles){
     if(!key)return {session:false,linked:false};
     try{
       const saved=JSON.parse(localStorage.getItem(key));
-      return {session:true,linked:!!saved&&saved.creative_input&&saved.creative_input.text===document.querySelector('#text').value&&saved.producer_evaluation&&saved.producer_evaluation.decision==='Modificar'};
+      return {session:true,linked:!!saved&&saved.creative&&saved.creative.text===document.querySelector('#text').value&&saved.producer_evaluation&&saved.producer_evaluation.decision==='Modificar'};
     }catch(_){return {session:true,linked:false}}
   });
   if(!persistence.session) throw new Error(`${p.name}: session not persisted`);
@@ -57,4 +58,4 @@ for(const p of profiles){
   results.push({profile:p.name,title,viewport:p.viewport,min_button_height:minButton,horizontal_overflow:false,d0:true,multimodal_candidates:candidateCount,candidate_selected:true,persisted:true,evaluation_provenance:true});
   await browser.close();
 }
-console.log(JSON.stringify({status:'PASS',regression:'FINAL_MULTIMODAL_PROVENANCE_REGRESSION_v3',results},null,2));
+console.log(JSON.stringify({status:'PASS',regression:'FINAL_MULTIMODAL_PROVENANCE_REGRESSION_v4',results},null,2));
