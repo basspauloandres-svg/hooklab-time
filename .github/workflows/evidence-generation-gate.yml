@@ -1,0 +1,30 @@
+name: Evidence-Gated Generation Contract
+on:
+  push:
+    branches: ["integration/mie-r13-producer-v07-clean","main"]
+    paths:
+      - "app/prototype_v1/evidence_generation_gate.js"
+      - "tests/evidence_generation_gate_test.js"
+      - ".github/workflows/evidence-generation-gate.yml"
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "app/prototype_v1/evidence_generation_gate.js"
+      - "tests/evidence_generation_gate_test.js"
+      - ".github/workflows/evidence-generation-gate.yml"
+  workflow_dispatch:
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: node --check app/prototype_v1/evidence_generation_gate.js
+      - run: node tests/evidence_generation_gate_test.js
+      - name: Fail closed invariants
+        run: |
+          grep -q "SCIENTIFIC_D_LOCKED" app/prototype_v1/evidence_generation_gate.js
+          grep -q "UNSUPPORTED_GENERATIVE_SOURCE" app/prototype_v1/evidence_generation_gate.js
+          grep -q "AUTHOR_INPUT_REQUIRED" app/prototype_v1/evidence_generation_gate.js
+          grep -q "CANONICAL_ADMITTED" app/prototype_v1/evidence_generation_gate.js
