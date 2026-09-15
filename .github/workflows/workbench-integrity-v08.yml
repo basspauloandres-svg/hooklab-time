@@ -1,0 +1,21 @@
+name: HookLab Workbench v0.8 Integrity
+on:
+  push:
+    branches: ["integration/mie-r13-producer-v07-20260915", "main"]
+    paths:
+      - "app/prototype_v1/**"
+      - "tests/workbench_integrity_v0_8_test.js"
+      - ".github/workflows/workbench-integrity-v08.yml"
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+jobs:
+  integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tests/workbench_integrity_v0_8_test.js
