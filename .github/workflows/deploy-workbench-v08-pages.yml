@@ -1,0 +1,35 @@
+name: Deploy HookLab Workbench v0.8 Pages
+on:
+  workflow_dispatch:
+  push:
+    branches: ["integration/mie-r13-producer-v07-20260915"]
+    paths:
+      - "app/prototype_v1/**"
+      - ".github/workflows/deploy-workbench-v08-pages.yml"
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build immutable static bundle
+        run: |
+          mkdir -p _site
+          cp -R app/prototype_v1/. _site/
+          printf '%s\n' '${{ github.sha }}' > _site/DEPLOYED_SHA.txt
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
