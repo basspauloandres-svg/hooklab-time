@@ -4,6 +4,7 @@ on:
     paths:
       - 'evaluation/ctl/run_reference_batch_playwright.mjs'
       - 'evaluation/ctl/run_commercial_reference_descriptors.mjs'
+      - 'evaluation/ctl/audio_context_wav_polyfill.js'
       - '.github/workflows/reference-batch-mie.yml'
       - 'app-mie-unified-transcription-v0.1.1.html'
   workflow_dispatch:
@@ -21,12 +22,12 @@ jobs:
           npm init -y
           npm install playwright
           npx playwright install --with-deps chromium
-      - name: Ensure ffmpeg and virtual display
-        run: sudo apt-get update && sudo apt-get install -y ffmpeg xvfb
+      - name: Ensure ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
       - name: Run automated commercial reference descriptor batch
         run: |
-          sed -i 's/headless:true/headless:false/' evaluation/ctl/run_commercial_reference_descriptors.mjs
-          xvfb-run -a node evaluation/ctl/run_commercial_reference_descriptors.mjs
+          sed -i "/await page.goto/a\\    await page.addScriptTag({path:'evaluation/ctl/audio_context_wav_polyfill.js'});" evaluation/ctl/run_commercial_reference_descriptors.mjs
+          node evaluation/ctl/run_commercial_reference_descriptors.mjs
       - name: Upload commercial descriptor outputs
         if: always()
         uses: actions/upload-artifact@v4
