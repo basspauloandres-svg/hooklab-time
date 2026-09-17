@@ -143,10 +143,10 @@ try{
     const page=await browser.newPage();
     await page.goto(`http://127.0.0.1:8766/${appName}`,{waitUntil:'load'});
     await page.setInputFiles('#f',wav); await page.click('#decode');
-    await page.waitForFunction(()=>{const s=document.querySelector('#ds')?.textContent||'';return s.includes('DECODE OK')||s.startsWith('ERROR');},{timeout:60000});
+    await page.waitForFunction(()=>{const s=document.querySelector('#ds')?.textContent||'';return s.includes('DECODE OK')||s.startsWith('ERROR');},null,{timeout:60000});
     const ds=await page.textContent('#ds'); if(!ds.includes('DECODE OK'))throw new Error(`${ref.id} decode failed: ${ds}`);
     await page.click('#run');
-    await page.waitForFunction(()=>{const s=document.querySelector('#st')?.textContent||'';return s.startsWith('LISTO')||s.startsWith('ERROR');},{timeout:240000});
+    await page.waitForFunction(()=>{const s=document.querySelector('#st')?.textContent||'';return s.startsWith('LISTO')||s.startsWith('ERROR');},null,{timeout:240000});
     const st=await page.textContent('#st'); if(!st.startsWith('LISTO'))throw new Error(`${ref.id} analysis failed: ${st}`);
     const result=await page.evaluate(()=>result);
     const row={reference:ref, descriptors:descriptors(result), engine:'MIE_UNIFIED_v0.1.1'};
