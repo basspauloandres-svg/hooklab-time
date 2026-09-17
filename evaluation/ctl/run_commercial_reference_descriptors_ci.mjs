@@ -39,5 +39,7 @@ s = s.replace(
   "if(p.endsWith('.wav'))res.setHeader('Content-Type','audio/wav'); if(p.endsWith('.f32le'))res.setHeader('Content-Type','application/octet-stream');"
 );
 
+s = s.replace("{timeout:240000}", "{timeout:720000}");
+
 fs.writeFileSync(dstPath, s);
 await import('file://' + dstPath + '?v=' + Date.now());
