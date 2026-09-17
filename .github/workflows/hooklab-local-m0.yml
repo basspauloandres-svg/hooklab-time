@@ -1,0 +1,28 @@
+name: HookLab Local M0
+
+on:
+  push:
+    branches:
+      - hooklab-local-listening-lab
+      - hooklab-local-hexagonal
+    paths:
+      - 'src/hooklab/**'
+      - 'test/hooklab_*.test.js'
+      - 'docs/HOOKLAB_LOCAL_HEXAGONAL_CONTRACT.md'
+      - '.github/workflows/hooklab-local-m0.yml'
+  pull_request:
+    paths:
+      - 'src/hooklab/**'
+      - 'test/hooklab_*.test.js'
+      - 'docs/HOOKLAB_LOCAL_HEXAGONAL_CONTRACT.md'
+
+jobs:
+  local-contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate hexagonal, listening and telemetry contracts
+        run: node --test test/hooklab_*.test.js
