@@ -21,11 +21,14 @@ jobs:
           npm init -y
           npm install playwright
           npx playwright install --with-deps chromium
-      - name: Ensure ffmpeg
-        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Ensure ffmpeg and virtual display
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg xvfb
       - name: Run automated commercial reference descriptor batch
-        run: node evaluation/ctl/run_commercial_reference_descriptors.mjs
+        run: |
+          sed -i 's/headless:true/headless:false/' evaluation/ctl/run_commercial_reference_descriptors.mjs
+          xvfb-run -a node evaluation/ctl/run_commercial_reference_descriptors.mjs
       - name: Upload commercial descriptor outputs
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: commercial-rhythm-melody-descriptors
