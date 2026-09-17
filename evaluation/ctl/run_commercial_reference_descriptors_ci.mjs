@@ -17,7 +17,19 @@ s = s.replace(
 
 const oldBlock = "await page.setInputFiles('#f',wav); await page.click('#decode');\n    await page.waitForFunction(()=>{const s=document.querySelector('#ds')?.textContent||'';return s.includes('DECODE OK')||s.startsWith('ERROR');},null,{timeout:60000});\n    const ds=await page.textContent('#ds'); if(!ds.includes('DECODE OK'))throw new Error(`${ref.id} decode failed: ${ds}`);";
 
-const newBlock = `await page.setInputFiles('#f',wav);\n    await page.evaluate(async (pcmUrl)=>{\n      const r=await fetch(pcmUrl); if(!r.ok) throw new Error('PCM HTTP '+r.status);\n      const ab=await r.arrayBuffer();\n      const source=new Float32Array(ab);\n      const data=new Float32Array(source.length); data.set(source);\n      buf={duration:data.length/22050,sampleRate:22050,length:data.length,numberOfChannels:1,getChannelData(c){if(c!==0)throw new Error('mono');return data;}};\n      document.querySelector('#ds').textContent='DECODE OK · DIRECT_PCM_CI · '+buf.duration.toFixed(6)+' s · 22050 Hz';\n      document.querySelector('#run').disabled=false;\n    }, 'http://127.0.0.1:8766/evaluation/ctl/commercial_reference_outputs/'+ref.id+'.f32le');\n    const ds=await page.textContent('#ds'); if(!ds.includes('DECODE OK'))throw new Error(\`${ref.id} direct PCM failed: \${ds}\`);`;
+const newBlock = [
+  "await page.setInputFiles('#f',wav);",
+  "    await page.evaluate(async (pcmUrl)=>{",
+  "      const r=await fetch(pcmUrl); if(!r.ok) throw new Error('PCM HTTP '+r.status);",
+  "      const ab=await r.arrayBuffer();",
+  "      const source=new Float32Array(ab);",
+  "      const data=new Float32Array(source.length); data.set(source);",
+  "      buf={duration:data.length/22050,sampleRate:22050,length:data.length,numberOfChannels:1,getChannelData(c){if(c!==0)throw new Error('mono');return data;}};",
+  "      document.querySelector('#ds').textContent='DECODE OK · DIRECT_PCM_CI · '+buf.duration.toFixed(6)+' s · 22050 Hz';",
+  "      document.querySelector('#run').disabled=false;",
+  "    }, 'http://127.0.0.1:8766/evaluation/ctl/commercial_reference_outputs/'+ref.id+'.f32le');",
+  "    const ds=await page.textContent('#ds'); if(!ds.includes('DECODE OK'))throw new Error(ref.id+' direct PCM failed: '+ds);"
+].join('\n    ');
 
 if (!s.includes(oldBlock)) throw new Error('CI adapter failed closed: decode block signature changed');
 s = s.replace(oldBlock, newBlock);
