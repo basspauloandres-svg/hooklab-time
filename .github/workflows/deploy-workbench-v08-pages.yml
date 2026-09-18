@@ -1,0 +1,63 @@
+name: Deploy HookLab Workbench v0.8 Pages
+on:
+  workflow_dispatch:
+  push:
+    branches: ["integration/mie-r13-producer-v07-20260915"]
+    paths:
+      - "app/prototype_v1/**"
+      - ".github/workflows/deploy-workbench-v08-pages.yml"
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages-workbench-v08
+  cancel-in-progress: true
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build immutable static bundle
+        run: |
+          rm -rf _site
+          mkdir -p _site
+          cp -R app/prototype_v1/. _site/
+          touch _site/.nojekyll
+          printf '%s\n' '${{ github.sha }}' > _site/DEPLOYED_SHA.txt
+          test -f _site/workbench-agents-v0.8.html
+          test -f _site/mie_r13_engine.js
+          test -f _site/local_beat_this_v0_2.js
+          test -f _site/feature_engine_v0_1.js
+          test -f _site/evidence_generation_gate.js
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Verify live Workbench
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          set -euxo pipefail
+          TARGET="${PAGE_URL%/}/workbench-agents-v0.8.html"
+          for i in 1 2 3 4 5 6; do
+            CODE=$(curl -L -sS -o /tmp/workbench.html -w '%{http_code}' "$TARGET" || true)
+            echo "Attempt $i code=$CODE target=$TARGET"
+            if [ "$CODE" = "200" ]; then
+              grep -q 'HookLab · Evidence Workbench v0.8' /tmp/workbench.html
+              exit 0
+            fi
+            sleep 10
+          done
+          echo 'Pages deployment did not expose Workbench successfully.' >&2
+          exit 1
