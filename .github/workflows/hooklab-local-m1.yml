@@ -1,0 +1,25 @@
+name: HookLab Local M1
+
+on:
+  push:
+    branches:
+      - hooklab-local-m1
+    paths:
+      - 'src/hooklab/**'
+      - 'test/hooklab_*.test.js'
+      - '.github/workflows/hooklab-local-m1.yml'
+  pull_request:
+    paths:
+      - 'src/hooklab/**'
+      - 'test/hooklab_*.test.js'
+
+jobs:
+  audience-first-analytics:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate M0 and M1 scientific contracts
+        run: node --test test/hooklab_*.test.js
