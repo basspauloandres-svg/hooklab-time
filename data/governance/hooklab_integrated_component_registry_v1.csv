@@ -1,0 +1,14 @@
+component_id,module,historical_anchor,current_role,status,next_action
+MIE-CORE-DEP,Multisensor Engine,cc5b0a76,MIE Core dependencies,RECOVERED_HISTORICAL,verify current reproducibility
+MIE-CORE-CI,Multisensor Engine,0eb3cd60,automated prototype workflow,RECOVERED_HISTORICAL,verify workflow compatibility
+MIE-CORE-FUSION,Multisensor Engine,d516b66c,trained sensors to MIE fusion to M+H+T,RECOVERED_HISTORICAL,reproduce baseline
+MIE-CORE-STEMS,Multisensor Engine,53e7fbe9,Beat This plus stem-aware fusion,RECOVERED_HISTORICAL,reproduce and freeze selected baseline
+MIE-CORE-LM,Golden Case,83b6ee22,Luis Miguel authorized-preview run,RECOVERED_HISTORICAL,recover outputs and compare reproducibly
+MIE-STRUCT-Q,Structural Layer,ddcac29d,structural quantization over P30-SCORE-002,RECOVERED_HISTORICAL,inspect compatibility with Case Analysis Package
+MIE-HARM-EAR,Harmony Layer,2ad3ed52,real-tactus harmonic prototype,RECOVERED_HISTORICAL,inspect merge path into current fusion
+MIE-BROWSER,Audit UI,current repository app-mie-audio-midi-explorer-v0.2.html,audition/inspection surface,EXPERIMENTAL,embed as Workbench audit module
+CASE-PACK,Data Contract,checkpoint 2026-09-15,case-level bridge extraction-to-statistics,IMPLEMENTATION_REQUIRED,define schema v0.1
+FEATURE-ENGINE,Analysis Layer,HookLab research variable set,derive auditable analytical variables,IMPLEMENTATION_REQUIRED,implement only over provenance-bearing events
+STAT-MODEL,Statistical Layer,HookLab corpus methodology,conditioned distributions and pattern evidence,BLOCKED_PENDING_FEATURES,activate after feature admission
+GEN-ENGINE,Generative Layer,HookLab hierarchical generation,motif-figure-phrase constrained generation,BLOCKED_SCIENTIFIC,activate only from admitted evidence
+WORKBENCH,Product Layer,HOOKLAB_WORKBENCH_MVP_SPEC_v0.1,integrated tangible research instrument,IMPLEMENTATION_ACTIVE,integrate recovered modules
