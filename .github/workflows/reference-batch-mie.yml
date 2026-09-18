@@ -3,13 +3,15 @@ on:
   push:
     paths:
       - 'evaluation/ctl/run_reference_batch_playwright.mjs'
+      - 'evaluation/ctl/run_commercial_reference_descriptors.mjs'
+      - 'evaluation/ctl/run_commercial_reference_descriptors_ci.mjs'
       - '.github/workflows/reference-batch-mie.yml'
       - 'app-mie-unified-transcription-v0.1.1.html'
   workflow_dispatch:
 jobs:
-  analyze:
+  commercial-descriptors:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -22,10 +24,11 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Ensure ffmpeg
         run: sudo apt-get update && sudo apt-get install -y ffmpeg
-      - name: Run MIE reference batch
-        run: node evaluation/ctl/run_reference_batch_playwright.mjs
-      - name: Upload reference batch outputs
+      - name: Run automated commercial reference descriptor batch
+        run: node evaluation/ctl/run_commercial_reference_descriptors_ci.mjs
+      - name: Upload commercial descriptor outputs
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: mie-reference-batch
-          path: evaluation/ctl/reference_batch_outputs/*.json
+          name: commercial-rhythm-melody-descriptors
+          path: evaluation/ctl/commercial_reference_outputs/*.json
