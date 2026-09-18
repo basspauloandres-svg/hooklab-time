@@ -1,0 +1,16 @@
+name: Integrated Evaluation v0.7
+on:
+  push:
+    branches: ["integration/mie-r13-producer-v07-clean"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: node --check app/prototype_v1/mie_r13_engine.js
+      - run: node tests/integrated_evaluation_v07_contract.js
