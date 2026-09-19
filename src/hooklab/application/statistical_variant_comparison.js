@@ -18,12 +18,22 @@ function proportionInterval(successes,n,z=1.959963984540054){
 
 function riskDifferenceInterval(a,nA,b,nB,z=1.959963984540054){
   if(!nA||!nB) return null;
+  const A=proportionInterval(a,nA,z),B=proportionInterval(b,nB,z);
   const pA=a/nA,pB=b/nB,difference=pA-pB;
-  const se=Math.sqrt(pA*(1-pA)/nA+pB*(1-pB)/nB);
-  return Object.freeze({estimate:difference,lower:difference-z*se,upper:difference+z*se,standardError:se,method:'Wald 95% CI for risk difference'});
+  const lower=difference-Math.sqrt((pA-A.lower)**2+(B.upper-pB)**2);
+  const upper=difference+Math.sqrt((A.upper-pA)**2+(pB-B.lower)**2);
+  return Object.freeze({estimate:difference,lower:Math.max(-1,lower),upper:Math.min(1,upper),method:'Newcombe-Wilson 95% CI for independent risk difference'});
 }
 
-export function compareBinaryOutcome({observations,versionA,versionB,outcomeTypes=['complete']}){
+function precisionStatus(A,B,difference,minPerVariant){
+  if(!difference) return 'UNAVAILABLE';
+  if(A.n<minPerVariant||B.n<minPerVariant) return 'EXPLORATORY_SMALL_SAMPLE';
+  if(difference.lower<=0&&difference.upper>=0) return 'UNCERTAIN_COMPATIBLE_WITH_NO_DIFFERENCE';
+  return 'ESTIMATED_DIFFERENCE_WITH_95CI_EXCLUDING_ZERO';
+}
+
+export function compareBinaryOutcome({observations,versionA,versionB,outcomeTypes=['complete'],minPerVariant=20}){
+  if(!Number.isInteger(minPerVariant)||minPerVariant<1) throw new TypeError('minPerVariant must be a positive integer');
   const summarize=versionId=>{
     const sessions=sessionsByVersion(observations,versionId);
     let successes=0;
@@ -32,5 +42,5 @@ export function compareBinaryOutcome({observations,versionA,versionB,outcomeType
   };
   const A=summarize(versionA),B=summarize(versionB);
   const difference=riskDifferenceInterval(A.successes,A.n,B.successes,B.n);
-  return Object.freeze({outcomeTypes:Object.freeze([...outcomeTypes]),A,B,difference,inferenceLevel:'STATISTICAL_COMPARISON',causalClaim:false});
+  return Object.freeze({outcomeTypes:Object.freeze([...outcomeTypes]),A,B,difference,precisionStatus:precisionStatus(A,B,difference,minPerVariant),minimumPerVariant:minPerVariant,inferenceLevel:'STATISTICAL_COMPARISON',causalClaim:false});
 }
